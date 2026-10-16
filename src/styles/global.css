@@ -179,6 +179,6 @@ a { color: var(--accent); }
 
 /* 記事の暗記モード */
 .study-links .mask-toggle { font: inherit; font-size: 14px; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--accent); background: var(--surface); color: var(--accent); cursor: pointer; }
-.article.masked .fig strong, .article.masked .fstep-cap strong { color: inherit; background: none; }
+.article.masked .fig strong, .article.masked .fstep-cap strong, .article.masked p > strong:only-child { color: inherit; background: none; cursor: auto; }
 .article.masked strong { color: transparent; background: #f5b48a; border-radius: 3px; cursor: pointer; }
 .article.masked strong.shown { color: var(--text); background: linear-gradient(transparent 60%, var(--mark) 60%); }
