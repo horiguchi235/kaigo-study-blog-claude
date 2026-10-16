@@ -1,11 +1,11 @@
-# 下書きを含めた確認用ビルド。公開はせず、ビルド結果を成果物（artifact）として保存するだけ。
+# 下書きを含めた確認用ビルド。GitHub Pages には公開せず、ビルド結果を preview-build ブランチに置くだけ。
 name: Preview build (drafts)
 
 on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -20,8 +20,12 @@ jobs:
         env:
           PUBLIC_SHOW_DRAFTS: '1'
           SITE_BASE: /preview-root
-      - uses: actions/upload-artifact@v4
-        with:
-          name: preview
-          path: dist
-          retention-days: 7
+      - name: Push dist to preview-build branch
+        run: |
+          cd dist
+          git init -q -b preview-build
+          git config user.name github-actions
+          git config user.email github-actions@users.noreply.github.com
+          git add -A
+          git commit -qm "preview build ${GITHUB_SHA}"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${GITHUB_REPOSITORY}.git" preview-build
