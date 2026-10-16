@@ -228,11 +228,11 @@ a { color: var(--accent); }
 .side-head a { color: var(--text); text-decoration: none; }
 .side-close { font: inherit; font-size: 20px; border: 0; background: none; color: var(--muted); cursor: pointer; }
 .side-cat { border-bottom: 1px solid var(--line); }
-.side-cat summary { cursor: pointer; list-style: none; padding: 9px 4px; font-size: 14px; font-weight: 700; line-height: 1.5; }
+.side-cat summary { display: flex; align-items: center; gap: 2px; cursor: pointer; list-style: none; padding: 9px 4px; font-size: 14px; font-weight: 700; line-height: 1.5; }
 .side-cat summary::-webkit-details-marker { display: none; }
-.side-cat summary::after { content: '＋'; float: right; color: var(--muted); }
+.side-cat summary::after { content: '＋'; margin-left: auto; padding-left: 6px; color: var(--muted); }
 .side-cat[open] summary::after { content: '－'; }
-.side-cat .step { font-size: 11px; padding: 0 6px; }
+.side-cat .step { flex: none; font-size: 11px; padding: 0 6px; }
 .side-cat .step.alt { background: var(--muted); }
 .side-cat ul { list-style: none; margin: 0 0 8px; padding: 0 0 0 6px; }
 .side-cat li { font-size: 13px; line-height: 1.5; padding: 4px 0 4px 8px; border-left: 3px solid transparent; }

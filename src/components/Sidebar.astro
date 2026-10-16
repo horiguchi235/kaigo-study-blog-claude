@@ -20,7 +20,7 @@ const groups = [...new Set(subjects.map((s) => s.group))];
       <span>目次</span>
       <button type="button" class="side-close" aria-label="目次を閉じる">×</button>
     </div>
-    <a class="side-guide" href={url('guide/')}>🔰 はじめての方へ：このサイトの使い方</a>
+    <a class="side-guide" href={url('guide/')}>🔰 このサイトの使い方</a>
     <div class="side-tabs" role="tablist">
       <button type="button" role="tab" aria-selected="true" data-pane="theme">テーマ別</button>
       <button type="button" role="tab" aria-selected="false" data-pane="subject">科目別</button>
@@ -32,7 +32,7 @@ const groups = [...new Set(subjects.map((s) => s.group))];
           const here = c.themes.some((t) => t.id === themeId);
           return (
             <details class="side-cat" open={here}>
-              <summary><span class="step">STEP {c.no}</span>{c.name.replace(/（.*）/, '')}</summary>
+              <summary><span class="step">STEP {c.no}</span><span>{c.name.replace(/（.*）/, '')}</span></summary>
               <ul>
                 {c.themes.map((t) => {
                   const list = byTheme(t.id);
@@ -61,7 +61,7 @@ const groups = [...new Set(subjects.map((s) => s.group))];
       {
         extra.length > 0 && (
           <details class="side-cat" open={['Y', 'Z'].includes(themeId ?? '')}>
-            <summary><span class="step alt">＋</span>比較・豆知識・試験情報</summary>
+            <summary><span class="step alt">＋</span><span>比較・豆知識・試験情報</span></summary>
             <ul>
               {extra.map((a) => (
                 <li class={a.id === articleId ? 'on' : ''}><a href={url(`articles/${a.id}/`)}>{shortTitle(a.data.title)}</a></li>
@@ -83,7 +83,7 @@ const groups = [...new Set(subjects.map((s) => s.group))];
                 const list = road.filter((a) => a.data.subjects.includes(s.name));
                 return (
                   <details class="side-cat" data-subj={s.slug}>
-                    <summary>{s.name}<span class="cnt">{list.length}記事</span></summary>
+                    <summary><span>{s.name}<span class="cnt">{list.length}記事</span></span></summary>
                     <ul class="side-arts">
                       <li><a href={url(`subjects/${s.slug}/`)}>📋 {s.name}の目次ページ</a></li>
                       {list.map((a) => (

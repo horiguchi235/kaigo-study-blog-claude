@@ -18,7 +18,10 @@
   function rowLabel(s) {
     var td = s.closest('td'); if (!td) return false;
     var tr = td.parentElement;
-    return tr && tr.children.length > 1 && tr.children[0] === td;
+    if (!tr || tr.children.length < 2 || tr.children[0] !== td) return false;
+    // 「○ 正解」「答え」などの列は、1列目でも答えなのでかくす
+    var th = td.closest('table').querySelector('thead th');
+    return !(th && /[○◯〇]|正解|正しい|答え/.test(th.textContent));
   }
   window.kaigoMask = function (root) {
     var blocks = new Map();
