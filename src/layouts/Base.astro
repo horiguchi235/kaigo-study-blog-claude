@@ -48,5 +48,26 @@ const pageTitle = title === siteName ? title : `${title}｜${siteName}`;
         <p>制度は改正されることがあります。最新の情報は公的機関の資料もあわせて確認してください。</p>
       </div>
     </footer>
+    <script is:inline>
+      // ステップ式の図：「前へ」「次へ」で1枚ずつ表示する
+      document.querySelectorAll('.steps').forEach(function (f) {
+        var steps = f.querySelectorAll('.fstep'); if (steps.length < 2) return;
+        var i = 0; f.classList.add('js');
+        var nav = document.createElement('div'); nav.className = 'steps-nav';
+        nav.innerHTML = '<button type="button" class="prev">◀ 前へ</button><div class="steps-dots"></div><button type="button" class="next">次へ ▶</button>';
+        f.querySelector('.steps-body').after(nav);
+        var dots = nav.querySelector('.steps-dots');
+        steps.forEach(function () { dots.appendChild(document.createElement('span')); });
+        function show(n) {
+          i = n;
+          steps.forEach(function (s, k) { s.classList.toggle('on', k === i); dots.children[k].classList.toggle('on', k === i); });
+          nav.querySelector('.prev').disabled = i === 0;
+          nav.querySelector('.next').textContent = i === steps.length - 1 ? '最初から ↺' : '次へ ▶';
+        }
+        nav.querySelector('.prev').onclick = function () { if (i > 0) show(i - 1); };
+        nav.querySelector('.next').onclick = function () { show(i === steps.length - 1 ? 0 : i + 1); };
+        show(0);
+      });
+    </script>
   </body>
 </html>

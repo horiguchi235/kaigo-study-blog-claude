@@ -118,3 +118,26 @@ a { color: var(--accent); }
 .subject-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
 .subject-grid a { display: block; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; text-decoration: none; color: var(--text); }
 .subject-grid small { display: block; color: var(--muted); font-size: 12px; }
+
+/* 図（SVG） */
+.article .fig { margin: 20px 0 28px; padding: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+.article .fig svg { display: block; width: 100%; height: auto; max-width: 640px; margin: 0 auto; }
+.article .fig figcaption { margin-top: 8px; font-size: 13px; line-height: 1.6; color: var(--muted); }
+
+/* ステップ式の図：JSが有効なら1枚ずつ、無効なら全部を縦に並べて表示 */
+.article .steps-title { font-weight: 700; font-size: 15px; margin-bottom: 8px; color: var(--accent); }
+.article .fstep + .fstep { margin-top: 16px; padding-top: 16px; border-top: 1px dashed var(--line); }
+.article .fstep-no { font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: 0.08em; }
+.article .fstep-cap { margin: 8px 0 0; font-size: 15px; line-height: 1.7; }
+.article .steps.js .fstep { display: none; margin: 0; padding: 0; border: 0; }
+.article .steps.js .fstep.on { display: block; }
+.article .steps-nav { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 12px; }
+.article .steps-nav button {
+  font: inherit; font-size: 14px; font-weight: 700; padding: 8px 18px; min-width: 96px;
+  border-radius: 999px; border: 1px solid var(--accent); background: var(--surface); color: var(--accent); cursor: pointer;
+}
+.article .steps-nav button.next { background: var(--accent); color: #fff; }
+.article .steps-nav button:disabled { opacity: 0.35; cursor: default; }
+.article .steps-dots { display: flex; gap: 6px; }
+.article .steps-dots span { width: 8px; height: 8px; border-radius: 50%; background: var(--line); }
+.article .steps-dots span.on { background: var(--accent); }
