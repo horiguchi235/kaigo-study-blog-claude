@@ -1,0 +1,27 @@
+# 下書きを含めた確認用ビルド。公開はせず、ビルド結果を成果物（artifact）として保存するだけ。
+name: Preview build (drafts)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+      - run: npm run build
+        env:
+          PUBLIC_SHOW_DRAFTS: '1'
+          SITE_BASE: /preview-root
+      - uses: actions/upload-artifact@v4
+        with:
+          name: preview
+          path: dist
+          retention-days: 7
