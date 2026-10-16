@@ -59,7 +59,7 @@ draft: true
 <details class="answer">
 <summary>正解を見る</summary>
 
-**正解：3**　休むようになった背景にある**「自信をなくした理由」**を探ることが、本人の状態を理解する鍵です。
+**正解：3**　休むようになった背景にある<strong>「自信をなくした理由」</strong>を探ることが、本人の状態を理解する鍵です。
 </details>
 </details>
 
@@ -95,7 +95,7 @@ draft: true
 <details class="answer">
 <summary>正解を見る</summary>
 
-**正解：3**　本人の**言葉**と**生活歴（子どもに教えていた）**を結びつけると、行動の意味が見えてきます。
+**正解：3**　本人の**言葉**と<strong>生活歴（子どもに教えていた）</strong>を結びつけると、行動の意味が見えてきます。
 </details>
 </details>
 
@@ -140,7 +140,7 @@ draft: true
 <details class="answer">
 <summary>正解を見る</summary>
 
-**正解：2**　一時的な拒否より、本人が強く望んでいる**「自宅で暮らし続けたい」**がニーズの中心です。
+**正解：2**　一時的な拒否より、本人が強く望んでいる<strong>「自宅で暮らし続けたい」</strong>がニーズの中心です。
 </details>
 </details>
 
@@ -158,7 +158,7 @@ draft: true
 <details class="answer">
 <summary>正解を見る</summary>
 
-**正解：2**　拒否のきっかけはデイでの出来事。**デイサービスでの様子（人間関係など）**を詳しく把握します。
+**正解：2**　拒否のきっかけはデイでの出来事。<strong>デイサービスでの様子（人間関係など）</strong>を詳しく把握します。
 </details>
 </details>
 
@@ -240,7 +240,7 @@ draft: true
 <details class="answer">
 <summary>正解を見る</summary>
 
-**正解：4**　「ひとりで作れるようになりたい」思いを生かし、**片手でも使える調理用具（くぎ付きまな板など）**で自立を支えます。
+**正解：4**　「ひとりで作れるようになりたい」思いを生かし、<strong>片手でも使える調理用具（くぎ付きまな板など）</strong>で自立を支えます。
 </details>
 </details>
 

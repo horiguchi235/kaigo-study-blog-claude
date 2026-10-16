@@ -23,13 +23,14 @@ def inline(s):
     """表のセルの markdown を簡単な HTML に"""
     s = html.escape(s.strip(), quote=False)
     s = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", s)
+    s = s.replace("&lt;strong&gt;", "<strong>").replace("&lt;/strong&gt;", "</strong>")
     s = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", s)
     s = s.replace("&lt;br&gt;", "<br>")
     return s
 
 
 def plain(s):
-    return re.sub(r"\*\*(.+?)\*\*", r"\1", s).strip()
+    return re.sub(r"\*\*(.+?)\*\*|</?strong>", lambda m: m.group(1) or "", s).strip()
 
 
 def rounds(s):

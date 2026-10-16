@@ -215,7 +215,7 @@ draft: true
 <details class="answer">
 <summary>正解を見る</summary>
 
-**正解：5**　白内障は**水晶体（カメラのレンズ）**が濁る病気。網膜は**フィルム**にあたります。
+**正解：5**　白内障は<strong>水晶体（カメラのレンズ）</strong>が濁る病気。網膜は**フィルム**にあたります。
 </details>
 </details>
 

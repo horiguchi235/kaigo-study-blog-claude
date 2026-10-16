@@ -69,7 +69,7 @@ draft: true
 <details class="answer">
 <summary>正解を見る</summary>
 
-**正解：4**　申し送りは、担当が変わっても**ケアが途切れないようにする（継続性）**ためのものです。
+**正解：4**　申し送りは、担当が変わっても<strong>ケアが途切れないようにする（継続性）</strong>ためのものです。
 </details>
 </details>
 

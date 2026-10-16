@@ -157,7 +157,7 @@ draft: true
 <details class="answer">
 <summary>正解を見る</summary>
 
-**正解：3**　**適度な運動（散歩）**で腸の動きがよくなります。朝食・適度な油・温めることも排便を助けます。
+**正解：3**　<strong>適度な運動（散歩）</strong>で腸の動きがよくなります。朝食・適度な油・温めることも排便を助けます。
 </details>
 </details>
 
