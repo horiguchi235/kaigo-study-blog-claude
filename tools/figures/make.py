@@ -10,12 +10,13 @@ from figlib import *  # noqa
 from top import *  # noqa
 import figs_body  # noqa
 import figs_care  # noqa
+import figs_data  # noqa
 
 OUT = pathlib.Path(__file__).resolve().parents[2] / "src" / "figures"
 OUT.mkdir(parents=True, exist_ok=True)
 
 ALL = {}
-for mod in (figs_body, figs_care):
+for mod in (figs_body, figs_care, figs_data):
     ALL.update(mod.FIGS)
 
 only = sys.argv[1:]

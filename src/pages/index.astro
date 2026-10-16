@@ -46,6 +46,23 @@ const byTheme = (id: string) => articles.filter((a) => themeIdOf(a.data.theme) =
     ))
   }
 
+  {
+    articles.some((a) => themeIdOf(a.data.theme) === 'Y') && (
+      <>
+        <h2 class="section-title">読みもの（試験の傾向・雑学）</h2>
+        <div class="card">
+          <ul class="article-links">
+            {articles.filter((a) => themeIdOf(a.data.theme) === 'Y').map((a) => (
+              <li>
+                <a href={url(`articles/${a.id}/`)}>{a.data.title.split('｜')[0]}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </>
+    )
+  }
+
   <h2 class="section-title">科目別に探す</h2>
   <div class="subject-grid">
     {

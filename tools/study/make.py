@@ -156,6 +156,8 @@ def main():
     data = {}
     total = 0
     for p in sorted(ART.glob("*.md")):
+        if p.stem.startswith("yomimono"):  # 読みもの記事は対象外
+            continue
         meta, qa, sheet, concl = build(p)
         data[p.stem] = {**meta, "qa": qa, "sheet": sheet, "concl": concl}
         total += len(qa)
