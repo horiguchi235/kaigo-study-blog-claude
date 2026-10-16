@@ -1,6 +1,6 @@
 // 暗記モードで「かくす太字」を選ぶ。
 // 何を聞かれているか分かるように、見出し語・表の行見出し・長すぎる語は残し、
-// 1つの文（箇条書き1行・表の1マス）でかくすのは最大3つ、文字数の半分までにする。
+// 1つの文（箇条書き1行・表の1マス）でかくすのは最大3つ、文字数の7割までにする（○・正解の列は全部かくしてよい）。
 (function () {
   var SKIP = 'th, h1, h2, h3, h4, h5, summary, figcaption, .fig, .freq, .badges, .breadcrumb, .study-links, .art-nav';
   var LABEL_NEXT = /^\s*[：:＝=（(→]/;
@@ -38,12 +38,18 @@
     });
     blocks.forEach(function (list, b) {
       var total = textLen(b.textContent);
-      // 短いもの（数字・用語）からかくす。最大3つ、ブロックの文字数の半分まで
+      // 表の「○・正解」列のマスは答えそのものなので全部かくしてよい。それ以外は文字数の7割まで
+      var rate = 0.7;
+      if (b.tagName === 'TD') {
+        var th = b.closest('table').querySelectorAll('thead th')[b.cellIndex];
+        if (th && /[○◯〇]|正解|正しい|答え/.test(th.textContent)) rate = 1;
+      }
+      // 短いもの（数字・用語）からかくす。最大3つまで
       var sorted = list.slice().sort(function (x, y) { return textLen(x.textContent) - textLen(y.textContent); });
       var used = 0, count = 0;
       sorted.forEach(function (s) {
         var n = textLen(s.textContent);
-        if (count >= 3 || used + n > total * 0.5) return;
+        if (count >= 3 || used + n > total * rate) return;
         s.classList.add('m'); used += n; count++;
       });
     });
