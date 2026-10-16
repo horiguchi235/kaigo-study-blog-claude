@@ -41,6 +41,7 @@ const siblings = all.filter((x) => themeIdOf(x.data.theme) === themeId && x.id !
         <p class="study-links">
           {study.qa.length > 0 && <a href={url(`ichimon/${a.id}/`)}>📝 この記事の1問1答（{study.qa.length}問）</a>}
           <a href={url(`anki/${a.id}/`)}>🔴 暗記シート</a>
+          <button type="button" class="mask-toggle" aria-pressed="false">🙈 暗記モード（太字をかくす）</button>
         </p>
       )
     }
@@ -62,4 +63,22 @@ const siblings = all.filter((x) => themeIdOf(x.data.theme) === themeId && x.id !
       )
     }
   </article>
+  <script is:inline>
+    // 暗記モード：記事の太字をかくし、タップで1つずつ表示する
+    (function () {
+      var btn = document.querySelector('.mask-toggle'); if (!btn) return;
+      var art = document.querySelector('.article');
+      btn.addEventListener('click', function () {
+        var on = !art.classList.contains('masked');
+        art.classList.toggle('masked', on);
+        btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+        btn.textContent = on ? '👀 暗記モードを終える' : '🙈 暗記モード（太字をかくす）';
+        art.querySelectorAll('strong.shown').forEach(function (s) { s.classList.remove('shown'); });
+      });
+      art.addEventListener('click', function (e) {
+        var s = e.target.closest && e.target.closest('strong');
+        if (s && art.classList.contains('masked')) s.classList.toggle('shown');
+      });
+    })();
+  </script>
 </Base>
