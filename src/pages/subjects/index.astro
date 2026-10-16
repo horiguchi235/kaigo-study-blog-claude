@@ -1,0 +1,30 @@
+---
+import Base from '../../layouts/Base.astro';
+import { subjects, url } from '../../data/taxonomy';
+
+const groups = [...new Set(subjects.map((s) => s.group))];
+---
+
+<Base title="科目別目次" description="介護福祉士試験の12科目ごとに、対応する記事をまとめた目次。">
+  <section class="hero">
+    <h1>科目別目次</h1>
+    <p>科目ごとに勉強したい人のための入口です。各科目の内容が含まれるテーマ記事を、勉強する順に並べています。</p>
+  </section>
+  {
+    groups.map((g) => (
+      <>
+        <h2 class="section-title">{g}</h2>
+        <div class="subject-grid">
+          {subjects
+            .filter((s) => s.group === g)
+            .map((s) => (
+              <a href={url(`subjects/${s.slug}/`)}>
+                {s.name}
+                <small>過去問{s.questions}問</small>
+              </a>
+            ))}
+        </div>
+      </>
+    ))
+  }
+</Base>

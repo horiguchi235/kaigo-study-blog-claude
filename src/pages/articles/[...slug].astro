@@ -1,0 +1,55 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { getArticles, type Article } from '../../data/articles';
+import { categories, subjectByName, themeIdOf, url } from '../../data/taxonomy';
+
+export async function getStaticPaths() {
+  const articles = await getArticles();
+  return articles.map((a) => ({ params: { slug: a.id }, props: { a, all: articles } }));
+}
+
+const { a, all } = Astro.props as { a: Article; all: Article[] };
+const { Content } = await render(a);
+const themeId = themeIdOf(a.data.theme);
+const category = categories.find((c) => c.themes.some((t) => t.id === themeId));
+const siblings = all.filter((x) => themeIdOf(x.data.theme) === themeId && x.id !== a.id);
+---
+
+<Base title={a.data.title} description={a.data.description}>
+  <article class="article">
+    <p class="breadcrumb">
+      <a href={url('')}>学習ロードマップ</a>
+      {category && <> › STEP {category.no} {category.name}</>}
+      › {a.data.theme.replace(/^T\d+ /, '')}
+    </p>
+    <h1>{a.data.title}</h1>
+    <p class="meta">この記事でカバーする過去問：{a.data.past_questions}問（第24〜38回）</p>
+    <ul class="badges">
+      {a.data.draft && <li><span class="badge draft">下書き（本番には表示されません）</span></li>}
+      {
+        a.data.subjects.map((name) => {
+          const s = subjectByName(name);
+          return <li>{s ? <a class="badge" href={url(`subjects/${s.slug}/`)}>{name}</a> : <span class="badge">{name}</span>}</li>;
+        })
+      }
+    </ul>
+
+    <Content />
+
+    {
+      siblings.length > 0 && (
+        <>
+          <h2>同じテーマの記事</h2>
+          <ul>
+            {siblings.map((x) => (
+              <li>
+                <a href={url(`articles/${x.id}/`)}>{x.data.article}：{x.data.title.split('｜')[0]}</a>
+              </li>
+            ))}
+          </ul>
+        </>
+      )
+    }
+  </article>
+</Base>

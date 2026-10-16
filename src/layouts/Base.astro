@@ -1,0 +1,52 @@
+---
+import '../styles/global.css';
+import { url } from '../data/taxonomy';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = '介護福祉士国家試験の過去問15年分を分析し、テーマ別に「しくみ→介助→制度」をつなげて解説する試験対策ブログ。' } = Astro.props;
+const siteName = '介護福祉士 過去問でつなぐ合格ノート';
+const pageTitle = title === siteName ? title : `${title}｜${siteName}`;
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href={url('favicon.svg')} type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="site-title" href={url('')}>
+          {siteName}
+          <small>過去問15年分をテーマ別に</small>
+        </a>
+        <nav class="site-nav">
+          <a href={url('')}>学習ロードマップ</a>
+          <a href={url('subjects/')}>科目別目次</a>
+        </nav>
+      </div>
+    </header>
+    <main class="wrap">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>過去問は第24〜38回の介護福祉士国家試験を分析して作成しています。問題文は要旨の言い換えです。</p>
+        <p>制度は改正されることがあります。最新の情報は公的機関の資料もあわせて確認してください。</p>
+      </div>
+    </footer>
+  </body>
+</html>

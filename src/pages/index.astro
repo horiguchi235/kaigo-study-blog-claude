@@ -1,0 +1,60 @@
+---
+import Base from '../layouts/Base.astro';
+import { categories, subjects, themeIdOf, url } from '../data/taxonomy';
+import { getArticles } from '../data/articles';
+
+const articles = await getArticles();
+const byTheme = (id: string) => articles.filter((a) => themeIdOf(a.data.theme) === id);
+---
+
+<Base title="介護福祉士 過去問でつなぐ合格ノート">
+  <section class="hero">
+    <h1>過去問15年分を、テーマでつないで覚える</h1>
+    <p>13科目をバラバラに覚えるのではなく、「しくみ → 介助 → 制度」をつなげて理解します。下の順番で読み進めてください。</p>
+  </section>
+
+  <h2 class="section-title">学習ロードマップ</h2>
+  {
+    categories.map((c) => (
+      <div class="card">
+        <h3>
+          <span class="step">STEP {c.no}</span>
+          {c.name}
+        </h3>
+        <p class="lead">{c.lead}</p>
+        <ul class="theme-list">
+          {c.themes.map((t) => {
+            const list = byTheme(t.id);
+            return (
+              <li>
+                <span class={list.length ? '' : 'soon'}>{t.name}</span>
+                <span class="count">過去問{t.questions}問{list.length ? '' : '・準備中'}</span>
+                {list.length > 0 && (
+                  <ul class="article-links">
+                    {list.map((a) => (
+                      <li>
+                        <a href={url(`articles/${a.id}/`)}>{a.data.article}：{a.data.title.split('｜')[0]}</a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    ))
+  }
+
+  <h2 class="section-title">科目別に探す</h2>
+  <div class="subject-grid">
+    {
+      subjects.map((s) => (
+        <a href={url(`subjects/${s.slug}/`)}>
+          {s.name}
+          <small>{s.group}・過去問{s.questions}問</small>
+        </a>
+      ))
+    }
+  </div>
+</Base>
