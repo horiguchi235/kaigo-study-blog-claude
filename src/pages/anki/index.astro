@@ -1,0 +1,36 @@
+---
+import Base from '../../layouts/Base.astro';
+import { categories, themeIdOf, levelOf, LEVELS, shortTitle, url } from '../../data/taxonomy';
+import { getArticles } from '../../data/articles';
+import { studyOf } from '../../data/study';
+
+const articles = await getArticles();
+const byTheme = (id: string) => articles.filter((a) => themeIdOf(a.data.theme) === id);
+---
+
+<Base title="暗記シート" description="記事の要点の表を、答えをかくして覚える暗記シート。印刷して赤シートでも使えます。">
+  <section class="hero">
+    <h1>🔴 暗記シート</h1>
+    <p>記事の要点の表を、答えをかくして覚える暗記シート。印刷して赤シートでも使えます。</p>
+  </section>
+  {
+    categories.map((c) => (
+      <details class="card roadmap-lite" open={c.no === 1}>
+        <summary><h3><span class="step">STEP {c.no}</span>{c.name}</h3></summary>
+        <ul class="theme-list">
+          {c.themes.map((t) => {
+            const list = byTheme(t.id).filter((a) => { const s = studyOf(a.id); return s; });
+            return list.length > 0 && (
+              <li>
+                <span class="tname">{t.name}</span> <span class={`lvb lv${levelOf(t.id)}`}>{LEVELS[levelOf(t.id)].label}</span>
+                <ul class="article-links">
+                  {list.map((a) => { const s = studyOf(a.id)!; return <li><a href={url(`anki/${a.id}/`)}>{a.data.article}：{shortTitle(a.data.title)}</a> <span class="count">{'暗記シート'}</span></li>; })}
+                </ul>
+              </li>
+            );
+          })}
+        </ul>
+      </details>
+    ))
+  }
+</Base>

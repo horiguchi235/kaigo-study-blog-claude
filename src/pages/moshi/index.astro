@@ -1,0 +1,60 @@
+---
+// ミニ模試：全記事の1問1答（○×）からランダムに20問
+import Base from '../../layouts/Base.astro';
+import { getArticles } from '../../data/articles';
+import { studyOf } from '../../data/study';
+import { shortTitle, url } from '../../data/taxonomy';
+
+const articles = await getArticles();
+const pool = articles.flatMap((a) =>
+  (studyOf(a.id)?.qa ?? []).filter((q) => q.t === 'ox').map((q) => ({ q: q.q, ans: q.ans, exp: q.exp, a: a.id, t: shortTitle(a.data.title) })),
+);
+---
+
+<Base title="ミニ模試（ランダム20問）" description="全記事の要点からランダムに20問の○×問題を出題。答え合わせのあと、間違えた問題の記事に戻って復習できます。">
+  <article class="article study">
+    <h1>⏱ ミニ模試<br /><small>ランダム20問の○×テスト</small></h1>
+    <p class="meta">全{pool.length}問の中から毎回ちがう20問が出ます。全部答えると点数と、復習する記事が表示されます。</p>
+    <div class="qa-bar"><span class="qa-score">回答 <b id="m-done">0</b> / 20　正解 <b id="m-ok">0</b></span><span class="qa-btns"><button type="button" id="m-new">別の20問にする</button></span></div>
+    <ol class="qa-list" id="m-list"></ol>
+    <div class="card" id="m-result" hidden></div>
+  </article>
+  <script is:inline define:vars={{ pool, base: url('articles/') }}>
+    (function () {
+      var list = document.getElementById('m-list'), res = document.getElementById('m-result');
+      var done = 0, ok = 0, wrong = {};
+      function pick() {
+        var a = pool.slice(), out = [];
+        for (var i = 0; i < 20 && a.length; i++) out.push(a.splice(Math.floor(Math.random() * a.length), 1)[0]);
+        return out;
+      }
+      function start() {
+        done = 0; ok = 0; wrong = {}; res.hidden = true; list.innerHTML = '';
+        document.getElementById('m-done').textContent = 0; document.getElementById('m-ok').textContent = 0;
+        pick().forEach(function (q) {
+          var li = document.createElement('li'); li.className = 'qa';
+          li.innerHTML = '<div class="qa-sec">' + q.t + '</div><p class="qa-q">' + q.q + '</p><div class="qa-act"><button type="button" class="ox">○</button><button type="button" class="ox">×</button></div><div class="qa-ans"><p class="qa-res"></p>' + (q.exp ? '<p class="qa-exp">' + q.exp + '</p>' : '') + '</div>';
+          li.querySelectorAll('.ox').forEach(function (b) {
+            b.onclick = function () {
+              var right = b.textContent === q.ans;
+              li.classList.add('open', right ? 'right' : 'wrong');
+              li.querySelector('.qa-res').innerHTML = '<span class="mark">' + (right ? '⭕ 正解' : '❌ 不正解') + '</span>　答えは「' + q.ans + '」';
+              done++; if (right) ok++; else wrong[q.a] = q.t;
+              document.getElementById('m-done').textContent = done; document.getElementById('m-ok').textContent = ok;
+              if (done === 20) finish();
+            };
+          });
+          list.appendChild(li);
+        });
+      }
+      function finish() {
+        var ks = Object.keys(wrong);
+        res.innerHTML = '<h3>結果：20問中 ' + ok + '問正解（' + Math.round(ok / 20 * 100) + '%）</h3>' +
+          (ks.length ? '<p class="lead">まちがえた問題の記事を読み直しましょう：</p><ul>' + ks.map(function (k) { return '<li><a href="' + base + k + '/">' + wrong[k] + '</a></li>'; }).join('') + '</ul>' : '<p>全問正解です！</p>');
+        res.hidden = false; res.scrollIntoView({ behavior: 'smooth' });
+      }
+      document.getElementById('m-new').onclick = start;
+      start();
+    })();
+  </script>
+</Base>

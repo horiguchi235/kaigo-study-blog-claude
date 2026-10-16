@@ -15,7 +15,7 @@ const name = a.data.title.split('｜')[0];
 
 <Base title={`1問1答：${a.data.article}「${name}」`} description={`${name}の要点を${s.qa.length}問の1問1答で確認します。`}>
   <article class="article study">
-    <p class="breadcrumb"><a href={url('study/')}>勉強ツール</a> › 1問1答</p>
+    <p class="breadcrumb"><a href={url('ichimon/')}>1問1答</a> › {a.data.article}</p>
     <h1>1問1答：{a.data.article}<br /><small>{name}</small></h1>
     <p class="meta">全{s.qa.length}問。○×はボタンで答え、答えを思い出す問題は「答えを見る」で確認します。</p>
     <p class="study-links">

@@ -2,8 +2,9 @@
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import { getArticles, type Article } from '../../data/articles';
-import { categories, subjectByName, themeIdOf, url } from '../../data/taxonomy';
+import { categories, subjectByName, themeIdOf, levelOf, freqOf, LEVELS, shortTitle, url } from '../../data/taxonomy';
 import { studyOf } from '../../data/study';
+import { sequences } from '../../data/nav';
 
 export async function getStaticPaths() {
   const articles = await getArticles();
@@ -15,20 +16,54 @@ const { Content } = await render(a);
 const themeId = themeIdOf(a.data.theme);
 const category = categories.find((c) => c.themes.some((t) => t.id === themeId));
 const study = studyOf(a.id);
-const siblings = all.filter((x) => themeIdOf(x.data.theme) === themeId && x.id !== a.id);
+const fr = freqOf(a.id);
+const lv = levelOf(themeId);
+const special = ['Y', 'Z'].includes(themeId);
+const title = shortTitle(a.data.title);
+
+// 前の記事・次の記事：来た目次（テーマ別・科目別・重要度別）ごとの並びを埋め込み、JSで選ぶ
+const seqs = sequences(all);
+const navData: Record<string, { label: string; back: string; prev?: { t: string; h: string }; next?: { t: string; h: string } }> = {};
+for (const [key, s] of Object.entries(seqs)) {
+  const i = s.items.findIndex((x) => x.id === a.id);
+  if (i < 0) continue;
+  const q = key ? `?from=${key}` : '';
+  const p = s.items[i - 1];
+  const n = s.items[i + 1];
+  navData[key] = {
+    label: s.label,
+    back: s.back,
+    prev: p && { t: `${p.article}：${p.title}`, h: p.href + q },
+    next: n && { t: `${n.article}：${n.title}`, h: n.href + q },
+  };
+}
+if (special) {
+  const list = all.filter((x) => themeIdOf(x.data.theme) === themeId);
+  const i = list.findIndex((x) => x.id === a.id);
+  const p = list[i - 1];
+  const n = list[i + 1];
+  navData[''] = {
+    label: themeId === 'Z' ? '比較で覚える' : '豆知識・試験情報',
+    back: url(themeId === 'Z' ? 'hikaku/' : 'mame/'),
+    prev: p && { t: shortTitle(p.data.title), h: url(`articles/${p.id}/`) },
+    next: n && { t: shortTitle(n.data.title), h: url(`articles/${n.id}/`) },
+  };
+}
+const def = navData[''];
+const maxR = fr ? Math.max(1, ...fr.ronten.map((r) => r.last5)) : 1;
 ---
 
-<Base title={a.data.title} description={a.data.description}>
+<Base title={title} description={a.data.description} themeId={themeId} articleId={a.id}>
   <article class="article">
     <p class="breadcrumb">
-      <a href={url('')}>学習ロードマップ</a>
-      {category && <> › STEP {category.no} {category.name}</>}
-      › {a.data.theme.replace(/^T\d+ /, '')}
+      <a href={url('')}>テーマ別目次</a>
+      {category && <> › STEP {category.no} {category.name.replace(/（.*）/, '')}</>}
+      {!special && <> › {a.data.theme.replace(/^T\d+ /, '')}</>}
     </p>
-    <h1>{a.data.title}</h1>
-    <p class="meta">この記事でカバーする過去問：{a.data.past_questions}問（第24〜38回）</p>
+    <h1>{title}</h1>
     <ul class="badges">
       {a.data.draft && <li><span class="badge draft">下書き（本番には表示されません）</span></li>}
+      {!special && <li><span class={`lvb lv${lv}`}>{LEVELS[lv].stars} {LEVELS[lv].label}</span></li>}
       {
         a.data.subjects.map((name) => {
           const s = subjectByName(name);
@@ -39,31 +74,65 @@ const siblings = all.filter((x) => themeIdOf(x.data.theme) === themeId && x.id !
     {
       study && (
         <p class="study-links">
-          {study.qa.length > 0 && <a href={url(`ichimon/${a.id}/`)}>📝 この記事の1問1答（{study.qa.length}問）</a>}
-          <a href={url(`anki/${a.id}/`)}>🔴 暗記シート</a>
+          {study.qa.length > 0 && <a href={url(`ichimon/${a.id}/`)} target="_blank" rel="noopener">📝 1問1答（{study.qa.length}問）</a>}
+          <a href={url(`anki/${a.id}/`)} target="_blank" rel="noopener">🔴 暗記シート（別タブ）</a>
           <button type="button" class="mask-toggle" aria-pressed="false">🙈 暗記モード（太字をかくす）</button>
         </p>
       )
     }
 
-    <Content />
-
     {
-      siblings.length > 0 && (
-        <>
-          <h2>同じテーマの記事</h2>
-          <ul>
-            {siblings.map((x) => (
+      fr && !special && (
+        <section class="freq" aria-label="この記事の出題データ">
+          <div class="freq-top">
+            <span class="freq-num">過去5年で<b>{fr.last5}</b>問</span>
+            <span class="freq-sub">（第34〜38回／1年あたり約{(fr.last5 / 5).toFixed(1)}問）</span>
+          </div>
+          <div class="freq-sub">
+            {Object.entries(fr.subjects).map(([k, v], i) => <>{i > 0 && '・'}{k} {v}問</>)}
+          </div>
+          <h4>この記事の論点と出題数（過去5年）</h4>
+          <ul class="freq-bars">
+            {fr.ronten.map((r) => (
               <li>
-                <a href={url(`articles/${x.id}/`)}>{x.data.article}：{x.data.title.split('｜')[0]}</a>
+                <span>{r.name}</span>
+                <span class="freq-bar"><span style={`width:${Math.round((r.last5 / maxR) * 100)}%`} /></span>
+                <span class={r.last5 ? 'n' : 'n zero'}>{r.last5}問</span>
               </li>
             ))}
           </ul>
-        </>
+        </section>
       )
     }
+
+    <Content />
+
+    <nav class="art-nav" aria-label="前後の記事" id="art-nav">
+      <a class={def?.prev ? 'prev' : 'prev none'} href={def?.prev?.h ?? '#'}><small>← 前の記事</small><span>{def?.prev?.t}</span></a>
+      <a class="up" href={def?.back ?? url('')}><small>↑</small><span>目次にもどる</span></a>
+      <a class={def?.next ? 'next' : 'next none'} href={def?.next?.h ?? '#'}><small>次の記事 →</small><span>{def?.next?.t}</span></a>
+    </nav>
+    <p class="art-nav-from" id="art-nav-from">{def?.label}の順番で表示しています</p>
   </article>
-  <script is:inline>
+  <script is:inline define:vars={{ navData }}>
+    // 来た目次（?from=…。なければ前回のもの）に合わせて前後の記事を差し替える
+    (function () {
+      var key = new URLSearchParams(location.search).get('from');
+      try {
+        if (key === null) key = sessionStorage.getItem('navFrom') || '';
+        sessionStorage.setItem('navFrom', key);
+      } catch (e) { key = key || ''; }
+      var d = navData[key] || navData[''];
+      if (!d) return;
+      var nav = document.getElementById('art-nav');
+      [['prev', d.prev], ['next', d.next]].forEach(function (p) {
+        var el = nav.querySelector('.' + p[0]);
+        if (p[1]) { el.href = p[1].h; el.querySelector('span').textContent = p[1].t; el.classList.remove('none'); }
+        else el.classList.add('none');
+      });
+      nav.querySelector('.up').href = d.back;
+      document.getElementById('art-nav-from').textContent = d.label + 'の順番で表示しています';
+    })();
     // 暗記モード：記事の太字をかくし、タップで1つずつ表示する
     (function () {
       var btn = document.querySelector('.mask-toggle'); if (!btn) return;

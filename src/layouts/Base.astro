@@ -1,11 +1,15 @@
 ---
 import '../styles/global.css';
 import { url } from '../data/taxonomy';
+import Sidebar from '../components/Sidebar.astro';
 
 interface Props {
   title: string;
   description?: string;
+  themeId?: string;
+  articleId?: string;
 }
+const { themeId, articleId } = Astro.props;
 const { title, description = '介護福祉士国家試験の過去問15年分を分析し、テーマ別に「しくみ→介助→制度」をつなげて解説する試験対策ブログ。' } = Astro.props;
 const siteName = '介護福祉士 過去問でつなぐ合格ノート';
 const pageTitle = title === siteName ? title : `${title}｜${siteName}`;
@@ -33,16 +37,26 @@ const pageTitle = title === siteName ? title : `${title}｜${siteName}`;
           {siteName}
           <small>過去問15年分をテーマ別に</small>
         </a>
-        <nav class="site-nav">
-          <a href={url('')}>学習ロードマップ</a>
-          <a href={url('subjects/')}>科目別目次</a>
-          <a href={url('study/')}>勉強ツール</a>
-        </nav>
       </div>
+      <nav class="site-nav" aria-label="メニュー">
+        <div class="wrap">
+          <a href={url('')}>テーマ別目次</a>
+          <a href={url('subjects/')}>科目別目次</a>
+          <a href={url('level/')}>重要度別</a>
+          <a href={url('ichimon/')}>1問1答</a>
+          <a href={url('anki/')}>暗記シート</a>
+          <a href={url('hikaku/')}>比較で覚える</a>
+          <a href={url('moshi/')}>ミニ模試</a>
+          <a href={url('mame/')}>豆知識・試験情報</a>
+        </div>
+      </nav>
     </header>
-    <main class="wrap">
-      <slot />
-    </main>
+    <div class="layout">
+      <Sidebar themeId={themeId} articleId={articleId} />
+      <main class="main">
+        <slot />
+      </main>
+    </div>
     <footer class="site-footer">
       <div class="wrap">
         <p>過去問は第24〜38回の介護福祉士国家試験を分析して作成しています。問題文は要旨の言い換えです。</p>

@@ -15,18 +15,18 @@ const name = a.data.title.split('｜')[0];
 
 <Base title={`暗記シート：${a.data.article}「${name}」`} description={`${name}の要点を、太字をかくして覚える暗記シート。`}>
   <article class="article study anki masked" id="anki">
-    <p class="breadcrumb"><a href={url('study/')}>勉強ツール</a> › 暗記シート</p>
+    <p class="breadcrumb"><a href={url('anki/')}>暗記シート</a> › {a.data.article}</p>
     <h1>暗記シート：{a.data.article}<br /><small>{name}</small></h1>
-    <p class="meta">オレンジの帯が答え。<b>タップすると1つずつ表示</b>されます（赤シートと同じ使い方）。</p>
+    <p class="meta">オレンジの帯が答え。<b>タップすると1つずつ表示</b>されます（赤シートと同じ使い方）。印刷すると答えが赤オレンジの文字になるので、市販の赤シートでかくして使えます。</p>
     <p class="study-links">
       <a href={url(`articles/${a.id}/`)}>📖 記事を読む</a>
       {s.qa.length > 0 && <a href={url(`ichimon/${a.id}/`)}>📝 1問1答（{s.qa.length}問）</a>}
     </p>
-    <div class="qa-bar"><span /><span class="qa-btns"><button type="button" id="anki-all">全部表示</button><button type="button" id="anki-hide">全部かくす</button></span></div>
+    <div class="qa-bar"><span /><span class="qa-btns"><button type="button" id="anki-all">全部表示</button><button type="button" id="anki-hide">全部かくす</button><button type="button" onclick="window.print()">🖨 印刷</button></span></div>
     {
       s.concl.length > 0 && (
         <>
-          <h2>結論</h2>
+          <h2>この記事のポイント</h2>
           <ol>{s.concl.map((c) => <li set:html={c} />)}</ol>
         </>
       )

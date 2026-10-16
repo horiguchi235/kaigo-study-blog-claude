@@ -70,7 +70,7 @@ def build(path):
             sub = ""
         elif l.startswith("### "):
             sub = l[4:].strip()
-        elif l.strip() == "**結論を3行で**":
+        elif l.strip() in ("**結論を3行で**", "**この記事のポイント**"):
             j = i + 1
             while j < len(lines) and (lines[j].strip() == "" or re.match(r"^\d\. ", lines[j])):
                 if re.match(r"^\d\. ", lines[j]):

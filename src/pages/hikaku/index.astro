@@ -1,0 +1,20 @@
+---
+import Base from '../../layouts/Base.astro';
+import { themeIdOf, shortTitle, url } from '../../data/taxonomy';
+import { getArticles } from '../../data/articles';
+const list = (await getArticles()).filter((a) => themeIdOf(a.data.theme) === 'Z');
+---
+
+<Base title="比較で覚える" description="名前や内容が似ていて混ざりやすい制度・サービスを、表で並べて違いを覚える記事の一覧。">
+  <section class="hero">
+    <h1>⚖️ 比較で覚える</h1>
+    <p>名前や内容が似ていて混ざりやすい制度・サービスを、表で並べて違いを覚える記事の一覧。</p>
+  </section>
+  <div class="card">
+    {list.length === 0 ? <p class="lead">準備中です。</p> : (
+      <ul class="theme-list">
+        {list.map((a) => <li><a href={url(`articles/${a.id}/`)}>{shortTitle(a.data.title)}</a><p class="lead">{a.data.description}</p></li>)}
+      </ul>
+    )}
+  </div>
+</Base>

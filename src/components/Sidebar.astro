@@ -1,0 +1,73 @@
+---
+// 左の固定目次（スマホでは「目次」ボタンで開く）
+import { getArticles } from '../data/articles';
+import { categories, themeIdOf, levelOf, LEVELS, shortTitle, url } from '../data/taxonomy';
+
+interface Props { themeId?: string; articleId?: string }
+const { themeId, articleId } = Astro.props;
+const articles = await getArticles();
+const byTheme = (id: string) => articles.filter((a) => themeIdOf(a.data.theme) === id);
+const extra = articles.filter((a) => ['Y', 'Z'].includes(themeIdOf(a.data.theme)));
+---
+
+<aside class="side" id="side" aria-label="テーマ別目次">
+  <div class="side-inner">
+    <div class="side-head">
+      <a href={url('')}>テーマ別目次</a>
+      <button type="button" class="side-close" aria-label="目次を閉じる">×</button>
+    </div>
+    {
+      categories.map((c) => {
+        const here = c.themes.some((t) => t.id === themeId);
+        return (
+          <details class="side-cat" open={here}>
+            <summary><span class="step">STEP {c.no}</span>{c.name.replace(/（.*）/, '')}</summary>
+            <ul>
+              {c.themes.map((t) => {
+                const list = byTheme(t.id);
+                const on = t.id === themeId;
+                return (
+                  <li class={on ? 'on' : ''}>
+                    {list.length ? <a href={url(`articles/${list[0].id}/`)}>{t.name}</a> : <span class="soon">{t.name}</span>}
+                    <span class={`lv lv${levelOf(t.id)}`} title={LEVELS[levelOf(t.id)].label}>{LEVELS[levelOf(t.id)].stars}</span>
+                    {on && (
+                      <ul class="side-arts">
+                        {list.map((a) => (
+                          <li class={a.id === articleId ? 'cur' : ''}>
+                            <a href={url(`articles/${a.id}/`)}>{a.data.article.replace(/^.*?([①-⑩])$/, '$1')} {shortTitle(a.data.title)}</a>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          </details>
+        );
+      })
+    }
+    {
+      extra.length > 0 && (
+        <details class="side-cat" open={['Y', 'Z'].includes(themeId ?? '')}>
+          <summary><span class="step alt">＋</span>比較・豆知識・試験情報</summary>
+          <ul>
+            {extra.map((a) => (
+              <li class={a.id === articleId ? 'on' : ''}><a href={url(`articles/${a.id}/`)}>{shortTitle(a.data.title)}</a></li>
+            ))}
+          </ul>
+        </details>
+      )
+    }
+  </div>
+</aside>
+<button type="button" class="side-open" aria-controls="side">☰ 目次</button>
+<script is:inline>
+  (function () {
+    var side = document.getElementById('side');
+    document.querySelector('.side-open').onclick = function () { side.classList.add('open'); };
+    side.querySelector('.side-close').onclick = function () { side.classList.remove('open'); };
+    var cur = side.querySelector('.cur, li.on');
+    if (cur && window.innerWidth >= 1080) cur.scrollIntoView({ block: 'center' });
+  })();
+</script>

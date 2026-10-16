@@ -103,3 +103,24 @@ export const themeIdOf = (theme: string) => theme.split(' ')[0];
 
 export const url = (path = '') =>
   `${import.meta.env.BASE_URL.replace(/\/$/, '')}/${path.replace(/^\//, '')}`;
+
+// ───── 重要度（過去5年＝第34〜38回の出題数から。tools では scratchpad の meta.py で freq.json を作る） ─────
+import freq from './freq.json';
+export type Freq = {
+  last5: number;
+  total: number;
+  subjects: Record<string, number>;
+  ronten: { id: string; name: string; last5: number; total: number }[];
+};
+export const LEVELS: Record<number, { label: string; stars: string; note: string }> = {
+  3: { label: '最頻出', stars: '★★★', note: '毎年のように出る。最優先で覚える' },
+  2: { label: '頻出', stars: '★★', note: 'よく出る。2周目までに固める' },
+  1: { label: 'たまに出る', stars: '★', note: '出る年もある。余裕があれば' },
+};
+const themeFreq = (freq as any).themes as Record<string, { last5: number; level: number }>;
+export const levelOf = (themeId: string) => themeFreq[themeId]?.level ?? 1;
+export const themeLast5 = (themeId: string) => themeFreq[themeId]?.last5 ?? 0;
+export const freqOf = (articleId: string): Freq | undefined => (freq as any).articles[articleId];
+export const themeById = (id: string) => categories.flatMap((c) => c.themes).find((t) => t.id === id);
+export const categoryOfTheme = (id: string) => categories.find((c) => c.themes.some((t) => t.id === id));
+export const shortTitle = (title: string) => title.split('｜')[0];

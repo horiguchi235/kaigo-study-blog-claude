@@ -1,0 +1,39 @@
+---
+import Base from '../../layouts/Base.astro';
+import { categories, themeIdOf, levelOf, themeLast5, LEVELS, shortTitle, url } from '../../data/taxonomy';
+import { getArticles } from '../../data/articles';
+
+const articles = await getArticles();
+const themes = categories.flatMap((c) => c.themes.map((t) => ({ ...t, cat: c })));
+---
+
+<Base title="重要度別の目次" description="過去5年（第34〜38回）の出題数から、テーマを「最頻出・頻出・たまに出る」の3段階に分けた目次。">
+  <section class="hero">
+    <h1>重要度別の目次</h1>
+    <p>過去5年（第34〜38回）にどれだけ出たかで、テーマを3段階に分けました。時間がない人は「最頻出」から順に読んでください。</p>
+  </section>
+  {
+    [3, 2, 1].map((lv) => {
+      const list = themes.filter((t) => levelOf(t.id) === lv).sort((a, b) => themeLast5(b.id) - themeLast5(a.id));
+      return (
+        <div class="card">
+          <h3><span class={`lvb lv${lv}`}>{LEVELS[lv].stars} {LEVELS[lv].label}</span> <small class="meta">{LEVELS[lv].note}</small></h3>
+          <ul class="theme-list">
+            {list.map((t) => {
+              const arts = articles.filter((a) => themeIdOf(a.data.theme) === t.id);
+              return (
+                <li>
+                  <span class="tname">{t.name}</span>
+                  <span class="count">STEP {t.cat.no}・過去5年で{themeLast5(t.id)}問</span>
+                  <ul class="article-links">
+                    {arts.map((a) => <li><a href={url(`articles/${a.id}/?from=lv`)}>{a.data.article}：{shortTitle(a.data.title)}</a></li>)}
+                  </ul>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      );
+    })
+  }
+</Base>

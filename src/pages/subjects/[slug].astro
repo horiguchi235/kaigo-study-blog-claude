@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { getArticles, type Article } from '../../data/articles';
-import { categories, subjects, themeIdOf, url, type Subject } from '../../data/taxonomy';
+import { categories, subjects, themeIdOf, url, levelOf, LEVELS, type Subject } from '../../data/taxonomy';
 
 export async function getStaticPaths() {
   const articles = await getArticles();
@@ -26,10 +26,7 @@ const groups = categories
   <section class="hero">
     <p class="breadcrumb"><a href={url('subjects/')}>科目別目次</a> › {s.group}</p>
     <h1>{s.name}の目次</h1>
-    <p>
-      過去15年の出題数：{s.questions}問。このブログでは科目を横断したテーマ別に解説しているので、
-      「{s.name}」の内容が含まれる記事をここにまとめています。
-    </p>
+    <p>このブログは科目を横断したテーマ別に解説しているので、「{s.name}」の内容が含まれる記事をここにまとめています。この目次から読むと、記事の下の「次の記事」もこの科目の順番で進みます。</p>
   </section>
 
   {
@@ -37,15 +34,14 @@ const groups = categories
       <div class="card"><p class="lead">この科目の記事は準備中です。</p></div>
     ) : (
       <>
-        <p class="meta">現在、{s.questions}問中 {covered}問をカバーしています。</p>
         {groups.map((g) => (
           <div class="card">
             <h3><span class="step">STEP {g.c.no}</span>{g.c.name}</h3>
             <ul class="theme-list">
               {g.list.map((a) => (
                 <li>
-                  <a href={url(`articles/${a.id}/`)}>{a.data.article}：{a.data.title.split('｜')[0]}</a>
-                  <span class="count">この科目の過去問 {a.data.subject_questions[s.name] ?? '—'}問</span>
+                  <a href={url(`articles/${a.id}/?from=s-${s.slug}`)}>{a.data.article}：{a.data.title.split('｜')[0]}</a>
+                  <span class={`lvb lv${levelOf(themeIdOf(a.data.theme))}`}>{LEVELS[levelOf(themeIdOf(a.data.theme))].label}</span>
                 </li>
               ))}
             </ul>
