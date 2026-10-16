@@ -44,6 +44,25 @@ def empty(s):
     return plain(s) in ("", "—", "-", "－", "―")
 
 
+def strip_quiz(body):
+    """「過去問を解いてみよう」の<details>（入れ子あり）を外側ごと取り除く"""
+    out, i = [], 0
+    tag = re.compile(r"<details\b[^>]*>|</details>")
+    while True:
+        m = re.search(r"<details\b[^>]*>\s*<summary>[^<]*過去問", body[i:])
+        if not m:
+            out.append(body[i:]); break
+        start = i + m.start()
+        out.append(body[i:start])
+        depth, j = 0, start
+        for t in tag.finditer(body, start):
+            depth += -1 if t.group().startswith("</") else 1
+            if depth == 0:
+                j = t.end(); break
+        i = j
+    return "".join(out)
+
+
 def parse(md):
     fm, body = md.split("---", 2)[1:]
     meta = {}
@@ -53,7 +72,7 @@ def parse(md):
     meta["draft"] = bool(re.search(r"^draft: true", fm, re.M))
     # 編集メモ・解いてみようは除く
     body = re.sub(r"<!--.*?-->", "", body, flags=re.S)
-    body = re.sub(r"<details>.*?</details>\s*</details>", "", body, flags=re.S)
+    body = strip_quiz(body)
     return meta, body.split("\n")
 
 

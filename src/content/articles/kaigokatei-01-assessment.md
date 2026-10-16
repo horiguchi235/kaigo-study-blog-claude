@@ -47,8 +47,11 @@ draft: true
 
 **よく出る一言**：主語が「**利用者**」になっている選択肢を選びます。「介護福祉職の」「家族の」「業務の」が主語なら、ほぼ×です。
 
-<details>
-<summary>✏️ 過去問を解いてみよう（第36回：介護過程）</summary>
+<details class="quiz-group">
+<summary>✏️ 過去問を解いてみよう（3問）</summary>
+
+<details class="quiz">
+<summary>第36回：介護過程</summary>
 
 介護過程を展開する目的として、最も適切なものはどれ？
 
@@ -65,8 +68,8 @@ draft: true
 </details>
 </details>
 
-<details>
-<summary>✏️ 過去問を解いてみよう（第34回：介護過程）</summary>
+<details class="quiz">
+<summary>第34回：介護過程</summary>
 
 介護過程を展開する目的として、最も適切なものはどれ？
 
@@ -83,8 +86,8 @@ draft: true
 </details>
 </details>
 
-<details>
-<summary>✏️ 過去問を解いてみよう（第34回：介護過程）</summary>
+<details class="quiz">
+<summary>第34回：介護過程</summary>
 
 介護過程の情報収集として、最も適切なものはどれ？
 
@@ -99,6 +102,8 @@ draft: true
 
 **正解：4**　できないことだけでなく**できること・本人の思い**も集めます。会話は**そのまま**記録し、他職種の記録は**間接的な情報**です。
 </details>
+</details>
+
 </details>
 
 ---
@@ -182,11 +187,7 @@ draft: true
 
 ---
 
-
-
-## 📘 もう一歩先へ：過去問にはまだ出ていない重要ポイント
-
-過去問ではまだ問われていないものの、テキストで重要語として扱われ、今後出題されてもおかしくない関連知識です。過去問の論点とセットで押さえておくと、初めて見る選択肢にも対応できます。
+## ④ 介護過程の8つの視点と情報の見方
 
 <fig name="jiritsudo">
 

@@ -1,64 +1,104 @@
 ---
-// 左の固定目次（スマホでは「目次」ボタンで開く）
+// 左の固定目次（スマホでは「目次」ボタンで開く）。テーマ別・科目別をタブで切り替える
 import { getArticles } from '../data/articles';
-import { categories, themeIdOf, levelOf, LEVELS, shortTitle, url } from '../data/taxonomy';
+import { categories, subjects, themeIdOf, levelOf, LEVELS, shortTitle, url } from '../data/taxonomy';
+import { roadmap } from '../data/nav';
 
 interface Props { themeId?: string; articleId?: string }
 const { themeId, articleId } = Astro.props;
 const articles = await getArticles();
+const road = roadmap(articles);
 const byTheme = (id: string) => articles.filter((a) => themeIdOf(a.data.theme) === id);
 const extra = articles.filter((a) => ['Y', 'Z'].includes(themeIdOf(a.data.theme)));
+const current = articles.find((a) => a.id === articleId);
+const groups = [...new Set(subjects.map((s) => s.group))];
 ---
 
-<aside class="side" id="side" aria-label="テーマ別目次">
+<aside class="side" id="side" aria-label="目次">
   <div class="side-inner">
     <div class="side-head">
-      <a href={url('')}>テーマ別目次</a>
+      <span>目次</span>
       <button type="button" class="side-close" aria-label="目次を閉じる">×</button>
     </div>
-    {
-      categories.map((c) => {
-        const here = c.themes.some((t) => t.id === themeId);
-        return (
-          <details class="side-cat" open={here}>
-            <summary><span class="step">STEP {c.no}</span>{c.name.replace(/（.*）/, '')}</summary>
+    <a class="side-guide" href={url('guide/')}>🔰 はじめての方へ：このサイトの使い方</a>
+    <div class="side-tabs" role="tablist">
+      <button type="button" role="tab" aria-selected="true" data-pane="theme">テーマ別</button>
+      <button type="button" role="tab" aria-selected="false" data-pane="subject">科目別</button>
+    </div>
+
+    <div class="side-pane" data-pane="theme">
+      {
+        categories.map((c) => {
+          const here = c.themes.some((t) => t.id === themeId);
+          return (
+            <details class="side-cat" open={here}>
+              <summary><span class="step">STEP {c.no}</span>{c.name.replace(/（.*）/, '')}</summary>
+              <ul>
+                {c.themes.map((t) => {
+                  const list = byTheme(t.id);
+                  const on = t.id === themeId;
+                  return (
+                    <li class={on ? 'on' : ''}>
+                      {list.length ? <a href={url(`articles/${list[0].id}/`)}>{t.name}</a> : <span class="soon">{t.name}</span>}
+                      <span class={`lv lv${levelOf(t.id)}`} title={LEVELS[levelOf(t.id)].label}>{LEVELS[levelOf(t.id)].stars}</span>
+                      {on && (
+                        <ul class="side-arts">
+                          {list.map((a) => (
+                            <li class={a.id === articleId ? 'cur' : ''}>
+                              <a href={url(`articles/${a.id}/`)}>{a.data.article.replace(/^.*?([①-⑩])$/, '$1')} {shortTitle(a.data.title)}</a>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+            </details>
+          );
+        })
+      }
+      {
+        extra.length > 0 && (
+          <details class="side-cat" open={['Y', 'Z'].includes(themeId ?? '')}>
+            <summary><span class="step alt">＋</span>比較・豆知識・試験情報</summary>
             <ul>
-              {c.themes.map((t) => {
-                const list = byTheme(t.id);
-                const on = t.id === themeId;
-                return (
-                  <li class={on ? 'on' : ''}>
-                    {list.length ? <a href={url(`articles/${list[0].id}/`)}>{t.name}</a> : <span class="soon">{t.name}</span>}
-                    <span class={`lv lv${levelOf(t.id)}`} title={LEVELS[levelOf(t.id)].label}>{LEVELS[levelOf(t.id)].stars}</span>
-                    {on && (
-                      <ul class="side-arts">
-                        {list.map((a) => (
-                          <li class={a.id === articleId ? 'cur' : ''}>
-                            <a href={url(`articles/${a.id}/`)}>{a.data.article.replace(/^.*?([①-⑩])$/, '$1')} {shortTitle(a.data.title)}</a>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </li>
-                );
-              })}
+              {extra.map((a) => (
+                <li class={a.id === articleId ? 'on' : ''}><a href={url(`articles/${a.id}/`)}>{shortTitle(a.data.title)}</a></li>
+              ))}
             </ul>
           </details>
-        );
-      })
-    }
-    {
-      extra.length > 0 && (
-        <details class="side-cat" open={['Y', 'Z'].includes(themeId ?? '')}>
-          <summary><span class="step alt">＋</span>比較・豆知識・試験情報</summary>
-          <ul>
-            {extra.map((a) => (
-              <li class={a.id === articleId ? 'on' : ''}><a href={url(`articles/${a.id}/`)}>{shortTitle(a.data.title)}</a></li>
-            ))}
-          </ul>
-        </details>
-      )
-    }
+        )
+      }
+    </div>
+
+    <div class="side-pane" data-pane="subject" hidden>
+      {
+        groups.map((g) => (
+          <>
+            <p class="side-group">{g}</p>
+            {subjects
+              .filter((s) => s.group === g)
+              .map((s) => {
+                const list = road.filter((a) => a.data.subjects.includes(s.name));
+                return (
+                  <details class="side-cat" data-subj={s.slug}>
+                    <summary>{s.name}<span class="cnt">{list.length}記事</span></summary>
+                    <ul class="side-arts">
+                      <li><a href={url(`subjects/${s.slug}/`)}>📋 {s.name}の目次ページ</a></li>
+                      {list.map((a) => (
+                        <li class={a.id === articleId ? 'cur' : ''}>
+                          <a href={url(`articles/${a.id}/`) + `?from=s-${s.slug}`}>{shortTitle(a.data.title)}</a>
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
+                );
+              })}
+          </>
+        ))
+      }
+    </div>
   </div>
 </aside>
 <button type="button" class="side-open" aria-controls="side">☰ 目次</button>
@@ -67,7 +107,26 @@ const extra = articles.filter((a) => ['Y', 'Z'].includes(themeIdOf(a.data.theme)
     var side = document.getElementById('side');
     document.querySelector('.side-open').onclick = function () { side.classList.add('open'); };
     side.querySelector('.side-close').onclick = function () { side.classList.remove('open'); };
-    var cur = side.querySelector('.cur, li.on');
+    side.addEventListener('click', function (e) { if (e.target === side) side.classList.remove('open'); });
+    var tabs = side.querySelectorAll('.side-tabs button'), panes = side.querySelectorAll('.side-pane');
+    function show(name) {
+      tabs.forEach(function (t) { t.setAttribute('aria-selected', t.dataset.pane === name ? 'true' : 'false'); });
+      panes.forEach(function (p) { p.hidden = p.dataset.pane !== name; });
+      try { localStorage.setItem('sideTab', name); } catch (e) {}
+    }
+    tabs.forEach(function (t) { t.onclick = function () { show(t.dataset.pane); }; });
+    // 科目別の目次から来たときは、科目別タブでその科目を開いておく
+    var from = new URLSearchParams(location.search).get('from');
+    try { if (from === null) from = sessionStorage.getItem('navFrom'); } catch (e) {}
+    if (from && from.indexOf('s-') === 0) {
+      var d = side.querySelector('[data-subj="' + from.slice(2) + '"]');
+      if (d) d.open = true;
+      show('subject');
+    } else {
+      var saved = null; try { saved = localStorage.getItem('sideTab'); } catch (e) {}
+      if (saved === 'subject' && !side.querySelector('[data-pane="theme"] li.on')) show('subject');
+    }
+    var cur = side.querySelector('.side-pane:not([hidden]) .cur, .side-pane:not([hidden]) li.on');
     if (cur && window.innerWidth >= 1080) cur.scrollIntoView({ block: 'center' });
   })();
 </script>

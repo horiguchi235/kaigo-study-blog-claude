@@ -37,8 +37,11 @@ draft: true
 
 > 「生命の危機よりも利用者の意向を優先する」は×。命と安全が最優先です。
 
-<details>
-<summary>✏️ 過去問を解いてみよう（第37回：介護過程）</summary>
+<details class="quiz-group">
+<summary>✏️ 過去問を解いてみよう（3問）</summary>
+
+<details class="quiz">
+<summary>第37回：介護過程</summary>
 
 生活課題について、最も適切なものはどれ？
 
@@ -55,8 +58,8 @@ draft: true
 </details>
 </details>
 
-<details>
-<summary>✏️ 過去問を解いてみよう（第37回：介護過程）</summary>
+<details class="quiz">
+<summary>第37回：介護過程</summary>
 
 介護過程で生活課題に対応する目的として、最も適切なものはどれ？
 
@@ -73,8 +76,8 @@ draft: true
 </details>
 </details>
 
-<details>
-<summary>✏️ 過去問を解いてみよう（第34回：介護過程）</summary>
+<details class="quiz">
+<summary>第34回：介護過程</summary>
 
 介護過程における生活課題の説明として、最も適切なものはどれ？
 
@@ -89,6 +92,8 @@ draft: true
 
 **正解：5**　生活課題＝**利用者が望む生活の実現をさまたげていること**。
 </details>
+</details>
+
 </details>
 
 ---
@@ -115,8 +120,11 @@ draft: true
 
 > 事例では、本人の望む暮らしが目標になります。第27回、もの盗られ妄想で長男の妻を責める認知症の女性への目標は「**Dさんと穏やかに過ごすことができる**」でした。「BPSDを改善する」「説明を受けて理解する」は利用者の望む生活ではありません。
 
-<details>
-<summary>✏️ 過去問を解いてみよう（第38回：介護過程）</summary>
+<details class="quiz-group">
+<summary>✏️ 過去問を解いてみよう（2問）</summary>
+
+<details class="quiz">
+<summary>第38回：介護過程</summary>
 
 短期目標の説明として、最も適切なものはどれ？
 
@@ -133,8 +141,8 @@ draft: true
 </details>
 </details>
 
-<details>
-<summary>✏️ 過去問を解いてみよう（第34回：介護過程）</summary>
+<details class="quiz">
+<summary>第34回：介護過程</summary>
 
 介護過程の目標設定として、適切なものはどれ？
 
@@ -149,6 +157,8 @@ draft: true
 
 **正解：5**　短期目標は**長期目標に向かう段階的な目標**で、**具体的・測定できる**表現に。生活全体が解決した状態は長期目標です。
 </details>
+</details>
+
 </details>
 
 ---
@@ -173,8 +183,11 @@ draft: true
 - 訪問介護などの各事業所は、**ケアプランの方針に沿って**、自分たちの**個別援助計画**（訪問介護計画など）を作る
 - ケアプランの目標が変わったら、個別援助計画も見直す
 
-<details>
-<summary>✏️ 過去問を解いてみよう（第35回：介護過程）</summary>
+<details class="quiz-group">
+<summary>✏️ 過去問を解いてみよう（2問）</summary>
+
+<details class="quiz">
+<summary>第35回：介護過程</summary>
 
 居宅サービス計画（ケアプラン）と訪問介護計画の関係として、最も適切なものはどれ？
 
@@ -191,8 +204,8 @@ draft: true
 </details>
 </details>
 
-<details>
-<summary>✏️ 過去問を解いてみよう（第34回：介護過程）</summary>
+<details class="quiz">
+<summary>第34回：介護過程</summary>
 
 介護計画の介護内容として、最も適切なものはどれ？
 
@@ -209,13 +222,11 @@ draft: true
 </details>
 </details>
 
+</details>
+
 ---
 
-
-
-## 📘 もう一歩先へ：過去問にはまだ出ていない重要ポイント
-
-過去問ではまだ問われていないものの、テキストで重要語として扱われ、今後出題されてもおかしくない関連知識です。過去問の論点とセットで押さえておくと、初めて見る選択肢にも対応できます。
+## ④ 目標の書き方と支援内容の条件
 
 <fig name="kadai">
 

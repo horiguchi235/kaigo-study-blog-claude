@@ -43,12 +43,14 @@ const name = a.data.title.split('｜')[0];
       ))
     }
   </article>
+  <script is:inline src={url('mask.js')}></script>
   <script is:inline>
     (function () {
       var root = document.getElementById('anki');
-      root.addEventListener('click', function (e) { var s = e.target.closest('strong'); if (s) s.classList.toggle('show'); });
-      document.getElementById('anki-all').onclick = function () { root.querySelectorAll('strong').forEach(function (s) { s.classList.add('show'); }); };
-      document.getElementById('anki-hide').onclick = function () { root.querySelectorAll('strong').forEach(function (s) { s.classList.remove('show'); }); };
+      if (window.kaigoMask) window.kaigoMask(root);
+      root.addEventListener('click', function (e) { var s = e.target.closest('strong.m'); if (s) s.classList.toggle('show'); });
+      document.getElementById('anki-all').onclick = function () { root.querySelectorAll('strong.m').forEach(function (s) { s.classList.add('show'); }); };
+      document.getElementById('anki-hide').onclick = function () { root.querySelectorAll('strong.m').forEach(function (s) { s.classList.remove('show'); }); };
     })();
   </script>
 </Base>
