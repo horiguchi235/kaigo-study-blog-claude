@@ -24,6 +24,7 @@ HAIR_CG = "#5a4436"
 BED = "#f6ead9"
 BED_LINE = "#c9b29a"
 FONT = "'Noto Sans JP','Hiragino Sans',sans-serif"
+FS = 1.18  # スマホで読めるよう文字を少し大きめに
 
 
 def f(v):
@@ -40,6 +41,7 @@ def svg(w, h, body, label):
 
 
 def text(x, y, s, size=15, color=INK, anchor="middle", weight=400, bg=False):
+    size = size * FS
     t = (f'<text x="{f(x)}" y="{f(y)}" font-size="{size}" fill="{color}" text-anchor="{anchor}" '
          f'font-weight="{weight}" dominant-baseline="middle">{s}</text>')
     if bg:
@@ -98,7 +100,7 @@ def cap(p1, p2, w, color):
 
 
 def badge(x, y, s, fill=ACCENT, color="#fff", size=14):
-    w = len(s) * size + 14
+    w = len(s) * size * FS + 18
     return (f'<rect x="{f(x - w / 2)}" y="{f(y - size)}" width="{f(w)}" height="{f(size * 2)}" rx="{f(size)}" fill="{fill}"/>'
             + text(x, y + 1, s, size, color, "middle", 700))
 

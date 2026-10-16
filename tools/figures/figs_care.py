@@ -127,9 +127,9 @@ def step_taiihenkan():
     o = base(pillow_y=148)
     o += supine_top(BX + 42, 112, knees=True, cross=True, s=1.0)
     o += caregiver_top(250, 250, reach=[(212, 222), (288, 222)])
-    o += label(BX + 92, 66, "腕を胸の上で組む", 13, ACCENT)
-    o += label(BX + 210, 66, "両膝を高く立てる", 13, ACCENT)
-    o += line(BX + 92, 76, BX + 92, 104, ACCENT, 1.5) + line(BX + 205, 76, BX + 205, 96, ACCENT, 1.5)
+    o += label(BX + 70, 26, "腕を胸の上で組む", 13, ACCENT)
+    o += label(BX + 270, 26, "両膝を高く立てる", 13, ACCENT)
+    o += line(BX + 80, 36, BX + 92, 104, ACCENT, 1.5) + line(BX + 250, 36, BX + 205, 96, ACCENT, 1.5)
     steps.append({"svg": svg(W, H, o, "体位変換2：腕を胸の上で組み、両膝を高く立てる"),
                   "caption": "**腕を胸の上で組み、両膝を高く立てる**。体を小さくまとめると、少ない力で回せる。"})
     # 3
@@ -149,8 +149,8 @@ def step_taiihenkan():
     o += rect(BX + 150, 76, 70, 22, "#fff", BED_LINE, 1.5, rx=10)  # 背中のクッション
     o += caregiver_top(250, 250, reach=[(212, 222), (288, 222)])
     o += label(BX + 186, 62, "背中にクッション", 13, ACCENT)
-    o += label(BX + 300, 196, "腰を後ろに引いて「く」の字", 13, ACCENT)
-    o += label(BX + 56, 196, "下側の肩を前へ引き出す", 13, ACCENT)
+    o += label(BX + 310, 120, "腰を引いて「く」の字", 13, ACCENT)
+    o += label(BX + 70, 196, "下側の肩を前へ", 13, ACCENT)
     steps.append({"svg": svg(W, H, o, "体位変換4：腰を引いて安定させ、下側の肩を引き出す"),
                   "caption": "**腰を後ろに引いて「く」の字**にすると安定。**下側の肩を前に引き出して**圧迫を防ぎ、クッションで姿勢を保つ。"})
     return {"title": "仰臥位 → 側臥位の体位変換", "steps": steps,
@@ -170,11 +170,11 @@ def step_ijou():
     # 1 配置
     o = topbase()
     o += seated_top(172, 190, rot=-90, aff="R")
-    o += wheelchair_top(250, 92, rot=-25, brake=True, foot_up=True)
-    o += label(370, 60, "健側（左）に置く", 14, ACCENT)
-    o += label(370, 86, "ベッドに対して20〜30°", 14, ACCENT)
-    o += label(370, 112, "ブレーキをかけ", 14, ACCENT)
-    o += label(370, 138, "フットサポートを上げる", 14, ACCENT)
+    o += wheelchair_top(240, 92, rot=-25, brake=True, foot_up=True)
+    o += label(415, 60, "健側（左）に置く", 13, ACCENT)
+    o += label(415, 86, "ベッドに対して20〜30°", 13, ACCENT)
+    o += label(415, 112, "ブレーキをかけ", 13, ACCENT)
+    o += label(415, 138, "フットサポートを上げる", 13, ACCENT)
     o += label(172, 236, "右片麻痺の人", 12, MUTED, weight=400)
     steps.append({"svg": svg(W, H, o, "移乗1：車いすを健側にベッドに対して20〜30度で置き、ブレーキをかける"),
                   "caption": "移乗の**目的を説明して同意**を得てから準備。車いすは**健側**に、ベッドに対して**20〜30度**で置き、**ブレーキ**をかけて**フットサポートを上げる**。"})
@@ -206,12 +206,12 @@ def step_ijou():
 
     # 4 回って座る（上から）
     o = topbase()
-    o += wheelchair_top(250, 92, rot=-25, brake=True, foot_up=True)
-    o += seated_top(250, 92, rot=-25, aff="R")
+    o += wheelchair_top(240, 92, rot=-25, brake=True, foot_up=True)
+    o += seated_top(240, 92, rot=-25, aff="R")
     o += curve_arrow(190, 210, 300, 210, 285, 140, 3, dash="6 4")
-    o += label(380, 200, "健側の足を軸に回る", 14, ACCENT)
-    o += label(380, 60, "深く座り直す", 14, ACCENT)
-    o += label(380, 86, "フットサポートを下ろす", 14, ACCENT)
+    o += label(415, 200, "健側の足を軸に回る", 13, ACCENT)
+    o += label(415, 60, "深く座り直す", 13, ACCENT)
+    o += label(415, 86, "フットサポートを下ろす", 13, ACCENT)
     steps.append({"svg": svg(W, H, o, "移乗4：健側の足を軸に回って車いすに座り、深く座り直す"),
                   "caption": "**健側の足を軸に**体の向きを変えて車いすに座る。**深く座り直し**、足をフットサポートにのせる。"})
     return {"title": "片麻痺の人のベッド → 車いすの移乗（右片麻痺の例）", "steps": steps,
