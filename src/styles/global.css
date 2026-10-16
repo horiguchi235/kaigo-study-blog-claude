@@ -1,12 +1,12 @@
 :root {
-  --bg: #fbfaf7;
+  --bg: #fffaf4;
   --surface: #ffffff;
-  --text: #24292f;
-  --muted: #5f6b76;
-  --line: #e4e1da;
-  --accent: #1f7a6b;
-  --accent-soft: #e6f2ef;
-  --mark: #fff1c2;
+  --text: #3a2f28;
+  --muted: #7a6a5e;
+  --line: #f0dfcd;
+  --accent: #c25a17;
+  --accent-soft: #fdeedf;
+  --mark: #ffdcb8;
   --ng: #b3412e;
   --radius: 10px;
   --wide: 760px;
@@ -31,7 +31,7 @@ a { color: var(--accent); }
 .wrap { max-width: var(--wide); margin: 0 auto; padding: 0 16px; }
 
 /* ヘッダー・フッター */
-.site-header { background: var(--surface); border-bottom: 1px solid var(--line); }
+.site-header { background: #fdeedf; border-bottom: 1px solid var(--line); }
 .site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 56px; flex-wrap: wrap; }
 .site-title { font-weight: 700; color: var(--text); text-decoration: none; }
 .site-title small { display: block; font-weight: 400; font-size: 12px; color: var(--muted); line-height: 1.4; }
@@ -59,7 +59,7 @@ a { color: var(--accent); }
 /* 表：スマホでは横スクロール（ページ全体は横に動かない） */
 .article table { display: block; overflow-x: auto; border-collapse: collapse; margin: 0 0 20px; font-size: 14px; max-width: 100%; }
 .article th, .article td { border: 1px solid var(--line); padding: 8px 10px; vertical-align: top; min-width: 7em; }
-.article th { background: #f2f0ea; text-align: left; white-space: nowrap; }
+.article th { background: #fbeadb; text-align: left; white-space: nowrap; }
 .article td { background: var(--surface); }
 
 /* 解いてみよう（折りたたみ） */
@@ -83,7 +83,7 @@ a { color: var(--accent); }
   text-align: center; padding: 10px 0; font-size: 15px;
 }
 .article details.answer > summary::after { content: ' ▼'; font-size: 12px; }
-.article details.answer[open] > summary { border-bottom: 1px dashed #c9e3dd; margin-bottom: 10px; }
+.article details.answer[open] > summary { border-bottom: 1px dashed #f5cfae; margin-bottom: 10px; }
 .article details.answer[open] > summary::after { content: ' ▲'; }
 
 /* 記事の上部 */
@@ -91,7 +91,7 @@ a { color: var(--accent); }
 .badges { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 0; padding: 0; list-style: none; }
 .badge {
   display: inline-block; font-size: 12px; padding: 2px 10px; border-radius: 999px;
-  background: var(--accent-soft); color: var(--accent); text-decoration: none; border: 1px solid #c9e3dd;
+  background: var(--accent-soft); color: var(--accent); text-decoration: none; border: 1px solid #f5cfae;
 }
 .badge.draft { background: #fff3e0; color: #a35a00; border-color: #f2d3a6; }
 .breadcrumb { font-size: 13px; color: var(--muted); margin-top: 20px; }
