@@ -3,6 +3,7 @@ import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import { getArticles, type Article } from '../../data/articles';
 import { categories, subjectByName, themeIdOf, url } from '../../data/taxonomy';
+import { studyOf } from '../../data/study';
 
 export async function getStaticPaths() {
   const articles = await getArticles();
@@ -13,6 +14,7 @@ const { a, all } = Astro.props as { a: Article; all: Article[] };
 const { Content } = await render(a);
 const themeId = themeIdOf(a.data.theme);
 const category = categories.find((c) => c.themes.some((t) => t.id === themeId));
+const study = studyOf(a.id);
 const siblings = all.filter((x) => themeIdOf(x.data.theme) === themeId && x.id !== a.id);
 ---
 
@@ -34,6 +36,14 @@ const siblings = all.filter((x) => themeIdOf(x.data.theme) === themeId && x.id !
         })
       }
     </ul>
+    {
+      study && (
+        <p class="study-links">
+          {study.qa.length > 0 && <a href={url(`ichimon/${a.id}/`)}>📝 この記事の1問1答（{study.qa.length}問）</a>}
+          <a href={url(`anki/${a.id}/`)}>🔴 暗記シート</a>
+        </p>
+      )
+    }
 
     <Content />
 

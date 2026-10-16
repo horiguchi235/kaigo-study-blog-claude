@@ -1,0 +1,52 @@
+---
+import Base from '../../layouts/Base.astro';
+import { categories, themeIdOf, url } from '../../data/taxonomy';
+import { getArticles } from '../../data/articles';
+import { studyOf } from '../../data/study';
+
+const articles = await getArticles();
+const byTheme = (id: string) => articles.filter((a) => themeIdOf(a.data.theme) === id);
+const total = articles.reduce((n, a) => n + (studyOf(a.id)?.qa.length ?? 0), 0);
+---
+
+<Base title="勉強ツール（1問1答・暗記シート）" description="記事の要点から作った1問1答と暗記シート。自分に合った方法で覚えられます。">
+  <section class="hero">
+    <h1>勉強ツール</h1>
+    <p>読む・解く・かくして覚える。記事ごとに、自分に合った方法で復習できます（1問1答は全{total}問）。</p>
+  </section>
+  <div class="tool-guide">
+    <div class="card"><h3>📖 記事</h3><p class="lead">しくみ・理由から理解する。最初に1回読む。</p></div>
+    <div class="card"><h3>📝 1問1答</h3><p class="lead">○×と穴うめで、すき間時間にくり返す。まちがえた問題だけ解き直せる。</p></div>
+    <div class="card"><h3>🔴 暗記シート</h3><p class="lead">要点の表の答えをかくして、赤シートのように覚える。</p></div>
+  </div>
+  {
+    categories.map((c) => (
+      <div class="card">
+        <h3><span class="step">STEP {c.no}</span>{c.name}</h3>
+        <ul class="theme-list">
+          {c.themes.map((t) => {
+            const list = byTheme(t.id);
+            return list.length > 0 && (
+              <li>
+                {t.name}
+                <ul class="tool-links">
+                  {list.map((a) => {
+                    const s = studyOf(a.id);
+                    return (
+                      <li>
+                        <span>{a.data.article}</span>
+                        <a href={url(`articles/${a.id}/`)}>📖</a>
+                        {s && s.qa.length > 0 && <a href={url(`ichimon/${a.id}/`)}>📝 {s.qa.length}問</a>}
+                        {s && <a href={url(`anki/${a.id}/`)}>🔴 暗記</a>}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    ))
+  }
+</Base>

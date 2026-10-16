@@ -1,0 +1,98 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getArticles, type Article } from '../../data/articles';
+import { studyOf } from '../../data/study';
+import { url } from '../../data/taxonomy';
+
+export async function getStaticPaths() {
+  const articles = await getArticles();
+  return articles.filter((a) => (studyOf(a.id)?.qa.length ?? 0) > 0).map((a) => ({ params: { slug: a.id }, props: { a } }));
+}
+const { a } = Astro.props as { a: Article };
+const s = studyOf(a.id)!;
+const name = a.data.title.split('｜')[0];
+---
+
+<Base title={`1問1答：${a.data.article}「${name}」`} description={`${name}の要点を${s.qa.length}問の1問1答で確認します。`}>
+  <article class="article study">
+    <p class="breadcrumb"><a href={url('study/')}>勉強ツール</a> › 1問1答</p>
+    <h1>1問1答：{a.data.article}<br /><small>{name}</small></h1>
+    <p class="meta">全{s.qa.length}問。○×はボタンで答え、答えを思い出す問題は「答えを見る」で確認します。</p>
+    <p class="study-links">
+      <a href={url(`articles/${a.id}/`)}>📖 記事を読む</a>
+      <a href={url(`anki/${a.id}/`)}>🔴 暗記シート</a>
+    </p>
+    <div class="qa-bar" id="qa-bar">
+      <span class="qa-score">回答 <b id="qa-done">0</b> / {s.qa.length}　正解 <b id="qa-ok">0</b></span>
+      <span class="qa-btns">
+        <button type="button" id="qa-shuffle">シャッフル</button>
+        <button type="button" id="qa-wrong">まちがいだけ</button>
+        <button type="button" id="qa-reset">リセット</button>
+      </span>
+    </div>
+    <ol class="qa-list" id="qa-list">
+      {
+        s.qa.map((q, i) => (
+          <li class="qa" data-t={q.t} data-ans={q.ans ?? ''} data-i={i}>
+            <div class="qa-sec">{q.sec}{q.src && <span>（{q.src}）</span>}</div>
+            <div class="qa-q" set:html={q.q} />
+            {q.t === 'ox' ? (
+              <div class="qa-act"><button type="button" class="ox" data-v="○">○</button><button type="button" class="ox" data-v="×">×</button></div>
+            ) : (
+              <div class="qa-act"><button type="button" class="show">答えを見る</button></div>
+            )}
+            <div class="qa-ans">
+              {q.t === 'ox' ? <p class="qa-res"><b class="mark">{q.ans}</b><span class="judge" /></p> : <p class="qa-a" set:html={q.a} />}
+              {q.exp && <p class="qa-exp" set:html={q.exp} />}
+              {q.t === 'card' && (
+                <div class="qa-self"><button type="button" class="self" data-v="1">覚えていた</button><button type="button" class="self" data-v="0">まだ</button></div>
+              )}
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </article>
+  <script is:inline>
+    (function () {
+      var list = document.getElementById('qa-list');
+      var items = Array.prototype.slice.call(list.children);
+      var done = 0, ok = 0;
+      function score() { document.getElementById('qa-done').textContent = done; document.getElementById('qa-ok').textContent = ok; }
+      function finish(li, right) {
+        li.classList.add('answered', right ? 'right' : 'wrong'); done++; if (right) ok++; score();
+      }
+      list.addEventListener('click', function (e) {
+        var b = e.target.closest('button'); if (!b) return;
+        var li = b.closest('.qa'); if (li.classList.contains('answered')) return;
+        if (b.classList.contains('ox')) {
+          var right = b.dataset.v === li.dataset.ans;
+          li.querySelector('.judge').textContent = right ? '　正解！' : '　残念…答えは「' + li.dataset.ans + '」';
+          li.classList.add('open'); finish(li, right);
+        } else if (b.classList.contains('show')) {
+          li.classList.add('open');
+        } else if (b.classList.contains('self')) {
+          finish(li, b.dataset.v === '1');
+        }
+      });
+      document.getElementById('qa-shuffle').onclick = function () {
+        for (var i = items.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = items[i]; items[i] = items[j]; items[j] = t; }
+        items.forEach(function (li) { list.appendChild(li); });
+      };
+      document.getElementById('qa-wrong').onclick = function () {
+        var any = items.some(function (li) { return li.classList.contains('wrong'); });
+        if (!any) return;
+        items.forEach(function (li) {
+          var w = li.classList.contains('wrong');
+          li.hidden = !w;
+          if (w) { li.classList.remove('answered', 'wrong', 'right', 'open'); done--; }
+        });
+        score();
+      };
+      document.getElementById('qa-reset').onclick = function () {
+        items.forEach(function (li) { li.hidden = false; li.classList.remove('answered', 'wrong', 'right', 'open'); });
+        done = 0; ok = 0; score();
+      };
+    })();
+  </script>
+</Base>

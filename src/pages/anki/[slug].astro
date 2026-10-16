@@ -1,0 +1,54 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getArticles, type Article } from '../../data/articles';
+import { studyOf } from '../../data/study';
+import { url } from '../../data/taxonomy';
+
+export async function getStaticPaths() {
+  const articles = await getArticles();
+  return articles.filter((a) => studyOf(a.id)).map((a) => ({ params: { slug: a.id }, props: { a } }));
+}
+const { a } = Astro.props as { a: Article };
+const s = studyOf(a.id)!;
+const name = a.data.title.split('｜')[0];
+---
+
+<Base title={`暗記シート：${a.data.article}「${name}」`} description={`${name}の要点を、太字をかくして覚える暗記シート。`}>
+  <article class="article study anki masked" id="anki">
+    <p class="breadcrumb"><a href={url('study/')}>勉強ツール</a> › 暗記シート</p>
+    <h1>暗記シート：{a.data.article}<br /><small>{name}</small></h1>
+    <p class="meta">オレンジの帯が答え。<b>タップすると1つずつ表示</b>されます（赤シートと同じ使い方）。</p>
+    <p class="study-links">
+      <a href={url(`articles/${a.id}/`)}>📖 記事を読む</a>
+      {s.qa.length > 0 && <a href={url(`ichimon/${a.id}/`)}>📝 1問1答（{s.qa.length}問）</a>}
+    </p>
+    <div class="qa-bar"><span /><span class="qa-btns"><button type="button" id="anki-all">全部表示</button><button type="button" id="anki-hide">全部かくす</button></span></div>
+    {
+      s.concl.length > 0 && (
+        <>
+          <h2>結論</h2>
+          <ol>{s.concl.map((c) => <li set:html={c} />)}</ol>
+        </>
+      )
+    }
+    {
+      s.sheet.map((t) => (
+        <>
+          <h3 set:html={t.h} />
+          <table>
+            <thead><tr>{t.head.map((h) => <th set:html={h} />)}</tr></thead>
+            <tbody>{t.rows.map((r) => <tr>{r.map((c) => <td set:html={c} />)}</tr>)}</tbody>
+          </table>
+        </>
+      ))
+    }
+  </article>
+  <script is:inline>
+    (function () {
+      var root = document.getElementById('anki');
+      root.addEventListener('click', function (e) { var s = e.target.closest('strong'); if (s) s.classList.toggle('show'); });
+      document.getElementById('anki-all').onclick = function () { root.querySelectorAll('strong').forEach(function (s) { s.classList.add('show'); }); };
+      document.getElementById('anki-hide').onclick = function () { root.querySelectorAll('strong').forEach(function (s) { s.classList.remove('show'); }); };
+    })();
+  </script>
+</Base>
