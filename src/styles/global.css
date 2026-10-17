@@ -355,3 +355,4 @@ html.ruby rt::before { content: attr(data-r); }
 html.ruby .article { line-height: 2.3; }
 html.ruby .article strong rt { color: inherit; }
 @media (max-width: 640px) { .site-title small { display: none; } .lang-select span { display: none; } }
+html.ruby ruby { ruby-align: center; }

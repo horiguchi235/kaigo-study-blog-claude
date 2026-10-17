@@ -17,7 +17,7 @@ function fixChildren(node) {
       if (last < c.value.length) out.push({ type: 'text', value: c.value.slice(last) });
       continue;
     }
-    if (c.type === 'html' && !c.value.includes('<svg')) {
+    if (c.type === 'html' && !c.value.includes('<svg') && !c.value.trimStart().startsWith('<fig')) {
       c.value = c.value.replace(RE, '<strong>$1</strong>');
     }
     if (c.type !== 'code' && c.type !== 'inlineCode') fixChildren(c);

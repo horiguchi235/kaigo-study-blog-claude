@@ -23,7 +23,7 @@ const pageTitle = title === siteName ? title : `${title}｜${siteName}`;
 ---
 
 <!doctype html>
-<html lang={lang} data-page-lang={lang} data-article={articleId ?? ''} data-trans={trans.join(',')} data-ja-url={jaUrl ?? ''} data-base={url('')}>
+<html lang={lang} data-page-lang={lang} data-article={articleId ?? ''} data-trans={trans.join(',')} data-ja-url={jaUrl ?? ''} data-base={url('')} data-idx="">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -41,7 +41,7 @@ const pageTitle = title === siteName ? title : `${title}｜${siteName}`;
         // 外国語を選んでいて、この日本語記事に翻訳があれば翻訳ページへ
         var h = document.documentElement, t = (h.dataset.trans || '').split(',');
         if (h.dataset.pageLang === 'ja' && h.dataset.article && t.indexOf(pref) >= 0 && !/[?&]ja=1/.test(location.search))
-          location.replace(h.dataset.base + pref + '/articles/' + h.dataset.article + '/');
+          location.replace(h.dataset.base + pref + '/articles/' + h.dataset.article + '/' + (h.dataset.idx || ''));
       } catch (e) {}
     </script>
     <link rel="icon" href={url('favicon.svg')} type="image/svg+xml" />
@@ -112,11 +112,11 @@ const pageTitle = title === siteName ? title : `${title}｜${siteName}`;
             return;
           }
           var id = h.dataset.article;
-          if (page === 'ja' && id && trans.indexOf(v) >= 0) location.href = h.dataset.base + v + '/articles/' + id + '/';
+          if (page === 'ja' && id && trans.indexOf(v) >= 0) location.href = h.dataset.base + v + '/articles/' + id + '/' + (h.dataset.idx || '');
           else if (page !== 'ja' && h.dataset.jaUrl) {
             // 翻訳ページ同士の切り替え（その言語の翻訳がなければ日本語へ）
             var avail = (h.dataset.trans || '').split(',');
-            location.href = avail.indexOf(v) >= 0 ? h.dataset.base + v + '/articles/' + id + '/' : h.dataset.jaUrl + '?ja=1';
+            location.href = avail.indexOf(v) >= 0 ? h.dataset.base + v + '/articles/' + id + '/' + (h.dataset.idx || '') : h.dataset.jaUrl + '?ja=1';
           } else note(v);
         });
       })();
