@@ -1,0 +1,75 @@
+---
+// マイリスト：⭐お気に入り・🔁復習・⚠苦手の記事と、自分で作った暗記シートの一覧（このブラウザに保存）
+import Base from '../../layouts/Base.astro';
+import { getArticles } from '../../data/articles';
+import { studyOf } from '../../data/study';
+import { url } from '../../data/taxonomy';
+
+const articles = await getArticles();
+const links = Object.fromEntries(articles.map((a) => [a.id, { a: url(`articles/${a.id}/`), k: studyOf(a.id) ? url(`anki/${a.id}/`) : '' }]));
+---
+
+<Base title="マイリスト" description="お気に入り・復習・苦手に入れた記事と、自分で作った暗記シートの一覧。">
+  <article class="article mylist">
+    <h1>⭐ マイリスト</h1>
+    <p class="meta">記事の上にあるボタンで印をつけた記事と、自分でかくした暗記シートがここに集まります。印はこのブラウザに保存されます（別の端末やブラウザとは共有されません）。</p>
+    <div class="ml-tabs" role="tablist">
+      <button type="button" data-k="fav" aria-selected="true">⭐ お気に入り <span></span></button>
+      <button type="button" data-k="rev" aria-selected="false">🔁 復習 <span></span></button>
+      <button type="button" data-k="weak" aria-selected="false">⚠ 苦手 <span></span></button>
+      <button type="button" data-k="anki" aria-selected="false">📝 自分の暗記シート <span></span></button>
+    </div>
+    <div id="ml-list" class="ml-list"></div>
+  </article>
+  <script is:inline src={url('marks.js')}></script>
+  <script is:inline define:vars={{ links }}>
+    (function () {
+      var marks = window.kaigoMarks.load();
+      var anki = {}; try { anki = JSON.parse(localStorage.getItem('myanki') || '{}'); } catch (e) {}
+      var EMPTY = {
+        fav: 'まだありません。記事の上の「☆ お気に入り」を押すと、ここに入ります。',
+        rev: 'まだありません。あとで読み直したい記事は「🔁 復習に入れる」を押しましょう。',
+        weak: 'まだありません。過去問をまちがえた記事は「⚠ 苦手に入れる」を押しておくと、試験前にまとめて見直せます。',
+        anki: 'まだありません。暗記シートで「✏️ かくす所を選ぶ」から、覚えたい言葉をかくしてみましょう。',
+      };
+      function rows(k) {
+        if (k === 'anki') return Object.keys(anki).filter(function (id) { return links[id] && links[id].k; }).map(function (id) {
+          return { id: id, title: anki[id].title, t: anki[id].t || 0, href: links[id].k, sub: 'かくした所 ' + anki[id].items.length + 'か所' };
+        });
+        return Object.keys(marks).filter(function (id) { return marks[id][k] && links[id]; }).map(function (id) {
+          var m = marks[id], other = [];
+          if (k !== 'fav' && m.fav) other.push('⭐'); if (k !== 'rev' && m.rev) other.push('🔁'); if (k !== 'weak' && m.weak) other.push('⚠');
+          return { id: id, title: m.title, t: m.t || 0, href: links[id].a, sub: other.join(' '), k: k };
+        });
+      }
+      var tabs = document.querySelectorAll('.ml-tabs button'), list = document.getElementById('ml-list');
+      tabs.forEach(function (b) { b.querySelector('span').textContent = rows(b.dataset.k).length; });
+      function show(k) {
+        tabs.forEach(function (b) { b.setAttribute('aria-selected', b.dataset.k === k ? 'true' : 'false'); });
+        var r = rows(k).sort(function (x, y) { return y.t - x.t; });
+        list.innerHTML = '';
+        if (!r.length) { list.innerHTML = '<p class="ml-empty"></p>'; list.firstChild.textContent = EMPTY[k]; return; }
+        r.forEach(function (x) {
+          var row = document.createElement('div'); row.className = 'ml-row';
+          var a = document.createElement('a'); a.href = x.href; a.textContent = x.title;
+          var sub = document.createElement('small'); sub.textContent = x.sub;
+          row.appendChild(a); row.appendChild(sub);
+          if (x.k) {
+            var del = document.createElement('button'); del.type = 'button'; del.textContent = 'はずす';
+            del.onclick = function () {
+              var all = window.kaigoMarks.load(); if (all[x.id]) { all[x.id][x.k] = false; if (!all[x.id].fav && !all[x.id].rev && !all[x.id].weak) delete all[x.id]; }
+              window.kaigoMarks.save(all); marks = all;
+              tabs.forEach(function (b) { b.querySelector('span').textContent = rows(b.dataset.k).length; });
+              show(k);
+            };
+            row.appendChild(del);
+          }
+          list.appendChild(row);
+        });
+      }
+      tabs.forEach(function (b) { b.onclick = function () { show(b.dataset.k); try { localStorage.setItem('mlTab', b.dataset.k); } catch (e) {} }; });
+      var first = 'fav'; try { first = localStorage.getItem('mlTab') || 'fav'; } catch (e) {}
+      show(first);
+    })();
+  </script>
+</Base>

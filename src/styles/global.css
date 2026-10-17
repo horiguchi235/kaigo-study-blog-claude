@@ -400,3 +400,42 @@ html.ruby ruby { ruby-align: center; }
 .chara.mini .chara-btn img { width: 52px; opacity: .9; }
 @media (min-width: 1080px) { .chara-btn img { width: 130px; } .chara-bubble { margin-bottom: 80px; } }
 @media print { .chara { display: none !important; } }
+
+/* ───── 記事の印（お気に入り・復習・苦手） ───── */
+.marks { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 4px 0 14px; }
+.mark { font: inherit; font-size: 13px; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--muted); cursor: pointer; }
+.mark.on { color: #fff; border-color: transparent; font-weight: 700; }
+.mark-fav.on { background: #e0a100; }
+.mark-rev.on { background: #3f7fc1; }
+.mark-weak.on { background: #c8473a; }
+.mark-list { font-size: 13px; margin-left: 4px; }
+.side-mylist { display: block; margin: -4px 0 10px; padding: 7px 10px; border-radius: 8px; border: 1px solid var(--line); background: #fff8e6; color: var(--text); font-size: 13px; font-weight: 700; text-decoration: none; text-align: center; }
+
+/* ───── マイリスト ───── */
+.ml-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0 12px; }
+.ml-tabs button { font: inherit; font-size: 14px; padding: 6px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); cursor: pointer; }
+.ml-tabs button[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; }
+.ml-tabs button span { font-size: 12px; opacity: .8; margin-left: 2px; }
+.ml-row { display: flex; align-items: center; gap: 10px; padding: 12px 14px; margin-bottom: 8px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+.ml-row a { flex: 1; font-weight: 700; text-decoration: none; }
+.ml-row small { color: var(--muted); white-space: nowrap; }
+.ml-row button { font: inherit; font-size: 12px; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--line); background: none; color: var(--muted); cursor: pointer; }
+.ml-empty { color: var(--muted); background: var(--surface); border: 1px dashed var(--line); border-radius: var(--radius); padding: 16px; }
+
+/* ───── 自分で作る暗記シート ───── */
+.my-bar .my-edit { font: inherit; font-size: 14px; font-weight: 700; padding: 6px 14px; border-radius: 999px; border: 0; background: var(--accent); color: #fff; cursor: pointer; }
+.my-bar .my-edit[aria-pressed="true"] { background: #2f8a4a; }
+.my-help { font-size: 14px; background: #fff8e6; border: 1px solid #f0d9a6; border-radius: var(--radius); padding: 10px 12px; margin: 0 0 12px; line-height: 1.7; }
+.my-sub { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.my-sub button { font: inherit; font-size: 13px; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); cursor: pointer; }
+.my-count { font-size: 13px; color: var(--muted); margin: 0 0 8px; }
+.anki span.h { background: #f6b183; color: transparent; border-radius: 3px; cursor: pointer; transition: color .15s; }
+.anki span.h.show { color: inherit; background: linear-gradient(transparent 60%, var(--mark) 60%); }
+.anki.editing #sheet { cursor: text; }
+.anki.editing span.h { color: inherit; background: #ffe0c7; outline: 2px dashed #f08a3c; outline-offset: 1px; }
+.anki.editing strong { cursor: pointer; }
+.my-pop { position: fixed; z-index: 50; font: inherit; font-size: 14px; font-weight: 700; padding: 8px 14px; border-radius: 999px; border: 0; background: #c25a17; color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,.25); cursor: pointer; }
+@media print {
+  .my-help, .my-count, .marks { display: none !important; }
+  .anki span.h, .anki span.h.show { color: #ff4b1f !important; background: none !important; outline: 0 !important; }
+}

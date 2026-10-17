@@ -14,15 +14,24 @@ const name = a.data.title.split('｜')[0];
 ---
 
 <Base title={`暗記シート：${a.data.article}「${name}」`} description={`${name}の要点を、太字をかくして覚える暗記シート。`}>
-  <article class="article study anki masked" id="anki">
+  <article class="article study anki" id="anki" data-slug={a.id} data-title={`${a.data.article}：${name}`}>
     <p class="breadcrumb"><a href={url('anki/')}>暗記シート</a> › {a.data.article}</p>
     <h1>暗記シート：{a.data.article}<br /><small>{name}</small></h1>
-    <p class="meta">オレンジの帯が答え。<b>タップすると1つずつ表示</b>されます（赤シートと同じ使い方）。印刷すると答えが赤オレンジの文字になるので、市販の赤シートでかくして使えます。</p>
+    <p class="meta">あなただけの暗記シートを作りましょう。<b>「✏️ かくす所を選ぶ」を押して、覚えたい言葉をなぞる（選ぶ）か、太字をタップ</b>するとオレンジの帯でかくれます。かくした所はタップで1つずつ表示。印刷すると答えが赤オレンジの文字になるので、市販の赤シートも使えます。</p>
     <p class="study-links">
       <a href={url(`articles/${a.id}/`)}>📖 記事を読む</a>
       {s.qa.length > 0 && <a href={url(`ichimon/${a.id}/`)}>📝 1問1答（{s.qa.length}問）</a>}
     </p>
-    <div class="qa-bar"><span /><span class="qa-btns"><button type="button" id="anki-all">全部表示</button><button type="button" id="anki-hide">全部かくす</button><button type="button" onclick="window.print()">🖨 印刷</button></span></div>
+    <div class="qa-bar my-bar">
+      <button type="button" id="my-edit" class="my-edit" aria-pressed="false">✏️ かくす所を選ぶ</button>
+      <span class="qa-btns"><button type="button" id="my-all">全部表示</button><button type="button" id="my-hide">全部かくす</button><button type="button" onclick="window.print()">🖨 印刷</button></span>
+    </div>
+    <div class="my-help" id="my-help" hidden>
+      <b>選び方</b>：かくしたい文字をなぞって選ぶ → 「🙈 ここをかくす」。太字はタップするだけでもOK。かくした所をもう一度タップすると取り消せます。
+      <span class="my-sub"><button type="button" id="my-auto">おすすめの所をまとめてかくす</button><button type="button" id="my-clear">すべて取り消す</button></span>
+    </div>
+    <p class="my-count" id="my-count"></p>
+    <div id="sheet">
     {
       s.concl.length > 0 && (
         <>
@@ -42,15 +51,8 @@ const name = a.data.title.split('｜')[0];
         </>
       ))
     }
+    </div>
   </article>
   <script is:inline src={url('mask.js')}></script>
-  <script is:inline>
-    (function () {
-      var root = document.getElementById('anki');
-      if (window.kaigoMask) window.kaigoMask(root);
-      root.addEventListener('click', function (e) { var s = e.target.closest('strong.m'); if (s) s.classList.toggle('show'); });
-      document.getElementById('anki-all').onclick = function () { root.querySelectorAll('strong.m').forEach(function (s) { s.classList.add('show'); }); };
-      document.getElementById('anki-hide').onclick = function () { root.querySelectorAll('strong.m').forEach(function (s) { s.classList.remove('show'); }); };
-    })();
-  </script>
+  <script is:inline src={url('myanki.js')}></script>
 </Base>
