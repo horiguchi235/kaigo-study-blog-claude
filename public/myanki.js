@@ -106,7 +106,7 @@
     pending = { b: b1, s: s, e: e };
     var rect = r.getBoundingClientRect();
     pop.style.left = Math.max(8, Math.min(window.innerWidth - 150, rect.left + rect.width / 2 - 70)) + 'px';
-    pop.style.top = (rect.bottom + 8) + 'px';
+    pop.style.top = Math.min(window.innerHeight - 56, Math.max(8, rect.bottom + 8)) + 'px';
     pop.hidden = false;
   }
   document.addEventListener('selectionchange', function () { clearTimeout(checkSel.t); checkSel.t = setTimeout(checkSel, 120); });
