@@ -95,9 +95,9 @@ a { color: var(--accent); }
 .article details.quiz-group > summary::after { content: '▼ タップして問題を選ぶ'; }
 .article details.quiz-group[open] > summary::after { content: '▲ 閉じる'; }
 .article details.quiz { margin: 10px 0; border: 1px solid #f0c9a6; background: #fffaf4; padding: 0 12px; }
-.article details.quiz > summary { color: var(--text); font-size: 15px; padding: 10px 0; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.article details.quiz > summary { color: var(--text); font-size: 15px; padding: 10px 0; display: block; }
 .article details.quiz > summary::before { content: '✏️ '; }
-.article details.quiz > summary::after { display: inline; content: '▼ 解く'; font-size: 12px; color: var(--accent); margin-left: auto; white-space: nowrap; }
+.article details.quiz > summary::after { display: inline; float: right; content: '▼ 解く'; font-size: 12px; color: var(--accent); margin-left: 8px; white-space: nowrap; }
 .article details.quiz[open] > summary::after { content: '▲'; }
 .article details.quiz[open] > summary { border-bottom: 1px dashed var(--line); margin-bottom: 10px; }
 
@@ -276,8 +276,8 @@ a { color: var(--accent); }
 .roadmap details.card { padding: 0; }
 .roadmap summary { cursor: pointer; list-style: none; padding: 14px 16px; }
 .roadmap summary::-webkit-details-marker { display: none; }
-.roadmap summary h3 { margin: 0; font-size: 16px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-.roadmap summary h3::after { content: '＋ ひらく'; margin-left: auto; font-size: 12px; font-weight: 400; color: var(--accent); }
+.roadmap summary h3 { margin: 0; font-size: 16px; display: block; }
+.roadmap summary h3::after { content: '＋ ひらく'; float: right; margin-top: 3px; font-size: 12px; font-weight: 400; color: var(--accent); }
 .roadmap details[open] summary h3::after { content: '－ とじる'; }
 .roadmap .subj { margin: 4px 0 0; font-size: 12px; color: var(--muted); line-height: 1.6; }
 .roadmap .theme-list { padding: 0 16px 10px; }
