@@ -16,13 +16,11 @@ const hikaku = articles.filter((a) => themeIdOf(a.data.theme) === 'Z');
 ---
 
 <Base title="介護福祉士 過去問でつなぐ合格ノート">
-  <section class="hero hero-img">
-    <img src={url('images/index__hero.webp')} alt="" width="1200" height="800" />
-    <h1>過去問15年分を、テーマでつないで覚える</h1>
-    <p>13科目をバラバラに覚えるのではなく、「しくみ → 介助 → 制度」をつなげて理解します。STEP 1 から順に読むのがおすすめです。</p>
-  </section>
-
-  <p class="guide-start" style="margin:16px 0 0"><a class="btn" href={url('guide/')}>🔰 はじめての方へ：このサイトの使い方・勉強のしかた</a></p>
+  <a class="guide-hero" href={url('guide/')}>
+    <span class="gh-badge">🔰 はじめての方へ</span>
+    <span class="gh-title">このサイトの使い方・勉強のしかた</span>
+    <span class="gh-sub">AIが過去問15年分を分析して作った教材です。まずはここから →</span>
+  </a>
 
   <h2 class="section-title">勉強のしかたを選ぶ</h2>
   <div class="menu-grid">

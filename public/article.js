@@ -2,6 +2,12 @@
 // ボタンの文言は #art-body の data-open-all / data-close-all / data-hint で変えられる（翻訳ページ用）。
 (function () {
   var body = document.getElementById('art-body'); if (!body) return;
+  // 先頭の「**この記事のポイント**」も見出しにして、ほかの見出しと同じように開け閉めする
+  var first = body.firstElementChild;
+  if (first && first.tagName === 'P' && first.children.length === 1 && first.firstElementChild.tagName === 'STRONG' && first.textContent.trim() === first.firstElementChild.textContent.trim()) {
+    var h = document.createElement('h2'); h.className = 'point-h'; h.textContent = '📌 ' + first.textContent.trim(); h.id = 'points';
+    first.replaceWith(h);
+  }
   var h2s = Array.prototype.filter.call(body.children, function (el) { return el.tagName === 'H2'; });
   if (h2s.length < 2) return;
   h2s.forEach(function (h) {

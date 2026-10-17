@@ -356,3 +356,47 @@ html.ruby .article { line-height: 2.3; }
 html.ruby .article strong rt { color: inherit; }
 @media (max-width: 640px) { .site-title small { display: none; } .lang-select span { display: none; } }
 html.ruby ruby { ruby-align: center; }
+
+/* 科目別目次（12科目） */
+.subject-grid-12 { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; margin-top: 20px; }
+.subject-grid-12 a { display: grid; grid-template-columns: 36px 1fr; grid-template-rows: auto auto; column-gap: 10px; align-items: center; padding: 14px; transition: border-color .15s, transform .15s; }
+.subject-grid-12 a:hover { border-color: var(--accent); transform: translateY(-1px); }
+.subject-grid-12 .sg-no { grid-row: 1 / 3; width: 36px; height: 36px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.subject-grid-12 .sg-name { font-weight: 700; line-height: 1.4; }
+/* トップの「はじめての方へ」 */
+.guide-hero { display: block; margin: 20px 0 8px; padding: 18px 20px; border-radius: 14px; background: linear-gradient(135deg, #c25a17, #e08a45); color: #fff; text-decoration: none; box-shadow: 0 4px 14px rgba(194, 90, 23, .25); }
+.guide-hero:hover { filter: brightness(1.05); }
+.guide-hero .gh-badge { display: inline-block; font-size: 12px; font-weight: 700; background: rgba(255,255,255,.22); padding: 2px 10px; border-radius: 999px; }
+.guide-hero .gh-title { display: block; font-size: 21px; font-weight: 700; margin: 6px 0 2px; }
+.guide-hero .gh-sub { display: block; font-size: 14px; opacity: .95; }
+/* 使い方ページ：リード・始め方 */
+.guide-lead { background: var(--surface); border: 2px solid var(--accent-soft); border-radius: 14px; padding: 18px 20px; margin: 16px 0 8px; }
+.guide-lead .gl-big { font-size: 18px; font-weight: 700; line-height: 1.7; }
+.gl-points { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.gl-points li { background: var(--accent-soft); border-radius: 10px; padding: 10px 12px; }
+.gl-points b { display: block; margin-bottom: 2px; }
+.gl-points span { font-size: 14px; line-height: 1.6; }
+.guide-types { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; margin: 12px 0 8px; }
+.guide-types .gt { display: block; text-decoration: none; color: var(--text); background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 10px; padding: 12px 14px; transition: border-color .15s; }
+.guide-types .gt:hover { border-color: var(--accent); }
+.guide-types .gt > b { display: block; color: var(--accent); margin-bottom: 4px; }
+.guide-types .gt span { font-size: 14px; line-height: 1.7; }
+
+/* ───── 案内キャラクター（右下） ───── */
+.chara { position: fixed; right: 10px; bottom: 8px; z-index: 35; display: flex; align-items: flex-end; gap: 4px; pointer-events: none; }
+.chara > * { pointer-events: auto; }
+.chara-btn { border: 0; background: none; padding: 0; cursor: pointer; line-height: 0; }
+.chara-btn img { width: 96px; height: auto; filter: drop-shadow(0 4px 8px rgba(80, 60, 40, .25)); transition: width .2s; }
+.chara.bounce .chara-btn img { animation: chara-bounce .45s ease; }
+@keyframes chara-bounce { 0% { transform: translateY(0); } 35% { transform: translateY(-8px); } 100% { transform: translateY(0); } }
+.chara-bubble { display: none; position: relative; max-width: min(300px, 64vw); margin-bottom: 56px; background: #fff; border: 2px solid #9fb6dd; border-radius: 14px; padding: 10px 26px 10px 12px; box-shadow: 0 4px 16px rgba(60, 80, 120, .18); font-size: 14px; line-height: 1.65; }
+.chara-bubble::after { content: ''; position: absolute; right: -9px; bottom: 18px; border: 8px solid transparent; border-left-color: #9fb6dd; border-right: 0; }
+.chara.talk .chara-bubble { display: block; animation: chara-pop .2s ease; }
+@keyframes chara-pop { from { opacity: 0; transform: scale(.9); } to { opacity: 1; transform: none; } }
+.chara-text { margin: 0; color: var(--text); }
+.chara-menu { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.chara-menu a, .chara-menu button { font: inherit; font-size: 13px; font-weight: 700; padding: 4px 10px; border-radius: 999px; border: 1px solid #9fb6dd; background: #eef3fb; color: #2f5a99; text-decoration: none; cursor: pointer; }
+.chara-x { position: absolute; top: 2px; right: 4px; border: 0; background: none; font-size: 16px; color: var(--muted); cursor: pointer; }
+.chara.mini .chara-btn img { width: 52px; opacity: .9; }
+@media (min-width: 1080px) { .chara-btn img { width: 130px; } .chara-bubble { margin-bottom: 80px; } }
+@media print { .chara { display: none !important; } }

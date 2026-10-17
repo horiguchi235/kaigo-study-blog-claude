@@ -121,6 +121,7 @@ const pageTitle = title === siteName ? title : `${title}｜${siteName}`;
         });
       })();
     </script>
+    <script is:inline src={url('chara.js')} defer></script>
     <script is:inline>
       // ステップ式の図：「前へ」「次へ」で1枚ずつ表示する
       document.querySelectorAll('.steps').forEach(function (f) {
