@@ -1,0 +1,71 @@
+---
+// 記事の翻訳ページ（EPA介護福祉士候補者向け）。/en/articles/<記事ID>/ など
+import { render } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import { getArticles } from '../../../data/articles';
+import { getTranslations, type Translation } from '../../../data/translations';
+import { themeIdOf, url } from '../../../data/taxonomy';
+import { roadmap } from '../../../data/nav';
+import { UI, type Lang } from '../../../data/i18n';
+
+export async function getStaticPaths() {
+  const articles = await getArticles();
+  const trans = await getTranslations();
+  const road = roadmap(articles);
+  const paths = [];
+  for (const [slug, byLang] of trans) {
+    const a = articles.find((x) => x.id === slug);
+    if (!a) continue; // 元の記事が非公開（下書き）なら翻訳も出さない
+    for (const [lang, t] of byLang) {
+      // 前後の記事：テーマ別の並び。同じ言語の翻訳があればそちらへ
+      const i = road.findIndex((x) => x.id === slug);
+      const link = (x: (typeof road)[number] | undefined) => {
+        if (!x) return undefined;
+        const tt = trans.get(x.id)?.get(lang);
+        return { t: tt ? tt.data.title : x.data.title, h: tt ? url(`${lang}/articles/${x.id}/`) : url(`articles/${x.id}/?ja=1`) };
+      };
+      paths.push({
+        params: { lang, slug },
+        props: { t, lang, a, avail: [...byLang.keys()], prev: link(road[i - 1]), next: link(road[i + 1]) },
+      });
+    }
+  }
+  return paths;
+}
+
+const { t, lang, a, avail, prev, next } = Astro.props as {
+  t: Translation; lang: Lang; a: Awaited<ReturnType<typeof getArticles>>[number]; avail: Lang[];
+  prev?: { t: string; h: string }; next?: { t: string; h: string };
+};
+const { Content } = await render(t);
+const ui = UI[lang];
+const jaUrl = url(`articles/${a.id}/`);
+// 折りたたみ・過去問の小さな文言をこの言語に（CSS の content を上書き）
+const css = `
+.article details:not(.answer) > summary::after { content: '${ui.quizOpen.replace(/'/g, "\\'")}'; }
+.article details:not(.answer)[open] > summary::after { content: '${ui.close.replace(/'/g, "\\'")}'; }
+.article details.quiz > summary::after { content: '${ui.quizSolve.replace(/'/g, "\\'")}'; }
+.article details.quiz[open] > summary::after { content: '▲'; }
+.article details.sec > summary::after { content: '▼'; }
+.article details.sec[open] > summary::after { content: '▲'; }
+`;
+---
+
+<Base title={t.data.title} description={t.data.description} themeId={themeIdOf(a.data.theme)} articleId={a.id} lang={lang} trans={avail} jaUrl={jaUrl}>
+  <style set:html={css}></style>
+  <article class="article">
+    <p class="breadcrumb"><a href={url('')}>{ui.toc}</a> › {t.data.title}</p>
+    <h1>{t.data.title}</h1>
+    <p class="lang-intro">🌐 {ui.note}</p>
+    <p class="study-links"><a href={`${jaUrl}?ja=1`}>🇯🇵 {ui.original}：{a.data.title}</a></p>
+    <div class="art-body" id="art-body" data-open-all={ui.openAll} data-close-all={ui.closeAll} data-hint={ui.tapHint}>
+      <Content />
+    </div>
+    <nav class="art-nav" aria-label="prev / next">
+      <a class={prev ? 'prev' : 'prev none'} href={prev?.h ?? '#'}><small>{ui.prev}</small><span>{prev?.t}</span></a>
+      <a class="up" href={url('')}><small>↑</small><span>{ui.up}</span></a>
+      <a class={next ? 'next' : 'next none'} href={next?.h ?? '#'}><small>{ui.next}</small><span>{next?.t}</span></a>
+    </nav>
+  </article>
+  <script is:inline src={url('article.js')}></script>
+</Base>

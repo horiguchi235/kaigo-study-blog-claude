@@ -19,4 +19,13 @@ const articles = defineCollection({
   }),
 });
 
-export const collections = { articles };
+// 記事の翻訳（EPA候補者向け）。id は "<言語>/<記事ID>"（例：en/songen-01-rinen）
+const translations = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/translations' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+  }),
+});
+
+export const collections = { articles, translations };

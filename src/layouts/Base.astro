@@ -2,21 +2,28 @@
 import '../styles/global.css';
 import { url } from '../data/taxonomy';
 import Sidebar from '../components/Sidebar.astro';
+import { UI, LANG_MENU, type Lang } from '../data/i18n';
 
 interface Props {
   title: string;
   description?: string;
   themeId?: string;
   articleId?: string;
+  // 言語切り替え：lang＝このページの言語、trans＝この記事の翻訳がある言語、jaUrl＝翻訳ページから日本語記事への URL
+  lang?: Lang | 'ja';
+  trans?: string[];
+  jaUrl?: string;
 }
-const { themeId, articleId } = Astro.props;
+const { themeId, articleId, lang = 'ja', trans = [], jaUrl } = Astro.props;
+const ui = lang === 'ja' ? null : UI[lang];
+const nav = (k: string, ja: string) => (ui ? ui.nav[k] : ja);
 const { title, description = '介護福祉士国家試験の過去問15年分を分析し、テーマ別に「しくみ→介助→制度」をつなげて解説する試験対策ブログ。' } = Astro.props;
 const siteName = '介護福祉士 過去問でつなぐ合格ノート';
 const pageTitle = title === siteName ? title : `${title}｜${siteName}`;
 ---
 
 <!doctype html>
-<html lang="ja">
+<html lang={lang} data-page-lang={lang} data-article={articleId ?? ''} data-trans={trans.join(',')} data-ja-url={jaUrl ?? ''} data-base={url('')}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -25,6 +32,18 @@ const pageTitle = title === siteName ? title : `${title}｜${siteName}`;
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <script is:inline>
+      // 左目次の開閉・ルビの表示は、描画前に決めてちらつかないようにする
+      try {
+        if (localStorage.getItem('sideCollapsed')) document.documentElement.classList.add('side-collapsed');
+        var pref = localStorage.getItem('lang') || 'ja';
+        if (pref === 'ruby') document.documentElement.classList.add('ruby');
+        // 外国語を選んでいて、この日本語記事に翻訳があれば翻訳ページへ
+        var h = document.documentElement, t = (h.dataset.trans || '').split(',');
+        if (h.dataset.pageLang === 'ja' && h.dataset.article && t.indexOf(pref) >= 0 && !/[?&]ja=1/.test(location.search))
+          location.replace(h.dataset.base + pref + '/articles/' + h.dataset.article + '/');
+      } catch (e) {}
+    </script>
     <link rel="icon" href={url('favicon.svg')} type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -37,18 +56,25 @@ const pageTitle = title === siteName ? title : `${title}｜${siteName}`;
           {siteName}
           <small>過去問15年分をテーマ別に</small>
         </a>
+        <label class="lang-select" data-noruby>
+          <span aria-hidden="true">🌐</span>
+          <select id="lang-select" aria-label="Language / 言語">
+            {LANG_MENU.map((m) => <option value={m.code} selected={m.code === lang}>{m.label}</option>)}
+          </select>
+        </label>
       </div>
+      <p class="lang-note" id="lang-note" hidden></p>
       <nav class="site-nav" aria-label="メニュー">
         <div class="wrap">
-          <a href={url('guide/')}>🔰 使い方</a>
-          <a href={url('')}>テーマ別目次</a>
-          <a href={url('subjects/')}>科目別目次</a>
-          <a href={url('level/')}>重要度別</a>
-          <a href={url('ichimon/')}>1問1答</a>
-          <a href={url('anki/')}>暗記シート</a>
-          <a href={url('hikaku/')}>比較で覚える</a>
-          <a href={url('moshi/')}>ミニ模試</a>
-          <a href={url('mame/')}>豆知識・試験情報</a>
+          <a href={url('guide/')}>🔰 {nav('guide', '使い方')}</a>
+          <a href={url('')}>{nav('theme', 'テーマ別目次')}</a>
+          <a href={url('subjects/')}>{nav('subject', '科目別目次')}</a>
+          <a href={url('level/')}>{nav('level', '重要度別')}</a>
+          <a href={url('ichimon/')}>{nav('ichimon', '1問1答')}</a>
+          <a href={url('anki/')}>{nav('anki', '暗記シート')}</a>
+          <a href={url('hikaku/')}>{nav('hikaku', '比較で覚える')}</a>
+          <a href={url('moshi/')}>{nav('moshi', 'ミニ模試')}</a>
+          <a href={url('mame/')}>{nav('mame', '豆知識・試験情報')}</a>
         </div>
       </nav>
     </header>
@@ -64,6 +90,37 @@ const pageTitle = title === siteName ? title : `${title}｜${siteName}`;
         <p>制度は改正されることがあります。最新の情報は公的機関の資料もあわせて確認してください。</p>
       </div>
     </footer>
+    <script is:inline define:vars={{ notes: Object.fromEntries(Object.entries(UI).map(([k, v]) => [k, v.notTranslated])) }}>
+      // 言語の切り替え：日本語／ふりがな付き／英語・インドネシア語・フィリピン語・ベトナム語
+      (function () {
+        var h = document.documentElement, sel = document.getElementById('lang-select');
+        var pref = 'ja'; try { pref = localStorage.getItem('lang') || 'ja'; } catch (e) {}
+        var page = h.dataset.pageLang, trans = (h.dataset.trans || '').split(',').filter(Boolean);
+        if (page === 'ja') sel.value = pref;
+        function note(code) {
+          var n = document.getElementById('lang-note');
+          if (notes[code] && page === 'ja') { n.textContent = '🌐 ' + notes[code]; n.hidden = false; } else n.hidden = true;
+        }
+        if (page === 'ja' && notes[pref]) note(pref);
+        sel.addEventListener('change', function () {
+          var v = sel.value;
+          try { localStorage.setItem('lang', v); } catch (e) {}
+          if (v === 'ja' || v === 'ruby') {
+            h.classList.toggle('ruby', v === 'ruby');
+            if (page !== 'ja' && h.dataset.jaUrl) location.href = h.dataset.jaUrl;
+            else note(v);
+            return;
+          }
+          var id = h.dataset.article;
+          if (page === 'ja' && id && trans.indexOf(v) >= 0) location.href = h.dataset.base + v + '/articles/' + id + '/';
+          else if (page !== 'ja' && h.dataset.jaUrl) {
+            // 翻訳ページ同士の切り替え（その言語の翻訳がなければ日本語へ）
+            var avail = (h.dataset.trans || '').split(',');
+            location.href = avail.indexOf(v) >= 0 ? h.dataset.base + v + '/articles/' + id + '/' : h.dataset.jaUrl + '?ja=1';
+          } else note(v);
+        });
+      })();
+    </script>
     <script is:inline>
       // ステップ式の図：「前へ」「次へ」で1枚ずつ表示する
       document.querySelectorAll('.steps').forEach(function (f) {

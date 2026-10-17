@@ -18,7 +18,7 @@ const groups = [...new Set(subjects.map((s) => s.group))];
   <div class="side-inner">
     <div class="side-head">
       <span>目次</span>
-      <button type="button" class="side-close" aria-label="目次を閉じる">×</button>
+      <button type="button" class="side-close" aria-label="目次を閉じる" title="目次を閉じる"><span class="pc">« 閉じる</span><span class="sp">×</span></button>
     </div>
     <a class="side-guide" href={url('guide/')}>🔰 このサイトの使い方</a>
     <div class="side-tabs" role="tablist">
@@ -105,8 +105,17 @@ const groups = [...new Set(subjects.map((s) => s.group))];
 <script is:inline>
   (function () {
     var side = document.getElementById('side');
-    document.querySelector('.side-open').onclick = function () { side.classList.add('open'); };
-    side.querySelector('.side-close').onclick = function () { side.classList.remove('open'); };
+    // パソコンでは目次をたたんで本文を広く使える（状態は覚えておく）
+    var wide = function () { return window.innerWidth >= 1080; };
+    var root = document.documentElement;
+    document.querySelector('.side-open').onclick = function () {
+      if (wide()) { root.classList.remove('side-collapsed'); try { localStorage.setItem('sideCollapsed', ''); } catch (e) {} }
+      else side.classList.add('open');
+    };
+    side.querySelector('.side-close').onclick = function () {
+      if (wide()) { root.classList.add('side-collapsed'); try { localStorage.setItem('sideCollapsed', '1'); } catch (e) {} }
+      else side.classList.remove('open');
+    };
     side.addEventListener('click', function (e) { if (e.target === side) side.classList.remove('open'); });
     var tabs = side.querySelectorAll('.side-tabs button'), panes = side.querySelectorAll('.side-pane');
     function show(name) {

@@ -5,13 +5,16 @@ import { getArticles, type Article } from '../../data/articles';
 import { categories, subjectByName, themeIdOf, levelOf, freqOf, LEVELS, shortTitle, url } from '../../data/taxonomy';
 import { studyOf } from '../../data/study';
 import { sequences } from '../../data/nav';
+import { getTranslations } from '../../data/translations';
+import { LANGS } from '../../data/i18n';
 
 export async function getStaticPaths() {
   const articles = await getArticles();
-  return articles.map((a) => ({ params: { slug: a.id }, props: { a, all: articles } }));
+  const trans = await getTranslations();
+  return articles.map((a) => ({ params: { slug: a.id }, props: { a, all: articles, langs: [...(trans.get(a.id)?.keys() ?? [])] } }));
 }
 
-const { a, all } = Astro.props as { a: Article; all: Article[] };
+const { a, all, langs } = Astro.props as { a: Article; all: Article[]; langs: string[] };
 const { Content } = await render(a);
 const themeId = themeIdOf(a.data.theme);
 const category = categories.find((c) => c.themes.some((t) => t.id === themeId));
@@ -53,7 +56,7 @@ const def = navData[''];
 const maxR = fr ? Math.max(1, ...fr.ronten.map((r) => r.last5)) : 1;
 ---
 
-<Base title={title} description={a.data.description} themeId={themeId} articleId={a.id}>
+<Base title={title} description={a.data.description} themeId={themeId} articleId={a.id} trans={langs}>
   <article class="article">
     <p class="breadcrumb">
       <a href={url('')}>テーマ別目次</a>
@@ -78,6 +81,12 @@ const maxR = fr ? Math.max(1, ...fr.ronten.map((r) => r.last5)) : 1;
           <a href={url(`anki/${a.id}/`)} target="_blank" rel="noopener">🔴 暗記シート（別タブ）</a>
           <button type="button" class="mask-toggle" aria-pressed="false">🙈 暗記モード（太字をかくす）</button>
         </p>
+      )
+    }
+
+    {
+      langs.length > 0 && (
+        <p class="trans-links" data-noruby>🌐 {LANGS.filter((l) => langs.includes(l.code)).map((l) => <a href={url(`${l.code}/articles/${a.id}/`)} lang={l.htmlLang}>{l.label}</a>)}</p>
       )
     }
 
@@ -117,6 +126,7 @@ const maxR = fr ? Math.max(1, ...fr.ronten.map((r) => r.last5)) : 1;
     <p class="art-nav-from" id="art-nav-from">{def?.label}の順番で表示しています</p>
   </article>
   <script is:inline src={url('mask.js')}></script>
+  <script is:inline src={url('article.js')}></script>
   <script is:inline define:vars={{ navData }}>
     // 来た目次（?from=…。なければ前回のもの）に合わせて前後の記事を差し替える
     (function () {
@@ -135,38 +145,6 @@ const maxR = fr ? Math.max(1, ...fr.ronten.map((r) => r.last5)) : 1;
       });
       nav.querySelector('.up').href = d.back;
       document.getElementById('art-nav-from').textContent = d.label + 'の順番で表示しています';
-    })();
-    // 見出し（h2）ごとに折りたたむ。開いた直後は目次のように見出しだけが並ぶ
-    (function () {
-      var body = document.getElementById('art-body'); if (!body) return;
-      var h2s = Array.prototype.filter.call(body.children, function (el) { return el.tagName === 'H2'; });
-      if (h2s.length < 2) return;
-      h2s.forEach(function (h) {
-        var d = document.createElement('details'); d.className = 'sec';
-        var sm = document.createElement('summary'); var inner = document.createElement('div'); inner.className = 'sec-body';
-        h.before(d); sm.appendChild(h); d.appendChild(sm); d.appendChild(inner);
-        while (d.nextSibling && !(d.nextSibling.tagName === 'H2')) inner.appendChild(d.nextSibling);
-      });
-      var secs = body.querySelectorAll('details.sec');
-      var bar = document.createElement('div'); bar.className = 'sec-bar';
-      bar.innerHTML = '<span>📖 見出しをタップすると中身が開きます</span><span><button type="button" data-o="1">すべて開く</button><button type="button" data-o="">すべて閉じる</button></span>';
-      secs[0].before(bar);
-      bar.addEventListener('click', function (e) {
-        var b = e.target.closest('button'); if (!b) return;
-        secs.forEach(function (d) { d.open = !!b.dataset.o; });
-      });
-      function openHash() {
-        if (!location.hash) return;
-        var t; try { t = document.getElementById(decodeURIComponent(location.hash.slice(1))); } catch (e) { return; }
-        var d = t && t.closest('details.sec');
-        if (d) { d.open = true; t.scrollIntoView(); }
-      }
-      openHash(); window.addEventListener('hashchange', openHash);
-      // 本文中の「#見出し」へのリンクも開いてから飛ぶ
-      body.addEventListener('click', function (e) {
-        var a = e.target.closest('a[href^="#"]'); if (!a) return;
-        setTimeout(openHash, 0);
-      });
     })();
     // 暗記モード：何を聞かれているか分かるように選んだ太字だけをかくし、タップで1つずつ表示する
     (function () {
