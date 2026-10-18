@@ -130,6 +130,44 @@ const pageTitle = title === siteName ? title : `${title}｜${siteName}`;
     </script>
     <script is:inline src={url('zoom.js')} defer></script>
     <script is:inline>
+      // 「完璧」にした記事を目次（左の目次・各目次ページ）でかくす。on/off は localStorage "hideDone"
+      (function () {
+        var marks = {}, hide = false;
+        try { marks = JSON.parse(localStorage.getItem('marks') || '{}'); hide = localStorage.getItem('hideDone') === '1'; } catch (e) {}
+        var done = Object.keys(marks).filter(function (k) { return marks[k].done; });
+        var cur = document.documentElement.dataset.article;
+        function apply() {
+          var n = 0;
+          document.querySelectorAll('li > a[href*="articles/"]').forEach(function (a) {
+            var li = a.parentElement; if (li.dataset.arts) return;
+            if (a.closest('.art-body, .art-nav, .mark-menu')) return;
+            var m = a.getAttribute('href').match(/articles\/([\w-]+)\//); if (!m) return;
+            var off = hide && done.indexOf(m[1]) >= 0 && m[1] !== cur;
+            li.classList.toggle('is-done', done.indexOf(m[1]) >= 0);
+            li.hidden = off; if (off) n++;
+          });
+          document.querySelectorAll('li[data-arts]').forEach(function (li) {
+            var ids = li.dataset.arts.split(',').filter(Boolean);
+            var all = ids.length && ids.every(function (id) { return done.indexOf(id) >= 0; });
+            li.classList.toggle('is-done', !!all);
+            li.hidden = hide && all && !li.classList.contains('on');
+          });
+          var box = document.getElementById('side-done');
+          if (box) {
+            box.hidden = !done.length;
+            document.getElementById('hide-done').checked = hide;
+            document.getElementById('side-done-n').textContent = '（完璧 ' + done.length + '記事）';
+          }
+        }
+        window.kaigoHideDone = function (v) { hide = v; try { localStorage.setItem('hideDone', v ? '1' : ''); } catch (e) {} apply(); };
+        document.addEventListener('DOMContentLoaded', function () {
+          apply();
+          var cb = document.getElementById('hide-done');
+          if (cb) cb.onchange = function () { window.kaigoHideDone(cb.checked); };
+        });
+      })();
+    </script>
+    <script is:inline>
       // 「その他」メニューは外をタップしたら閉じる
       document.addEventListener('click', function (e) {
         document.querySelectorAll('details.nav-more[open]').forEach(function (d) { if (!d.contains(e.target)) d.open = false; });

@@ -27,10 +27,12 @@ const total5 = (freq as any).total5 ?? 0;
       <button type="button" data-k="fav" aria-selected="true">⭐ お気に入り <span></span></button>
       <button type="button" data-k="rev" aria-selected="false">🔁 復習 <span></span></button>
       <button type="button" data-k="weak" aria-selected="false">⚠ 苦手 <span></span></button>
+      <button type="button" data-k="done" aria-selected="false">✅ 完璧 <span></span></button>
       <button type="button" data-k="anki" aria-selected="false">📝 自分の暗記シート <span></span></button>
       <button type="button" data-k="test" aria-selected="false">✏️ 過去問テスト <span></span></button>
       <button type="button" data-k="qa" aria-selected="false">📝 1問1答 <span></span></button>
     </div>
+    <p class="ml-hide"><label><input type="checkbox" id="ml-hide-done" /> ✅ 完璧にした記事を目次にかくす</label><small>（左の目次・テーマ別／科目別／重要度別の目次から消えます。オフにするといつでも戻ります）</small></p>
     <div id="ml-list" class="ml-list"></div>
   </article>
   <script is:inline src={url('marks.js')}></script>
@@ -48,6 +50,7 @@ const total5 = (freq as any).total5 ?? 0;
         fav: 'まだありません。記事の上の「☆ お気に入り」を押すと、ここに入ります。',
         rev: 'まだありません。あとで読み直したい記事は「🔁 復習に入れる」を押しましょう。',
         weak: 'まだありません。過去問をまちがえた記事は「⚠ 苦手に入れる」を押しておくと、試験前にまとめて見直せます。',
+        done: 'まだありません。もう大丈夫と思える記事は「☆ この記事を保存」から「✅ 完璧にする」を押しましょう。目次からかくして、残りに集中できます。',
         anki: 'まだありません。暗記シートで「✏️ かくす所を選ぶ」から、覚えたい言葉をかくしてみましょう。',
         test: 'まだありません。各記事の最後にある「📝 この記事の過去問テスト」を解くと、ここに記録されます。',
         qa: 'まだありません。記事の上の「📝 1問1答」で答えると、ここに記録されます。',
@@ -66,7 +69,7 @@ const total5 = (freq as any).total5 ?? 0;
         });
         return Object.keys(marks).filter(function (id) { return marks[id][k] && links[id]; }).map(function (id) {
           var m = marks[id], other = [];
-          if (k !== 'fav' && m.fav) other.push('⭐'); if (k !== 'rev' && m.rev) other.push('🔁'); if (k !== 'weak' && m.weak) other.push('⚠');
+          if (k !== 'fav' && m.fav) other.push('⭐'); if (k !== 'rev' && m.rev) other.push('🔁'); if (k !== 'weak' && m.weak) other.push('⚠'); if (k !== 'done' && m.done) other.push('✅');
           return { id: id, title: m.title, t: m.t || 0, href: links[id].a, sub: other.join(' '), k: k };
         });
       }
@@ -85,7 +88,7 @@ const total5 = (freq as any).total5 ?? 0;
           if (x.k) {
             var del = document.createElement('button'); del.type = 'button'; del.textContent = 'はずす';
             del.onclick = function () {
-              var all = window.kaigoMarks.load(); if (all[x.id]) { all[x.id][x.k] = false; if (!all[x.id].fav && !all[x.id].rev && !all[x.id].weak) delete all[x.id]; }
+              var all = window.kaigoMarks.load(); if (all[x.id]) { all[x.id][x.k] = false; if (!all[x.id].fav && !all[x.id].rev && !all[x.id].weak && !all[x.id].done) delete all[x.id]; }
               window.kaigoMarks.save(all); marks = all;
               tabs.forEach(function (b) { b.querySelector('span').textContent = rows(b.dataset.k).length; });
               show(k);
@@ -98,6 +101,9 @@ const total5 = (freq as any).total5 ?? 0;
       tabs.forEach(function (b) { b.onclick = function () { show(b.dataset.k); try { localStorage.setItem('mlTab', b.dataset.k); } catch (e) {} }; });
       var first = 'fav'; try { first = localStorage.getItem('mlTab') || 'fav'; } catch (e) {}
       show(first);
+      var hd = document.getElementById('ml-hide-done');
+      try { hd.checked = localStorage.getItem('hideDone') === '1'; } catch (e) {}
+      hd.onchange = function () { if (window.kaigoHideDone) window.kaigoHideDone(hd.checked); else try { localStorage.setItem('hideDone', hd.checked ? '1' : ''); } catch (e) {} };
 
       // 記録の書き出し・読み込み（端末を変えるとき用）
       var KEYS = ['marks', 'ptest', 'qa', 'myanki', 'lastArt'];

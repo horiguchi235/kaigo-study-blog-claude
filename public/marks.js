@@ -1,11 +1,12 @@
 // 記事の印（⭐お気に入り・🔁復習・⚠苦手）。このブラウザの localStorage "marks" に保存する。
-// 保存形式：{ [記事ID]: { title, fav, rev, weak, t } }
+// 保存形式：{ [記事ID]: { title, fav, rev, weak, done, t } }。done＝完璧（目次でかくせる。localStorage "hideDone"="1" のとき）
 // 記事の上には「☆ 保存」ボタン1つだけを置き、押すと3つの印を選べるメニューが開く。
 (function () {
   var KINDS = [
     { k: 'fav', on: '⭐ お気に入り', off: '☆ お気に入り', label: 'お気に入り' },
     { k: 'rev', on: '🔁 復習する', off: '🔁 復習に入れる', label: '復習' },
     { k: 'weak', on: '⚠ 苦手', off: '⚠ 苦手に入れる', label: '苦手' },
+    { k: 'done', on: '✅ 完璧', off: '✅ 完璧にする', label: '完璧' },
   ];
   function load() { try { return JSON.parse(localStorage.getItem('marks') || '{}'); } catch (e) { return {}; } }
   function save(m) { try { localStorage.setItem('marks', JSON.stringify(m)); } catch (e) {} }
@@ -35,7 +36,7 @@
         e.stopPropagation();
         var all = load(), cur = all[id] || { title: title };
         cur[x.k] = !cur[x.k]; cur.title = title; cur.t = Date.now();
-        if (!cur.fav && !cur.rev && !cur.weak) delete all[id]; else all[id] = cur;
+        if (!cur.fav && !cur.rev && !cur.weak && !cur.done) delete all[id]; else all[id] = cur;
         save(all); draw();
       };
       menu.appendChild(b);

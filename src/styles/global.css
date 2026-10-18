@@ -833,3 +833,13 @@ body.adm { background: #f6f3ef; }
 .adm-todo .td-row.done { opacity: .55; }
 .adm-todo .td-row.done .td-t { text-decoration: line-through; }
 @media (max-width: 640px) { .adm-todo .td-row { grid-template-columns: 1fr 1fr; } .adm-todo .td-t { grid-column: 1 / -1; } }
+
+/* 完璧にした記事 */
+.mark-done.on { background: #2e8b57; }
+.side-done { margin: 0 0 8px; padding: 6px 8px; font-size: 12.5px; background: #eef7f1; border-radius: 8px; }
+.side-done label { cursor: pointer; font-weight: 700; color: #2e6b45; }
+.side-done small { color: var(--muted); }
+li.is-done > a::after { content: ' ✅'; font-size: 11px; }
+.ml-hide { font-size: 14px; background: #eef7f1; border-radius: 10px; padding: 8px 12px; margin: 10px 0; }
+.ml-hide label { font-weight: 700; color: #2e6b45; cursor: pointer; margin-right: 6px; }
+.ml-hide small { color: var(--muted); }

@@ -21,6 +21,7 @@ const current = articles.find((a) => a.id === articleId);
     </div>
     <a class="side-guide" href={url('guide/')}>🔰 このサイトの使い方</a>
     <a class="side-mylist" href={url('mylist/')}>⭐ マイリスト</a>
+    <p class="side-done" id="side-done" hidden><label><input type="checkbox" id="hide-done" /> ✅ 完璧にした記事をかくす</label> <small id="side-done-n"></small></p>
     <div class="side-tabs" role="tablist">
       <button type="button" role="tab" aria-selected="true" data-pane="theme">テーマ別</button>
       <button type="button" role="tab" aria-selected="false" data-pane="subject">科目別</button>
@@ -38,7 +39,7 @@ const current = articles.find((a) => a.id === articleId);
                   const list = byTheme(t.id);
                   const on = t.id === themeId;
                   return (
-                    <li class={on ? 'on' : ''}>
+                    <li class={on ? 'on' : ''} data-arts={list.map((a) => a.id).join(',')}>
                       {list.length ? <a href={url(`articles/${list[0].id}/`)}>{t.name}</a> : <span class="soon">{t.name}</span>}
                       <span class={`lv lv${levelOf(t.id)}`} title={LEVELS[levelOf(t.id)].label}>{LEVELS[levelOf(t.id)].stars}</span>
                       {on && (
