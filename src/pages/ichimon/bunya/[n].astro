@@ -5,9 +5,12 @@ import IchimonDeck from '../../../components/IchimonDeck.astro';
 import { getArticles } from '../../../data/articles';
 import { categories, themeIdOf, url } from '../../../data/taxonomy';
 import { studyOf } from '../../../data/study';
+import { roadmap } from '../../../data/nav';
 
 export async function getStaticPaths() {
-  const arts = (await getArticles()).filter((a) => (studyOf(a.id)?.qa.length ?? 0) > 0);
+  const all = (await getArticles()).filter((a) => (studyOf(a.id)?.qa.length ?? 0) > 0);
+  // テーマ別目次の順（比較は最後）
+  const arts = [...roadmap(all), ...all.filter((a) => !roadmap(all).includes(a))];
   const groups = categories.map((c) => ({ n: String(c.no), title: `STEP ${c.no} ${c.name.replace(/（.*）/, '')}`, sub: c.name, ids: c.themes.map((t) => t.id) }));
   groups.push({ n: 'z', title: '比較で覚える', sub: '似ている制度・サービスの違い', ids: ['Z'] });
   return groups.map((g) => ({ params: { n: g.n }, props: { g, arts: arts.filter((a) => g.ids.includes(themeIdOf(a.data.theme))) } }));

@@ -5,9 +5,12 @@ import IchimonDeck from '../../../components/IchimonDeck.astro';
 import { getArticles } from '../../../data/articles';
 import { subjects, url } from '../../../data/taxonomy';
 import { studyOf } from '../../../data/study';
+import { roadmap } from '../../../data/nav';
 
 export async function getStaticPaths() {
-  const arts = (await getArticles()).filter((a) => (studyOf(a.id)?.qa.length ?? 0) > 0);
+  const all = (await getArticles()).filter((a) => (studyOf(a.id)?.qa.length ?? 0) > 0);
+  // テーマ別目次の順（比較は最後）
+  const arts = [...roadmap(all), ...all.filter((a) => !roadmap(all).includes(a))];
   return subjects.map((s) => ({ params: { slug: s.slug }, props: { s, arts: arts.filter((a) => a.data.subjects.includes(s.name)) } }))
     .filter((p) => p.props.arts.length > 0);
 }
