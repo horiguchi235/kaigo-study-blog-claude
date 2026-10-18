@@ -439,3 +439,44 @@ html.ruby ruby { ruby-align: center; }
   .my-help, .my-count, .marks { display: none !important; }
   .anki span.h, .anki span.h.show { color: #ff4b1f !important; background: none !important; outline: 0 !important; }
 }
+
+/* ───── 記事末の過去問テスト ───── */
+.freq-test { display: inline-block; margin: 2px 0 6px; font-size: 13px; font-weight: 700; text-decoration: none; }
+.ptest { margin: 40px 0 0; padding: 18px 18px 20px; background: var(--surface); border: 2px solid var(--accent); border-radius: 14px; }
+.ptest h2 { margin: 0 0 8px; font-size: 20px; background: none; border: 0; padding: 0; }
+.ptest h2 small { display: inline-block; margin-left: 8px; font-size: 13px; font-weight: 700; color: #fff; background: var(--accent); padding: 1px 10px; border-radius: 999px; vertical-align: middle; }
+.pt-lead { font-size: 14px; color: var(--muted); margin: 0 0 10px; }
+.pt-bar { height: 8px; background: var(--accent-soft); border-radius: 999px; overflow: hidden; }
+.pt-bar span { display: block; height: 100%; width: 0; background: var(--accent); transition: width .3s; }
+.pt-stat { font-size: 14px; margin: 8px 0; }
+.pt-stat .ng { color: var(--ng); }
+.pt-btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; }
+.pt-btns button, .pt-next { font: inherit; font-size: 15px; font-weight: 700; padding: 8px 18px; border-radius: 999px; border: 0; background: var(--accent); color: #fff; cursor: pointer; }
+.pt-btns .pt-wrong { background: var(--surface); color: var(--ng); border: 1px solid var(--ng); }
+.ptest.running .pt-btns { display: none; }
+.pt-view:empty { display: none; }
+.pt-view { margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--line); }
+.pt-head { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+.pt-no { font-weight: 700; color: var(--accent); }
+.pt-q { font-weight: 700; line-height: 1.8; }
+.pt-ch { list-style: none; padding: 0; margin: 0 0 12px; counter-reset: c; }
+.pt-ch li { counter-increment: c; margin-bottom: 8px; }
+.pt-ch button { display: block; width: 100%; text-align: left; font: inherit; font-size: 15px; line-height: 1.6; padding: 10px 12px 10px 40px; position: relative; border-radius: 10px; border: 1px solid var(--line); background: #fff; color: var(--text); cursor: pointer; }
+.pt-ch button::before { content: counter(c); position: absolute; left: 12px; top: 10px; width: 20px; height: 20px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-size: 12px; font-weight: 700; text-align: center; line-height: 20px; }
+.pt-ch button:hover:not(:disabled) { border-color: var(--accent); }
+.pt-ch button:disabled { cursor: default; opacity: .75; }
+.pt-ch button.right { background: #e8f6ec; border-color: #2f8a4a; opacity: 1; }
+.pt-ch button.wrong { background: #fdeceb; border-color: var(--ng); opacity: 1; }
+.pt-res { background: var(--accent-soft); border-radius: 10px; padding: 12px 14px; }
+.pt-res p { margin: 0 0 10px; }
+.pt-mark { font-size: 17px; font-weight: 700; }
+.pt-mark.ok { color: #2f8a4a; } .pt-mark.ng { color: var(--ng); }
+.pt-end { text-align: center; }
+.pt-score { font-size: 22px; font-weight: 700; color: var(--accent); margin: 4px 0; }
+@media print { .ptest { display: none; } }
+.pt-total { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; margin: 12px 0 4px; }
+.pt-total p { margin: 6px 0 0; font-size: 14px; }
+.pt-total .pt-bar { margin-top: 6px; }
+.top-progress { margin: 10px 0 0; font-size: 14px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 8px 12px; }
+.guide-lead .gl-hero { background: var(--accent); color: #fff; border-radius: 12px; padding: 14px 16px; line-height: 1.8; }
+.guide-lead .gl-hero span { font-size: 14px; opacity: .95; }

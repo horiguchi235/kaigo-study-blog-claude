@@ -2,11 +2,13 @@
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import { getArticles, type Article } from '../../data/articles';
+import freq from '../../data/freq.json';
 import { categories, subjectByName, themeIdOf, levelOf, freqOf, LEVELS, shortTitle, url } from '../../data/taxonomy';
 import { studyOf } from '../../data/study';
 import { sequences } from '../../data/nav';
 import { getTranslations } from '../../data/translations';
 import { LANGS } from '../../data/i18n';
+import tests from '../../data/tests.json';
 
 export async function getStaticPaths() {
   const articles = await getArticles();
@@ -53,6 +55,8 @@ if (special) {
   };
 }
 const def = navData[''];
+const ptest = ((tests as Record<string, any[]>)[a.id] ?? []).map(({ id, kai, sub, q, c, a: ans, e }) => ({ id, kai, sub, q, c, a: ans, e }));
+const total5 = (freq as any).total5 ?? 0;
 const maxR = fr ? Math.max(1, ...fr.ronten.map((r) => r.last5)) : 1;
 ---
 
@@ -102,6 +106,7 @@ const maxR = fr ? Math.max(1, ...fr.ronten.map((r) => r.last5)) : 1;
           <div class="freq-sub">
             {Object.entries(fr.subjects).map(([k, v], i) => <>{i > 0 && '・'}{k} {v}問</>)}
           </div>
+          {ptest.length > 0 && <a class="freq-test" href="#ptest">📝 この{ptest.length}問を、記事の最後の「過去問テスト」で全部解けます →</a>}
           <h4>この記事の論点と出題数（過去5年）</h4>
           <ul class="freq-bars">
             {fr.ronten.map((r) => (
@@ -120,6 +125,20 @@ const maxR = fr ? Math.max(1, ...fr.ronten.map((r) => r.last5)) : 1;
       <Content />
     </div>
 
+    {
+      ptest.length > 0 && (
+        <section class="ptest" id="ptest" data-id={a.id} data-title={`${a.data.article}：${title}`}>
+          <h2>📝 この記事の過去問テスト<small>第34〜38回・{ptest.length}問</small></h2>
+          <p class="pt-lead">この記事の内容から出た<b>過去5年分の本試験問題すべて</b>です（問題文は要旨の言い換え）。全記事のテストを解けば、5年分{total5}問をすべて解いたことになります。</p>
+          <div class="pt-bar"><span></span></div>
+          <p class="pt-stat"></p>
+          <p class="pt-btns"><button type="button" class="pt-all">▶ 1問目から解く</button><button type="button" class="pt-wrong" hidden>まちがえた問題だけ解く</button></p>
+          <div class="pt-view"></div>
+          <script type="application/json" id="ptest-data" set:html={JSON.stringify(ptest).replace(/</g, '\\u003c')}></script>
+        </section>
+      )
+    }
+
     <nav class="art-nav" aria-label="前後の記事" id="art-nav">
       <a class={def?.prev ? 'prev' : 'prev none'} href={def?.prev?.h ?? '#'}><small>← 前の記事</small><span>{def?.prev?.t}</span></a>
       <a class="up" href={def?.back ?? url('')}><small>↑</small><span>目次にもどる</span></a>
@@ -130,6 +149,7 @@ const maxR = fr ? Math.max(1, ...fr.ronten.map((r) => r.last5)) : 1;
   <script is:inline src={url('mask.js')}></script>
   <script is:inline src={url('article.js')}></script>
   <script is:inline src={url('marks.js')}></script>
+  <script is:inline src={url('ptest.js')}></script>
   <script is:inline define:vars={{ navData }}>
     // 来た目次（?from=…。なければ前回のもの）に合わせて前後の記事を差し替える
     (function () {

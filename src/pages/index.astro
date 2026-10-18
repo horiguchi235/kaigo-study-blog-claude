@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import { categories, subjects, themeIdOf, levelOf, LEVELS, shortTitle, url } from '../data/taxonomy';
 import { getArticles } from '../data/articles';
+import freq from '../data/freq.json';
 
 const articles = await getArticles();
 const byTheme = (id: string) => articles.filter((a) => themeIdOf(a.data.theme) === id);
@@ -21,6 +22,15 @@ const hikaku = articles.filter((a) => themeIdOf(a.data.theme) === 'Z');
     <span class="gh-title">このサイトの使い方・勉強のしかた</span>
     <span class="gh-sub">AIが過去問15年分を分析して作った教材です。まずはここから →</span>
   </a>
+
+  <p class="top-progress" id="top-progress" hidden></p>
+  <script is:inline define:vars={{ total5: (freq as any).total5 ?? 0, mylist: url('mylist/') }}>
+    try {
+      var pt = JSON.parse(localStorage.getItem('ptest') || '{}'), n = 0;
+      Object.keys(pt).forEach(function (id) { n += Object.keys(pt[id].ans || {}).length; });
+      if (n) { var el = document.getElementById('top-progress'); el.hidden = false; el.innerHTML = '✏️ 過去問5年分：<b>' + n + ' / ' + total5 + '問</b> 解きました <a href="' + mylist + '">記録を見る →</a>'; }
+    } catch (e) {}
+  </script>
 
   <h2 class="section-title">勉強のしかたを選ぶ</h2>
   <div class="menu-grid">
