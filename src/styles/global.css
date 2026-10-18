@@ -5,6 +5,7 @@
   --muted: #7a6a5e;
   --line: #f0dfcd;
   --accent: #a84a10;
+  --key: #c62828;
   --accent-soft: #fdeedf;
   --mark: #ffdcb8;
   --ng: #b3412e;
@@ -50,7 +51,8 @@ a { color: var(--accent); }
 }
 .article h3 { font-size: 17px; margin: 32px 0 12px; padding-bottom: 4px; border-bottom: 2px solid var(--line); }
 .article p, .article ul, .article ol { margin: 0 0 16px; }
-.article strong { background: linear-gradient(transparent 60%, var(--mark) 60%); }
+.article strong { color: var(--key); background: none; }
+.article .quiz-note strong, .article .q-src strong, .article .pt-lead strong { color: inherit; }
 .article hr { border: 0; border-top: 1px dashed var(--line); margin: 40px 0; }
 
 .article blockquote {
@@ -198,7 +200,7 @@ a { color: var(--accent); }
 .qa-self { display: flex; gap: 8px; }
 .qa.answered .qa-self { display: none; }
 .anki.masked strong.m { background: #f6b183; color: transparent; border-radius: 3px; cursor: pointer; transition: color .15s; }
-.anki.masked strong.m.show { color: inherit; background: linear-gradient(transparent 60%, var(--mark) 60%); }
+.anki.masked strong.m.show { color: var(--key); background: none; }
 .tool-guide { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin: 16px 0 24px; }
 .tool-guide .card { margin: 0; }
 .tool-links { list-style: none; padding: 0; margin: 6px 0 0; }
@@ -209,7 +211,7 @@ a { color: var(--accent); }
 /* 記事の暗記モード */
 .study-links .mask-toggle { font: inherit; font-size: 14px; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--accent); background: var(--surface); color: var(--accent); cursor: pointer; }
 .article.masked strong.m { color: transparent; background: #f5b48a; border-radius: 3px; cursor: pointer; }
-.article.masked strong.m.shown { color: var(--text); background: linear-gradient(transparent 60%, var(--mark) 60%); }
+.article.masked strong.m.shown { color: var(--key); background: none; }
 
 /* ───── レイアウト：左の固定目次 ───── */
 .layout { max-width: 1180px; margin: 0 auto; }
@@ -430,7 +432,7 @@ html.ruby ruby { ruby-align: center; }
 .my-sub button { font: inherit; font-size: 13px; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); cursor: pointer; }
 .my-count { font-size: 13px; color: var(--muted); margin: 0 0 8px; }
 .anki span.h { background: #f6b183; color: transparent; border-radius: 3px; cursor: pointer; transition: color .15s; }
-.anki span.h.show { color: inherit; background: linear-gradient(transparent 60%, var(--mark) 60%); }
+.anki span.h.show { color: var(--key); font-weight: 700; background: none; }
 .anki.editing #sheet { cursor: text; }
 .anki.editing span.h { color: inherit; background: #ffe0c7; outline: 2px dashed #f08a3c; outline-offset: 1px; }
 .anki.editing strong { cursor: pointer; }
