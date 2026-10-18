@@ -342,3 +342,17 @@ details.case .case-text { padding: 0 14px 12px; margin: 0; font-size: .95em; }
 .ask-btns .btn { flex: 1 1 140px; }
 .btn:disabled { opacity: .55; cursor: not-allowed; }
 .answered .opt .why b { display: block; margin: 0 0 2px; }
+
+/* ───── v2.1：1問の時間メーター・不正解ボタン ───── */
+.qlimit { height: 10px; margin-top: 6px; border-radius: 99px; background: var(--line); overflow: hidden; }
+.qlimit > i { display: block; height: 100%; width: 100%; background: var(--ok); border-radius: 99px; transition: width .5s linear, background-color .3s; }
+.qlimit.warn > i { background: var(--warn); }
+.qlimit.low > i { background: var(--ng); }
+@media (prefers-reduced-motion: reduce) { .qlimit > i { transition: none; } }
+.opt .elim { display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 0; min-width: 58px; margin: 6px 6px 6px 10px; border: 1.5px solid var(--ng); border-radius: 10px; background: var(--surface); color: var(--ng); font-size: 1.05em; font-weight: 700; line-height: 1.1; }
+.opt .elim small { font-size: .62em; font-weight: 700; margin-top: 2px; }
+.opt.eliminated { background: var(--surface-2); border-style: dashed; }
+.opt.eliminated .elim { border-color: var(--line); color: var(--muted); background: var(--surface-2); }
+.opt.eliminated .num { opacity: .5; }
+.plain-list { margin: 0 0 8px; padding-left: 1.2em; font-size: .92em; }
+.plain-list li { margin: 4px 0; }

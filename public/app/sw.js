@@ -3,7 +3,7 @@
  * 問題データ（data/*.json）は app.js が Cache Storage（kaigo-data-v1）に保存するので、ここでは扱わない。
  * ★アプリのファイルを直したら、下の VERSION を上げてください（利用者に「新しいバージョンがあります」が出ます）。
  */
-const VERSION = '2.0.0';
+const VERSION = '2.1.0';
 const SHELL_CACHE = 'kaigo-shell-' + VERSION;
 const SHELL = ['./', 'index.html', 'app.css', 'core.js', 'app.js', 'config.js', 'manifest.webmanifest',
   'icons/icon.svg', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png'];
