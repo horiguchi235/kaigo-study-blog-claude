@@ -603,7 +603,7 @@ html.ruby ruby { ruby-align: center; }
 .gd-lang .gs-phone { max-height: 320px; }
 @media (max-width: 640px) { .gd-lang { grid-template-columns: 1fr; } .gd-lang .gs-phone { max-width: 230px; margin: 0 auto; } }
 @media (max-width: 699px) {
-  .gd-hero > img { aspect-ratio: 4 / 3; object-fit: cover; object-position: left center; }
+  .gd-hero > img { aspect-ratio: 1 / 1; max-height: 340px; object-fit: cover; object-position: 15% center; }
 }
 @media (max-width: 640px) {
   .gd-types { grid-template-columns: 1fr; gap: 10px; }
