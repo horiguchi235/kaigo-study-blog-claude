@@ -94,6 +94,7 @@ const pageTitle = title === siteName ? title : `${title}｜${siteName}`;
       <div class="wrap">
         <p>過去問は第24〜38回の介護福祉士国家試験を分析して作成しています。問題文は要旨の言い換えです。</p>
         <p>制度は改正されることがあります。最新の情報は公的機関の資料もあわせて確認してください。</p>
+        {import.meta.env.PUBLIC_SHOW_DRAFTS && <p><a href={url('admin/')}>🛠 管理ページ（確認用ビルドだけに表示）</a></p>}
       </div>
     </footer>
     <script is:inline define:vars={{ notes: Object.fromEntries(Object.entries(UI).map(([k, v]) => [k, v.notTranslated])) }}>

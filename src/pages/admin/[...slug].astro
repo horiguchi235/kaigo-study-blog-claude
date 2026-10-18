@@ -1,0 +1,215 @@
+---
+// 管理ページ（Admin）。確認用ビルド（PUBLIC_SHOW_DRAFTS=1）と開発中だけに作られ、本番の公開サイトには出ない。
+//   /admin/          … 概要
+//   /admin/images/   … 画像・図・スライドの一覧 → チェックして ChatGPT 依頼文 / Claude への合図を作る
+//   /admin/articles/ … 記事の一覧（下書き・文字数・過去問・図の数・未作成の図）
+//   /admin/todo/     … レビューで「確認してほしい」と残ったことのチェックリスト
+// データは tools/admin/make.py → src/data/admin.json
+import '../../styles/global.css';
+import admin from '../../data/admin.json';
+import { url } from '../../data/taxonomy';
+
+export function getStaticPaths() {
+  const on = !import.meta.env.PROD || !!import.meta.env.PUBLIC_SHOW_DRAFTS;
+  if (!on) return [];
+  return [undefined, 'images', 'articles', 'todo'].map((slug) => ({ params: { slug } }));
+}
+const { slug } = Astro.params;
+const page = slug ?? 'home';
+const A = admin as any;
+const items: any[] = A.items;
+const count = (f: (i: any) => boolean) => items.filter(f).length;
+const stats = {
+  used: count((i) => i.status === 'used'),
+  todo: count((i) => i.status === 'todo'),
+  made: count((i) => i.status === 'made' && i.kind !== 'svg'),
+  planned: count((i) => i.kind === 'planned'),
+  plannedDone: count((i) => i.kind === 'planned' && i.status !== 'todo'),
+  drafts: A.articles.filter((a: any) => a.draft).length,
+  arts: A.articles.length,
+};
+const tabs = [
+  ['home', '概要', 'admin/'],
+  ['images', '画像・図', 'admin/images/'],
+  ['articles', '記事', 'admin/articles/'],
+  ['todo', '確認リスト', 'admin/todo/'],
+];
+const KIND: Record<string, string> = { photo: '写真風（ChatGPT）', guide: '使い方の絵（ChatGPT）', planned: '記事の図（ChatGPT依頼）', svg: 'SVG図（Claude）', shot: 'スライド（Claude）' };
+---
+
+<!doctype html>
+<html lang="ja" data-base={url('')}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>管理｜{tabs.find((t) => t[0] === page)?.[1]}</title>
+    <link rel="icon" href={url('favicon.svg')} type="image/svg+xml" />
+  </head>
+  <body class="adm" data-noruby>
+    <header class="adm-head">
+      <a class="adm-logo" href={url('')}>← サイトへ</a>
+      <b>🛠 管理ページ</b>
+      <nav>{tabs.map(([k, label, href]) => <a href={url(href)} aria-current={k === page ? 'page' : undefined}>{label}</a>)}</nav>
+    </header>
+    <main class="adm-main">
+      {page === 'home' && (
+        <>
+          <p class="adm-note">このページは<b>確認用ビルドだけ</b>に作られます（本番の公開サイトには出ません）。チェックやメモはこのブラウザに保存されます。</p>
+          <div class="adm-stats">
+            <div><b>{stats.arts}</b><span>記事（うち下書き {stats.drafts}）</span></div>
+            <div><b>{stats.used}</b><span>記事・ページで使用中の画像・図</span></div>
+            <div><b>{stats.plannedDone} / {stats.planned}</b><span>記事の図（ChatGPT依頼）の作成済み</span></div>
+            <div><b>{stats.made}</b><span>作成済みで未配置の画像</span></div>
+          </div>
+          <h2>使い方：画像を作り直す・新しく作る</h2>
+          <ol class="adm-steps">
+            <li><a href={url('admin/images/')}>画像・図</a>で、直したい画像（または作りたい未作成の図）に<b>チェック</b>を入れ、どこがおかしいかを<b>メモ</b>に書く（複数選べます）。</li>
+            <li>下の「<b>ChatGPT依頼文を作る</b>」を押してコピーし、ChatGPT に貼る（作り直しのときは、前の画像も一緒に添付）。</li>
+            <li>できた画像を、表示されたドライブのフォルダに、表示された<b>画像名のまま</b>保存する。</li>
+            <li>「<b>Claudeへの合図を作る</b>」を押してコピーし、Claude に送る → Claude が取り込んで差し替え、プレビューを作り直します。</li>
+            <li>SVG図・スライド（Claude が作るもの）は「Claudeへの合図」だけで直します。</li>
+          </ol>
+          <h2>そのほかの管理ページ</h2>
+          <ul>
+            <li><a href={url('admin/articles/')}>記事</a>：下書きかどうか、文字数、過去問の数、図・写真の数、未作成の図の数を一覧。列をクリックで並べ替え。</li>
+            <li><a href={url('admin/todo/')}>確認リスト</a>：レビュー対応で「未確認」「判断待ち」として残ったこと。確認したらチェック、まとめて Claude への依頼文にできます。</li>
+          </ul>
+        </>
+      )}
+
+      {page === 'images' && (
+        <>
+          <div class="adm-filters">
+            <label>種類 <select id="f-kind"><option value="">すべて</option>{Object.entries(KIND).map(([k, v]) => <option value={k}>{v}</option>)}</select></label>
+            <label>状態 <select id="f-status"><option value="">すべて</option><option value="used">使用中</option><option value="made">作成済み・未配置</option><option value="todo">未作成</option></select></label>
+            <label>重要度 <select id="f-pri"><option value="">すべて</option><option value="A">A</option><option value="B">B</option><option value="first">まず作る</option></select></label>
+            <label>記事 <select id="f-art"><option value="">すべて</option><option value="guide">使い方ページ</option>{A.articles.map((a: any) => <option value={a.id}>{a.label}：{a.title}</option>)}</select></label>
+            <label class="grow">検索 <input id="f-q" type="search" placeholder="画像名・見出し・指示文" /></label>
+            <label><input type="checkbox" id="f-checked" /> チェックしたものだけ</label>
+            <span id="f-count" class="adm-count"></span>
+          </div>
+          <div id="grid" class="adm-grid" aria-live="polite"></div>
+          <div class="adm-bar">
+            <span id="sel-n">0件 選択中</span>
+            <button type="button" id="mk-gpt">🤖 ChatGPT依頼文を作る</button>
+            <button type="button" id="mk-claude">💬 Claudeへの合図を作る</button>
+            <button type="button" id="sel-clear" class="sub">選択を全部外す</button>
+          </div>
+          <dialog id="out" class="adm-dlg">
+            <h3 id="out-h"></h3>
+            <p id="out-p" class="adm-note"></p>
+            <textarea id="out-t" rows="18" readonly></textarea>
+            <p class="adm-dlg-btns"><button type="button" id="out-copy">📋 コピー</button><button type="button" id="out-close" class="sub">閉じる</button></p>
+          </dialog>
+          <script type="application/json" id="adm-data" set:html={JSON.stringify({ items, rules: A.rules, fix: A.fix, kinds: KIND }).replace(/</g, '\\u003c')}></script>
+          <script is:inline src={url('admin.js')}></script>
+        </>
+      )}
+
+      {page === 'articles' && (
+        <>
+          <p class="adm-note">列の名前をクリックすると並べ替えます。「未作成の図」は ChatGPT 依頼中でまだ画像がないもの。</p>
+          <div class="adm-tablewrap">
+            <table class="adm-table" id="art-table">
+              <thead><tr>
+                <th data-k="label">記事</th><th data-k="draft">状態</th><th data-k="chars" data-n="1">文字数</th><th data-k="past" data-n="1">過去問</th>
+                <th data-k="quizzes" data-n="1">本文の過去問</th><th data-k="heads" data-n="1">見出し</th><th data-k="figs" data-n="1">SVG図</th><th data-k="photos" data-n="1">写真</th><th data-k="planned" data-n="1">未作成の図</th><th>開く</th>
+              </tr></thead>
+              <tbody>
+                {A.articles.map((a: any) => (
+                  <tr data-label={a.id} data-draft={a.draft ? 1 : 0} data-chars={a.chars} data-past={a.past} data-quizzes={a.quizzes} data-heads={a.heads.length} data-figs={a.figs} data-photos={a.photos} data-planned={a.planned}>
+                    <td><b>{a.label}</b><br /><small>{a.title}</small></td>
+                    <td>{a.draft ? <span class="tag gray">下書き</span> : <span class="tag green">公開</span>}</td>
+                    <td class="num">{a.chars.toLocaleString()}</td>
+                    <td class="num">{a.past}</td>
+                    <td class="num">{a.quizzes}</td>
+                    <td class="num">{a.heads.length}</td>
+                    <td class="num">{a.figs}</td>
+                    <td class="num">{a.photos}</td>
+                    <td class="num">{a.planned > 0 ? <a href={url(`admin/images/`) + `#art=${a.id}`}>{a.planned}</a> : 0}</td>
+                    <td class="links"><a href={url(`articles/${a.id}/`)}>記事</a> <a href={url(`ichimon/${a.id}/`)}>1問1答</a> <a href={url(`anki/${a.id}/`)}>暗記</a></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <script is:inline>
+            (function () {
+              var t = document.getElementById('art-table'), tb = t.querySelector('tbody'), dir = {};
+              t.querySelectorAll('th[data-k]').forEach(function (th) {
+                th.style.cursor = 'pointer';
+                th.onclick = function () {
+                  var k = th.dataset.k, n = !!th.dataset.n; dir[k] = -(dir[k] || -1);
+                  var rows = Array.prototype.slice.call(tb.children);
+                  rows.sort(function (a, b) { var x = a.dataset[k], y = b.dataset[k]; return (n ? (x - y) : String(x).localeCompare(y)) * dir[k]; });
+                  rows.forEach(function (r) { tb.appendChild(r); });
+                };
+              });
+            })();
+          </script>
+        </>
+      )}
+
+      {page === 'todo' && (
+        <>
+          <p class="adm-note">レビュー対応で残ったこと（tools/admin/review-todo.md）。確認したらチェック。チェックしていない項目を選んでメモを付け、Claude への依頼文にできます。</p>
+          <div id="todo" class="adm-todo"></div>
+          <div class="adm-bar">
+            <span id="td-n"></span>
+            <button type="button" id="td-make">💬 選んだ項目を Claude への依頼文にする</button>
+          </div>
+          <dialog id="out" class="adm-dlg">
+            <h3>Claude への依頼文</h3>
+            <textarea id="out-t" rows="16" readonly></textarea>
+            <p class="adm-dlg-btns"><button type="button" id="out-copy">📋 コピー</button><button type="button" id="out-close" class="sub">閉じる</button></p>
+          </dialog>
+          <script type="application/json" id="todo-data" set:html={JSON.stringify(A.todo).replace(/</g, '\\u003c')}></script>
+          <script is:inline>
+            (function () {
+              var md = JSON.parse(document.getElementById('todo-data').textContent), box = document.getElementById('todo');
+              var KEY = 'adminTodo', st = {}; try { st = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
+              function save() { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} }
+              var group = '', n = 0;
+              md.split('\n').forEach(function (line) {
+                var h = line.match(/^##\s+(.*)/); if (h) { group = h[1]; var e = document.createElement('h2'); e.textContent = group; box.appendChild(e); return; }
+                var m = line.match(/^(未確認|全体|新しい絵|[^：]{1,12})：(.*)$/); if (!m || /^#/.test(line)) { if (line.trim() && !/^#/.test(line)) { var p = document.createElement('p'); p.className = 'adm-note'; p.textContent = line; box.appendChild(p); } return; }
+                var head = document.createElement('h3'); head.textContent = m[1]; box.appendChild(head);
+                m[2].split('／').forEach(function (txt) {
+                  txt = txt.trim(); if (!txt) return;
+                  var id = group + '|' + txt; n++;
+                  var row = document.createElement('div'); row.className = 'td-row' + (st[id] && st[id].done ? ' done' : '');
+                  row.innerHTML = '<label><input type="checkbox" class="done"> 確認済み</label><label><input type="checkbox" class="pick"> 依頼に入れる</label><span class="td-t"></span><input type="text" class="td-note" placeholder="メモ（判断・調べた結果など）">';
+                  row.querySelector('.td-t').textContent = txt;
+                  var s = st[id] || {};
+                  row.querySelector('.done').checked = !!s.done; row.querySelector('.td-note').value = s.note || '';
+                  row.querySelector('.done').onchange = function () { st[id] = st[id] || {}; st[id].done = this.checked; row.classList.toggle('done', this.checked); save(); count(); };
+                  row.querySelector('.td-note').oninput = function () { st[id] = st[id] || {}; st[id].note = this.value; save(); };
+                  row.dataset.id = id; row.dataset.g = group; row.dataset.t = txt;
+                  box.appendChild(row);
+                });
+              });
+              function count() {
+                var done = Object.keys(st).filter(function (k) { return st[k].done; }).length;
+                document.getElementById('td-n').textContent = '確認済み ' + done + ' / ' + n;
+              }
+              count();
+              var dlg = document.getElementById('out');
+              document.getElementById('td-make').onclick = function () {
+                var rows = Array.prototype.filter.call(box.querySelectorAll('.td-row'), function (r) { return r.querySelector('.pick').checked; });
+                if (!rows.length) { alert('「依頼に入れる」にチェックを入れてください'); return; }
+                var t = '介護福祉士ブログの記事で、次のことを確認・修正してください。\n\n' + rows.map(function (r) {
+                  var note = r.querySelector('.td-note').value.trim();
+                  return '・［' + r.dataset.g.replace(/（.*$/, '') + '］' + r.dataset.t + (note ? '\n　→ ' + note : '');
+                }).join('\n');
+                document.getElementById('out-t').value = t; dlg.showModal();
+              };
+              document.getElementById('out-close').onclick = function () { dlg.close(); };
+              document.getElementById('out-copy').onclick = function () { var ta = document.getElementById('out-t'); ta.select(); try { navigator.clipboard.writeText(ta.value); } catch (e) { document.execCommand('copy'); } this.textContent = '✅ コピーしました'; var b = this; setTimeout(function () { b.textContent = '📋 コピー'; }, 1500); };
+            })();
+          </script>
+        </>
+      )}
+    </main>
+  </body>
+</html>
