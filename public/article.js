@@ -163,3 +163,33 @@
   });
   window.kaigoOpenSec = function (id) { location.hash = id; setTimeout(openHash, 0); };
 })();
+
+// 画像のon/off：記事中の図・写真（figure.fig）をまとめて隠す。設定は localStorage "hideImg"（全記事共通）。
+// 隠しているあいだは、各図の位置に「🖼 図：説明文」の1行を残し、タップでその図だけ表示できる。
+(function () {
+  var body = document.getElementById('art-body'); if (!body) return;
+  var figs = body.querySelectorAll('figure.fig'); if (!figs.length) return;
+  var h = document.documentElement, en = h.lang && h.lang !== 'ja';
+  var T = en ? { off: '🖼 Hide images', on: '🖼 Show images', fig: '🖼 Image: ', open: 'show' } : { off: '🖼 画像を隠す', on: '🖼 画像を表示', fig: '🖼 図：', open: 'ひらく' };
+  figs.forEach(function (f) {
+    var cap = f.querySelector('.steps-title') || f.querySelector('figcaption') || f.querySelector('img');
+    var t = cap ? (cap.alt || cap.textContent || '').replace(/^▶\s*/, '').trim() : '';
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'fig-ph';
+    b.textContent = T.fig + (t.length > 60 ? t.slice(0, 60) + '…' : t) + '（' + T.open + '）';
+    b.onclick = function () { f.classList.toggle('fig-force'); b.classList.toggle('on'); };
+    f.parentNode.insertBefore(b, f);
+  });
+  var btn = document.createElement('button'); btn.type = 'button'; btn.className = 'img-toggle';
+  function draw() { var off = h.classList.contains('img-off'); btn.textContent = off ? T.on : T.off; btn.setAttribute('aria-pressed', off ? 'true' : 'false'); }
+  btn.onclick = function () {
+    var off = !h.classList.contains('img-off'); h.classList.toggle('img-off', off);
+    try { localStorage.setItem('hideImg', off ? '1' : ''); } catch (e) {}
+    body.querySelectorAll('.fig-force').forEach(function (f) { f.classList.remove('fig-force'); });
+    body.querySelectorAll('.fig-ph.on').forEach(function (b) { b.classList.remove('on'); });
+    draw();
+  };
+  draw();
+  var slot = document.querySelector('.art-tools .study-links') || document.querySelector('.art-tools');
+  if (slot) slot.appendChild(btn);
+  else { var p = document.createElement('p'); p.className = 'img-toggle-row'; p.appendChild(btn); body.parentNode.insertBefore(p, body); }
+})();

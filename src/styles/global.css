@@ -880,3 +880,11 @@ li.is-done > a::after { content: ' ✅'; font-size: 11px; }
 .top-value { margin: 16px 0 4px; padding: 12px 16px; background: var(--accent-soft); border-radius: 12px; }
 .top-value ul { margin: 0; padding-left: 1.2em; }
 .top-value li { margin: 4px 0; line-height: 1.7; font-size: 15px; }
+/* 画像のon/off */
+.img-toggle { font: inherit; font-size: 14px; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--accent); background: var(--surface); color: var(--accent); cursor: pointer; }
+.img-toggle[aria-pressed="true"] { background: var(--accent); color: #fff; }
+.img-toggle-row { margin: 8px 0; }
+.fig-ph { display: none; }
+.img-off .article figure.fig:not(.fig-force) { display: none; }
+.img-off .fig-ph { display: block; width: 100%; text-align: left; font: inherit; font-size: 13px; color: var(--muted); background: none; border: 1px dashed var(--line); border-radius: 8px; padding: 6px 10px; margin: 8px 0; cursor: pointer; }
+.img-off .fig-ph.on { border-style: solid; }

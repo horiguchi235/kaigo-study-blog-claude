@@ -44,6 +44,7 @@ const pageTitle = title === siteName ? title : `${title}｜${siteName}`;
           location.replace(h.dataset.base + pref + '/articles/' + h.dataset.article + '/' + (h.dataset.idx || ''));
       } catch (e) {}
     </script>
+    <script is:inline>try { if (localStorage.getItem('hideImg') === '1') document.documentElement.classList.add('img-off'); } catch (e) {}</script>
     <link rel="icon" href={url('favicon.svg')} type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
