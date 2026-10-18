@@ -4,20 +4,29 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>過去問演習｜介護福祉士 過去問でつなぐ合格ノート</title>
-<meta name="description" content="介護福祉士国家試験の過去問15年分（第24〜38回）を、科目別・テーマ別・回数別に解ける演習ページ。">
-<meta name="theme-color" content="#a84a10">
+<meta name="description" content="介護福祉士国家試験の過去問15年分（第24〜38回）を、科目別・テーマ別・回数別に解ける演習ページ。ホーム画面に追加すると電波がなくても解けます。">
+<meta name="theme-color" content="#a84a10" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1b1714" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="過去問演習">
+<link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="stylesheet" href="app.css">
 <script src="config.js"></script>
 </head>
-<body>
-<div id="app" aria-live="polite">
+<body data-noruby>
+<div id="app">
   <div class="boot">
     <div class="boot-logo" aria-hidden="true"></div>
     <p>読み込み中…</p>
   </div>
 </div>
-<div id="toast" role="status" hidden></div>
+<div id="toast" role="status" aria-live="polite" hidden></div>
+<div id="sr" class="sr-only" role="status" aria-live="polite"></div>
+<noscript><p style="padding:16px">このページを使うには JavaScript を有効にしてください。</p></noscript>
+<script src="core.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

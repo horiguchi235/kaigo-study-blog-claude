@@ -1,0 +1,23 @@
+{
+  "name": "過去問演習｜介護福祉士 過去問でつなぐ合格ノート",
+  "short_name": "過去問演習",
+  "description": "介護福祉士国家試験の過去問15年分を、科目別・テーマ別に解ける演習アプリ。電波がなくても解けます。",
+  "lang": "ja",
+  "start_url": "./",
+  "scope": "./",
+  "id": "./",
+  "display": "standalone",
+  "background_color": "#fffaf4",
+  "theme_color": "#a84a10",
+  "categories": ["education"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ],
+  "shortcuts": [
+    { "name": "今日のメニュー", "url": "./?menu=today" },
+    { "name": "ミニ模試", "url": "./?mock=mini" }
+  ]
+}

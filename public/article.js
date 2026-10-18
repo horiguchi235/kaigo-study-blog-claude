@@ -150,7 +150,12 @@
   });
   function openHash() {
     if (!location.hash) return;
-    var t; try { t = document.getElementById(decodeURIComponent(location.hash.slice(1))); } catch (e) { return; }
+    var t, h; try { h = decodeURIComponent(location.hash.slice(1)); t = document.getElementById(h); } catch (e) { return; }
+    // 過去問アプリからのリンク（#h=見出しの文字）：見出しの文字で探す
+    if (!t && h.indexOf('h=') === 0) {
+      var want = h.slice(2).replace(/\s+/g, '');
+      t = [].find.call(body.querySelectorAll('h2'), function (x) { var s = x.textContent.replace(/\s+/g, ''); return s === want || s.indexOf(want) === 0; });
+    }
     var d = t && t.closest('details.sec');
     if (d) { d.open = true; t.scrollIntoView(); }
   }
