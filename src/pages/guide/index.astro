@@ -22,8 +22,8 @@ const types = [
     text: `<b>重要度別</b>の「${LEVELS[3].label} ${LEVELS[3].stars}」から。毎年のように出るテーマだけを先に固めて、得点の土台を作ります。` },
   { href: url('subjects/'), img: 'type-subject', title: '苦手な科目がはっきりしている',
     text: '<b>科目別目次</b>から、その科目の記事だけを集中して。模試や過去問で点が低かった科目から始めましょう。' },
-  { href: url('moshi/'), img: 'type-moshi', title: '実務者研修を終えた・ひととおり勉強した',
-    text: 'まず<b>ミニ模試</b>で力だめし。まちがえた問題のテーマの記事に戻ると、弱点だけを効率よく埋められます。' },
+  { href: url('level/'), img: 'type-moshi', title: '実務者研修を終えた・ひととおり勉強した',
+    text: '<b>重要度別</b>から記事を選び、記事の最後の<b>過去問テスト</b>で力だめし。まちがえた問題の見出しに戻ると、弱点だけを効率よく埋められます。' },
   { href: url('ichimon/'), img: 'type-sukima', title: 'まとまった時間がとれない',
     text: 'スマホで<b>1問1答</b>と<b>暗記シート</b>。5分あれば1記事ぶんの要点をくり返せます。週末に記事を1本読む、と組み合わせると効果的です。' },
   { href: '#lang', img: 'type-lang', title: '日本語の漢字が苦手・EPA候補者の方',
@@ -33,7 +33,7 @@ const types = [
 const cycles = [
   { img: 'cycle-1', title: '1周目：読んで分かる', text: '覚えようとしなくて大丈夫。「なぜそうなるか」と「こう聞かれる」をつかむのが目的です。' },
   { img: 'cycle-2', title: '2周目：かくして覚える', text: '記事の「暗記モード」や「暗記シート」で、大事な言葉・数字をかくして思い出す練習をします。' },
-  { img: 'cycle-3', title: '3周目：解いて確かめる', text: '記事の最後の「過去問テスト」で、まちがえた問題だけをくり返します。1問1答・ミニ模試も組み合わせると、解く力が安定します。' },
+  { img: 'cycle-3', title: '3周目：解いて確かめる', text: '記事の最後の「過去問テスト」で、まちがえた問題だけをくり返します。1問1答・○×クイズも組み合わせると、解く力が安定します。' },
 ];
 
 const readSlides = [
@@ -61,7 +61,7 @@ const toolSlides = [
 ];
 ---
 
-<Base title="このサイトの使い方・勉強のしかた" description="AIが過去15年分の本試験を分析して作った介護福祉士の教材。自分に合った始め方、記事の読み方、暗記モード・1問1答・ミニ模試の使い分けと、スケジュール例。">
+<Base title="このサイトの使い方・勉強のしかた" description="AIが過去15年分の本試験を分析して作った介護福祉士の教材。自分に合った始め方、記事の読み方、暗記モード・1問1答・○×クイズの使い分けと、スケジュール例。">
   <article class="article guide">
     <p class="breadcrumb"><a href={url('')}>テーマ別目次</a> › このサイトの使い方</p>
 
@@ -136,7 +136,7 @@ const toolSlides = [
       <a href={url('anki/')}><b>🔴 暗記シート</b><span>2周目・試験直前</span></a>
       <a href={url('ichimon/')}><b>📝 1問1答</b><span>2〜3周目のすき間時間</span></a>
       <a href={url('hikaku/')}><b>⚖️ 比較で覚える</b><span>似ている制度・病気が混ざったら</span></a>
-      <a href={url('moshi/')}><b>⏱ ミニ模試</b><span>3周目・苦手テーマ探し</span></a>
+      <a href={url('moshi/')}><b>⭕ ○×クイズ</b><span>全記事からランダム20問</span></a>
       <a href={url('mylist/')}><b>⭐ マイリスト</b><span>進み具合の確認</span></a>
     </div>
 
@@ -146,7 +146,7 @@ const toolSlides = [
     <ol class="gd-plan">
       <li class="p1"><span class="gd-when">試験の6〜4か月前</span><b>1周目：読んで分かる</b><span>1日1〜2記事を目安に、STEP 1 から順に読む。過去問は解けなくても答えを読んで「こう聞かれるのか」を知るだけでOK。</span></li>
       <li class="p2"><span class="gd-when">4〜2か月前</span><b>2周目：かくして覚える</b><span>暗記モード・暗記シートで覚える。すき間時間に1問1答。</span></li>
-      <li class="p3"><span class="gd-when">2か月前〜直前</span><b>3周目：解いて確かめる</b><span>ミニ模試と過去問で解く練習。まちがえたテーマの記事を読み直す。直前は重要度「{LEVELS[3].label}」の暗記シートを中心に。</span></li>
+      <li class="p3"><span class="gd-when">2か月前〜直前</span><b>3周目：解いて確かめる</b><span>過去問テストと○×クイズで解く練習。まちがえたテーマの記事を読み直す。直前は重要度「{LEVELS[3].label}」の暗記シートを中心に。</span></li>
     </ol>
 
     <h2 id="tips">⑥ つまずいたときのコツ</h2>

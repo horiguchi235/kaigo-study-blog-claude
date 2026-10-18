@@ -22,6 +22,7 @@ const name = a.data.title.split('｜')[0];
       <a href={url(`articles/${a.id}/`)}>📖 記事を読む</a>
       <a href={url(`anki/${a.id}/`)}>🔴 暗記シート</a>
     </p>
+    <p class="qa-past" id="qa-past" hidden></p>
     <div class="qa-bar" id="qa-bar">
       <span class="qa-score">回答 <b id="qa-done">0</b> / {s.qa.length}　正解 <b id="qa-ok">0</b></span>
       <span class="qa-btns">
@@ -53,14 +54,33 @@ const name = a.data.title.split('｜')[0];
       }
     </ol>
   </article>
-  <script is:inline>
+  <script is:inline define:vars={{ id: a.id, title: `${a.data.article}：${name}`, n: s.qa.length }}>
+    // 結果はこのブラウザの localStorage "qa" に保存：{ [記事ID]: { title, n, ans: { [問題番号]: 1/0 }, t } }
     (function () {
       var list = document.getElementById('qa-list');
       var items = Array.prototype.slice.call(list.children);
       var done = 0, ok = 0;
+      function load() { try { return JSON.parse(localStorage.getItem('qa') || '{}'); } catch (e) { return {}; } }
+      function rec() { return load()[id] || { ans: {} }; }
+      function save(i, right) {
+        var all = load(), r = all[id] || { ans: {} };
+        r.ans[i] = right ? 1 : 0; r.title = title; r.n = n; r.t = Date.now(); all[id] = r;
+        try { localStorage.setItem('qa', JSON.stringify(all)); } catch (e) {}
+      }
       function score() { document.getElementById('qa-done').textContent = done; document.getElementById('qa-ok').textContent = ok; }
+      function past() {
+        var r = rec(), ks = Object.keys(r.ans), good = ks.filter(function (k) { return r.ans[k]; }).length;
+        var el = document.getElementById('qa-past');
+        el.hidden = !ks.length;
+        el.innerHTML = '📒 これまでの記録：<b>' + ks.length + ' / ' + n + '問</b>に答えて、まちがい <b class="ng">' + (ks.length - good) + '問</b>（「まちがいだけ」で解き直せます）';
+        items.forEach(function (li) {
+          var v = r.ans[li.dataset.i];
+          li.classList.toggle('was-wrong', v === 0); li.classList.toggle('was-right', v === 1);
+        });
+      }
       function finish(li, right) {
         li.classList.add('answered', right ? 'right' : 'wrong'); done++; if (right) ok++; score();
+        save(li.dataset.i, right);
       }
       list.addEventListener('click', function (e) {
         var b = e.target.closest('button'); if (!b) return;
@@ -80,12 +100,15 @@ const name = a.data.title.split('｜')[0];
         items.forEach(function (li) { list.appendChild(li); });
       };
       document.getElementById('qa-wrong').onclick = function () {
-        var any = items.some(function (li) { return li.classList.contains('wrong'); });
-        if (!any) return;
+        // 今回まちがえた問題。なければ、これまでの記録でまちがえた問題
+        var now = items.filter(function (li) { return li.classList.contains('wrong'); });
+        var r = rec();
+        var target = now.length ? now : items.filter(function (li) { return r.ans[li.dataset.i] === 0; });
+        if (!target.length) { document.getElementById('qa-past').hidden = false; document.getElementById('qa-past').textContent = '🎉 まちがえた問題はありません。'; return; }
         items.forEach(function (li) {
-          var w = li.classList.contains('wrong');
+          var w = target.indexOf(li) >= 0;
           li.hidden = !w;
-          if (w) { li.classList.remove('answered', 'wrong', 'right', 'open'); done--; }
+          if (w && li.classList.contains('answered')) { if (li.classList.contains('right')) ok--; li.classList.remove('answered', 'wrong', 'right', 'open'); done--; }
         });
         score();
       };
@@ -93,6 +116,7 @@ const name = a.data.title.split('｜')[0];
         items.forEach(function (li) { li.hidden = false; li.classList.remove('answered', 'wrong', 'right', 'open'); });
         done = 0; ok = 0; score();
       };
+      past();
     })();
   </script>
 </Base>

@@ -29,7 +29,7 @@ type UI = {
 
 export const UI: Record<Lang, UI> = {
   en: {
-    nav: { guide: 'How to use', theme: 'By theme', subject: 'By subject', level: 'By importance', ichimon: 'Quick quiz', mylist: 'My list', anki: 'Memory sheets', hikaku: 'Comparisons', moshi: 'Mini mock exam', mame: 'Exam info' },
+    nav: { guide: 'How to use', theme: 'By theme', subject: 'By subject', level: 'By importance', ichimon: 'Quick quiz', mylist: 'My list', anki: 'Memory sheets', hikaku: 'Comparisons', moshi: 'True/false quiz', mame: 'Exam info', more: 'More' },
     toc: 'Contents',
     note: 'This page is a translation for EPA care worker candidates. The national exam is written in Japanese, so key exam terms are shown in Japanese with their reading, like “pressure ulcer (褥瘡／じょくそう)”.',
     prev: '← Previous', next: 'Next →', up: 'Back to contents',
@@ -39,7 +39,7 @@ export const UI: Record<Lang, UI> = {
     original: 'Japanese original',
   },
   id: {
-    nav: { guide: 'Cara pakai', theme: 'Per tema', subject: 'Per mata ujian', level: 'Per prioritas', ichimon: 'Kuis singkat', mylist: 'Daftar saya', anki: 'Lembar hafalan', hikaku: 'Perbandingan', moshi: 'Ujian mini', mame: 'Info ujian' },
+    nav: { guide: 'Cara pakai', theme: 'Per tema', subject: 'Per mata ujian', level: 'Per prioritas', ichimon: 'Kuis singkat', mylist: 'Daftar saya', anki: 'Lembar hafalan', hikaku: 'Perbandingan', moshi: 'Kuis benar/salah', mame: 'Info ujian', more: 'Lainnya' },
     toc: 'Daftar isi',
     note: 'Halaman ini adalah terjemahan untuk kandidat kaigofukushishi (EPA). Ujian nasional ditulis dalam bahasa Jepang, jadi istilah penting ditampilkan dalam bahasa Jepang beserta cara bacanya, misalnya “luka tekan (褥瘡／じょくそう)”.',
     prev: '← Sebelumnya', next: 'Berikutnya →', up: 'Kembali ke daftar isi',
@@ -49,7 +49,7 @@ export const UI: Record<Lang, UI> = {
     original: 'Versi asli (Jepang)',
   },
   fil: {
-    nav: { guide: 'Paano gamitin', theme: 'Ayon sa tema', subject: 'Ayon sa asignatura', level: 'Ayon sa halaga', ichimon: 'Mabilis na quiz', mylist: 'Aking listahan', anki: 'Pang-memorya', hikaku: 'Paghahambing', moshi: 'Mini mock exam', mame: 'Impormasyon sa exam' },
+    nav: { guide: 'Paano gamitin', theme: 'Ayon sa tema', subject: 'Ayon sa asignatura', level: 'Ayon sa halaga', ichimon: 'Mabilis na quiz', mylist: 'Aking listahan', anki: 'Pang-memorya', hikaku: 'Paghahambing', moshi: 'Tama o Mali', mame: 'Impormasyon sa exam', more: 'Iba pa' },
     toc: 'Nilalaman',
     note: 'Ang pahinang ito ay salin para sa mga EPA care worker candidate. Nakasulat sa wikang Hapon ang pambansang exam, kaya ang mahahalagang termino ay nakasulat sa Hapon kasama ang basa nito, halimbawa “pressure ulcer (褥瘡／じょくそう)”.',
     prev: '← Nakaraan', next: 'Susunod →', up: 'Bumalik sa nilalaman',
@@ -59,7 +59,7 @@ export const UI: Record<Lang, UI> = {
     original: 'Orihinal (Hapon)',
   },
   vi: {
-    nav: { guide: 'Cách sử dụng', theme: 'Theo chủ đề', subject: 'Theo môn', level: 'Theo mức độ quan trọng', ichimon: 'Hỏi nhanh', mylist: 'Danh sách của tôi', anki: 'Bảng ghi nhớ', hikaku: 'So sánh', moshi: 'Thi thử mini', mame: 'Thông tin kỳ thi' },
+    nav: { guide: 'Cách sử dụng', theme: 'Theo chủ đề', subject: 'Theo môn', level: 'Theo mức độ quan trọng', ichimon: 'Hỏi nhanh', mylist: 'Danh sách của tôi', anki: 'Bảng ghi nhớ', hikaku: 'So sánh', moshi: 'Câu hỏi đúng/sai', mame: 'Thông tin kỳ thi', more: 'Khác' },
     toc: 'Mục lục',
     note: 'Trang này là bản dịch dành cho ứng viên hộ lý EPA. Kỳ thi quốc gia được viết bằng tiếng Nhật, nên các thuật ngữ quan trọng được ghi bằng tiếng Nhật kèm cách đọc, ví dụ “loét do tì đè (褥瘡／じょくそう)”.',
     prev: '← Bài trước', next: 'Bài sau →', up: 'Về mục lục',
