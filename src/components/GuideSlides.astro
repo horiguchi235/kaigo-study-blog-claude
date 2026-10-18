@@ -1,0 +1,61 @@
+---
+// 使い方ページ用のスライド（実際の画面のスクリーンショット＋説明）
+import { url } from '../data/taxonomy';
+interface Slide { img: string; title: string; text: string; chara?: string }
+interface Props { id: string; slides: Slide[]; label: string }
+const { id, slides, label } = Astro.props;
+---
+<div class="gslides" id={id} role="region" aria-roledescription="スライド" aria-label={label}>
+  <div class="gs-track" tabindex="0">
+    {slides.map((s, i) => (
+      <figure class="gs-slide" aria-label={`${i + 1} / ${slides.length}`}>
+        <div class="gs-phone"><img src={url(`images/guide/${s.img}.webp`)} alt={`画面の例：${s.title}`} loading="lazy" decoding="async" /></div>
+        <figcaption>
+          <span class="gs-no">{i + 1}<small> / {slides.length}</small></span>
+          <b class="gs-title">{s.title}</b>
+          <span class="gs-text" set:html={s.text} />
+          <img class="gs-chara" src={url(`chara/${s.chara ?? 'point'}.webp`)} alt="" aria-hidden="true" loading="lazy" />
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+  <div class="gs-ctrl">
+    <button type="button" class="gs-prev" aria-label="前のスライド">◀</button>
+    <div class="gs-dots">{slides.map((_, i) => <button type="button" aria-label={`${i + 1}枚目`} data-i={i} />)}</div>
+    <button type="button" class="gs-next" aria-label="次のスライド">▶</button>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.gslides').forEach((root) => {
+    const track = root.querySelector<HTMLElement>('.gs-track')!;
+    const slides = [...root.querySelectorAll<HTMLElement>('.gs-slide')];
+    const dots = [...root.querySelectorAll<HTMLButtonElement>('.gs-dots button')];
+    const prev = root.querySelector<HTMLButtonElement>('.gs-prev')!;
+    const next = root.querySelector<HTMLButtonElement>('.gs-next')!;
+    let cur = 0;
+    const go = (i: number) => {
+      i = Math.max(0, Math.min(slides.length - 1, i));
+      track.scrollTo({ left: slides[i].offsetLeft - track.offsetLeft, behavior: 'smooth' });
+    };
+    const mark = () => {
+      const x = track.scrollLeft;
+      let best = 0, d = Infinity;
+      slides.forEach((s, i) => { const dd = Math.abs(s.offsetLeft - track.offsetLeft - x); if (dd < d) { d = dd; best = i; } });
+      cur = best;
+      dots.forEach((b, i) => b.setAttribute('aria-current', i === cur ? 'true' : 'false'));
+      prev.disabled = cur === 0;
+      next.disabled = cur === slides.length - 1;
+    };
+    prev.addEventListener('click', () => go(cur - 1));
+    next.addEventListener('click', () => go(cur + 1));
+    dots.forEach((b) => b.addEventListener('click', () => go(Number(b.dataset.i))));
+    track.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); go(cur + 1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(cur - 1); }
+    });
+    let t = 0;
+    track.addEventListener('scroll', () => { cancelAnimationFrame(t); t = requestAnimationFrame(mark); });
+    mark();
+  });
+</script>
