@@ -602,3 +602,14 @@ html.ruby ruby { ruby-align: center; }
 .gd-lang { display: grid; grid-template-columns: 220px 1fr; gap: 18px; align-items: start; }
 .gd-lang .gs-phone { max-height: 320px; }
 @media (max-width: 640px) { .gd-lang { grid-template-columns: 1fr; } .gd-lang .gs-phone { max-width: 230px; margin: 0 auto; } }
+@media (max-width: 699px) {
+  .gd-hero > img { aspect-ratio: 4 / 3; object-fit: cover; object-position: left center; }
+}
+@media (max-width: 640px) {
+  .gd-types { grid-template-columns: 1fr; gap: 10px; }
+  .gd-type { flex-direction: row; }
+  .gd-type > img { width: 112px; flex: 0 0 112px; aspect-ratio: auto; height: auto; object-fit: cover; object-position: center 25%; }
+  .gd-type-body { padding: 10px 12px 12px; }
+  .gd-type-body > b { font-size: 15px; }
+  .gd-type-body > span { font-size: 13.5px; }
+}
