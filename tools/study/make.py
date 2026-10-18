@@ -191,6 +191,29 @@ def questions(hdr, rows, sec, ctx):
     return out
 
 
+OX = ROOT / "tools" / "study" / "ox"
+
+
+def apply_ox(aid, qa):
+    """○×問題を、意味が分かる文に書き直したもの（tools/study/ox/<記事ID>.json）に差し替える。
+    キー＝今の問題文（タグなし）＋"|"＋答え。値が null の問題は出さない。表を直してキーが変わったものは元の文のまま。"""
+    f = OX / f"{aid}.json"
+    if not f.exists():
+        return qa
+    m = json.loads(f.read_text())
+    out = []
+    for q in qa:
+        if q["t"] == "ox":
+            k = re.sub(r"<[^>]+>", "", q["q"]).strip() + "|" + q["ans"]
+            if k in m:
+                v = m[k]
+                if v is None:
+                    continue
+                q = {**q, "q": html.escape(v.get("q") or "", quote=False) or q["q"], "exp": html.escape(v.get("exp") or "", quote=False), "fixed": 1}
+        out.append(q)
+    return out
+
+
 def main():
     data = {}
     total = 0
@@ -198,6 +221,7 @@ def main():
         if p.stem.startswith("yomimono"):  # 読みもの記事は対象外
             continue
         meta, qa, sheet, concl = build(p)
+        qa = apply_ox(p.stem, qa)
         data[p.stem] = {**meta, "qa": qa, "sheet": sheet, "concl": concl}
         total += len(qa)
     OUT.write_text(json.dumps(data, ensure_ascii=False))
