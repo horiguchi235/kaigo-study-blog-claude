@@ -78,7 +78,7 @@ const current = articles.find((a) => a.id === articleId);
           const list = road.filter((a) => a.data.subjects.includes(s.name));
           return (
             <details class="side-cat" data-subj={s.slug}>
-              <summary><span>{s.name}<span class="cnt">{list.length}記事</span></span></summary>
+              <summary><span>{s.name}</span></summary>
               <ul class="side-arts">
                 <li><a href={url(`subjects/${s.slug}/`)}>📋 {s.name}の目次ページ</a></li>
                 {list.map((a) => (
