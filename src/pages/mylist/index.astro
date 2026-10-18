@@ -9,14 +9,19 @@ import freq from '../../data/freq.json';
 
 const articles = await getArticles();
 const T = tests as Record<string, unknown[]>;
-const links = Object.fromEntries(articles.map((a) => [a.id, { a: url(`articles/${a.id}/`), k: studyOf(a.id) ? url(`anki/${a.id}/`) : '', n: T[a.id]?.length ?? 0, title: `${a.data.article}：${a.data.title}` }]));
+const links = Object.fromEntries(articles.map((a) => [a.id, { a: url(`articles/${a.id}/`), k: studyOf(a.id) ? url(`anki/${a.id}/`) : '', q: (studyOf(a.id)?.qa.length ?? 0) > 0 ? url(`ichimon/${a.id}/`) : '', n: T[a.id]?.length ?? 0, title: `${a.data.article}：${a.data.title}` }]));
 const total5 = (freq as any).total5 ?? 0;
 ---
 
 <Base title="マイリスト" description="お気に入り・復習・苦手に入れた記事と、自分で作った暗記シートの一覧。">
   <article class="article mylist">
     <h1>⭐ マイリスト</h1>
-    <p class="meta">記事の上にあるボタンで印をつけた記事と、自分でかくした暗記シートがここに集まります。印はこのブラウザに保存されます（別の端末やブラウザとは共有されません）。</p>
+    <p class="meta">記事の上の「☆ この記事を保存」で印をつけた記事、過去問テスト・1問1答の結果、自分でかくした暗記シートがここに集まります。</p>
+    <div class="ml-warn">
+      <p>⚠ 記録は<b>この端末のこのブラウザだけ</b>に保存されています。ブラウザの履歴を消すと記録も消えます。別の端末で続けるときや機種変更の前は、記録を書き出してください。</p>
+      <p class="ml-backup"><button type="button" id="ml-export">⬇ 記録を書き出す</button><label class="ml-import">⬆ 記録を読み込む<input type="file" id="ml-import" accept="application/json,.json" hidden /></label></p>
+      <p class="ml-msg" id="ml-msg" hidden></p>
+    </div>
     <div class="pt-total" id="pt-total"></div>
     <div class="ml-tabs" role="tablist">
       <button type="button" data-k="fav" aria-selected="true">⭐ お気に入り <span></span></button>
@@ -24,6 +29,7 @@ const total5 = (freq as any).total5 ?? 0;
       <button type="button" data-k="weak" aria-selected="false">⚠ 苦手 <span></span></button>
       <button type="button" data-k="anki" aria-selected="false">📝 自分の暗記シート <span></span></button>
       <button type="button" data-k="test" aria-selected="false">✏️ 過去問テスト <span></span></button>
+      <button type="button" data-k="qa" aria-selected="false">📝 1問1答 <span></span></button>
     </div>
     <div id="ml-list" class="ml-list"></div>
   </article>
@@ -33,6 +39,7 @@ const total5 = (freq as any).total5 ?? 0;
       var marks = window.kaigoMarks.load();
       var anki = {}; try { anki = JSON.parse(localStorage.getItem('myanki') || '{}'); } catch (e) {}
       var pt = {}; try { pt = JSON.parse(localStorage.getItem('ptest') || '{}'); } catch (e) {}
+      var qa = {}; try { qa = JSON.parse(localStorage.getItem('qa') || '{}'); } catch (e) {}
       var solved = 0, right = 0;
       Object.keys(pt).forEach(function (id) { if (!links[id]) return; var a = pt[id].ans || {}; Object.keys(a).forEach(function (k) { solved++; if (a[k]) right++; }); });
       document.getElementById('pt-total').innerHTML = '<b>過去問5年分の進み具合</b><div class="pt-bar"><span style="width:' + Math.round(solved / total5 * 100) + '%"></span></div>' +
@@ -43,11 +50,16 @@ const total5 = (freq as any).total5 ?? 0;
         weak: 'まだありません。過去問をまちがえた記事は「⚠ 苦手に入れる」を押しておくと、試験前にまとめて見直せます。',
         anki: 'まだありません。暗記シートで「✏️ かくす所を選ぶ」から、覚えたい言葉をかくしてみましょう。',
         test: 'まだありません。各記事の最後にある「📝 この記事の過去問テスト」を解くと、ここに記録されます。',
+        qa: 'まだありません。記事の上の「📝 1問1答」で答えると、ここに記録されます。',
       };
       function rows(k) {
         if (k === 'test') return Object.keys(pt).filter(function (id) { return links[id]; }).map(function (id) {
           var a = pt[id].ans || {}, ks = Object.keys(a), ok = ks.filter(function (x) { return a[x]; }).length;
           return { id: id, title: pt[id].title || links[id].title, t: pt[id].t || 0, href: links[id].a + '#ptest', sub: ks.length + '/' + links[id].n + '問　まちがい ' + (ks.length - ok) };
+        });
+        if (k === 'qa') return Object.keys(qa).filter(function (id) { return links[id] && links[id].q; }).map(function (id) {
+          var a = qa[id].ans || {}, ks = Object.keys(a), ng = ks.filter(function (x) { return !a[x]; }).length;
+          return { id: id, title: qa[id].title || links[id].title, t: qa[id].t || 0, href: links[id].q, sub: ks.length + '/' + (qa[id].n || '?') + '問　まちがい ' + ng };
         });
         if (k === 'anki') return Object.keys(anki).filter(function (id) { return links[id] && links[id].k; }).map(function (id) {
           return { id: id, title: anki[id].title, t: anki[id].t || 0, href: links[id].k, sub: 'かくした所 ' + anki[id].items.length + 'か所' };
@@ -86,6 +98,42 @@ const total5 = (freq as any).total5 ?? 0;
       tabs.forEach(function (b) { b.onclick = function () { show(b.dataset.k); try { localStorage.setItem('mlTab', b.dataset.k); } catch (e) {} }; });
       var first = 'fav'; try { first = localStorage.getItem('mlTab') || 'fav'; } catch (e) {}
       show(first);
+
+      // 記録の書き出し・読み込み（端末を変えるとき用）
+      var KEYS = ['marks', 'ptest', 'qa', 'myanki', 'lastArt'];
+      var msg = document.getElementById('ml-msg');
+      document.getElementById('ml-export').onclick = function () {
+        var data = { app: 'kaigo-study-blog', v: 1, at: new Date().toISOString(), data: {} };
+        KEYS.forEach(function (k) { try { var v = localStorage.getItem(k); if (v != null) data.data[k] = JSON.parse(v); } catch (e) {} });
+        var blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+        var a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+        a.download = 'kaigo-kiroku-' + new Date().toISOString().slice(0, 10) + '.json';
+        document.body.appendChild(a); a.click(); a.remove();
+        msg.hidden = false; msg.textContent = '書き出しました。このファイルを別の端末で「記録を読み込む」から選んでください。';
+      };
+      document.getElementById('ml-import').onchange = function (e) {
+        var f = e.target.files[0]; if (!f) return;
+        var r = new FileReader();
+        r.onload = function () {
+          try {
+            var d = JSON.parse(r.result);
+            if (!d || d.app !== 'kaigo-study-blog' || !d.data) throw new Error('形式がちがいます');
+            // 今の記録と合わせる（同じ記事は新しいほうを残す）
+            Object.keys(d.data).forEach(function (k) {
+              if (KEYS.indexOf(k) < 0) return;
+              var cur = {}; try { cur = JSON.parse(localStorage.getItem(k) || '{}'); } catch (x) {}
+              var inc = d.data[k];
+              if (inc && typeof inc === 'object' && !Array.isArray(inc) && cur && typeof cur === 'object') {
+                Object.keys(inc).forEach(function (id) { if (!cur[id] || ((inc[id] && inc[id].t) || 0) >= ((cur[id] && cur[id].t) || 0)) cur[id] = inc[id]; });
+                localStorage.setItem(k, JSON.stringify(cur));
+              } else localStorage.setItem(k, JSON.stringify(inc));
+            });
+            msg.hidden = false; msg.textContent = '読み込みました。ページを読み直します…';
+            setTimeout(function () { location.reload(); }, 800);
+          } catch (err) { msg.hidden = false; msg.textContent = '読み込めませんでした（' + err.message + '）'; }
+        };
+        r.readAsText(f);
+      };
     })();
   </script>
 </Base>

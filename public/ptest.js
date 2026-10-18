@@ -15,6 +15,19 @@
     try { localStorage.setItem('ptest', JSON.stringify(all)); } catch (e) {}
   }
   function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  // まちがえた問題の内容が書いてある見出しを探す（記事中の同じ過去問がある見出し）
+  function norm(t) { return String(t).replace(/<[^>]+>|\*\*/g, '').replace(/[\s、。，．・「」（）()？?]/g, ''); }
+  function secOf(q) {
+    var key = norm(q.q).slice(0, 14); if (key.length < 6) return null;
+    var ps = document.querySelectorAll('#art-body details > p');
+    for (var k = 0; k < ps.length; k++) {
+      if (norm(ps[k].textContent).indexOf(key) === 0) {
+        var d = ps[k].closest('details.sec'), h = d ? d.querySelector('summary h2') : null;
+        if (h) return { id: h.id, t: h.textContent.replace(/^📌\s*/, '') };
+      }
+    }
+    return null;
+  }
   function md(s) { return esc(s).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/&lt;(\/?)strong&gt;/g, '<$1strong>').replace(/\n/g, '<br>'); }
 
   function summary() {
@@ -55,7 +68,9 @@
     });
     var res = view.querySelector('.pt-res');
     res.hidden = false;
+    var sec = ok ? null : secOf(q);
     res.innerHTML = '<p class="pt-mark ' + (ok ? 'ok' : 'ng') + '">' + (ok ? '⭕ 正解！' : '❌ 不正解（正解は ' + q.a + '）') + '</p><p>' + md(q.e) + '</p>' +
+      (sec ? '<p class="pt-back">📖 <a href="#' + sec.id + '">「' + esc(sec.t) + '」を読み直す</a></p>' : '') +
       '<button type="button" class="pt-next">' + (i + 1 < list.length ? '次の問題へ →' : '結果を見る') + '</button>';
     res.querySelector('.pt-next').onclick = function () { i++; if (i < list.length) show(); else finish(); };
     summary();
@@ -63,7 +78,12 @@
   function finish() {
     var rate = Math.round(score / list.length * 100);
     var msg = rate >= 80 ? 'よくできました！この記事は合格ラインです。次の記事へ進みましょう。' : rate >= 60 ? 'あと少し！まちがえた問題の見出しを読み直してから、もう一度チャレンジしましょう。' : 'まずは本文をもう一度読んでから、まちがえた問題だけ解き直してみましょう。';
-    view.innerHTML = '<div class="pt-end"><p class="pt-score">' + score + ' / ' + list.length + '問 正解（' + rate + '%）</p><p>' + msg + '</p></div>';
+    var weak = '';
+    if (rate < 60 && list.length >= 3 && window.kaigoMarks) {
+      var all = window.kaigoMarks.load(), cur = all[art] || { title: title };
+      if (!cur.weak) { cur.weak = true; cur.title = title; cur.t = Date.now(); all[art] = cur; window.kaigoMarks.save(all); weak = '<p class="pt-weak">⚠ 正答率が60%未満だったので、この記事をマイリストの「苦手」に入れました。</p>'; if (window.kaigoMarksDraw) window.kaigoMarksDraw(); }
+    }
+    view.innerHTML = '<div class="pt-end"><p class="pt-score">' + score + ' / ' + list.length + '問 正解（' + rate + '%）</p><p>' + msg + '</p>' + weak + '</div>';
     box.classList.remove('running');
     summary();
   }

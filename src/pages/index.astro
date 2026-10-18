@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import { categories, subjects, themeIdOf, levelOf, LEVELS, shortTitle, url } from '../data/taxonomy';
 import { getArticles } from '../data/articles';
 import freq from '../data/freq.json';
+import tests from '../data/tests.json';
 
 const articles = await getArticles();
 const byTheme = (id: string) => articles.filter((a) => themeIdOf(a.data.theme) === id);
@@ -14,37 +15,86 @@ const subjectsOf = (themeIds: string[]) => {
 };
 const yomi = articles.filter((a) => themeIdOf(a.data.theme) === 'Y');
 const hikaku = articles.filter((a) => themeIdOf(a.data.theme) === 'Z');
+// 最初の記事（STEP 1 の最初のテーマ）
+const firstArt = categories.flatMap((c) => c.themes).map((t) => byTheme(t.id)[0]).find(Boolean);
+// パート合格（第37回〜）のパートごとの過去問数と、問題ID→パートの対応
+const PART: Record<string, string> = {
+  人間の尊厳と自立: 'A', 介護の基本: 'A', 社会の理解: 'A', 人間関係とコミュニケーション: 'A', コミュニケーション技術: 'A', 生活支援技術: 'A',
+  こころとからだのしくみ: 'B', 発達と老化の理解: 'B', 認知症の理解: 'B', 障害の理解: 'B', 医療的ケア: 'B',
+  介護過程: 'C', 総合問題: 'C',
+};
+const qpart: Record<string, string> = {};
+const ptotal: Record<string, number> = { A: 0, B: 0, C: 0 };
+for (const list of Object.values(tests as Record<string, any[]>)) for (const q of list) {
+  const p = PART[q.sub] ?? PART[String(q.sub).replace(/（.*$/, '')];
+  if (!p || qpart[q.id]) continue;
+  qpart[q.id] = p; ptotal[p]++;
+}
 ---
 
 <Base title="介護福祉士 過去問でつなぐ合格ノート">
-  <a class="guide-hero" href={url('guide/')}>
-    <span class="gh-badge">🔰 はじめての方へ</span>
-    <span class="gh-title">このサイトの使い方・勉強のしかた</span>
-    <span class="gh-sub">AIが過去問15年分を分析して作った教材です。まずはここから →</span>
-  </a>
-
-  <p class="top-progress" id="top-progress" hidden></p>
-  <script is:inline define:vars={{ total5: (freq as any).total5 ?? 0, mylist: url('mylist/') }}>
-    try {
-      var pt = JSON.parse(localStorage.getItem('ptest') || '{}'), n = 0;
-      Object.keys(pt).forEach(function (id) { n += Object.keys(pt[id].ans || {}).length; });
-      if (n) { var el = document.getElementById('top-progress'); el.hidden = false; el.innerHTML = '✏️ 過去問5年分：<b>' + n + ' / ' + total5 + '問</b> 解きました <a href="' + mylist + '">記録を見る →</a>'; }
-    } catch (e) {}
+  <section class="top-start" aria-label="勉強をはじめる">
+    <p class="ts-count" id="ts-count">第39回試験（2027年1月31日）まで <b>…</b></p>
+    <div class="ts-btns">
+      <a class="ts-go" id="ts-go" href={firstArt ? url(`articles/${firstArt.id}/`) : url('')}>
+        <small id="ts-go-sub">はじめての方</small>
+        <span id="ts-go-t">STEP 1 の最初の記事から始める →</span>
+      </a>
+      <a class="ts-guide" href={url('guide/')}>🔰 このサイトの使い方</a>
+    </div>
+    <div class="ts-parts" id="ts-parts" hidden>
+      <p class="ts-parts-h">過去問5年分の進み具合（パート別）</p>
+      {['A', 'B', 'C'].map((p) => (
+        <div class="ts-part" data-p={p}><span class="ts-pn">{p}パート</span><span class="ts-bar"><span></span></span><span class="ts-num">0 / {ptotal[p]}</span></div>
+      ))}
+      <p class="ts-note">記録はこの端末だけに保存されます。<a href={url('mylist/')}>マイリストで書き出せます →</a></p>
+    </div>
+  </section>
+  <script is:inline define:vars={{ qpart, ptotal }}>
+    (function () {
+      // 試験日までの日数
+      var exam = new Date(2027, 0, 31), now = new Date(); now.setHours(0, 0, 0, 0);
+      var d = Math.round((exam - now) / 86400000), el = document.getElementById('ts-count');
+      if (d > 0) el.innerHTML = '第39回試験（2027年1月31日）まで あと <b>' + d + '日</b>';
+      else if (d === 0) el.innerHTML = '今日は第39回試験の日です。がんばって！';
+      else el.hidden = true;
+      // 続きから（最後に開いた記事）
+      try {
+        var last = JSON.parse(localStorage.getItem('lastArt') || 'null');
+        if (last && last.href) {
+          document.getElementById('ts-go').href = last.href;
+          document.getElementById('ts-go-sub').textContent = '前回の続きから';
+          document.getElementById('ts-go-t').textContent = last.title + ' →';
+        }
+      } catch (e) {}
+      // パート別の進み具合
+      try {
+        var pt = JSON.parse(localStorage.getItem('ptest') || '{}'), got = { A: 0, B: 0, C: 0 }, any = 0;
+        Object.keys(pt).forEach(function (id) { Object.keys(pt[id].ans || {}).forEach(function (q) { var p = qpart[q]; if (p) { got[p]++; any++; } }); });
+        if (any) {
+          document.getElementById('ts-parts').hidden = false;
+          document.querySelectorAll('.ts-part').forEach(function (row) {
+            var p = row.dataset.p, n = got[p], t = ptotal[p] || 1;
+            row.querySelector('.ts-bar span').style.width = Math.round(n / t * 100) + '%';
+            row.querySelector('.ts-num').textContent = n + ' / ' + ptotal[p];
+          });
+        }
+      } catch (e) {}
+    })();
   </script>
 
-  <h2 class="section-title">勉強のしかたを選ぶ</h2>
-  <div class="menu-grid">
-    <a href="#theme">📚 テーマ別目次<small>科目の壁なし・重複なしで効率よく</small></a>
-    <a href={url('subjects/')}>🗂 科目別目次<small>13科目から探す</small></a>
-    <a href={url('level/')}>⭐ 重要度別<small>よく出る順に効率よく</small></a>
-    <a href={url('ichimon/')}>📝 1問1答<small>○×ですき間時間に</small></a>
-    <a href={url('anki/')}>🔴 暗記シート<small>かくして覚える・印刷も</small></a>
-    <a href={url('hikaku/')}>⚖️ 比較で覚える<small>似ている制度の違い</small></a>
-    <a href={url('moshi/')}>⏱ ミニ模試<small>ランダム20問で力だめし</small></a>
-    <a href={url('mame/')}>💡 豆知識・試験情報<small>傾向・パート合格など</small></a>
-  </div>
+  <nav class="top-links" aria-label="ほかの勉強のしかた">
+    <a href={url('subjects/')}>科目別目次</a>
+    <a href={url('level/')}>重要度別<small>時間がないとき</small></a>
+    <a href={url('ichimon/')}>1問1答</a>
+    <a href={url('anki/')}>暗記シート</a>
+    <a href={url('hikaku/')}>比較で覚える</a>
+    <a href={url('moshi/')}>○×クイズ</a>
+    <a href={url('mame/')}>豆知識・試験情報</a>
+  </nav>
 
   <h2 class="section-title" id="theme">テーマ別目次</h2>
+  <p class="legend-lead">基本はこの順番（STEP 1 → 6）で読み進めます。重要度別・科目別は、時間がないときや苦手科目だけをやりたいとき用です。</p>
   <p class="legend">
     {[3, 2, 1].map((lv) => <span><span class={`lvb lv${lv}`}>{LEVELS[lv].label}</span> {LEVELS[lv].note}</span>)}
   </p>

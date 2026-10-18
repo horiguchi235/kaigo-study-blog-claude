@@ -16,7 +16,7 @@ interface Props {
 }
 const { themeId, articleId, lang = 'ja', trans = [], jaUrl } = Astro.props;
 const ui = lang === 'ja' ? null : UI[lang];
-const nav = (k: string, ja: string) => (ui ? ui.nav[k] : ja);
+const nav = (k: string, ja: string) => (ui ? ui.nav[k] ?? ja : ja);
 const { title, description = '介護福祉士国家試験の過去問15年分を分析し、テーマ別に「しくみ→介助→制度」をつなげて解説する試験対策ブログ。' } = Astro.props;
 const siteName = '介護福祉士 過去問でつなぐ合格ノート';
 const pageTitle = title === siteName ? title : `${title}｜${siteName}`;
@@ -66,16 +66,21 @@ const pageTitle = title === siteName ? title : `${title}｜${siteName}`;
       <p class="lang-note" id="lang-note" hidden></p>
       <nav class="site-nav" aria-label="メニュー">
         <div class="wrap">
-          <a href={url('guide/')}>🔰 {nav('guide', '使い方')}</a>
           <a href={url('')}>{nav('theme', 'テーマ別目次')}</a>
           <a href={url('subjects/')}>{nav('subject', '科目別目次')}</a>
-          <a href={url('level/')}>{nav('level', '重要度別')}</a>
           <a href={url('ichimon/')}>{nav('ichimon', '1問1答')}</a>
-          <a href={url('anki/')}>{nav('anki', '暗記シート')}</a>
-          <a href={url('mylist/')}>⭐ {nav('mylist', 'マイリスト')}</a>
-          <a href={url('hikaku/')}>{nav('hikaku', '比較で覚える')}</a>
-          <a href={url('moshi/')}>{nav('moshi', 'ミニ模試')}</a>
-          <a href={url('mame/')}>{nav('mame', '豆知識・試験情報')}</a>
+          <a href={url('moshi/')}>{nav('moshi', '○×クイズ')}</a>
+          <a href={url('mylist/')}>{nav('mylist', 'マイリスト')}</a>
+          <details class="nav-more">
+            <summary>{nav('more', 'その他')} ▾</summary>
+            <div class="nav-more-menu">
+              <a href={url('guide/')}>🔰 {nav('guide', '使い方')}</a>
+              <a href={url('level/')}>{nav('level', '重要度別')}</a>
+              <a href={url('anki/')}>{nav('anki', '暗記シート')}</a>
+              <a href={url('hikaku/')}>{nav('hikaku', '比較で覚える')}</a>
+              <a href={url('mame/')}>{nav('mame', '豆知識・試験情報')}</a>
+            </div>
+          </details>
         </div>
       </nav>
     </header>
@@ -121,6 +126,13 @@ const pageTitle = title === siteName ? title : `${title}｜${siteName}`;
           } else note(v);
         });
       })();
+    </script>
+    <script is:inline src={url('zoom.js')} defer></script>
+    <script is:inline>
+      // 「その他」メニューは外をタップしたら閉じる
+      document.addEventListener('click', function (e) {
+        document.querySelectorAll('details.nav-more[open]').forEach(function (d) { if (!d.contains(e.target)) d.open = false; });
+      });
     </script>
     <script is:inline>
       // ステップ式の図：「前へ」「次へ」で1枚ずつ表示する
