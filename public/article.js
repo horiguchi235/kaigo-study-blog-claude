@@ -37,8 +37,9 @@
     ol.classList.add('qz-ch');
     Array.prototype.forEach.call(ol.children, function (li, k) {
       var b = document.createElement('button'); b.type = 'button'; b.className = 'qz-btn';
-      while (li.firstChild) b.appendChild(li.firstChild);
-      li.appendChild(b);
+      var tx = document.createElement('span'); tx.className = 'qz-t';
+      while (li.firstChild) tx.appendChild(li.firstChild);
+      b.appendChild(tx); li.appendChild(b);
       b.addEventListener('click', function () {
         if (ol.classList.contains('done')) return;
         ol.classList.add('done');

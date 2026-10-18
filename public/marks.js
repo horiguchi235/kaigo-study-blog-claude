@@ -22,7 +22,7 @@
     main.className = 'mark-main' + (on.length ? ' on' : '');
     main.setAttribute('aria-expanded', open ? 'true' : 'false');
     main.textContent = on.length ? '★ 保存済み（' + on.map(function (x) { return x.label; }).join('・') + '）▾' : '☆ この記事を保存 ▾';
-    main.onclick = function () { open = !open; draw(); };
+    main.onclick = function (e) { e.stopPropagation(); open = !open; draw(); };
     box.appendChild(main);
     if (!open) return;
     var menu = document.createElement('div'); menu.className = 'mark-menu';
@@ -31,7 +31,8 @@
       b.className = 'mark mark-' + x.k + (m[x.k] ? ' on' : '');
       b.setAttribute('aria-pressed', m[x.k] ? 'true' : 'false');
       b.textContent = m[x.k] ? x.on : x.off;
-      b.onclick = function () {
+      b.onclick = function (e) {
+        e.stopPropagation();
         var all = load(), cur = all[id] || { title: title };
         cur[x.k] = !cur[x.k]; cur.title = title; cur.t = Date.now();
         if (!cur.fav && !cur.rev && !cur.weak) delete all[id]; else all[id] = cur;
