@@ -1,36 +1,46 @@
 ---
+// 1問1答の入口：分野別（STEP 1〜6・比較）と科目別（13科目）
 import Base from '../../layouts/Base.astro';
-import { categories, themeIdOf, levelOf, LEVELS, shortTitle, url } from '../../data/taxonomy';
+import { categories, subjects, themeIdOf, url } from '../../data/taxonomy';
 import { getArticles } from '../../data/articles';
 import { studyOf } from '../../data/study';
 
-const articles = await getArticles();
-const byTheme = (id: string) => articles.filter((a) => themeIdOf(a.data.theme) === id);
+const arts = (await getArticles()).filter((a) => (studyOf(a.id)?.qa.length ?? 0) > 0);
+const cnt = (list: typeof arts) => {
+  let card = 0, rev = 0, ox = 0;
+  for (const a of list) for (const q of studyOf(a.id)!.qa as any[]) { if (q.t === 'ox') ox++; else card++; if (q.rq) rev++; }
+  return { card, rev, ox };
+};
+const bunya = [
+  ...categories.map((c) => ({ href: `ichimon/bunya/${c.no}/`, step: `STEP ${c.no}`, name: c.name.replace(/（.*）/, ''), list: arts.filter((a) => c.themes.some((t) => t.id === themeIdOf(a.data.theme))) })),
+  { href: 'ichimon/bunya/z/', step: '比較', name: '比較で覚える', list: arts.filter((a) => themeIdOf(a.data.theme) === 'Z') },
+];
+const kamoku = subjects.map((s) => ({ href: `ichimon/kamoku/${s.slug}/`, group: s.group, name: s.name, list: arts.filter((a) => a.data.subjects.includes(s.name)) })).filter((k) => k.list.length);
 ---
 
-<Base title="1問1答" description="記事の要点から作った○×と穴うめの1問1答。記事ごとに解けます。">
+<Base title="1問1答" description="記事の要点から作った1問1答。分野別・科目別に、用語→説明・説明→用語・○×を切り替えて解けます。">
   <section class="hero">
     <h1>📝 1問1答</h1>
-    <p>記事の要点から作った○×と穴うめの1問1答。記事ごとに解けます。</p>
+    <p>記事の要点から作った1問1答です。分野別か科目別を選び、出題のしかたを切り替えて解きます。</p>
+    <ul class="qd-howto">
+      <li><b>用語・人物 → 説明</b>：「バンク-ミケルセンは何をした人？」</li>
+      <li><b>説明 → 用語・人物</b>：「ノーマライゼーションの父…この人は誰？」</li>
+      <li><b>○×問題</b>：過去問のひっかけを○×で確かめる</li>
+    </ul>
+    <p class="qd-note">結果はこの端末に保存され、「前回まちがえた問題」だけを解き直せます。各記事の上の「📝 1問1答」からは、その記事だけを解けます。</p>
   </section>
-  {
-    categories.map((c) => (
-      <details class="card roadmap-lite" open={c.no === 1}>
-        <summary><h3><span class="step">STEP {c.no}</span>{c.name}</h3></summary>
-        <ul class="theme-list">
-          {c.themes.map((t) => {
-            const list = byTheme(t.id).filter((a) => { const s = studyOf(a.id); return s && s.qa.length > 0; });
-            return list.length > 0 && (
-              <li>
-                <span class="tname">{t.name}</span> <span class={`lvb lv${levelOf(t.id)}`}>{LEVELS[levelOf(t.id)].label}</span>
-                <ul class="article-links">
-                  {list.map((a) => { const s = studyOf(a.id)!; return <li><a href={url(`ichimon/${a.id}/`)}>{a.data.article}：{shortTitle(a.data.title)}</a> <span class="count">{`${s.qa.length}問`}</span></li>; })}
-                </ul>
-              </li>
-            );
-          })}
-        </ul>
-      </details>
-    ))
-  }
+
+  <h2 class="section-title">分野別（テーマ別目次の順）</h2>
+  <div class="qd-grid">
+    {bunya.map((b) => { const c = cnt(b.list); return (
+      <a class="qd-card" href={url(b.href)}><span class="step">{b.step}</span><b>{b.name}</b><small>{b.list.length}記事・用語{c.card}／説明→用語{c.rev}／○×{c.ox}</small></a>
+    ); })}
+  </div>
+
+  <h2 class="section-title">科目別（試験の13科目）</h2>
+  <div class="qd-grid">
+    {kamoku.map((k) => { const c = cnt(k.list); return (
+      <a class="qd-card" href={url(k.href)}><span class="grp">{k.group}</span><b>{k.name}</b><small>{k.list.length}記事・用語{c.card}／説明→用語{c.rev}／○×{c.ox}</small></a>
+    ); })}
+  </div>
 </Base>

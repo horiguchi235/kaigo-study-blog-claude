@@ -843,3 +843,27 @@ li.is-done > a::after { content: ' ✅'; font-size: 11px; }
 .ml-hide { font-size: 14px; background: #eef7f1; border-radius: 10px; padding: 8px 12px; margin: 10px 0; }
 .ml-hide label { font-weight: 700; color: #2e6b45; cursor: pointer; margin-right: 6px; }
 .ml-hide small { color: var(--muted); }
+
+/* 1問1答：分野別・科目別 */
+.qd-howto { font-size: 14px; padding-left: 20px; }
+.qd-note { font-size: 13px; color: var(--muted); }
+.qd-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; margin: 8px 0 20px; }
+.qd-card { display: flex; flex-direction: column; gap: 2px; padding: 12px 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; color: var(--text); text-decoration: none; }
+.qd-card:hover { border-color: var(--accent); }
+.qd-card .step, .qd-card .grp { align-self: flex-start; font-size: 12px; font-weight: 700; color: #fff; background: var(--accent); border-radius: 999px; padding: 0 8px; }
+.qd-card .grp { background: #6b5b4e; }
+.qd-card b { font-size: 16px; }
+.qd-card small { font-size: 12px; color: var(--muted); }
+.qd-modes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin: 12px 0 8px; }
+.qd-modes button { font: inherit; display: flex; flex-direction: column; align-items: center; padding: 8px 6px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--text); cursor: pointer; }
+.qd-modes button b { font-size: 14px; }
+.qd-modes button small { font-size: 12px; color: var(--muted); }
+.qd-modes button[aria-selected="true"] { border-color: var(--accent); background: var(--accent); color: #fff; }
+.qd-modes button[aria-selected="true"] small { color: #fff; opacity: .9; }
+.qd-opts { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; font-size: 14px; margin: 0 0 10px; }
+.qd-opts select { font: inherit; padding: 4px 8px; border-radius: 8px; border: 1px solid var(--line); }
+.qd-opts button, .qd-more button { font: inherit; font-size: 14px; font-weight: 700; padding: 6px 14px; border-radius: 999px; border: 0; background: var(--accent); color: #fff; cursor: pointer; }
+.qd-msg { font-weight: 700; color: var(--accent); }
+.qd-more { text-align: center; padding: 12px; background: var(--accent-soft); border-radius: 12px; }
+.qdeck .qa-sec a { font-weight: 700; margin-right: 4px; }
+@media (max-width: 480px) { .qd-modes button b { font-size: 12.5px; } }

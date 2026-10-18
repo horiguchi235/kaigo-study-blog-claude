@@ -1,0 +1,18 @@
+---
+// 科目別（試験の13科目）の1問1答。1つの記事が複数の科目にまたがるときは、それぞれの科目に入る
+import Base from '../../../layouts/Base.astro';
+import IchimonDeck from '../../../components/IchimonDeck.astro';
+import { getArticles } from '../../../data/articles';
+import { subjects, url } from '../../../data/taxonomy';
+import { studyOf } from '../../../data/study';
+
+export async function getStaticPaths() {
+  const arts = (await getArticles()).filter((a) => (studyOf(a.id)?.qa.length ?? 0) > 0);
+  return subjects.map((s) => ({ params: { slug: s.slug }, props: { s, arts: arts.filter((a) => a.data.subjects.includes(s.name)) } }))
+    .filter((p) => p.props.arts.length > 0);
+}
+const { s, arts } = Astro.props as any;
+---
+<Base title={`1問1答：${s.name}`} description={`${s.name}の1問1答。用語→説明・説明→用語・○×を切り替えて解けます。`}>
+  <IchimonDeck title={s.name} sub={`科目：${s.group}`} arts={arts} back={url('ichimon/')} />
+</Base>

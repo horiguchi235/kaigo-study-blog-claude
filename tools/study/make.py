@@ -152,8 +152,17 @@ def questions(hdr, rows, sec, ctx):
             if len(r) < 2 or empty(r[0]) or empty(r[1]):
                 continue
             ng = r[2] if n >= 3 and len(r) >= 3 and not empty(r[2]) else ""
-            out.append({"t": "card", "q": inline(strip_round(r[0])), "a": inline(strip_round(r[1])),
-                        "exp": ("× 選びがち：" + inline(ng)) if ng else "", "sec": tag, "src": rounds(r[0] + r[1])})
+            term, ans = inline(strip_round(r[0])), inline(strip_round(r[1]))
+            item = {"t": "card", "q": term, "a": ans,
+                    "exp": ("× 選びがち：" + inline(ng)) if ng else "", "sec": tag, "src": rounds(r[0] + r[1])}
+            # 用語の行（場面ではない）は「〜とは？」と、逆向き（説明 → 用語）も作る
+            TERM = ("年", "年代", "病気", "職種", "サービス", "器官", "部位", "損傷レベル", "障害", "商法", "考え方・ツール", "けが", "柱",
+                    "感覚", "臓器", "段階", "用語", "制度", "法律", "人物", "機関", "施設", "症状", "疾患", "技法", "理論", "道具", "用具", "言葉", "感染症", "薬")
+            if h0 in TERM and len(plain(term)) <= 30 and len(plain(ans)) >= 8:
+                item["q"] = f"{term}　<small>（{'できごとは？' if h0 in ('年', '年代') else 'とは？'}）</small>"
+                item["rq"] = f"{ans}　<small>（{html.escape(h0 if h0.endswith('？') else h0 + 'は？')}）</small>"
+                item["ra"] = term
+            out.append(item)
         return out
     # 回 | 事例 | 正解
     if n == 3 and h0 == "回" and ("正解" in plain(hdr[2])):
@@ -166,8 +175,18 @@ def questions(hdr, rows, sec, ctx):
         for r in rows:
             if len(r) < 2 or empty(r[0]) or empty(r[1]):
                 continue
-            q = f"{inline(strip_round(r[0]))}　<small>（{html.escape(h1)}は？）</small>"
-            out.append({"t": "card", "q": q, "a": inline(strip_round(r[1])), "exp": "", "sec": tag, "src": rounds(r[0] + r[1])})
+            person = "人物" in h0 or h0 in ("人", "人名", "提唱者", "人物・国")
+            ask = lambda h: h if h.endswith("？") else f"{h}は？"
+            hint = "何をした人？" if person and h1 in ("キーワード", "業績", "内容", "ポイント") else ask(h1)
+            q = f"{inline(strip_round(r[0]))}　<small>（{html.escape(hint)}）</small>"
+            term, ans = inline(strip_round(r[0])), inline(strip_round(r[1]))
+            item = {"t": "card", "q": q, "a": ans, "exp": "", "sec": tag, "src": rounds(r[0] + r[1])}
+            # 逆向き（説明 → 用語・人物）。用語が短いときだけ
+            NOREV = ("場面", "様子", "ポイント", "項目", "対象外の例", "困りごと", "困っていること", "原因", "体の変化", "しくみ", "誰への虐待？", "分け方")
+            if len(plain(term)) <= 30 and len(plain(ans)) >= 8 and h0 not in NOREV:
+                item["rq"] = f"{ans}　<small>（{'誰？' if person else html.escape(ask(h0))}）</small>"
+                item["ra"] = term
+            out.append(item)
         return out
     return out
 

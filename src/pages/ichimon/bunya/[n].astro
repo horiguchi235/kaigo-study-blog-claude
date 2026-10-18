@@ -1,0 +1,19 @@
+---
+// 分野別（テーマ別目次の STEP 1〜6 と「比較で覚える」）の1問1答
+import Base from '../../../layouts/Base.astro';
+import IchimonDeck from '../../../components/IchimonDeck.astro';
+import { getArticles } from '../../../data/articles';
+import { categories, themeIdOf, url } from '../../../data/taxonomy';
+import { studyOf } from '../../../data/study';
+
+export async function getStaticPaths() {
+  const arts = (await getArticles()).filter((a) => (studyOf(a.id)?.qa.length ?? 0) > 0);
+  const groups = categories.map((c) => ({ n: String(c.no), title: `STEP ${c.no} ${c.name.replace(/（.*）/, '')}`, sub: c.name, ids: c.themes.map((t) => t.id) }));
+  groups.push({ n: 'z', title: '比較で覚える', sub: '似ている制度・サービスの違い', ids: ['Z'] });
+  return groups.map((g) => ({ params: { n: g.n }, props: { g, arts: arts.filter((a) => g.ids.includes(themeIdOf(a.data.theme))) } }));
+}
+const { g, arts } = Astro.props as any;
+---
+<Base title={`1問1答：${g.title}`} description={`${g.sub}の1問1答。用語→説明・説明→用語・○×を切り替えて解けます。`}>
+  <IchimonDeck title={g.title} sub={g.sub} arts={arts} back={url('ichimon/')} />
+</Base>

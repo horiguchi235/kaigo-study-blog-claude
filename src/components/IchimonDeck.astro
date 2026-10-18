@@ -1,0 +1,44 @@
+---
+// 分野別・科目別の1問1答。複数の記事の1問1答をまとめ、
+// 「用語→説明」「説明→用語」「○×」を切り替えて解く（public/qdeck.js）。
+import { url } from '../data/taxonomy';
+import type { Article } from '../data/articles';
+import { studyOf } from '../data/study';
+
+interface Props { title: string; sub: string; arts: Article[]; back: string }
+const { title, sub, arts } = Astro.props;
+const items: any[] = [];
+for (const a of arts) {
+  const s = studyOf(a.id);
+  if (!s) continue;
+  s.qa.forEach((q: any, i: number) => {
+    items.push({ a: a.id, i, t: q.t, q: q.q, an: q.a ?? '', ox: q.ans ?? '', exp: q.exp, sec: q.sec, rq: q.rq ?? '', ra: q.ra ?? '', lb: a.data.article, h: url(`articles/${a.id}/`) });
+  });
+}
+const nCard = items.filter((x) => x.t === 'card').length;
+const nRev = items.filter((x) => x.rq).length;
+const nOx = items.filter((x) => x.t === 'ox').length;
+const titles = Object.fromEntries(arts.map((a) => [a.id, `${a.data.article}：${a.data.title.split('｜')[0]}`]));
+---
+
+<article class="article study qdeck" id="qdeck">
+  <p class="breadcrumb"><a href={url('ichimon/')}>1問1答</a> › {title}</p>
+  <h1>📝 1問1答：{title}<br /><small>{sub}（{arts.length}記事）</small></h1>
+
+  <div class="qd-modes" role="tablist" aria-label="出題のしかた">
+    <button type="button" role="tab" data-m="fwd" aria-selected="true"><b>用語・人物 → 説明</b><small>{nCard}問</small></button>
+    <button type="button" role="tab" data-m="rev" aria-selected="false"><b>説明 → 用語・人物</b><small>{nRev}問</small></button>
+    <button type="button" role="tab" data-m="ox" aria-selected="false"><b>○×問題</b><small>{nOx}問</small></button>
+  </div>
+  <div class="qd-opts">
+    <label>出題数 <select id="qd-n"><option value="10">10問</option><option value="20" selected>20問</option><option value="50">50問</option><option value="0">全部</option></select></label>
+    <label>順番 <select id="qd-order"><option value="rand">ランダム</option><option value="seq">記事の順</option></select></label>
+    <label>範囲 <select id="qd-scope"><option value="all">すべて</option><option value="new">まだ答えていない問題</option><option value="wrong">前回まちがえた問題</option></select></label>
+    <button type="button" id="qd-start">▶ はじめる</button>
+  </div>
+  <div class="qa-bar"><span class="qa-score">回答 <b id="qd-done">0</b> / <span id="qd-total">0</span>　正解 <b id="qd-ok">0</b></span><span id="qd-msg" class="qd-msg"></span></div>
+  <ol class="qa-list" id="qd-list"></ol>
+  <p class="qd-more" id="qd-end" hidden></p>
+  <script type="application/json" id="qd-data" set:html={JSON.stringify({ items, titles }).replace(/</g, '\\u003c')}></script>
+</article>
+<script is:inline src={url('qdeck.js')}></script>
