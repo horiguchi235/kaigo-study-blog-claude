@@ -117,6 +117,39 @@ def build(path):
     return meta, qa, sheet, concl
 
 
+def phrase(subj, hint, rev=False):
+    """問いかけ（「〜は？」）を、かっこを使わずに1つの文にする。
+    用語 → 説明：「脳梗塞の中身は？」「出血とは？」「バンク-ミケルセンは何をした人？」
+    説明 → 用語（rev）：「…盛り込んだ。この人は誰？」「…募集。これを何という？」"""
+    p = plain(subj).strip()
+    if not rev and len(p) <= 40 and "。" not in p.rstrip("。"):
+        if hint == "とは？":
+            return f"{subj}とは？"
+        if not hint.endswith("は？"):
+            return f"{subj}は{html.escape(hint)}"
+        if re.match(r"[ぁ-ゖ]", hint):
+            return f"{subj}で{html.escape(hint)}"
+        if re.search(r"[うくすつぬむぶぐる]$", p):
+            return f"{subj}ときの{html.escape(hint)}"
+        return f"{subj}の{html.escape(hint)}"
+    lead = subj if p.endswith(("。", "？", "！")) else subj + "。"
+    if hint in ("誰？", "何をした人？", "人物は？"):
+        tail = "この人は誰？"
+    elif hint in ("用語は？", "とは？", "言葉は？", "名前は？", "名称は？"):
+        tail = "これを何という？"
+    elif hint == "年は？":
+        tail = "これは何年？"
+    elif hint in ("年代は？", "時期は？"):
+        tail = "これはいつごろ？"
+    elif hint == "年齢は？":
+        tail = "これは何歳？"
+    elif hint.endswith("は？"):
+        tail = "この" + html.escape(hint)
+    else:
+        tail = html.escape(hint)
+    return f"{lead}{tail}"
+
+
 def questions(hdr, rows, sec, ctx):
     out = []
     n = len(hdr)
@@ -159,8 +192,8 @@ def questions(hdr, rows, sec, ctx):
             TERM = ("年", "年代", "病気", "職種", "サービス", "器官", "部位", "損傷レベル", "障害", "商法", "考え方・ツール", "けが", "柱",
                     "感覚", "臓器", "段階", "用語", "制度", "法律", "人物", "機関", "施設", "症状", "疾患", "技法", "理論", "道具", "用具", "言葉", "感染症", "薬")
             if h0 in TERM and len(plain(term)) <= 30 and len(plain(ans)) >= 8:
-                item["q"] = f"{term}　<small>（{'できごとは？' if h0 in ('年', '年代') else 'とは？'}）</small>"
-                item["rq"] = f"{ans}　<small>（{html.escape(h0 if h0.endswith('？') else h0 + 'は？')}）</small>"
+                item["q"] = phrase(term, "できごとは？" if h0 in ("年", "年代") else "とは？")
+                item["rq"] = phrase(ans, h0 if h0.endswith("？") else h0 + "は？", rev=True)
                 item["ra"] = term
             out.append(item)
         return out
@@ -178,13 +211,13 @@ def questions(hdr, rows, sec, ctx):
             person = "人物" in h0 or h0 in ("人", "人名", "提唱者", "人物・国")
             ask = lambda h: h if h.endswith("？") else f"{h}は？"
             hint = "何をした人？" if person and h1 in ("キーワード", "業績", "内容", "ポイント") else ask(h1)
-            q = f"{inline(strip_round(r[0]))}　<small>（{html.escape(hint)}）</small>"
+            q = phrase(inline(strip_round(r[0])), hint)
             term, ans = inline(strip_round(r[0])), inline(strip_round(r[1]))
             item = {"t": "card", "q": q, "a": ans, "exp": "", "sec": tag, "src": rounds(r[0] + r[1])}
             # 逆向き（説明 → 用語・人物）。用語が短いときだけ
             NOREV = ("場面", "様子", "ポイント", "項目", "対象外の例", "困りごと", "困っていること", "原因", "体の変化", "しくみ", "誰への虐待？", "分け方")
             if len(plain(term)) <= 30 and len(plain(ans)) >= 8 and h0 not in NOREV:
-                item["rq"] = f"{ans}　<small>（{'誰？' if person else html.escape(ask(h0))}）</small>"
+                item["rq"] = phrase(ans, "誰？" if person else ask(h0), rev=True)
                 item["ra"] = term
             out.append(item)
         return out
