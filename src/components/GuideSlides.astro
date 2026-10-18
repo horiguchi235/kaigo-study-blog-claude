@@ -14,7 +14,7 @@ const { id, slides, label } = Astro.props;
           <span class="gs-no">{i + 1}<small> / {slides.length}</small></span>
           <b class="gs-title">{s.title}</b>
           <span class="gs-text" set:html={s.text} />
-          <img class="gs-chara" src={url(`chara/${s.chara ?? 'point'}.webp`)} alt="" aria-hidden="true" loading="lazy" />
+          <img class="gs-chara" src={url(`images/guide/ava-${s.chara ?? 'cycle-1'}.webp`)} alt="" aria-hidden="true" loading="lazy" />
         </figcaption>
       </figure>
     ))}
