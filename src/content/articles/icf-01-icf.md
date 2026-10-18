@@ -75,16 +75,20 @@ draft: true
 <details class="quiz-group">
 <summary>✏️ 過去問を解いてみよう（3問）</summary>
 
+<p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
+
 <details class="quiz">
 <summary>第37回：障害の理解</summary>
 
-ICFで「社会（人生）レベル」にあたるものはどれ？
+次のうち、ICF（International Classification of Functioning, Disability and Health：国際生活機能分類）の社会（人生）レベルに該当するものとして、正しいものを1つ選びなさい。
 
 1. 心身機能・身体構造
 2. 活動
 3. 参加
 4. 機能障害
 5. 活動制限
+
+<p class="q-src">出典：第37回 介護福祉士国家試験（障害の理解）</p>
 
 <details class="answer">
 <summary>正解を見る</summary>
@@ -96,13 +100,15 @@ ICFで「社会（人生）レベル」にあたるものはどれ？
 <details class="quiz">
 <summary>第37回：介護の基本</summary>
 
-ICFの「参加」と「活動」の2つが関わる認知症の人の支援として、最も適切なものはどれ？
+ICF（International Classification of Functioning, Disability and Health：国際生活機能分類）における「参加」と「活動」の2つが関連した、認知症の人の支援に関する記述として、最も適切なものを1つ選びなさい。
 
-1. 若年性アルツハイマー型認知症で治療している
-2. 認知症カフェに通い、体操をしている
-3. 近所の長男が買い物を代わりにしている
-4. 自宅の広い庭をバリアフリーにしている
-5. 見当識障害がありGPS装置を身に着けている
+1. 若年性アルツハイマー型認知症（dementia of the Alzheimerʼs type with early onset）があり、治療している。
+2. 認知症カフェに通い、体操をしている。
+3. 近所に住む長男が、買物を代行している。
+4. 自宅にある広い庭を、バリアフリー化している。
+5. 見当識障害があり、GPS装置を身に着けている。
+
+<p class="q-src">出典：第37回 介護福祉士国家試験（介護の基本）</p>
 
 <details class="answer">
 <summary>正解を見る</summary>
@@ -114,13 +120,17 @@ ICFの「参加」と「活動」の2つが関わる認知症の人の支援と�
 <details class="quiz">
 <summary>第34回：介護の基本</summary>
 
-パーキンソン病で外出時は車いすのGさんは、地域の人との交流を望んでいるが、自宅周辺の坂道や段差が多く交流できていない。参加制約の原因になっている環境因子はどれ？
+Gさん（70歳、男性、要介護2）は、パーキンソン病（Parkinson disease）と診断されていて、外出するときは車いすを使用している。歩行が不安定なため、週2回通所リハビリテーションを利用している。Gさんは、1年前に妻が亡くなり、息子と二人暮らしである。Gさんは社交的な性格で地域住民との交流を望んでいるが、自宅周辺は坂道や段差が多くて移動が難しく、交流ができていない。
 
-1. パーキンソン病
+Gさんの状況をICF（International Classification of Functioning, Disability and Health：国際生活機能分類）で考えた場合、参加制約の原因になっている環境因子として、最も適切なものを1つ選びなさい。
+
+1. パーキンソン病（Parkinson disease）
 2. 不安定な歩行
-3. 息子との二人暮らし
+3. 息子と二人暮らし
 4. 自宅周辺の坂道や段差
 5. 車いす
+
+<p class="q-src">出典：第34回 介護福祉士国家試験（介護の基本）</p>
 
 <details class="answer">
 <summary>正解を見る</summary>

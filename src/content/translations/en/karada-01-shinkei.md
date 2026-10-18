@@ -47,16 +47,24 @@ description: "Functions of the cerebral lobes, amygdala, hippocampus, cerebellum
 <details class="quiz-group">
 <summary>✏️ Try past exam questions (4)</summary>
 
+<p class="quiz-note">The question and choices are shown exactly as published in Japanese by the exam center (Japan Social Welfare Promotion and National Examination Center). The explanation under “Show answer” is our own and is not affiliated with the exam center.</p>
+
 <details class="quiz">
 <summary>37th exam: Mind and Body (こころとからだのしくみ)</summary>
 
-Where is the breathing centre?
+<div lang="ja">
 
-1. Cerebrum (大脳)
-2. Midbrain (中脳)
-3. Cerebellum (小脳)
-4. Medulla oblongata (延髄)
-5. Spinal cord (脊髄)
+次のうち、呼吸中枢がある部位として、正しいものを1つ選びなさい。
+
+1. 大脳
+2. 中脳
+3. 小脳
+4. 延髄
+5. 脊髄
+
+<p class="q-src">出典：第37回 介護福祉士国家試験（こころとからだのしくみ）</p>
+
+</div>
 
 <details class="answer">
 <summary>Show answer</summary>
@@ -68,13 +76,19 @@ Where is the breathing centre?
 <details class="quiz">
 <summary>37th exam: Mind and Body (こころとからだのしくみ)</summary>
 
-Which is a sign that the brain has stopped working?
+<div lang="ja">
 
-1. Respiratory failure
-2. Overflow incontinence (溢流性尿失禁)
-3. Cardiac arrest
-4. Weaker peristalsis
-5. Dilated pupils and no light reflex
+次のうち、脳の機能停止を示す徴候に該当するものとして、適切なものを1つ選びなさい。
+
+1. 呼吸不全
+2. 溢流性尿失禁（いつりゅうせいにょうしっきん）
+3. 心停止
+4. 蠕動運動（ぜんどううんどう）の減弱
+5. 瞳孔散大・対光反射消失
+
+<p class="q-src">出典：第37回 介護福祉士国家試験（こころとからだのしくみ）</p>
+
+</div>
 
 <details class="answer">
 <summary>Show answer</summary>
@@ -84,15 +98,21 @@ Which is a sign that the brain has stopped working?
 </details>
 
 <details class="quiz">
-<summary>37th exam: Mind and Body (こころとからだのしくみ)</summary>
+<summary>38th exam: Mind and Body (こころとからだのしくみ)</summary>
 
-Which is correct about how the brain works?
+<div lang="ja">
 
-1. Nerve cells support glial cells
-2. Glial cells carry information
-3. Serotonin is a neurotransmitter
-4. The motor area is in the parietal lobe
-5. The hippocampus is responsible for vision
+次の記述のうち、脳のしくみとその働きとして、適切なものを1つ選びなさい。
+
+1. 神経細胞は、神経膠細胞（しんけいこうさいぼう）（グリア細胞）を支える。
+2. 神経膠細胞（グリア細胞）は、情報伝達をつかさどる。
+3. セロトニン（serotonin）は、神経伝達物質の1つである。
+4. 頭頂葉には、運動野が存在する。
+5. 海馬は、視覚をつかさどる。
+
+<p class="q-src">出典：第38回 介護福祉士国家試験（こころとからだのしくみ）</p>
+
+</div>
 
 <details class="answer">
 <summary>Show answer</summary>
@@ -102,15 +122,21 @@ Which is correct about how the brain works?
 </details>
 
 <details class="quiz">
-<summary>36th exam: Mind and Body (こころとからだのしくみ)</summary>
+<summary>37th exam: Mind and Body (こころとからだのしくみ)</summary>
 
-Which cranial nerve is involved in sensation of the face?
+<div lang="ja">
 
-1. Olfactory nerve (嗅神経)
-2. Trigeminal nerve (三叉神経)
-3. Facial nerve (顔面神経)
-4. Vagus nerve (迷走神経)
-5. Hypoglossal nerve (舌下神経)
+次のうち、顔の感覚に関与する脳神経として、正しいものを1つ選びなさい。
+
+1. 嗅神経
+2. 三叉神経（さんさしんけい）
+3. 顔面神経
+4. 迷走神経
+5. 舌下神経
+
+<p class="q-src">出典：第37回 介護福祉士国家試験（こころとからだのしくみ）</p>
+
+</div>
 
 <details class="answer">
 <summary>Show answer</summary>
@@ -191,16 +217,24 @@ Which is an effect of the sympathetic nerves?
 <details class="quiz-group">
 <summary>✏️ Try past exam questions (5)</summary>
 
+<p class="quiz-note">The question and choices are shown exactly as published in Japanese by the exam center (Japan Social Welfare Promotion and National Examination Center). The explanation under “Show answer” is our own and is not affiliated with the exam center.</p>
+
 <details class="quiz">
 <summary>38th exam: Mind and Body (こころとからだのしくみ)</summary>
 
-Which part becomes cloudy in cataract?
+<div lang="ja">
 
-1. Retina (網膜)
-2. Cornea (角膜)
-3. Choroid (脈絡膜)
-4. Vitreous body (硝子体)
-5. Lens (水晶体)
+次のうち、白内障（cataract）で混濁する部位として、適切なものを1つ選びなさい。
+
+1. 網膜
+2. 角膜
+3. 脈絡膜
+4. 硝子体
+5. 水晶体
+
+<p class="q-src">出典：第38回 介護福祉士国家試験（こころとからだのしくみ）</p>
+
+</div>
 
 <details class="answer">
 <summary>Show answer</summary>
@@ -212,13 +246,19 @@ Which part becomes cloudy in cataract?
 <details class="quiz">
 <summary>37th exam: Mind and Body (こころとからだのしくみ)</summary>
 
-Which is correct about the structure and function of the nose?
+<div lang="ja">
 
-1. The nasal cavity is divided into front, middle and back passages
-2. Nose hairs remove dust
-3. The back of the nasal cavity connects directly to the larynx
-4. The nasal cavity has few capillaries
-5. The smell cells are at the entrance of the nostrils
+次の記述のうち、鼻の構造と機能として、適切なものを1つ選びなさい。
+
+1. 鼻腔（びくう）は前鼻道・中鼻道・後鼻道に分かれる。
+2. 鼻毛は塵（ちり）や埃（ほこり）を除去する。
+3. 鼻腔の奥は喉頭に直接つながっている。
+4. 鼻腔には毛細血管は少ない。
+5. 嗅細胞は外鼻孔にある。
+
+<p class="q-src">出典：第37回 介護福祉士国家試験（こころとからだのしくみ）</p>
+
+</div>
 
 <details class="answer">
 <summary>Show answer</summary>
@@ -230,13 +270,19 @@ Which is correct about the structure and function of the nose?
 <details class="quiz">
 <summary>36th exam: Mind and Body (こころとからだのしくみ)</summary>
 
-Which is one of the ossicles in the middle ear?
+<div lang="ja">
 
-1. Malleus (ツチ骨)
-2. Sphenoid bone (蝶形骨)
-3. Frontal bone (前頭骨)
-4. Cheekbone (頬骨)
-5. Upper jaw bone (上顎骨)
+中耳にある耳小骨として、正しいものを1つ選びなさい。
+
+1. ツチ骨
+2. 蝶形骨（ちょうけいこつ）
+3. 前頭骨
+4. 頬骨（きょうこつ）
+5. 上顎骨
+
+<p class="q-src">出典：第36回 介護福祉士国家試験（こころとからだのしくみ）</p>
+
+</div>
 
 <details class="answer">
 <summary>Show answer</summary>
@@ -246,15 +292,21 @@ Which is one of the ossicles in the middle ear?
 </details>
 
 <details class="quiz">
-<summary>36th exam: Mind and Body (こころとからだのしくみ)</summary>
+<summary>37th exam: Mind and Body (こころとからだのしくみ)</summary>
 
-Which part of the brain is involved in emotions such as fear, anxiety and joy?
+<div lang="ja">
 
-1. Amygdala (扁桃体)
-2. Cerebellum (小脳)
-3. Pituitary gland (下垂体)
-4. Hippocampus (海馬)
-5. Hypothalamus (視床下部)
+次のうち、恐怖や不安、喜びなどの情動に関わる脳の機能局在の部位として、正しいものを1つ選びなさい。
+
+1. 扁桃体（へんとうたい）
+2. 小脳
+3. 下垂体
+4. 海馬
+5. 視床下部
+
+<p class="q-src">出典：第37回 介護福祉士国家試験（こころとからだのしくみ）</p>
+
+</div>
 
 <details class="answer">
 <summary>Show answer</summary>
@@ -266,13 +318,19 @@ Which part of the brain is involved in emotions such as fear, anxiety and joy?
 <details class="quiz">
 <summary>34th exam: Mind and Body (こころとからだのしくみ)</summary>
 
-Which is a correct change in vision due to ageing?
+<div lang="ja">
 
-1. The lens turns brown
-2. Distant things become easier to see
-3. It takes longer to get used to brightness and darkness
-4. Focusing becomes faster
-5. Tears increase
+老化に伴う視覚機能の変化に関する次の記述のうち、正しいものを1つ選びなさい。
+
+1. 水晶体が茶色になる。
+2. 遠くのものが見えやすくなる。
+3. 明暗に順応する時間が長くなる。
+4. ピントの調節が速くなる。
+5. 涙の量が増える。
+
+<p class="q-src">出典：第34回 介護福祉士国家試験（こころとからだのしくみ）</p>
+
+</div>
 
 <details class="answer">
 <summary>Show answer</summary>

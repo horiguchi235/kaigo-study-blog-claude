@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import { url } from '../data/taxonomy';
+---
+
+<Base title="ページが見つかりません" description="お探しのページは見つかりませんでした。">
+  <section class="hero">
+    <h1>ページが見つかりません</h1>
+    <p>URLが変わったか、ページが削除された可能性があります。</p>
+  </section>
+  <div class="card info-page">
+    <ul>
+      <li><a href={url('')}>トップページへ</a></li>
+      <li><a href={url('subjects/')}>科目別目次</a></li>
+      <li><a href={url('ichimon/')}>1問1答</a></li>
+      <li><a href={url('mylist/')}>マイリスト</a></li>
+    </ul>
+  </div>
+</Base>

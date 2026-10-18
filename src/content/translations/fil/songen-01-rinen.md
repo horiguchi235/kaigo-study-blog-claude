@@ -42,16 +42,24 @@ description: "Normalization, social inclusion, Independent Living Movement, maha
 <details class="quiz-group">
 <summary>✏️ Subukan ang mga tanong sa exam (3)</summary>
 
+<p class="quiz-note">Ang tanong at mga pagpipilian ay ipinapakita nang eksakto sa orihinal na Japanese gaya ng inilathala ng exam center. Ang paliwanag sa sagot ay gawa ng site na ito at walang kaugnayan sa exam center.</p>
+
 <details class="quiz">
 <summary>Ika-38 na exam: Pag-unawa sa Kapansanan (障害の理解)</summary>
 
-Alin ang pinakaangkop na paliwanag sa “social inclusion” sa welfare para sa may kapansanan?
+<div lang="ja">
 
-1. Lipunang nag-iintegrate sa may kapansanan at wala
-2. Lipunang nagpoprotekta sa may kapansanan mula sa paglabag sa karapatan
-3. Lipunang sumusuporta sa pagpapasya ng may kapansanan
-4. Lipunang isinasaalang-alang ang pinakamabuti para sa may kapansanan
-5. Lipunang yumayakap sa may kapansanan at wala
+次のうち、障害福祉におけるソーシャルインクルージョン（social inclusion）の考え方の説明として、最も適切なものを1つ選びなさい。
+
+1. 障害のある人とない人を統合する社会
+2. 障害のある人を権利侵害から守る社会
+3. 障害のある人の意思決定を支援する社会
+4. 障害のある人の最善の利益を考える社会
+5. 障害のある人もない人も包摂する社会
+
+<p class="q-src">出典：第38回 介護福祉士国家試験（障害の理解）</p>
+
+</div>
 
 <details class="answer">
 <summary>Ipakita ang sagot</summary>
@@ -63,13 +71,19 @@ Alin ang pinakaangkop na paliwanag sa “social inclusion” sa welfare para sa 
 <details class="quiz">
 <summary>Ika-38 na exam: Dignidad ng Tao at Pagsasarili (人間の尊厳と自立)</summary>
 
-Aling pares ng tao at kanyang ideya ang tama?
+<div lang="ja">
 
-1. Si Bank-Mikkelsen ang nagmungkahi ng “Social Role Valorization”
-2. Si Nirje ang nagmungkahi ng “8 prinsipyo ng normalization”
-3. Si Wolfensberger ang nagmungkahi ng “ÄDEL reform”
-4. Si Richmond ang nagmungkahi ng “7 prinsipyo ng casework”
-5. Si Erikson ang nagmungkahi ng “ideya ng Independent Living Movement”
+社会福祉の理念を発展させた人物に関する次の記述のうち、適切なものを1つ選びなさい。
+
+1. バンク−ミケルセン（Bank−Mikkelsen, N.）は、「ソーシャルロール・バロリゼーション（Social Role Valorization）」を提唱した。
+2. ニィリエ（Nirje, B.）は、「ノーマライゼーション（normalization）の8つの原理」を提唱した。
+3. ヴォルフェンスベルガー（Wolfensberger, W.）は、「エーデル改革」を提唱した。
+4. リッチモンド（Richmond, M.）は、「ケースワークの7原則」を提唱した。
+5. エリクソン（Erikson, E.）は、「自立生活運動の理念」を提唱した。
+
+<p class="q-src">出典：第38回 介護福祉士国家試験（人間の尊厳と自立）</p>
+
+</div>
 
 <details class="answer">
 <summary>Ipakita ang sagot</summary>
@@ -81,13 +95,19 @@ Aling pares ng tao at kanyang ideya ang tama?
 <details class="quiz">
 <summary>Ika-34 na exam: Dignidad ng Tao at Pagsasarili (人間の尊厳と自立)</summary>
 
-Sino ang sumulat sa *On Caring* na “ang pag-aalaga sa isang tao ay pagtulong sa kanya na lumago at matupad ang sarili”?
+<div lang="ja">
 
-1. Mieko Kamiya (神谷美恵子)
-2. Kazuo Itoga (糸賀一雄)
-3. Nightingale (ナイチンゲール)
-4. Mayeroff (メイヤロフ)
-5. Nirje (ニィリエ)
+著書『ケアの本質－生きることの意味』の中で、「一人の人格をケアするとは、最も深い意味で、その人が成長すること、自己実現することをたすけることである」と述べた人物として、正しいものを1つ選びなさい。
+
+1. 神谷美恵子
+2. 糸賀一雄
+3. フローレンス・ナイチンゲール(Nightingale, F.)
+4. ミルトン・メイヤロフ(Mayeroff, M.)
+5. ベンクト・ニィリエ(Nirje, B.)
+
+<p class="q-src">出典：第34回 介護福祉士国家試験（人間の尊厳と自立）</p>
+
+</div>
 
 <details class="answer">
 <summary>Ipakita ang sagot</summary>
@@ -135,16 +155,24 @@ Sino ang sumulat sa *On Caring* na “ang pag-aalaga sa isang tao ay pagtulong s
 <details class="quiz-group">
 <summary>✏️ Subukan ang mga tanong sa exam (5)</summary>
 
+<p class="quiz-note">Ang tanong at mga pagpipilian ay ipinapakita nang eksakto sa orihinal na Japanese gaya ng inilathala ng exam center. Ang paliwanag sa sagot ay gawa ng site na ito at walang kaugnayan sa exam center.</p>
+
 <details class="quiz">
 <summary>Ika-38 na exam: Mga Batayan ng Pag-aalaga (介護の基本)</summary>
 
-Alin ang pinakaangkop sa 7 prinsipyo ng universal design?
+<div lang="ja">
 
-1. Gawing ligtas at madaling gamitin ang disenyo
-2. Para lamang sa matatandang nangangailangan ng pag-aalaga
-3. Unahin ang standardisasyon kaysa sa pangangailangan ng bawat isa
-4. Unahin kung ano ang madali para sa care worker
-5. Unahin ang ganda ng itsura
+ユニバーサルデザイン（universal design）の7原則に関する次の記述のうち、最も適切なものを1つ選びなさい。
+
+1. 安全で使いやすいデザインにする。
+2. 要介護高齢者を対象とする。
+3. 個別対応より標準化を優先する。
+4. 介護福祉職にとって操作しやすいことを優先する。
+5. デザインの美しさを優先する。
+
+<p class="q-src">出典：第38回 介護福祉士国家試験（介護の基本）</p>
+
+</div>
 
 <details class="answer">
 <summary>Ipakita ang sagot</summary>
@@ -156,13 +184,19 @@ Alin ang pinakaangkop sa 7 prinsipyo ng universal design?
 <details class="quiz">
 <summary>Ika-36 na exam: Dignidad ng Tao at Pagsasarili (人間の尊厳と自立)</summary>
 
-Alin ang pinakaangkop na paliwanag sa “pagsasarili” ng taong nangangailangan ng pag-aalaga?
+<div lang="ja">
 
-1. Ang pagsasarili ay hindi pagtanggap ng anumang tulong mula sa iba
-2. Ang pagsasarili ng isip ay pagkakaroon ng layunin sa buhay at ikaw mismo ang pangunahing gumagalaw sa mga bagay
-3. Ang pagsasarili sa lipunan ay paglaya mula sa mga papel sa lipunan
-4. Ang pagsasarili ng katawan ay pagbabawas ng pisikal na pasanin ng tagapag-alaga
-5. Ang pagsasarili sa ekonomiya ay pamumuhay nang hindi nakikilahok sa ekonomiya o lipunan
+次の記述のうち、介護を必要とする人の自立についての考え方として、最も適切なものを1つ選びなさい。
+
+1. 自立は、他者の支援を受けないことである。
+2. 精神的自立は、生活の目標をもち、自らが主体となって物事を進めていくことである。
+3. 社会的自立は、社会的な役割から離れて自由になることである。
+4. 身体的自立は、介護者の身体的負担を軽減することである。
+5. 経済的自立は、経済活動や社会活動に参加せずに、生活を営むことである。
+
+<p class="q-src">出典：第36回 介護福祉士国家試験（人間の尊厳と自立）</p>
+
+</div>
 
 <details class="answer">
 <summary>Ipakita ang sagot</summary>
@@ -174,13 +208,19 @@ Alin ang pinakaangkop na paliwanag sa “pagsasarili” ng taong nangangailangan
 <details class="quiz">
 <summary>Ika-35 na exam: Mga Batayan ng Pag-aalaga (介護の基本)</summary>
 
-Aling termino ang nagpapahayag ng ideyang “kahit saan, kahit sino, malaya, madaling gamitin”?
+<div lang="ja">
 
-1. Universal design (ユニバーサルデザイン)
-2. Informed consent (インフォームドコンセント)
-3. Advance care planning (アドバンス・ケア・プランニング)
-4. Living will (リビングウィル)
-5. Empowerment (エンパワメント)
+すべての人が暮らしやすい社会の実現に向けて、どこでも、だれでも、自由に、使いやすくという考え方を表す用語として、適切なものを1つ選びなさい。
+
+1. ユニバーサルデザイン（universal design）
+2. インフォームドコンセント（informed consent）
+3. アドバンス・ケア・プランニング（advance care planning）
+4. リビングウィル（living will）
+5. エンパワメント（empowerment）
+
+<p class="q-src">出典：第35回 介護福祉士国家試験（介護の基本）</p>
+
+</div>
 
 <details class="answer">
 <summary>Ipakita ang sagot</summary>
@@ -192,13 +232,19 @@ Aling termino ang nagpapahayag ng ideyang “kahit saan, kahit sino, malaya, mad
 <details class="quiz">
 <summary>Ika-35 na exam: Dignidad ng Tao at Pagsasarili (人間の尊厳と自立)</summary>
 
-Aling pag-aalaga ang pinakaangkop para mapataas ang kalidad ng buhay (QOL) ng user?
+<div lang="ja">
 
-1. Laging gawing layunin ang pagpapabuti ng ADL
-2. Sa subhetibong pagsusuri ng user, bigyang-diin ang gusto ng care worker
-3. Mag-alaga ayon sa pangangailangan ng pamilya
-4. Gamitin ang welfare equipment habang kinakausap ang user
-5. Gamitin ang parehong pamantayan ng halaga para sa lahat ng user
+利用者の生活の質（QOL）を高めるための介護実践に関する次の記述のうち、最も適切なものを1つ選びなさい。
+
+1. 日常生活動作の向上を必須とする。
+2. 利用者の主観的評価では、介護福祉職の意向を重視する。
+3. 介護実践は、家族のニーズに応じて行う。
+4. 福祉用具の活用は、利用者と相談しながら進める。
+5. 価値の基準は、全ての利用者に同じものを用いる。
+
+<p class="q-src">出典：第35回 介護福祉士国家試験（人間の尊厳と自立）</p>
+
+</div>
 
 <details class="answer">
 <summary>Ipakita ang sagot</summary>
@@ -210,13 +256,19 @@ Aling pag-aalaga ang pinakaangkop para mapataas ang kalidad ng buhay (QOL) ng us
 <details class="quiz">
 <summary>Ika-34 na exam: Mga Batayan ng Pag-aalaga (介護の基本)</summary>
 
-Alin ang pinakaangkop na suporta sa pagsasarili para sa user?
+<div lang="ja">
 
-1. Ang pamilya ang magpapasya kung paano haharapin ng user ang huling sandali ng buhay
-2. Tawagin ang user sa palayaw para madali siyang makipag-usap
-3. Bantayan lang ang mga hindi niya kaya hanggang kaya na niya
-4. Ang care worker ang magpapasya ng araw-araw na iskedyul ng user
-5. Mag-alaga na isinasama ang opinyon at kagustuhan ng user
+利用者の自立支援に関する次の記述のうち、最も適切なものを1つ選びなさい。
+
+1. 利用者の最期の迎え方を決めるのは、家族である。
+2. 利用者が話しやすいように、愛称で呼ぶ。
+3. 利用者が自分でできないことは、できるまで見守る。
+4. 利用者の生活のスケジュールを決めるのは、介護福祉職である。
+5. 利用者の意見や希望を取り入れて介護を提供する。
+
+<p class="q-src">出典：第34回 介護福祉士国家試験（介護の基本）</p>
+
+</div>
 
 <details class="answer">
 <summary>Ipakita ang sagot</summary>

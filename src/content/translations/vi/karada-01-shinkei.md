@@ -47,16 +47,24 @@ description: "Chức năng các thùy đại não, hạnh nhân, hồi hải mã
 <details class="quiz-group">
 <summary>✏️ Thử giải đề thi (4 câu)</summary>
 
+<p class="quiz-note">Đề bài và các lựa chọn được giữ nguyên văn tiếng Nhật như Trung tâm thi đã công bố. Phần giải thích trong “xem đáp án” do trang này tự biên soạn, không liên quan đến Trung tâm thi.</p>
+
 <details class="quiz">
 <summary>Kỳ thi thứ 37: Cấu tạo tâm trí và cơ thể (こころとからだのしくみ)</summary>
 
-Trung khu hô hấp nằm ở đâu?
+<div lang="ja">
 
-1. Đại não (大脳)
-2. Não giữa (中脳)
-3. Tiểu não (小脳)
-4. Hành tủy (延髄)
-5. Tủy sống (脊髄)
+次のうち、呼吸中枢がある部位として、正しいものを1つ選びなさい。
+
+1. 大脳
+2. 中脳
+3. 小脳
+4. 延髄
+5. 脊髄
+
+<p class="q-src">出典：第37回 介護福祉士国家試験（こころとからだのしくみ）</p>
+
+</div>
 
 <details class="answer">
 <summary>Xem đáp án</summary>
@@ -68,13 +76,19 @@ Trung khu hô hấp nằm ở đâu?
 <details class="quiz">
 <summary>Kỳ thi thứ 37: Cấu tạo tâm trí và cơ thể (こころとからだのしくみ)</summary>
 
-Dấu hiệu nào cho thấy não đã ngừng hoạt động?
+<div lang="ja">
 
-1. Suy hô hấp
-2. Tiểu không tự chủ do tràn (溢流性尿失禁)
-3. Ngừng tim
-4. Nhu động ruột giảm
-5. Đồng tử giãn và mất phản xạ ánh sáng
+次のうち、脳の機能停止を示す徴候に該当するものとして、適切なものを1つ選びなさい。
+
+1. 呼吸不全
+2. 溢流性尿失禁（いつりゅうせいにょうしっきん）
+3. 心停止
+4. 蠕動運動（ぜんどううんどう）の減弱
+5. 瞳孔散大・対光反射消失
+
+<p class="q-src">出典：第37回 介護福祉士国家試験（こころとからだのしくみ）</p>
+
+</div>
 
 <details class="answer">
 <summary>Xem đáp án</summary>
@@ -84,15 +98,21 @@ Dấu hiệu nào cho thấy não đã ngừng hoạt động?
 </details>
 
 <details class="quiz">
-<summary>Kỳ thi thứ 37: Cấu tạo tâm trí và cơ thể (こころとからだのしくみ)</summary>
+<summary>Kỳ thi thứ 38: Cấu tạo tâm trí và cơ thể (こころとからだのしくみ)</summary>
 
-Điều nào đúng về cấu tạo và hoạt động của não?
+<div lang="ja">
 
-1. Tế bào thần kinh nâng đỡ tế bào thần kinh đệm
-2. Tế bào thần kinh đệm đảm nhận việc truyền thông tin
-3. Serotonin là một chất dẫn truyền thần kinh
-4. Vùng vận động nằm ở thùy đỉnh
-5. Hồi hải mã đảm nhận thị giác
+次の記述のうち、脳のしくみとその働きとして、適切なものを1つ選びなさい。
+
+1. 神経細胞は、神経膠細胞（しんけいこうさいぼう）（グリア細胞）を支える。
+2. 神経膠細胞（グリア細胞）は、情報伝達をつかさどる。
+3. セロトニン（serotonin）は、神経伝達物質の1つである。
+4. 頭頂葉には、運動野が存在する。
+5. 海馬は、視覚をつかさどる。
+
+<p class="q-src">出典：第38回 介護福祉士国家試験（こころとからだのしくみ）</p>
+
+</div>
 
 <details class="answer">
 <summary>Xem đáp án</summary>
@@ -102,15 +122,21 @@ Dấu hiệu nào cho thấy não đã ngừng hoạt động?
 </details>
 
 <details class="quiz">
-<summary>Kỳ thi thứ 36: Cấu tạo tâm trí và cơ thể (こころとからだのしくみ)</summary>
+<summary>Kỳ thi thứ 37: Cấu tạo tâm trí và cơ thể (こころとからだのしくみ)</summary>
 
-Dây thần kinh sọ nào liên quan đến cảm giác ở mặt?
+<div lang="ja">
 
-1. Dây thần kinh khứu giác (嗅神経)
-2. Dây thần kinh sinh ba (三叉神経)
-3. Dây thần kinh mặt (顔面神経)
-4. Dây thần kinh phế vị (迷走神経)
-5. Dây thần kinh hạ thiệt (舌下神経)
+次のうち、顔の感覚に関与する脳神経として、正しいものを1つ選びなさい。
+
+1. 嗅神経
+2. 三叉神経（さんさしんけい）
+3. 顔面神経
+4. 迷走神経
+5. 舌下神経
+
+<p class="q-src">出典：第37回 介護福祉士国家試験（こころとからだのしくみ）</p>
+
+</div>
 
 <details class="answer">
 <summary>Xem đáp án</summary>
@@ -191,16 +217,24 @@ Dây thần kinh sọ nào liên quan đến cảm giác ở mặt?
 <details class="quiz-group">
 <summary>✏️ Thử giải đề thi (5 câu)</summary>
 
+<p class="quiz-note">Đề bài và các lựa chọn được giữ nguyên văn tiếng Nhật như Trung tâm thi đã công bố. Phần giải thích trong “xem đáp án” do trang này tự biên soạn, không liên quan đến Trung tâm thi.</p>
+
 <details class="quiz">
 <summary>Kỳ thi thứ 38: Cấu tạo tâm trí và cơ thể (こころとからだのしくみ)</summary>
 
-Bộ phận nào bị đục trong bệnh đục thủy tinh thể?
+<div lang="ja">
 
-1. Võng mạc (網膜)
-2. Giác mạc (角膜)
-3. Màng mạch (脈絡膜)
-4. Dịch kính (硝子体)
-5. Thủy tinh thể (水晶体)
+次のうち、白内障（cataract）で混濁する部位として、適切なものを1つ選びなさい。
+
+1. 網膜
+2. 角膜
+3. 脈絡膜
+4. 硝子体
+5. 水晶体
+
+<p class="q-src">出典：第38回 介護福祉士国家試験（こころとからだのしくみ）</p>
+
+</div>
 
 <details class="answer">
 <summary>Xem đáp án</summary>
@@ -212,13 +246,19 @@ Bộ phận nào bị đục trong bệnh đục thủy tinh thể?
 <details class="quiz">
 <summary>Kỳ thi thứ 37: Cấu tạo tâm trí và cơ thể (こころとからだのしくみ)</summary>
 
-Điều nào đúng về cấu tạo và chức năng của mũi?
+<div lang="ja">
 
-1. Khoang mũi chia thành ngách trước, giữa và sau
-2. Lông mũi loại bỏ bụi
-3. Phần sau khoang mũi nối thẳng với thanh quản
-4. Khoang mũi có ít mao mạch
-5. Tế bào khứu giác nằm ở cửa lỗ mũi
+次の記述のうち、鼻の構造と機能として、適切なものを1つ選びなさい。
+
+1. 鼻腔（びくう）は前鼻道・中鼻道・後鼻道に分かれる。
+2. 鼻毛は塵（ちり）や埃（ほこり）を除去する。
+3. 鼻腔の奥は喉頭に直接つながっている。
+4. 鼻腔には毛細血管は少ない。
+5. 嗅細胞は外鼻孔にある。
+
+<p class="q-src">出典：第37回 介護福祉士国家試験（こころとからだのしくみ）</p>
+
+</div>
 
 <details class="answer">
 <summary>Xem đáp án</summary>
@@ -230,13 +270,19 @@ Bộ phận nào bị đục trong bệnh đục thủy tinh thể?
 <details class="quiz">
 <summary>Kỳ thi thứ 36: Cấu tạo tâm trí và cơ thể (こころとからだのしくみ)</summary>
 
-Đâu là một trong các xương con ở tai giữa?
+<div lang="ja">
 
-1. Xương búa (ツチ骨)
-2. Xương bướm (蝶形骨)
-3. Xương trán (前頭骨)
-4. Xương gò má (頬骨)
-5. Xương hàm trên (上顎骨)
+中耳にある耳小骨として、正しいものを1つ選びなさい。
+
+1. ツチ骨
+2. 蝶形骨（ちょうけいこつ）
+3. 前頭骨
+4. 頬骨（きょうこつ）
+5. 上顎骨
+
+<p class="q-src">出典：第36回 介護福祉士国家試験（こころとからだのしくみ）</p>
+
+</div>
 
 <details class="answer">
 <summary>Xem đáp án</summary>
@@ -246,15 +292,21 @@ Bộ phận nào bị đục trong bệnh đục thủy tinh thể?
 </details>
 
 <details class="quiz">
-<summary>Kỳ thi thứ 36: Cấu tạo tâm trí và cơ thể (こころとからだのしくみ)</summary>
+<summary>Kỳ thi thứ 37: Cấu tạo tâm trí và cơ thể (こころとからだのしくみ)</summary>
 
-Bộ phận nào của não liên quan đến cảm xúc như sợ hãi, lo âu, vui mừng?
+<div lang="ja">
 
-1. Hạnh nhân (扁桃体)
-2. Tiểu não (小脳)
-3. Tuyến yên (下垂体)
-4. Hồi hải mã (海馬)
-5. Vùng dưới đồi (視床下部)
+次のうち、恐怖や不安、喜びなどの情動に関わる脳の機能局在の部位として、正しいものを1つ選びなさい。
+
+1. 扁桃体（へんとうたい）
+2. 小脳
+3. 下垂体
+4. 海馬
+5. 視床下部
+
+<p class="q-src">出典：第37回 介護福祉士国家試験（こころとからだのしくみ）</p>
+
+</div>
 
 <details class="answer">
 <summary>Xem đáp án</summary>
@@ -266,13 +318,19 @@ Bộ phận nào của não liên quan đến cảm xúc như sợ hãi, lo âu,
 <details class="quiz">
 <summary>Kỳ thi thứ 34: Cấu tạo tâm trí và cơ thể (こころとからだのしくみ)</summary>
 
-Thay đổi thị giác nào do lão hóa là đúng?
+<div lang="ja">
 
-1. Thủy tinh thể chuyển sang màu nâu
-2. Vật ở xa trở nên dễ nhìn hơn
-3. Cần nhiều thời gian hơn để quen với sáng và tối
-4. Điều tiết trở nên nhanh hơn
-5. Nước mắt tăng lên
+老化に伴う視覚機能の変化に関する次の記述のうち、正しいものを1つ選びなさい。
+
+1. 水晶体が茶色になる。
+2. 遠くのものが見えやすくなる。
+3. 明暗に順応する時間が長くなる。
+4. ピントの調節が速くなる。
+5. 涙の量が増える。
+
+<p class="q-src">出典：第34回 介護福祉士国家試験（こころとからだのしくみ）</p>
+
+</div>
 
 <details class="answer">
 <summary>Xem đáp án</summary>

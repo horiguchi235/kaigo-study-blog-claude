@@ -42,16 +42,24 @@ description: "Normalization, social inclusion, the Independent Living Movement, 
 <details class="quiz-group">
 <summary>✏️ Try past exam questions (3)</summary>
 
+<p class="quiz-note">The question and choices are shown exactly as published in Japanese by the exam center (Japan Social Welfare Promotion and National Examination Center). The explanation under “Show answer” is our own and is not affiliated with the exam center.</p>
+
 <details class="quiz">
 <summary>38th exam: Understanding Disabilities (障害の理解)</summary>
 
-Which best describes “social inclusion” in disability welfare?
+<div lang="ja">
 
-1. A society that integrates people with and without disabilities
-2. A society that protects people with disabilities from rights violations
-3. A society that supports the decision-making of people with disabilities
-4. A society that considers the best interests of people with disabilities
-5. A society that embraces (includes) people with and without disabilities
+次のうち、障害福祉におけるソーシャルインクルージョン（social inclusion）の考え方の説明として、最も適切なものを1つ選びなさい。
+
+1. 障害のある人とない人を統合する社会
+2. 障害のある人を権利侵害から守る社会
+3. 障害のある人の意思決定を支援する社会
+4. 障害のある人の最善の利益を考える社会
+5. 障害のある人もない人も包摂する社会
+
+<p class="q-src">出典：第38回 介護福祉士国家試験（障害の理解）</p>
+
+</div>
 
 <details class="answer">
 <summary>Show answer</summary>
@@ -63,13 +71,19 @@ Which best describes “social inclusion” in disability welfare?
 <details class="quiz">
 <summary>38th exam: Human Dignity and Independence (人間の尊厳と自立)</summary>
 
-Which pair of a person and their idea is correct?
+<div lang="ja">
 
-1. Bank-Mikkelsen proposed “Social Role Valorization”
-2. Nirje proposed “the 8 principles of normalization”
-3. Wolfensberger proposed “the ÄDEL reform”
-4. Richmond proposed “the 7 principles of casework”
-5. Erikson proposed “the idea of the Independent Living Movement”
+社会福祉の理念を発展させた人物に関する次の記述のうち、適切なものを1つ選びなさい。
+
+1. バンク−ミケルセン（Bank−Mikkelsen, N.）は、「ソーシャルロール・バロリゼーション（Social Role Valorization）」を提唱した。
+2. ニィリエ（Nirje, B.）は、「ノーマライゼーション（normalization）の8つの原理」を提唱した。
+3. ヴォルフェンスベルガー（Wolfensberger, W.）は、「エーデル改革」を提唱した。
+4. リッチモンド（Richmond, M.）は、「ケースワークの7原則」を提唱した。
+5. エリクソン（Erikson, E.）は、「自立生活運動の理念」を提唱した。
+
+<p class="q-src">出典：第38回 介護福祉士国家試験（人間の尊厳と自立）</p>
+
+</div>
 
 <details class="answer">
 <summary>Show answer</summary>
@@ -81,13 +95,19 @@ Which pair of a person and their idea is correct?
 <details class="quiz">
 <summary>34th exam: Human Dignity and Independence (人間の尊厳と自立)</summary>
 
-Who wrote in *On Caring* that “to care for another person is to help them grow and actualize themselves”?
+<div lang="ja">
 
-1. Mieko Kamiya (神谷美恵子)
-2. Kazuo Itoga (糸賀一雄)
-3. Nightingale (ナイチンゲール)
-4. Mayeroff (メイヤロフ)
-5. Nirje (ニィリエ)
+著書『ケアの本質－生きることの意味』の中で、「一人の人格をケアするとは、最も深い意味で、その人が成長すること、自己実現することをたすけることである」と述べた人物として、正しいものを1つ選びなさい。
+
+1. 神谷美恵子
+2. 糸賀一雄
+3. フローレンス・ナイチンゲール(Nightingale, F.)
+4. ミルトン・メイヤロフ(Mayeroff, M.)
+5. ベンクト・ニィリエ(Nirje, B.)
+
+<p class="q-src">出典：第34回 介護福祉士国家試験（人間の尊厳と自立）</p>
+
+</div>
 
 <details class="answer">
 <summary>Show answer</summary>
@@ -135,16 +155,24 @@ Who wrote in *On Caring* that “to care for another person is to help them grow
 <details class="quiz-group">
 <summary>✏️ Try past exam questions (5)</summary>
 
+<p class="quiz-note">The question and choices are shown exactly as published in Japanese by the exam center (Japan Social Welfare Promotion and National Examination Center). The explanation under “Show answer” is our own and is not affiliated with the exam center.</p>
+
 <details class="quiz">
 <summary>38th exam: Basics of Care (介護の基本)</summary>
 
-Which best reflects the 7 principles of universal design?
+<div lang="ja">
 
-1. Make the design safe and easy to use
-2. Target only older people who need care
-3. Give priority to standardization over individual needs
-4. Give priority to what is easy for care workers to operate
-5. Give priority to good looks
+ユニバーサルデザイン（universal design）の7原則に関する次の記述のうち、最も適切なものを1つ選びなさい。
+
+1. 安全で使いやすいデザインにする。
+2. 要介護高齢者を対象とする。
+3. 個別対応より標準化を優先する。
+4. 介護福祉職にとって操作しやすいことを優先する。
+5. デザインの美しさを優先する。
+
+<p class="q-src">出典：第38回 介護福祉士国家試験（介護の基本）</p>
+
+</div>
 
 <details class="answer">
 <summary>Show answer</summary>
@@ -156,13 +184,19 @@ Which best reflects the 7 principles of universal design?
 <details class="quiz">
 <summary>36th exam: Human Dignity and Independence (人間の尊厳と自立)</summary>
 
-Which best describes “independence” for people who need care?
+<div lang="ja">
 
-1. Independence means receiving no help at all from others
-2. Mental independence means having goals for your life and moving things forward as the main actor yourself
-3. Social independence means being free from social roles
-4. Physical independence means reducing the physical burden on carers
-5. Economic independence means living without taking part in economic or social activities
+次の記述のうち、介護を必要とする人の自立についての考え方として、最も適切なものを1つ選びなさい。
+
+1. 自立は、他者の支援を受けないことである。
+2. 精神的自立は、生活の目標をもち、自らが主体となって物事を進めていくことである。
+3. 社会的自立は、社会的な役割から離れて自由になることである。
+4. 身体的自立は、介護者の身体的負担を軽減することである。
+5. 経済的自立は、経済活動や社会活動に参加せずに、生活を営むことである。
+
+<p class="q-src">出典：第36回 介護福祉士国家試験（人間の尊厳と自立）</p>
+
+</div>
 
 <details class="answer">
 <summary>Show answer</summary>
@@ -174,13 +208,19 @@ Which best describes “independence” for people who need care?
 <details class="quiz">
 <summary>35th exam: Basics of Care (介護の基本)</summary>
 
-Which term expresses the idea “anywhere, anyone, freely, easy to use”?
+<div lang="ja">
 
-1. Universal design (ユニバーサルデザイン)
-2. Informed consent (インフォームドコンセント)
-3. Advance care planning (アドバンス・ケア・プランニング)
-4. Living will (リビングウィル)
-5. Empowerment (エンパワメント)
+すべての人が暮らしやすい社会の実現に向けて、どこでも、だれでも、自由に、使いやすくという考え方を表す用語として、適切なものを1つ選びなさい。
+
+1. ユニバーサルデザイン（universal design）
+2. インフォームドコンセント（informed consent）
+3. アドバンス・ケア・プランニング（advance care planning）
+4. リビングウィル（living will）
+5. エンパワメント（empowerment）
+
+<p class="q-src">出典：第35回 介護福祉士国家試験（介護の基本）</p>
+
+</div>
 
 <details class="answer">
 <summary>Show answer</summary>
@@ -192,13 +232,19 @@ Which term expresses the idea “anywhere, anyone, freely, easy to use”?
 <details class="quiz">
 <summary>35th exam: Human Dignity and Independence (人間の尊厳と自立)</summary>
 
-Which care best raises the user's quality of life (QOL)?
+<div lang="ja">
 
-1. Always set improving activities of daily living (ADL) as the goal
-2. In the user's subjective evaluation, give weight to the care worker's wishes
-3. Provide care according to the family's needs
-4. Use welfare equipment while discussing it with the user
-5. Use the same value standard for every user
+利用者の生活の質（QOL）を高めるための介護実践に関する次の記述のうち、最も適切なものを1つ選びなさい。
+
+1. 日常生活動作の向上を必須とする。
+2. 利用者の主観的評価では、介護福祉職の意向を重視する。
+3. 介護実践は、家族のニーズに応じて行う。
+4. 福祉用具の活用は、利用者と相談しながら進める。
+5. 価値の基準は、全ての利用者に同じものを用いる。
+
+<p class="q-src">出典：第35回 介護福祉士国家試験（人間の尊厳と自立）</p>
+
+</div>
 
 <details class="answer">
 <summary>Show answer</summary>
@@ -210,13 +256,19 @@ Which care best raises the user's quality of life (QOL)?
 <details class="quiz">
 <summary>34th exam: Basics of Care (介護の基本)</summary>
 
-Which is the most appropriate independence support for a user?
+<div lang="ja">
 
-1. The family decides how the user will spend their final days
-2. Call the user by a nickname so that they can talk easily
-3. Watch over things the user cannot do until they can do them
-4. The care worker decides the user's daily schedule
-5. Provide care that reflects the user's opinions and wishes
+利用者の自立支援に関する次の記述のうち、最も適切なものを1つ選びなさい。
+
+1. 利用者の最期の迎え方を決めるのは、家族である。
+2. 利用者が話しやすいように、愛称で呼ぶ。
+3. 利用者が自分でできないことは、できるまで見守る。
+4. 利用者の生活のスケジュールを決めるのは、介護福祉職である。
+5. 利用者の意見や希望を取り入れて介護を提供する。
+
+<p class="q-src">出典：第34回 介護福祉士国家試験（介護の基本）</p>
+
+</div>
 
 <details class="answer">
 <summary>Show answer</summary>

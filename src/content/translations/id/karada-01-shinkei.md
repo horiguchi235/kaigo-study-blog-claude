@@ -47,16 +47,24 @@ description: "Fungsi lobus otak besar, amigdala, hipokampus, otak kecil dan medu
 <details class="quiz-group">
 <summary>✏️ Coba soal ujian (4 soal)</summary>
 
+<p class="quiz-note">Soal dan pilihan jawaban ditampilkan apa adanya dalam bahasa Jepang sesuai yang dipublikasikan oleh pusat ujian. Penjelasan di bagian jawaban dibuat sendiri oleh situs ini dan tidak berkaitan dengan pusat ujian.</p>
+
 <details class="quiz">
 <summary>Ujian ke-37: Pikiran dan Tubuh (こころとからだのしくみ)</summary>
 
-Di manakah pusat pernapasan berada?
+<div lang="ja">
 
-1. Otak besar (大脳)
-2. Otak tengah (中脳)
-3. Otak kecil (小脳)
-4. Medula oblongata (延髄)
-5. Sumsum tulang belakang (脊髄)
+次のうち、呼吸中枢がある部位として、正しいものを1つ選びなさい。
+
+1. 大脳
+2. 中脳
+3. 小脳
+4. 延髄
+5. 脊髄
+
+<p class="q-src">出典：第37回 介護福祉士国家試験（こころとからだのしくみ）</p>
+
+</div>
 
 <details class="answer">
 <summary>Lihat jawaban</summary>
@@ -68,13 +76,19 @@ Di manakah pusat pernapasan berada?
 <details class="quiz">
 <summary>Ujian ke-37: Pikiran dan Tubuh (こころとからだのしくみ)</summary>
 
-Manakah tanda bahwa otak berhenti berfungsi?
+<div lang="ja">
 
-1. Gagal napas
-2. Inkontinensia luapan (溢流性尿失禁)
-3. Henti jantung
-4. Gerak peristaltik melemah
-5. Pupil melebar dan refleks cahaya hilang
+次のうち、脳の機能停止を示す徴候に該当するものとして、適切なものを1つ選びなさい。
+
+1. 呼吸不全
+2. 溢流性尿失禁（いつりゅうせいにょうしっきん）
+3. 心停止
+4. 蠕動運動（ぜんどううんどう）の減弱
+5. 瞳孔散大・対光反射消失
+
+<p class="q-src">出典：第37回 介護福祉士国家試験（こころとからだのしくみ）</p>
+
+</div>
 
 <details class="answer">
 <summary>Lihat jawaban</summary>
@@ -84,15 +98,21 @@ Manakah tanda bahwa otak berhenti berfungsi?
 </details>
 
 <details class="quiz">
-<summary>Ujian ke-37: Pikiran dan Tubuh (こころとからだのしくみ)</summary>
+<summary>Ujian ke-38: Pikiran dan Tubuh (こころとからだのしくみ)</summary>
 
-Manakah yang benar tentang cara kerja otak?
+<div lang="ja">
 
-1. Sel saraf menopang sel glia
-2. Sel glia menghantarkan informasi
-3. Serotonin adalah salah satu neurotransmiter
-4. Area motorik berada di lobus parietal
-5. Hipokampus bertugas untuk penglihatan
+次の記述のうち、脳のしくみとその働きとして、適切なものを1つ選びなさい。
+
+1. 神経細胞は、神経膠細胞（しんけいこうさいぼう）（グリア細胞）を支える。
+2. 神経膠細胞（グリア細胞）は、情報伝達をつかさどる。
+3. セロトニン（serotonin）は、神経伝達物質の1つである。
+4. 頭頂葉には、運動野が存在する。
+5. 海馬は、視覚をつかさどる。
+
+<p class="q-src">出典：第38回 介護福祉士国家試験（こころとからだのしくみ）</p>
+
+</div>
 
 <details class="answer">
 <summary>Lihat jawaban</summary>
@@ -102,15 +122,21 @@ Manakah yang benar tentang cara kerja otak?
 </details>
 
 <details class="quiz">
-<summary>Ujian ke-36: Pikiran dan Tubuh (こころとからだのしくみ)</summary>
+<summary>Ujian ke-37: Pikiran dan Tubuh (こころとからだのしくみ)</summary>
 
-Saraf kranial mana yang berkaitan dengan sensasi wajah?
+<div lang="ja">
 
-1. Saraf olfaktorius (嗅神経)
-2. Saraf trigeminal (三叉神経)
-3. Saraf fasialis (顔面神経)
-4. Saraf vagus (迷走神経)
-5. Saraf hipoglosus (舌下神経)
+次のうち、顔の感覚に関与する脳神経として、正しいものを1つ選びなさい。
+
+1. 嗅神経
+2. 三叉神経（さんさしんけい）
+3. 顔面神経
+4. 迷走神経
+5. 舌下神経
+
+<p class="q-src">出典：第37回 介護福祉士国家試験（こころとからだのしくみ）</p>
+
+</div>
 
 <details class="answer">
 <summary>Lihat jawaban</summary>
@@ -191,16 +217,24 @@ Manakah efek saraf simpatis?
 <details class="quiz-group">
 <summary>✏️ Coba soal ujian (5 soal)</summary>
 
+<p class="quiz-note">Soal dan pilihan jawaban ditampilkan apa adanya dalam bahasa Jepang sesuai yang dipublikasikan oleh pusat ujian. Penjelasan di bagian jawaban dibuat sendiri oleh situs ini dan tidak berkaitan dengan pusat ujian.</p>
+
 <details class="quiz">
 <summary>Ujian ke-38: Pikiran dan Tubuh (こころとからだのしくみ)</summary>
 
-Bagian mana yang menjadi keruh pada katarak?
+<div lang="ja">
 
-1. Retina (網膜)
-2. Kornea (角膜)
-3. Koroid (脈絡膜)
-4. Badan kaca (硝子体)
-5. Lensa (水晶体)
+次のうち、白内障（cataract）で混濁する部位として、適切なものを1つ選びなさい。
+
+1. 網膜
+2. 角膜
+3. 脈絡膜
+4. 硝子体
+5. 水晶体
+
+<p class="q-src">出典：第38回 介護福祉士国家試験（こころとからだのしくみ）</p>
+
+</div>
 
 <details class="answer">
 <summary>Lihat jawaban</summary>
@@ -212,13 +246,19 @@ Bagian mana yang menjadi keruh pada katarak?
 <details class="quiz">
 <summary>Ujian ke-37: Pikiran dan Tubuh (こころとからだのしくみ)</summary>
 
-Manakah yang benar tentang struktur dan fungsi hidung?
+<div lang="ja">
 
-1. Rongga hidung terbagi menjadi saluran depan, tengah, dan belakang
-2. Bulu hidung menyaring debu
-3. Bagian belakang rongga hidung langsung terhubung ke laring
-4. Rongga hidung memiliki sedikit kapiler
-5. Sel penciuman ada di pintu masuk lubang hidung
+次の記述のうち、鼻の構造と機能として、適切なものを1つ選びなさい。
+
+1. 鼻腔（びくう）は前鼻道・中鼻道・後鼻道に分かれる。
+2. 鼻毛は塵（ちり）や埃（ほこり）を除去する。
+3. 鼻腔の奥は喉頭に直接つながっている。
+4. 鼻腔には毛細血管は少ない。
+5. 嗅細胞は外鼻孔にある。
+
+<p class="q-src">出典：第37回 介護福祉士国家試験（こころとからだのしくみ）</p>
+
+</div>
 
 <details class="answer">
 <summary>Lihat jawaban</summary>
@@ -230,13 +270,19 @@ Manakah yang benar tentang struktur dan fungsi hidung?
 <details class="quiz">
 <summary>Ujian ke-36: Pikiran dan Tubuh (こころとからだのしくみ)</summary>
 
-Manakah yang termasuk tulang pendengaran di telinga tengah?
+<div lang="ja">
 
-1. Maleus (ツチ骨)
-2. Tulang baji (蝶形骨)
-3. Tulang dahi (前頭骨)
-4. Tulang pipi (頬骨)
-5. Tulang rahang atas (上顎骨)
+中耳にある耳小骨として、正しいものを1つ選びなさい。
+
+1. ツチ骨
+2. 蝶形骨（ちょうけいこつ）
+3. 前頭骨
+4. 頬骨（きょうこつ）
+5. 上顎骨
+
+<p class="q-src">出典：第36回 介護福祉士国家試験（こころとからだのしくみ）</p>
+
+</div>
 
 <details class="answer">
 <summary>Lihat jawaban</summary>
@@ -246,15 +292,21 @@ Manakah yang termasuk tulang pendengaran di telinga tengah?
 </details>
 
 <details class="quiz">
-<summary>Ujian ke-36: Pikiran dan Tubuh (こころとからだのしくみ)</summary>
+<summary>Ujian ke-37: Pikiran dan Tubuh (こころとからだのしくみ)</summary>
 
-Bagian otak mana yang berkaitan dengan emosi seperti takut, cemas, dan senang?
+<div lang="ja">
 
-1. Amigdala (扁桃体)
-2. Otak kecil (小脳)
-3. Kelenjar hipofisis (下垂体)
-4. Hipokampus (海馬)
-5. Hipotalamus (視床下部)
+次のうち、恐怖や不安、喜びなどの情動に関わる脳の機能局在の部位として、正しいものを1つ選びなさい。
+
+1. 扁桃体（へんとうたい）
+2. 小脳
+3. 下垂体
+4. 海馬
+5. 視床下部
+
+<p class="q-src">出典：第37回 介護福祉士国家試験（こころとからだのしくみ）</p>
+
+</div>
 
 <details class="answer">
 <summary>Lihat jawaban</summary>
@@ -266,13 +318,19 @@ Bagian otak mana yang berkaitan dengan emosi seperti takut, cemas, dan senang?
 <details class="quiz">
 <summary>Ujian ke-34: Pikiran dan Tubuh (こころとからだのしくみ)</summary>
 
-Manakah perubahan penglihatan akibat penuaan yang benar?
+<div lang="ja">
 
-1. Lensa menjadi cokelat
-2. Benda jauh menjadi lebih mudah dilihat
-3. Butuh waktu lebih lama untuk terbiasa dengan terang dan gelap
-4. Fokus menjadi lebih cepat
-5. Air mata bertambah
+老化に伴う視覚機能の変化に関する次の記述のうち、正しいものを1つ選びなさい。
+
+1. 水晶体が茶色になる。
+2. 遠くのものが見えやすくなる。
+3. 明暗に順応する時間が長くなる。
+4. ピントの調節が速くなる。
+5. 涙の量が増える。
+
+<p class="q-src">出典：第34回 介護福祉士国家試験（こころとからだのしくみ）</p>
+
+</div>
 
 <details class="answer">
 <summary>Lihat jawaban</summary>

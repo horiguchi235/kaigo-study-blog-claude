@@ -18,10 +18,11 @@
   // まちがえた問題の内容が書いてある見出しを探す（記事中の同じ過去問がある見出し）
   function norm(t) { return String(t).replace(/<[^>]+>|\*\*/g, '').replace(/[\s、。，．・「」（）()？?]/g, ''); }
   function secOf(q) {
-    var key = norm(q.q).slice(0, 14); if (key.length < 6) return null;
+    var lines = String(q.q).split('\n'), key = norm(lines[lines.length - 1]).slice(0, 18); if (key.length < 6) return null;
     var ps = document.querySelectorAll('#art-body details > p');
     for (var k = 0; k < ps.length; k++) {
-      if (norm(ps[k].textContent).indexOf(key) === 0) {
+      var c = ps[k].cloneNode(true); c.querySelectorAll('rt,rp').forEach(function (x) { x.remove(); });
+      if (norm(c.textContent).indexOf(key) === 0) {
         var d = ps[k].closest('details.sec'), h = d ? d.querySelector('summary h2') : null;
         if (h) return { id: h.id, t: h.textContent.replace(/^📌\s*/, '') };
       }
@@ -53,9 +54,9 @@
     var q = list[i];
     view.innerHTML =
       '<div class="pt-head"><span class="pt-no">' + (i + 1) + ' / ' + list.length + '</span><span class="pt-src">第' + q.kai + '回：' + esc(q.sub) + '</span></div>' +
-      '<p class="pt-q">' + md(q.q) + '</p><ol class="pt-ch">' +
+      '<p class="pt-q">' + md(q.q) + '</p>' + (q.note ? '<p class="q-note">' + esc(q.note) + '</p>' : '') + '<ol class="pt-ch">' +
       q.c.map(function (c, k) { return '<li><button type="button" data-k="' + (k + 1) + '">' + md(c) + '</button></li>'; }).join('') +
-      '</ol><div class="pt-res" hidden></div>';
+      '</ol><p class="q-src">出典：第' + q.kai + '回 介護福祉士国家試験（' + esc(q.sub) + '）。解説は当サイト独自のものです。</p><div class="pt-res" hidden></div>';
     view.querySelectorAll('.pt-ch button').forEach(function (b) { b.onclick = function () { answer(+b.dataset.k); }; });
   }
   function answer(k) {

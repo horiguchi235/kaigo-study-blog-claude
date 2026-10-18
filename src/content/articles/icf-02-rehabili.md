@@ -158,16 +158,20 @@ draft: true
 <details class="quiz-group">
 <summary>✏️ 過去問を解いてみよう（2問）</summary>
 
+<p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
+
 <details class="quiz">
 <summary>第38回：発達と老化の理解</summary>
 
-健康な状態と、介護が必要な状態の中間を示す用語はどれ？
+次のうち、健康な状態と心身の機能が低下して介護等が必要な状態の中間を示す用語として、最も適切なものを1つ選びなさい。
 
-1. エイジング
-2. サルコペニア
+1. エイジング（aging）
+2. サルコペニア（sarcopenia）
 3. ロコモティブシンドローム
-4. ホメオスタシス
-5. フレイル
+4. ホメオスタシス（homeostasis）
+5. フレイル（frailty）
+
+<p class="q-src">出典：第38回 介護福祉士国家試験（発達と老化の理解）</p>
 
 <details class="answer">
 <summary>正解を見る</summary>
@@ -179,13 +183,15 @@ draft: true
 <details class="quiz">
 <summary>第35回：こころとからだのしくみ</summary>
 
-廃用症候群で起こる可能性があるものとして、最も適切なものはどれ？
+廃用症候群（disuse syndrome）で起こる可能性があるものとして、最も適切なものを1つ選びなさい。
 
 1. うつ状態
 2. 高血圧
 3. 関節炎
-4. 徘徊
+4. 徘徊（はいかい）
 5. 下痢
+
+<p class="q-src">出典：第35回 介護福祉士国家試験（こころとからだのしくみ）</p>
 
 <details class="answer">
 <summary>正解を見る</summary>

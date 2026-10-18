@@ -42,16 +42,24 @@ description: "Normalisasi, inklusi sosial, Gerakan Hidup Mandiri, tokoh-tokoh ke
 <details class="quiz-group">
 <summary>✏️ Coba soal ujian (3 soal)</summary>
 
+<p class="quiz-note">Soal dan pilihan jawaban ditampilkan apa adanya dalam bahasa Jepang sesuai yang dipublikasikan oleh pusat ujian. Penjelasan di bagian jawaban dibuat sendiri oleh situs ini dan tidak berkaitan dengan pusat ujian.</p>
+
 <details class="quiz">
 <summary>Ujian ke-38: Pemahaman Disabilitas (障害の理解)</summary>
 
-Manakah penjelasan yang paling tepat tentang “inklusi sosial” dalam kesejahteraan disabilitas?
+<div lang="ja">
 
-1. Masyarakat yang mengintegrasikan orang dengan dan tanpa disabilitas
-2. Masyarakat yang melindungi penyandang disabilitas dari pelanggaran hak
-3. Masyarakat yang mendukung pengambilan keputusan penyandang disabilitas
-4. Masyarakat yang mempertimbangkan kepentingan terbaik penyandang disabilitas
-5. Masyarakat yang merangkul orang dengan dan tanpa disabilitas
+次のうち、障害福祉におけるソーシャルインクルージョン（social inclusion）の考え方の説明として、最も適切なものを1つ選びなさい。
+
+1. 障害のある人とない人を統合する社会
+2. 障害のある人を権利侵害から守る社会
+3. 障害のある人の意思決定を支援する社会
+4. 障害のある人の最善の利益を考える社会
+5. 障害のある人もない人も包摂する社会
+
+<p class="q-src">出典：第38回 介護福祉士国家試験（障害の理解）</p>
+
+</div>
 
 <details class="answer">
 <summary>Lihat jawaban</summary>
@@ -63,13 +71,19 @@ Manakah penjelasan yang paling tepat tentang “inklusi sosial” dalam kesejaht
 <details class="quiz">
 <summary>Ujian ke-38: Martabat Manusia dan Kemandirian (人間の尊厳と自立)</summary>
 
-Manakah pasangan tokoh dan gagasannya yang benar?
+<div lang="ja">
 
-1. Bank-Mikkelsen mengemukakan “Social Role Valorization”
-2. Nirje mengemukakan “8 prinsip normalisasi”
-3. Wolfensberger mengemukakan “Reformasi ÄDEL”
-4. Richmond mengemukakan “7 prinsip casework”
-5. Erikson mengemukakan “gagasan Gerakan Hidup Mandiri”
+社会福祉の理念を発展させた人物に関する次の記述のうち、適切なものを1つ選びなさい。
+
+1. バンク−ミケルセン（Bank−Mikkelsen, N.）は、「ソーシャルロール・バロリゼーション（Social Role Valorization）」を提唱した。
+2. ニィリエ（Nirje, B.）は、「ノーマライゼーション（normalization）の8つの原理」を提唱した。
+3. ヴォルフェンスベルガー（Wolfensberger, W.）は、「エーデル改革」を提唱した。
+4. リッチモンド（Richmond, M.）は、「ケースワークの7原則」を提唱した。
+5. エリクソン（Erikson, E.）は、「自立生活運動の理念」を提唱した。
+
+<p class="q-src">出典：第38回 介護福祉士国家試験（人間の尊厳と自立）</p>
+
+</div>
 
 <details class="answer">
 <summary>Lihat jawaban</summary>
@@ -81,13 +95,19 @@ Manakah pasangan tokoh dan gagasannya yang benar?
 <details class="quiz">
 <summary>Ujian ke-34: Martabat Manusia dan Kemandirian (人間の尊厳と自立)</summary>
 
-Siapa yang menulis dalam *On Caring* bahwa “merawat seseorang berarti membantunya tumbuh dan mewujudkan dirinya”?
+<div lang="ja">
 
-1. Mieko Kamiya (神谷美恵子)
-2. Kazuo Itoga (糸賀一雄)
-3. Nightingale (ナイチンゲール)
-4. Mayeroff (メイヤロフ)
-5. Nirje (ニィリエ)
+著書『ケアの本質－生きることの意味』の中で、「一人の人格をケアするとは、最も深い意味で、その人が成長すること、自己実現することをたすけることである」と述べた人物として、正しいものを1つ選びなさい。
+
+1. 神谷美恵子
+2. 糸賀一雄
+3. フローレンス・ナイチンゲール(Nightingale, F.)
+4. ミルトン・メイヤロフ(Mayeroff, M.)
+5. ベンクト・ニィリエ(Nirje, B.)
+
+<p class="q-src">出典：第34回 介護福祉士国家試験（人間の尊厳と自立）</p>
+
+</div>
 
 <details class="answer">
 <summary>Lihat jawaban</summary>
@@ -135,16 +155,24 @@ Siapa yang menulis dalam *On Caring* bahwa “merawat seseorang berarti membantu
 <details class="quiz-group">
 <summary>✏️ Coba soal ujian (5 soal)</summary>
 
+<p class="quiz-note">Soal dan pilihan jawaban ditampilkan apa adanya dalam bahasa Jepang sesuai yang dipublikasikan oleh pusat ujian. Penjelasan di bagian jawaban dibuat sendiri oleh situs ini dan tidak berkaitan dengan pusat ujian.</p>
+
 <details class="quiz">
 <summary>Ujian ke-38: Dasar-dasar Perawatan (介護の基本)</summary>
 
-Manakah yang paling sesuai dengan 7 prinsip desain universal?
+<div lang="ja">
 
-1. Membuat desain yang aman dan mudah digunakan
-2. Hanya ditujukan untuk lansia yang membutuhkan perawatan
-3. Mengutamakan standardisasi daripada kebutuhan tiap orang
-4. Mengutamakan kemudahan bagi pekerja perawatan
-5. Mengutamakan keindahan tampilan
+ユニバーサルデザイン（universal design）の7原則に関する次の記述のうち、最も適切なものを1つ選びなさい。
+
+1. 安全で使いやすいデザインにする。
+2. 要介護高齢者を対象とする。
+3. 個別対応より標準化を優先する。
+4. 介護福祉職にとって操作しやすいことを優先する。
+5. デザインの美しさを優先する。
+
+<p class="q-src">出典：第38回 介護福祉士国家試験（介護の基本）</p>
+
+</div>
 
 <details class="answer">
 <summary>Lihat jawaban</summary>
@@ -156,13 +184,19 @@ Manakah yang paling sesuai dengan 7 prinsip desain universal?
 <details class="quiz">
 <summary>Ujian ke-36: Martabat Manusia dan Kemandirian (人間の尊厳と自立)</summary>
 
-Manakah penjelasan yang paling tepat tentang “mandiri” bagi orang yang membutuhkan perawatan?
+<div lang="ja">
 
-1. Mandiri berarti sama sekali tidak menerima bantuan orang lain
-2. Kemandirian mental berarti memiliki tujuan hidup dan menjalankan sesuatu dengan diri sendiri sebagai pelaku utama
-3. Kemandirian sosial berarti bebas dari peran sosial
-4. Kemandirian fisik berarti mengurangi beban fisik perawat
-5. Kemandirian ekonomi berarti hidup tanpa ikut kegiatan ekonomi atau sosial
+次の記述のうち、介護を必要とする人の自立についての考え方として、最も適切なものを1つ選びなさい。
+
+1. 自立は、他者の支援を受けないことである。
+2. 精神的自立は、生活の目標をもち、自らが主体となって物事を進めていくことである。
+3. 社会的自立は、社会的な役割から離れて自由になることである。
+4. 身体的自立は、介護者の身体的負担を軽減することである。
+5. 経済的自立は、経済活動や社会活動に参加せずに、生活を営むことである。
+
+<p class="q-src">出典：第36回 介護福祉士国家試験（人間の尊厳と自立）</p>
+
+</div>
 
 <details class="answer">
 <summary>Lihat jawaban</summary>
@@ -174,13 +208,19 @@ Manakah penjelasan yang paling tepat tentang “mandiri” bagi orang yang membu
 <details class="quiz">
 <summary>Ujian ke-35: Dasar-dasar Perawatan (介護の基本)</summary>
 
-Istilah mana yang menyatakan gagasan “di mana saja, siapa saja, bebas, mudah digunakan”?
+<div lang="ja">
 
-1. Desain universal (ユニバーサルデザイン)
-2. Persetujuan setelah penjelasan / informed consent (インフォームドコンセント)
-3. Perencanaan perawatan lanjutan / ACP (アドバンス・ケア・プランニング)
-4. Wasiat hidup / living will (リビングウィル)
-5. Pemberdayaan (エンパワメント)
+すべての人が暮らしやすい社会の実現に向けて、どこでも、だれでも、自由に、使いやすくという考え方を表す用語として、適切なものを1つ選びなさい。
+
+1. ユニバーサルデザイン（universal design）
+2. インフォームドコンセント（informed consent）
+3. アドバンス・ケア・プランニング（advance care planning）
+4. リビングウィル（living will）
+5. エンパワメント（empowerment）
+
+<p class="q-src">出典：第35回 介護福祉士国家試験（介護の基本）</p>
+
+</div>
 
 <details class="answer">
 <summary>Lihat jawaban</summary>
@@ -192,13 +232,19 @@ Istilah mana yang menyatakan gagasan “di mana saja, siapa saja, bebas, mudah d
 <details class="quiz">
 <summary>Ujian ke-35: Martabat Manusia dan Kemandirian (人間の尊厳と自立)</summary>
 
-Perawatan mana yang paling tepat untuk meningkatkan kualitas hidup (QOL) pengguna?
+<div lang="ja">
 
-1. Selalu menjadikan peningkatan aktivitas sehari-hari (ADL) sebagai tujuan
-2. Dalam penilaian subjektif pengguna, mengutamakan keinginan pekerja perawatan
-3. Memberikan perawatan sesuai kebutuhan keluarga
-4. Menggunakan alat bantu kesejahteraan sambil berdiskusi dengan pengguna
-5. Memakai standar nilai yang sama untuk semua pengguna
+利用者の生活の質（QOL）を高めるための介護実践に関する次の記述のうち、最も適切なものを1つ選びなさい。
+
+1. 日常生活動作の向上を必須とする。
+2. 利用者の主観的評価では、介護福祉職の意向を重視する。
+3. 介護実践は、家族のニーズに応じて行う。
+4. 福祉用具の活用は、利用者と相談しながら進める。
+5. 価値の基準は、全ての利用者に同じものを用いる。
+
+<p class="q-src">出典：第35回 介護福祉士国家試験（人間の尊厳と自立）</p>
+
+</div>
 
 <details class="answer">
 <summary>Lihat jawaban</summary>
@@ -210,13 +256,19 @@ Perawatan mana yang paling tepat untuk meningkatkan kualitas hidup (QOL) penggun
 <details class="quiz">
 <summary>Ujian ke-34: Dasar-dasar Perawatan (介護の基本)</summary>
 
-Manakah dukungan kemandirian yang paling tepat bagi pengguna?
+<div lang="ja">
 
-1. Keluarga yang memutuskan cara pengguna menghadapi akhir hidupnya
-2. Memanggil pengguna dengan nama panggilan agar mudah berbicara
-3. Hal yang tidak bisa dilakukan pengguna diawasi saja sampai bisa
-4. Pekerja perawatan yang menentukan jadwal harian pengguna
-5. Merawat dengan memasukkan pendapat dan keinginan pengguna
+利用者の自立支援に関する次の記述のうち、最も適切なものを1つ選びなさい。
+
+1. 利用者の最期の迎え方を決めるのは、家族である。
+2. 利用者が話しやすいように、愛称で呼ぶ。
+3. 利用者が自分でできないことは、できるまで見守る。
+4. 利用者の生活のスケジュールを決めるのは、介護福祉職である。
+5. 利用者の意見や希望を取り入れて介護を提供する。
+
+<p class="q-src">出典：第34回 介護福祉士国家試験（介護の基本）</p>
+
+</div>
 
 <details class="answer">
 <summary>Lihat jawaban</summary>

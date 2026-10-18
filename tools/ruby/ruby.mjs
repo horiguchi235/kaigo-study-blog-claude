@@ -123,7 +123,8 @@ function annotateHtml(html) {
     const p = parts[i];
     if (!p) continue;
     if (p.startsWith('<')) {
-      if (p.startsWith('<!--')) continue;
+      // HTMLコメント（記事の編集メモなど）は公開ページに残さない
+      if (p.startsWith('<!--')) { if (!stack.includes('script') && !stack.includes('style')) parts[i] = ''; continue; }
       const m = p.match(/^<(\/?)([a-zA-Z][\w-]*)/);
       if (!m) continue;
       const name = m[2].toLowerCase();

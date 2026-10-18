@@ -55,7 +55,7 @@ if (special) {
   };
 }
 const def = navData[''];
-const ptest = ((tests as Record<string, any[]>)[a.id] ?? []).map(({ id, kai, sub, q, c, a: ans, e }) => ({ id, kai, sub, q, c, a: ans, e }));
+const ptest = ((tests as Record<string, any[]>)[a.id] ?? []).map(({ id, kai, sub, q, c, a: ans, e, note }) => ({ id, kai, sub, q, c, a: ans, e, note }));
 const total5 = (freq as any).total5 ?? 0;
 // 「つながる知識」の〔T17〕や「排泄②」を記事へのリンクにするための対応表
 const linkMap: { t: Record<string, string>; a: Record<string, string> } = { t: {}, a: {} };
@@ -132,7 +132,7 @@ const maxR = fr ? Math.max(1, ...fr.ronten.map((r) => r.last5)) : 1;
       ptest.length > 0 && (
         <section class="ptest" id="ptest" data-id={a.id} data-title={`${a.data.article}：${title}`}>
           <h2>📝 この記事の過去問テスト<small>第34〜38回・{ptest.length}問</small></h2>
-          <p class="pt-lead">この記事の内容から出た<b>過去5年分の本試験問題すべて</b>です（問題文は要旨の言い換え）。全記事のテストを解けば、5年分{total5}問をすべて解いたことになります。</p>
+          <p class="pt-lead">この記事の内容から出た<b>過去5年分の本試験問題すべて</b>です（図だけで答える1問を除く）。問題文と選択肢は試験センターが公表した原文のまま、解説は当サイトが独自に作成したものです。全記事のテストを解けば、5年分{total5}問をすべて解いたことになります。</p>
           <div class="pt-bar"><span></span></div>
           <p class="pt-stat"></p>
           <p class="pt-btns"><button type="button" class="pt-all">▶ 1問目から解く</button><button type="button" class="pt-wrong" hidden>まちがえた問題だけ解く</button></p>

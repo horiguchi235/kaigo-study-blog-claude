@@ -92,8 +92,9 @@ const pageTitle = title === siteName ? title : `${title}｜${siteName}`;
     </div>
     <footer class="site-footer">
       <div class="wrap">
-        <p>過去問は第24〜38回の介護福祉士国家試験を分析して作成しています。問題文は要旨の言い換えです。</p>
-        <p>制度は改正されることがあります。最新の情報は公的機関の資料もあわせて確認してください。</p>
+        <p>このサイトは個人が運営する非公式の学習サイトで、社会福祉振興・試験センター・厚生労働省とは関係ありません。</p>
+        <p>過去問の問題文・選択肢は試験センターが公表した原文のまま載せています。解説・記事は当サイト独自のものです。制度は改正されることがあるので、公的機関の資料もあわせて確認してください。</p>
+        <p class="foot-links"><a href={url('about/')}>このサイトについて</a>　<a href={url('about/#contact')}>誤りの報告</a>　<a href={url('privacy/')}>プライバシーポリシー</a>　<a href={url('disclaimer/')}>免責事項</a></p>
         {import.meta.env.PUBLIC_SHOW_DRAFTS && <p><a href={url('admin/')}>🛠 管理ページ（確認用ビルドだけに表示）</a></p>}
       </div>
     </footer>

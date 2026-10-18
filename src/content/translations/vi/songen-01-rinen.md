@@ -42,16 +42,24 @@ description: "Bình thường hóa, hòa nhập xã hội, Phong trào Sống Đ
 <details class="quiz-group">
 <summary>✏️ Thử giải đề thi (3 câu)</summary>
 
+<p class="quiz-note">Đề bài và các lựa chọn được giữ nguyên văn tiếng Nhật như Trung tâm thi đã công bố. Phần giải thích trong “xem đáp án” do trang này tự biên soạn, không liên quan đến Trung tâm thi.</p>
+
 <details class="quiz">
 <summary>Kỳ thi thứ 38: Hiểu về khuyết tật (障害の理解)</summary>
 
-Giải thích nào phù hợp nhất về “hòa nhập xã hội” trong phúc lợi người khuyết tật?
+<div lang="ja">
 
-1. Xã hội hội nhập người có và không có khuyết tật
-2. Xã hội bảo vệ người khuyết tật khỏi bị xâm phạm quyền
-3. Xã hội hỗ trợ việc ra quyết định của người khuyết tật
-4. Xã hội xem xét lợi ích tốt nhất của người khuyết tật
-5. Xã hội bao bọc (bao dung) cả người có và không có khuyết tật
+次のうち、障害福祉におけるソーシャルインクルージョン（social inclusion）の考え方の説明として、最も適切なものを1つ選びなさい。
+
+1. 障害のある人とない人を統合する社会
+2. 障害のある人を権利侵害から守る社会
+3. 障害のある人の意思決定を支援する社会
+4. 障害のある人の最善の利益を考える社会
+5. 障害のある人もない人も包摂する社会
+
+<p class="q-src">出典：第38回 介護福祉士国家試験（障害の理解）</p>
+
+</div>
 
 <details class="answer">
 <summary>Xem đáp án</summary>
@@ -63,13 +71,19 @@ Giải thích nào phù hợp nhất về “hòa nhập xã hội” trong phú
 <details class="quiz">
 <summary>Kỳ thi thứ 38: Phẩm giá con người và tự lập (人間の尊厳と自立)</summary>
 
-Cặp nhân vật và chủ trương nào sau đây là đúng?
+<div lang="ja">
 
-1. Bank-Mikkelsen đề xướng “Social Role Valorization”
-2. Nirje đề xướng “8 nguyên tắc của bình thường hóa”
-3. Wolfensberger đề xướng “Cải cách ÄDEL”
-4. Richmond đề xướng “7 nguyên tắc của công tác ca nhân”
-5. Erikson đề xướng “lý niệm của Phong trào Sống Độc lập”
+社会福祉の理念を発展させた人物に関する次の記述のうち、適切なものを1つ選びなさい。
+
+1. バンク−ミケルセン（Bank−Mikkelsen, N.）は、「ソーシャルロール・バロリゼーション（Social Role Valorization）」を提唱した。
+2. ニィリエ（Nirje, B.）は、「ノーマライゼーション（normalization）の8つの原理」を提唱した。
+3. ヴォルフェンスベルガー（Wolfensberger, W.）は、「エーデル改革」を提唱した。
+4. リッチモンド（Richmond, M.）は、「ケースワークの7原則」を提唱した。
+5. エリクソン（Erikson, E.）は、「自立生活運動の理念」を提唱した。
+
+<p class="q-src">出典：第38回 介護福祉士国家試験（人間の尊厳と自立）</p>
+
+</div>
 
 <details class="answer">
 <summary>Xem đáp án</summary>
@@ -81,13 +95,19 @@ Cặp nhân vật và chủ trương nào sau đây là đúng?
 <details class="quiz">
 <summary>Kỳ thi thứ 34: Phẩm giá con người và tự lập (人間の尊厳と自立)</summary>
 
-Ai đã viết trong *On Caring* rằng “chăm sóc một người là giúp người đó trưởng thành và tự thực hiện bản thân”?
+<div lang="ja">
 
-1. Kamiya Mieko (神谷美恵子)
-2. Itoga Kazuo (糸賀一雄)
-3. Nightingale (ナイチンゲール)
-4. Mayeroff (メイヤロフ)
-5. Nirje (ニィリエ)
+著書『ケアの本質－生きることの意味』の中で、「一人の人格をケアするとは、最も深い意味で、その人が成長すること、自己実現することをたすけることである」と述べた人物として、正しいものを1つ選びなさい。
+
+1. 神谷美恵子
+2. 糸賀一雄
+3. フローレンス・ナイチンゲール(Nightingale, F.)
+4. ミルトン・メイヤロフ(Mayeroff, M.)
+5. ベンクト・ニィリエ(Nirje, B.)
+
+<p class="q-src">出典：第34回 介護福祉士国家試験（人間の尊厳と自立）</p>
+
+</div>
 
 <details class="answer">
 <summary>Xem đáp án</summary>
@@ -135,16 +155,24 @@ Ai đã viết trong *On Caring* rằng “chăm sóc một người là giúp n
 <details class="quiz-group">
 <summary>✏️ Thử giải đề thi (5 câu)</summary>
 
+<p class="quiz-note">Đề bài và các lựa chọn được giữ nguyên văn tiếng Nhật như Trung tâm thi đã công bố. Phần giải thích trong “xem đáp án” do trang này tự biên soạn, không liên quan đến Trung tâm thi.</p>
+
 <details class="quiz">
 <summary>Kỳ thi thứ 38: Cơ bản về chăm sóc (介護の基本)</summary>
 
-Điều nào phù hợp nhất với 7 nguyên tắc của thiết kế phổ quát?
+<div lang="ja">
 
-1. Thiết kế an toàn và dễ sử dụng
-2. Chỉ dành cho người cao tuổi cần chăm sóc
-3. Ưu tiên tiêu chuẩn hóa hơn là đáp ứng từng người
-4. Ưu tiên sự thuận tiện thao tác cho nhân viên chăm sóc
-5. Ưu tiên vẻ đẹp bên ngoài
+ユニバーサルデザイン（universal design）の7原則に関する次の記述のうち、最も適切なものを1つ選びなさい。
+
+1. 安全で使いやすいデザインにする。
+2. 要介護高齢者を対象とする。
+3. 個別対応より標準化を優先する。
+4. 介護福祉職にとって操作しやすいことを優先する。
+5. デザインの美しさを優先する。
+
+<p class="q-src">出典：第38回 介護福祉士国家試験（介護の基本）</p>
+
+</div>
 
 <details class="answer">
 <summary>Xem đáp án</summary>
@@ -156,13 +184,19 @@ Ai đã viết trong *On Caring* rằng “chăm sóc một người là giúp n
 <details class="quiz">
 <summary>Kỳ thi thứ 36: Phẩm giá con người và tự lập (人間の尊厳と自立)</summary>
 
-Giải thích nào phù hợp nhất về “tự lập” của người cần chăm sóc?
+<div lang="ja">
 
-1. Tự lập là hoàn toàn không nhận sự giúp đỡ của người khác
-2. Tự lập về tinh thần là có mục tiêu sống và tự mình làm chủ khi tiến hành mọi việc
-3. Tự lập về xã hội là thoát khỏi các vai trò xã hội
-4. Tự lập về thể chất là giảm gánh nặng thể chất cho người chăm sóc
-5. Tự lập về kinh tế là sống mà không tham gia hoạt động kinh tế hay xã hội
+次の記述のうち、介護を必要とする人の自立についての考え方として、最も適切なものを1つ選びなさい。
+
+1. 自立は、他者の支援を受けないことである。
+2. 精神的自立は、生活の目標をもち、自らが主体となって物事を進めていくことである。
+3. 社会的自立は、社会的な役割から離れて自由になることである。
+4. 身体的自立は、介護者の身体的負担を軽減することである。
+5. 経済的自立は、経済活動や社会活動に参加せずに、生活を営むことである。
+
+<p class="q-src">出典：第36回 介護福祉士国家試験（人間の尊厳と自立）</p>
+
+</div>
 
 <details class="answer">
 <summary>Xem đáp án</summary>
@@ -174,13 +208,19 @@ Giải thích nào phù hợp nhất về “tự lập” của người cần 
 <details class="quiz">
 <summary>Kỳ thi thứ 35: Cơ bản về chăm sóc (介護の基本)</summary>
 
-Thuật ngữ nào thể hiện quan điểm “ở đâu, ai cũng được, tự do, dễ sử dụng”?
+<div lang="ja">
 
-1. Thiết kế phổ quát (ユニバーサルデザイン)
-2. Đồng ý sau khi được giải thích (インフォームドコンセント)
-3. Lập kế hoạch chăm sóc trước (アドバンス・ケア・プランニング)
-4. Di chúc sống (リビングウィル)
-5. Trao quyền (エンパワメント)
+すべての人が暮らしやすい社会の実現に向けて、どこでも、だれでも、自由に、使いやすくという考え方を表す用語として、適切なものを1つ選びなさい。
+
+1. ユニバーサルデザイン（universal design）
+2. インフォームドコンセント（informed consent）
+3. アドバンス・ケア・プランニング（advance care planning）
+4. リビングウィル（living will）
+5. エンパワメント（empowerment）
+
+<p class="q-src">出典：第35回 介護福祉士国家試験（介護の基本）</p>
+
+</div>
 
 <details class="answer">
 <summary>Xem đáp án</summary>
@@ -192,13 +232,19 @@ Thuật ngữ nào thể hiện quan điểm “ở đâu, ai cũng được, t�
 <details class="quiz">
 <summary>Kỳ thi thứ 35: Phẩm giá con người và tự lập (人間の尊厳と自立)</summary>
 
-Cách chăm sóc nào phù hợp nhất để nâng cao chất lượng cuộc sống (QOL) của người sử dụng?
+<div lang="ja">
 
-1. Luôn đặt mục tiêu cải thiện các hoạt động sinh hoạt hằng ngày (ADL)
-2. Trong đánh giá chủ quan của người sử dụng, coi trọng ý muốn của nhân viên chăm sóc
-3. Chăm sóc theo nhu cầu của gia đình
-4. Sử dụng dụng cụ phúc lợi trong khi trao đổi với người sử dụng
-5. Dùng cùng một tiêu chuẩn giá trị cho mọi người sử dụng
+利用者の生活の質（QOL）を高めるための介護実践に関する次の記述のうち、最も適切なものを1つ選びなさい。
+
+1. 日常生活動作の向上を必須とする。
+2. 利用者の主観的評価では、介護福祉職の意向を重視する。
+3. 介護実践は、家族のニーズに応じて行う。
+4. 福祉用具の活用は、利用者と相談しながら進める。
+5. 価値の基準は、全ての利用者に同じものを用いる。
+
+<p class="q-src">出典：第35回 介護福祉士国家試験（人間の尊厳と自立）</p>
+
+</div>
 
 <details class="answer">
 <summary>Xem đáp án</summary>
@@ -210,13 +256,19 @@ Cách chăm sóc nào phù hợp nhất để nâng cao chất lượng cuộc s
 <details class="quiz">
 <summary>Kỳ thi thứ 34: Cơ bản về chăm sóc (介護の基本)</summary>
 
-Hỗ trợ tự lập nào phù hợp nhất đối với người sử dụng?
+<div lang="ja">
 
-1. Gia đình quyết định cách người sử dụng đón nhận những ngày cuối đời
-2. Gọi người sử dụng bằng biệt danh để dễ nói chuyện
-3. Những việc người sử dụng không tự làm được thì chỉ đứng quan sát cho đến khi làm được
-4. Nhân viên chăm sóc quyết định lịch sinh hoạt hằng ngày của người sử dụng
-5. Chăm sóc có tiếp thu ý kiến và mong muốn của người sử dụng
+利用者の自立支援に関する次の記述のうち、最も適切なものを1つ選びなさい。
+
+1. 利用者の最期の迎え方を決めるのは、家族である。
+2. 利用者が話しやすいように、愛称で呼ぶ。
+3. 利用者が自分でできないことは、できるまで見守る。
+4. 利用者の生活のスケジュールを決めるのは、介護福祉職である。
+5. 利用者の意見や希望を取り入れて介護を提供する。
+
+<p class="q-src">出典：第34回 介護福祉士国家試験（介護の基本）</p>
+
+</div>
 
 <details class="answer">
 <summary>Xem đáp án</summary>

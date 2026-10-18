@@ -64,16 +64,20 @@ draft: true
 <details class="quiz-group">
 <summary>✏️ 過去問を解いてみよう（3問）</summary>
 
+<p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
+
 <details class="quiz">
 <summary>第38回：障害の理解</summary>
 
-後遺症として片麻痺や言語障害を伴うことがある病気はどれ？
+次のうち、後遺症によって片麻痺（かたまひ）や言語障害を伴うことがある疾患や病態として、最も適切なものを1つ選びなさい。
 
-1. 脳血管障害
-2. 糖尿病
-3. 脊髄損傷
-4. 慢性閉塞性肺疾患
-5. クローン病
+1. 脳血管障害（cerebrovascular disorder）
+2. 糖尿病（diabetes mellitus）
+3. 脊髄損傷（spinal cord injury）
+4. 慢性閉塞性肺疾患（chronic obstructive pulmonary disease）
+5. クローン病（Crohn disease）
+
+<p class="q-src">出典：第38回 介護福祉士国家試験（障害の理解）</p>
 
 <details class="answer">
 <summary>正解を見る</summary>
@@ -85,13 +89,15 @@ draft: true
 <details class="quiz">
 <summary>第35回：障害の理解</summary>
 
-四肢麻痺を伴う病気やけがはどれ？
+次のうち、四肢麻痺（ししまひ）を伴う疾患や外傷として、適切なものを1つ選びなさい。
 
-1. 右脳梗塞
-2. 左脳梗塞
-3. 頸髄損傷
-4. 腰髄損傷
-5. 末梢神経損傷
+1. 右脳梗塞（right cerebral infarction）
+2. 左脳梗塞（left cerebral infarction）
+3. 頸髄損傷（けいずいそんしょう）（cervical cord injury）
+4. 腰髄損傷（lumbar spinal cord injury）
+5. 末梢神経損傷（まっしょうしんけいそんしょう）（peripheral nerve injury）
+
+<p class="q-src">出典：第35回 介護福祉士国家試験（障害の理解）</p>
 
 <details class="answer">
 <summary>正解を見る</summary>
@@ -103,13 +109,17 @@ draft: true
 <details class="quiz">
 <summary>第33回：障害の理解</summary>
 
-脊髄損傷による対麻痺のDさん（31歳）は、車いすでのADLが自立した。自宅に戻ってから褥瘡ができやすい部位として、最も適切なものはどれ？
+Dさん（31歳、男性）は、脊髄損傷（spinal cord injury）による対麻痺で、リハビリテーションのため入院中である。車いすでの日常生活動作（Activities of Daily Living：ADL）は自立したが、退院後自宅で生活するときに、褥瘡が生じないか心配している。
+
+Dさんの褥瘡が発生しやすい部位として、最も適切なものを1つ選びなさい。
 
 1. 頭部
 2. 上腕部
 3. 背部
 4. 腹部
 5. 坐骨結節部
+
+<p class="q-src">出典：第33回 介護福祉士国家試験（障害の理解）</p>
 
 <details class="answer">
 <summary>正解を見る</summary>
