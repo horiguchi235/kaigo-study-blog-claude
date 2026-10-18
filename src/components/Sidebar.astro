@@ -129,6 +129,19 @@ const current = articles.find((a) => a.id === articleId);
       if (saved === 'subject' && !side.querySelector('[data-pane="theme"] li.on')) show('subject');
     }
     var cur = side.querySelector('.side-pane:not([hidden]) .cur, .side-pane:not([hidden]) li.on');
-    if (cur && window.innerWidth >= 1080) cur.scrollIntoView({ block: 'center' });
+    // 今の記事が見えるように、目次の箱の中だけをスクロールする（ページ全体は動かさない）
+    if (cur && window.innerWidth >= 1080) {
+      var box = side;
+      var bt = box.getBoundingClientRect().top, ct = cur.getBoundingClientRect().top;
+      box.scrollTop += ct - bt - box.clientHeight / 2 + cur.offsetHeight / 2;
+    }
+    // スマホ：下へスクロール中は「☰ 目次」ボタンを引っこめ、上へ戻すと出す（本文に重ならないように）
+    var ob = document.querySelector('.side-open'), lastY = window.scrollY;
+    window.addEventListener('scroll', function () {
+      var y = window.scrollY;
+      if (Math.abs(y - lastY) < 6) return;
+      ob.classList.toggle('away', y > lastY && y > 200);
+      lastY = y;
+    }, { passive: true });
   })();
 </script>

@@ -1,5 +1,5 @@
 ---
-// ミニ模試：全記事の1問1答（○×）からランダムに20問
+// ○×クイズ：全記事の1問1答（○×）からランダムに20問（本番形式の模試ではない）
 import Base from '../../layouts/Base.astro';
 import { getArticles } from '../../data/articles';
 import { studyOf } from '../../data/study';
@@ -11,9 +11,9 @@ const pool = articles.flatMap((a) =>
 );
 ---
 
-<Base title="ミニ模試（ランダム20問）" description="全記事の要点からランダムに20問の○×問題を出題。答え合わせのあと、間違えた問題の記事に戻って復習できます。">
+<Base title="○×クイズ（ランダム20問）" description="全記事の要点からランダムに20問の○×問題を出題。答え合わせのあと、間違えた問題の記事に戻って復習できます。">
   <article class="article study">
-    <h1>⏱ ミニ模試<br /><small>ランダム20問の○×テスト</small></h1>
+    <h1>⭕ ○×クイズ<br /><small>全記事からランダム20問</small></h1>
     <p class="meta">全{pool.length}問の中から毎回ちがう20問が出ます。全部答えると点数と、復習する記事が表示されます。</p>
     <div class="qa-bar"><span class="qa-score">回答 <b id="m-done">0</b> / 20　正解 <b id="m-ok">0</b></span><span class="qa-btns"><button type="button" id="m-new">別の20問にする</button></span></div>
     <ol class="qa-list" id="m-list"></ol>

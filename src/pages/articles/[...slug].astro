@@ -57,6 +57,13 @@ if (special) {
 const def = navData[''];
 const ptest = ((tests as Record<string, any[]>)[a.id] ?? []).map(({ id, kai, sub, q, c, a: ans, e }) => ({ id, kai, sub, q, c, a: ans, e }));
 const total5 = (freq as any).total5 ?? 0;
+// 「つながる知識」の〔T17〕や「排泄②」を記事へのリンクにするための対応表
+const linkMap: { t: Record<string, string>; a: Record<string, string> } = { t: {}, a: {} };
+for (const x of all) {
+  const tid = themeIdOf(x.data.theme);
+  if (!linkMap.t[tid]) linkMap.t[tid] = url(`articles/${x.id}/`);
+  linkMap.a[x.data.article] = url(`articles/${x.id}/`);
+}
 const maxR = fr ? Math.max(1, ...fr.ronten.map((r) => r.last5)) : 1;
 ---
 
@@ -78,23 +85,19 @@ const maxR = fr ? Math.max(1, ...fr.ronten.map((r) => r.last5)) : 1;
         })
       }
     </ul>
-    {
-      study && (
-        <p class="study-links">
-          {study.qa.length > 0 && <a href={url(`ichimon/${a.id}/`)} target="_blank" rel="noopener">📝 1問1答（{study.qa.length}問）</a>}
-          <a href={url(`anki/${a.id}/`)} target="_blank" rel="noopener">🔴 暗記シート（別タブ）</a>
-          <button type="button" class="mask-toggle" aria-pressed="false">🙈 暗記モード（太字をかくす）</button>
-        </p>
-      )
-    }
+    <div class="art-tools">
+      {
+        study && (
+          <p class="study-links">
+            {study.qa.length > 0 && <a href={url(`ichimon/${a.id}/`)}>📝 1問1答（{study.qa.length}問）</a>}
+            <a href={url(`anki/${a.id}/`)}>🔴 暗記シート</a>
+            <button type="button" class="mask-toggle" aria-pressed="false">🙈 暗記モード（太字をかくす）</button>
+          </p>
+        )
+      }
+      <div class="marks" id="marks" data-id={a.id} data-title={`${a.data.article}：${title}`} data-list={url('mylist/')} data-noruby></div>
+    </div>
 
-    <div class="marks" id="marks" data-id={a.id} data-title={`${a.data.article}：${title}`} data-list={url('mylist/')} data-noruby></div>
-
-    {
-      langs.length > 0 && (
-        <p class="trans-links" data-noruby>🌐 {LANGS.filter((l) => langs.includes(l.code)).map((l) => <a href={url(`${l.code}/articles/${a.id}/`)} lang={l.htmlLang}>{l.label}</a>)}</p>
-      )
-    }
 
     {
       fr && !special && (
@@ -121,7 +124,7 @@ const maxR = fr ? Math.max(1, ...fr.ronten.map((r) => r.last5)) : 1;
       )
     }
 
-    <div class="art-body" id="art-body">
+    <div class="art-body" id="art-body" data-nofold={special ? '1' : undefined}>
       <Content />
     </div>
 
@@ -146,6 +149,7 @@ const maxR = fr ? Math.max(1, ...fr.ronten.map((r) => r.last5)) : 1;
     </nav>
     <p class="art-nav-from" id="art-nav-from">{def?.label}の順番で表示しています</p>
   </article>
+  <script type="application/json" id="art-links" set:html={JSON.stringify(linkMap)}></script>
   <script is:inline src={url('mask.js')}></script>
   <script is:inline src={url('article.js')}></script>
   <script is:inline src={url('marks.js')}></script>
@@ -168,6 +172,13 @@ const maxR = fr ? Math.max(1, ...fr.ronten.map((r) => r.last5)) : 1;
       });
       nav.querySelector('.up').href = d.back;
       document.getElementById('art-nav-from').textContent = d.label + 'の順番で表示しています';
+    })();
+    // トップページの「続きから」用に、最後に開いた記事を覚えておく
+    (function () {
+      try {
+        var m = document.getElementById('marks');
+        localStorage.setItem('lastArt', JSON.stringify({ id: m.dataset.id, title: m.dataset.title, href: location.pathname, t: Date.now() }));
+      } catch (e) {}
     })();
     // 暗記モード：何を聞かれているか分かるように選んだ太字だけをかくし、タップで1つずつ表示する
     (function () {
