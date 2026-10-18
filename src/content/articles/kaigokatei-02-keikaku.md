@@ -59,7 +59,7 @@ draft: true
 </details>
 
 <details class="quiz">
-<summary>第37回：介護過程</summary>
+<summary>第38回：介護過程</summary>
 
 介護過程で生活課題に対応する目的として、最も適切なものはどれ？
 

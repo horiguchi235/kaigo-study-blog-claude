@@ -94,7 +94,7 @@ draft: true
 </details>
 
 <details class="quiz">
-<summary>第37回：こころとからだのしくみ</summary>
+<summary>第38回：こころとからだのしくみ</summary>
 
 脳のしくみと働きとして、適切なものはどれ？
 
@@ -112,7 +112,7 @@ draft: true
 </details>
 
 <details class="quiz">
-<summary>第36回：こころとからだのしくみ</summary>
+<summary>第37回：こころとからだのしくみ</summary>
 
 顔の感覚に関わる脳神経はどれ？
 
@@ -154,7 +154,7 @@ draft: true
 | 肺 | **ガス交換** | 心臓がガス交換 |
 
 <details>
-<summary>✏️ 過去問を解いてみよう（第35回：こころとからだのしくみ）</summary>
+<summary>✏️ 過去問を解いてみよう（第36回：こころとからだのしくみ）</summary>
 
 交感神経の作用にあたるものはどれ？
 
@@ -256,7 +256,7 @@ draft: true
 </details>
 
 <details class="quiz">
-<summary>第36回：こころとからだのしくみ</summary>
+<summary>第37回：こころとからだのしくみ</summary>
 
 恐怖・不安・喜びなどの情動に関わる脳の部位はどれ？
 

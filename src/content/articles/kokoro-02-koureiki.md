@@ -83,7 +83,7 @@ draft: true
 </details>
 
 <details class="quiz">
-<summary>第34回：こころとからだのしくみ</summary>
+<summary>第35回：こころとからだのしくみ</summary>
 
 一人暮らしのHさん（75歳）は社会活動に積極的に参加し、多くの趣味をもち、友人関係にも満足している。ライチャードの性格類型で、Hさんにあたるものはどれ？
 

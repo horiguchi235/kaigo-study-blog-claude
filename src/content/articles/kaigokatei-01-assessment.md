@@ -51,7 +51,7 @@ draft: true
 <summary>✏️ 過去問を解いてみよう（3問）</summary>
 
 <details class="quiz">
-<summary>第36回：介護過程</summary>
+<summary>第37回：介護過程</summary>
 
 介護過程を展開する目的として、最も適切なものはどれ？
 
@@ -69,7 +69,7 @@ draft: true
 </details>
 
 <details class="quiz">
-<summary>第34回：介護過程</summary>
+<summary>第35回：介護過程</summary>
 
 介護過程を展開する目的として、最も適切なものはどれ？
 
@@ -137,7 +137,7 @@ draft: true
 > ICFそのものの詳しい説明は「ICF・リハビリ」の記事でまとめます。
 
 <details>
-<summary>✏️ 過去問を解いてみよう（第35回：介護過程）</summary>
+<summary>✏️ 過去問を解いてみよう（第36回：介護過程）</summary>
 
 初回の面談で情報を集めるときの留意点として、最も適切なものはどれ？
 
