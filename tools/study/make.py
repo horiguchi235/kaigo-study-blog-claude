@@ -201,10 +201,13 @@ def apply_ox(aid, qa):
     if not f.exists():
         return qa
     m = json.loads(f.read_text())
-    out = []
+    out, seen = [], {}
     for q in qa:
         if q["t"] == "ox":
             k = re.sub(r"<[^>]+>", "", q["q"]).strip() + "|" + q["ans"]
+            seen[k] = seen.get(k, 0) + 1
+            if seen[k] > 1 and f"{k}#{seen[k]}" in m:  # 同じ文の問題が2つ以上あるとき（2つ目以降は「キー#2」）
+                k = f"{k}#{seen[k]}"
             if k in m:
                 v = m[k]
                 if v is None:
