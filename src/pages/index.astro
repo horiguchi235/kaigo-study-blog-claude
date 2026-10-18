@@ -17,7 +17,7 @@ const yomi = articles.filter((a) => themeIdOf(a.data.theme) === 'Y');
 const hikaku = articles.filter((a) => themeIdOf(a.data.theme) === 'Z');
 // 最初の記事（STEP 1 の最初のテーマ）
 const firstArt = categories.flatMap((c) => c.themes).map((t) => byTheme(t.id)[0]).find(Boolean);
-// パート合格（第37回〜）のパートごとの過去問数と、問題ID→パートの対応
+// パート合格（第38回〜）のパートごとの過去問数と、問題ID→パートの対応
 const PART: Record<string, string> = {
   人間の尊厳と自立: 'A', 介護の基本: 'A', 社会の理解: 'A', 人間関係とコミュニケーション: 'A', コミュニケーション技術: 'A', 生活支援技術: 'A',
   こころとからだのしくみ: 'B', 発達と老化の理解: 'B', 認知症の理解: 'B', 障害の理解: 'B', 医療的ケア: 'B',
@@ -33,6 +33,13 @@ for (const list of Object.values(tests as Record<string, any[]>)) for (const q o
 ---
 
 <Base title="介護福祉士 過去問でつなぐ合格ノート">
+  <section class="top-value" aria-label="このサイトの特長">
+    <ul>
+      <li><b>過去問15年分を論点ごとに分解</b>：何回出たかを数え、よく出る所から科目をまたいで学べます。</li>
+      <li><b>記事を読みながら本試験の問題を解く</b>：各記事の最後で、過去5年分の問題をすべて解けます（問題文は試験センター公表の原文のまま）。</li>
+      <li><b>ふりがな付きで読める</b>：漢字が苦手な方・外国人の受験者も使えます。記録は登録なしでこの端末に保存。</li>
+    </ul>
+  </section>
   <section class="top-start" aria-label="勉強をはじめる">
     <p class="ts-count" id="ts-count">第39回試験（2027年1月31日）まで <b>…</b></p>
     <div class="ts-btns">
