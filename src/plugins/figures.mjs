@@ -31,7 +31,8 @@ function walk(node) {
       const ph = c.value.trim().match(/^<photo name="([\w-]+)" caption="([^"]*)"\s*\/?>$/);
       if (ph) {
         const base = (process.env.SITE_BASE ?? '/kaigo-study-blog-claude').replace(/\/$/, '');
-        return { type: 'html', value: `<figure class="fig photo"><img src="${base}/images/${ph[1]}.webp" alt="${esc(ph[2].replace(/\*\*/g, ''))}" loading="lazy" width="1200" height="800"><figcaption>${inline(ph[2])}</figcaption></figure>` };
+        const cap = ph[2].replace(/<\/?strong>/g, '**');
+        return { type: 'html', value: `<figure class="fig photo"><img src="${base}/images/${ph[1]}.webp" alt="${esc(cap.replace(/\*\*/g, ''))}" loading="lazy" width="1200" height="800"><figcaption>${inline(cap)}</figcaption></figure>` };
       }
     }
     walk(c);
