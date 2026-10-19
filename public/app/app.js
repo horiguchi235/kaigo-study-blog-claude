@@ -5,7 +5,7 @@
 (function () {
   'use strict';
   const K = window.KaigoCore;
-  const APP_VERSION = '3.5.0';
+  const APP_VERSION = '3.5.1';
   const CFG = Object.assign({
     dataUrl: '', staticBase: 'data/', blogUrl: '../', linksUrl: 'links.json',
     examDate: '2027-01-31',      // 次の試験日（残り日数と今日のメニューに使う）
@@ -1830,7 +1830,7 @@
       if (isElim) cls.push('eliminated');
       if (isNu) cls.push('unknown');
       const optFig = q.figure && q.figure.options && q.figure.options[orig - 1];
-      const label = showAnswer ? [isKey ? (q.negative ? '○ これが答え（適切でない）' : '○ 正解') : (q.negative ? '× 答えではない（適切な内容）' : '× 不正解'), shuffled ? '｜本試験では' + orig + '番' : ''].join('') : '';
+      const label = showAnswer ? [isKey ? (q.negative ? '○ これが答え（適切でない）' : '○ 正解') : (q.negative ? '× 答えではない（適切な内容）' : '× 不正解'), shuffled ? '｜本試験では選択肢' + orig : ''].join('') : '';
       const li = el('li', { class: cls.join(' ') },
         el('div', { class: 'opt-main' },
           el('button', { type: 'button', class: 'pick', 'aria-pressed': showAnswer ? null : String(isSel), 'aria-disabled': isElim ? 'true' : null, onclick: () => pick(orig), disabled: showAnswer ? true : null },
@@ -1875,7 +1875,7 @@
       body.append(el('div', { class: 'verdict ' + (ok ? 'ok' : 'ng'), role: 'status' },
         el('span', { class: 'mark', 'aria-hidden': 'true', text: ok ? '○' : '×' }),
         el('div', { class: 'grow' }, el('div', { class: 'vt', text: msg }),
-          el('small', { text: '正解は ' + keyDisp.join('・') + '番' + (keyDisp.length > 1 ? '（どれを選んでも正解）' : '') + (shuffled ? '（本試験では' + q.keys.join('・') + '番）' : '') + (ans && ans.c ? '｜あなたの答え ' + disp(ans.c) + '番' : '') + '｜所要時間 ' + fmtTime(ses.qElapsed[q.id] || 0) }),
+          el('small', { text: '正解は ' + keyDisp.join('・') + '番' + (keyDisp.length > 1 ? '（どれを選んでも正解）' : '') + (shuffled ? '（本試験では選択肢' + q.keys.join('・') + '）' : '') + (ans && ans.c ? '｜あなたの答え ' + disp(ans.c) + '番' : '') + '｜所要時間 ' + fmtTime(ses.qElapsed[q.id] || 0) }),
           el('small', { class: 'see-below', text: '↓ 解説は選択肢の下にまとめています' }))));
       // まちがえたら、同じ論点の類題をこの回の次に足せる
       const sim = ans && !ok && !reviewMode && !isMock ? similarOf(q, ses) : null;
@@ -1990,7 +1990,7 @@
         box.append(el('div', { class: 'ex-opt ' + (ok ? 'ok' : 'ng') + (mine ? ' mine' : '') },
           el('div', { class: 'ex-opt-h' }, '【選択肢' + disp(o) + '｜' + q.options[o - 1] + '｜', el('b', { text: ok ? '正解' : '不正解' }), '】',
             mine ? el('span', { class: 'mine-badge', text: '✓ あなたの答え' }) : null,
-            shuffled ? el('span', { class: 'small muted', text: '（本試験では' + o + '番）' }) : null),
+            shuffled ? el('span', { class: 'small muted', text: '（本試験では選択肢' + o + '）' }) : null),
           el('p', { text: K.remapNumbers(x.body, order) })));
       }
     }
