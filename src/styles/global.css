@@ -220,7 +220,7 @@ a { color: var(--accent); }
 .side-open { position: fixed; left: 12px; bottom: 16px; z-index: 30; font: inherit; font-size: 14px; font-weight: 700; padding: 10px 16px; border-radius: 999px; border: 0; background: var(--accent); color: #fff; box-shadow: 0 4px 14px rgba(120, 60, 20, .25); cursor: pointer; }
 .side.open { display: block; position: fixed; inset: 0; z-index: 40; background: rgba(58, 47, 40, .35); }
 .side.open .side-inner { width: min(320px, 86vw); height: 100%; overflow-y: auto; background: var(--surface); padding: 12px 12px 40px; }
-.side-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin: 0 0 8px; padding: 4px; background: #f6e6d6; border-radius: 999px; }
+.side-tabs { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px; margin: 0 0 8px; padding: 4px; background: #f6e6d6; border-radius: 999px; }
 .side-tabs button { font: inherit; font-size: 13px; font-weight: 700; border: 0; border-radius: 999px; padding: 6px 0; background: none; color: var(--muted); cursor: pointer; }
 .side-tabs button[aria-selected="true"] { background: var(--surface); color: var(--accent); box-shadow: 0 1px 3px rgba(120,60,20,.15); }
 .side-pane[hidden] { display: none; }
@@ -890,3 +890,42 @@ li.is-done > a::after { content: ' ✅'; font-size: 11px; }
 .img-off .article figure.fig:not(.fig-force) { display: none; }
 .img-off .fig-ph { display: block; width: 100%; text-align: left; font: inherit; font-size: 13px; color: var(--muted); background: none; border: 1px dashed var(--line); border-radius: 8px; padding: 6px 10px; margin: 8px 0; cursor: pointer; }
 .img-off .fig-ph.on { border-style: solid; }
+
+/* ───── 2026-10-19 利用者テストへの対応 ───── */
+/* 記事末テスト：続きへ戻るボタン・パート選択・事例のまとまり・終了画面 */
+.pt-return { position: fixed; right: 12px; bottom: 70px; z-index: 36; font: inherit; font-size: 14px; font-weight: 700; padding: 10px 16px; border-radius: 999px; border: 0; background: var(--accent); color: #fff; box-shadow: 0 4px 14px rgba(120, 60, 20, .3); cursor: pointer; }
+.pt-btns .pt-ever { background: var(--surface); color: var(--accent); border: 1px solid var(--accent); }
+.pt-parts { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 4px 0 10px; font-size: 13px; color: var(--muted); }
+.pt-parts .chip { font: inherit; font-size: 13px; padding: 3px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--text); cursor: pointer; }
+.pt-parts .chip.on { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; }
+details.pt-case { margin: 0 0 10px; padding: 8px 12px; background: #fff; border: 1px solid var(--line); border-radius: 10px; font-size: 14px; line-height: 1.8; }
+details.pt-case summary { cursor: pointer; font-weight: 700; color: var(--accent); }
+.pt-wl { list-style: none; padding: 0; margin: 10px 0; text-align: left; }
+.pt-wl li { padding: 8px 10px; margin-bottom: 6px; background: #fff; border: 1px solid var(--line); border-left: 4px solid var(--ng); border-radius: 8px; font-size: 14px; }
+.pt-wl a { font-weight: 700; }
+.pt-endbtns { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 12px 0 0; }
+.pt-endbtns button, .pt-endbtns a, .pt-go { font: inherit; font-size: 15px; font-weight: 700; padding: 8px 18px; border-radius: 999px; border: 0; background: var(--accent); color: #fff; cursor: pointer; text-decoration: none; display: inline-block; }
+.pt-endbtns .sub, button.sub, a.sub { background: var(--surface); color: var(--accent); border: 1px solid var(--accent); }
+/* 記事への「読み直す」リンクで開いた見出し */
+.article h2.hl, .article h3.hl { animation: hlfade 2.5s ease-out; }
+@keyframes hlfade { 0% { background-color: #ffe9a8; } 100% { background-color: transparent; } }
+/* 記事一覧の進みぐあいバッジ */
+.prog { display: inline-block; margin-left: 6px; font-size: 11px; font-weight: 700; padding: 0 7px; border-radius: 999px; vertical-align: middle; white-space: nowrap; }
+.prog.done { background: #e8f6ec; color: #2f7a44; }
+.prog.mid { background: var(--accent-soft); color: var(--accent); }
+/* トップ */
+.ts-last { margin: 8px 0 0; font-size: 14px; }
+.ts-parts-note { margin: 6px 0 0; font-size: 12px; color: var(--muted); line-height: 1.6; }
+/* マイリスト */
+.ml-tip { font-size: 13px; color: var(--muted); margin: 0 0 8px; }
+.ml-wrong-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0 0 12px; }
+.ml-wrong-head small { flex-basis: 100%; color: var(--muted); font-size: 12px; }
+.ml-go { display: inline-block; font-weight: 700; padding: 8px 16px; border-radius: 999px; background: var(--accent); color: #fff; text-decoration: none; }
+.ml-go.sub { background: var(--surface); color: var(--accent); border: 1px solid var(--accent); }
+/* ふりがな：少し大きく、濃く（読みやすさ） */
+html.ruby rt { font-size: 0.65em; color: #5a4a3e; }
+/* スマホ：画面下の「目次」ボタンと本文の最後が重ならないように */
+@media (max-width: 900px) { main, .article { padding-bottom: 72px; } }
+/* 記事の読む時間のめやす */
+.read-time { font-size: 13px; color: var(--muted); margin: 0 0 8px; }
+.gd-quick { margin: 16px 0; padding: 14px 16px; background: #fff8e6; border: 2px solid var(--accent); border-radius: 12px; line-height: 1.8; }

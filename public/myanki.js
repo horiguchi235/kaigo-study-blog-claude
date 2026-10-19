@@ -146,4 +146,14 @@
     items = []; save(items); render();
   };
   render();
+  // 初めて開いた暗記シートは、おすすめの所をかくした状態で始める（一度だけ。取り消した後は自動ではかくさない）
+  (function () {
+    var seen = {}; try { seen = JSON.parse(localStorage.getItem('ankiSeen') || '{}'); } catch (e) {}
+    if (seen[slug]) return;
+    seen[slug] = 1; try { localStorage.setItem('ankiSeen', JSON.stringify(seen)); } catch (e) {}
+    if (items.length || !window.kaigoMask) return;
+    document.getElementById('my-auto').onclick();
+    var c = document.getElementById('my-count');
+    if (items.length) c.textContent += '（はじめてなので、おすすめの所をかくしました。「✏️ かくす所を選ぶ」で変えられます）';
+  })();
 })();

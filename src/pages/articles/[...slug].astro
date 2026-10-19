@@ -26,6 +26,9 @@ const fr = freqOf(a.id);
 const lv = levelOf(themeId);
 const special = ['Y', 'Z'].includes(themeId);
 const title = shortTitle(a.data.title);
+// 読む時間のめやす：本文の文字数（記号・タグ・コメント・過去問の中身を除く）÷ 1分あたり400字
+const plain = (a.body ?? '').replace(/<!--[\s\S]*?-->/g, '').replace(/<details[\s\S]*?<\/details>/g, '').replace(/<[^>]+>/g, '').replace(/[#*|>\-\s`[\]()!:]/g, '');
+const readMin = Math.max(1, Math.round(plain.length / 400));
 
 // 前の記事・次の記事：来た目次（テーマ別・科目別・重要度別）ごとの並びを埋め込み、JSで選ぶ
 const seqs = sequences(all);
@@ -87,6 +90,7 @@ const maxR = fr ? Math.max(1, ...fr.ronten.map((r) => r.last5)) : 1;
       {!special && <> › {a.data.theme.replace(/^T\d+ /, '')}</>}
     </p>
     <h1>{title}</h1>
+    {!special && <p class="read-time">⏱ 読む時間のめやす：約{readMin}分（過去問をのぞく）{ptest.length > 0 && `・記事の過去問 ${ptest.length}問`}</p>}
     <ul class="badges">
       {a.data.draft && <li><span class="badge draft">下書き（本番には表示されません）</span></li>}
       {!special && <li><span class={`lvb lv${lv}`}>{LEVELS[lv].stars} {LEVELS[lv].label}</span></li>}

@@ -11,31 +11,38 @@ export async function getStaticPaths() {
 const { a } = Astro.props as { a: Article };
 const s = studyOf(a.id)!;
 const name = a.data.title.split('｜')[0];
+// ほぼ同じ文の問題が重なるときは1問にまとめる（記録の番号は元の番号のまま）
+const seenQ = new Set<string>();
+const qs = s.qa.map((q, i) => ({ ...q, i })).filter((q) => { const k = q.t + '|' + q.q.replace(/<[^>]+>|[\s。、]/g, ''); if (seenQ.has(k)) return false; seenQ.add(k); return true; });
+const nOx = qs.filter((q) => q.t === 'ox').length;
+const nCard = qs.length - nOx;
+const artUrl = url(`articles/${a.id}/`);
 ---
 
-<Base title={`1問1答：${a.data.article}「${name}」`} description={`${name}の要点を${s.qa.length}問の1問1答で確認します。`}>
+<Base title={`1問1答：${a.data.article}「${name}」`} description={`${name}の要点を${qs.length}問の1問1答で確認します。`}>
   <article class="article study">
     <p class="breadcrumb"><a href={url('ichimon/')}>1問1答</a> › {a.data.article}</p>
     <h1>1問1答：{a.data.article}<br /><small>{name}</small></h1>
-    <p class="meta">全{s.qa.length}問。○×はボタンで答え、答えを思い出す問題は「答えを見る」で確認します。</p>
+    <p class="meta">全{qs.length}問（○× {nOx}問・思い出す問題 {nCard}問）。○×はボタンで答えます。思い出す問題は「答えを見る」で確かめて、「覚えた」か「もう一度」を選びます（正解の数とは別に数えます）。</p>
     <p class="study-links">
       <a href={url(`articles/${a.id}/`)}>📖 記事を読む</a>
       <a href={url(`anki/${a.id}/`)}>🔴 暗記シート</a>
     </p>
     <p class="qa-past" id="qa-past" hidden></p>
     <div class="qa-bar" id="qa-bar">
-      <span class="qa-score">回答 <b id="qa-done">0</b> / {s.qa.length}　正解 <b id="qa-ok">0</b></span>
+      <span class="qa-score">回答 <b id="qa-done">0</b> / {qs.length}　○×の正解 <b id="qa-ok">0</b>　覚えた <b id="qa-mem">0</b></span>
       <span class="qa-btns">
         <button type="button" id="qa-shuffle">シャッフル</button>
         <button type="button" id="qa-wrong">まちがいだけ</button>
         <button type="button" id="qa-reset">リセット</button>
       </span>
+      <span class="qd-msg" id="qa-msg"></span>
     </div>
     <ol class="qa-list" id="qa-list">
       {
-        s.qa.map((q, i) => (
-          <li class="qa" data-t={q.t} data-ans={q.ans ?? ''} data-i={i}>
-            <div class="qa-sec">{q.sec}{q.src && <span>（{q.src}）</span>}</div>
+        qs.map((q) => (
+          <li class="qa" data-t={q.t} data-ans={q.ans ?? ''} data-i={q.i}>
+            <div class="qa-sec"><a href={`${artUrl}?h=${encodeURIComponent(q.sec)}`} title="記事のこの見出しを読む">📖 {q.sec}</a>{q.src && <span>（{q.src}）</span>}</div>
             <div class="qa-q" set:html={q.q} />
             {q.t === 'ox' ? (
               <div class="qa-act"><button type="button" class="ox" data-v="○">○</button><button type="button" class="ox" data-v="×">×</button></div>
@@ -46,7 +53,7 @@ const name = a.data.title.split('｜')[0];
               {q.t === 'ox' ? <p class="qa-res"><b class="mark">{q.ans}</b><span class="judge" /></p> : <p class="qa-a" set:html={q.a} />}
               {q.exp && <p class="qa-exp" set:html={q.exp} />}
               {q.t === 'card' && (
-                <div class="qa-self"><button type="button" class="self" data-v="1">覚えていた</button><button type="button" class="self" data-v="0">まだ</button></div>
+                <div class="qa-self"><button type="button" class="self" data-v="1">覚えた</button><button type="button" class="self" data-v="0">もう一度</button></div>
               )}
             </div>
           </li>
@@ -54,12 +61,12 @@ const name = a.data.title.split('｜')[0];
       }
     </ol>
   </article>
-  <script is:inline define:vars={{ id: a.id, title: `${a.data.article}：${name}`, n: s.qa.length }}>
+  <script is:inline define:vars={{ id: a.id, title: `${a.data.article}：${name}`, n: qs.length }}>
     // 結果はこのブラウザの localStorage "qa" に保存：{ [記事ID]: { title, n, ans: { [問題番号]: 1/0 }, t } }
     (function () {
       var list = document.getElementById('qa-list');
       var items = Array.prototype.slice.call(list.children);
-      var done = 0, ok = 0;
+      var done = 0, ok = 0, mem = 0;
       function load() { try { return JSON.parse(localStorage.getItem('qa') || '{}'); } catch (e) { return {}; } }
       function rec() { return load()[id] || { ans: {} }; }
       function save(i, right) {
@@ -67,19 +74,22 @@ const name = a.data.title.split('｜')[0];
         r.ans[i] = right ? 1 : 0; r.title = title; r.n = n; r.t = Date.now(); all[id] = r;
         try { localStorage.setItem('qa', JSON.stringify(all)); } catch (e) {}
       }
-      function score() { document.getElementById('qa-done').textContent = done; document.getElementById('qa-ok').textContent = ok; }
+      function score() { document.getElementById('qa-done').textContent = done; document.getElementById('qa-ok').textContent = ok; document.getElementById('qa-mem').textContent = mem; }
+      function say(t) { var m = document.getElementById('qa-msg'); m.textContent = t; clearTimeout(say.t); say.t = setTimeout(function () { m.textContent = ''; }, 4000); }
       function past() {
-        var r = rec(), ks = Object.keys(r.ans), good = ks.filter(function (k) { return r.ans[k]; }).length;
+        var r = rec(), a = 0, ox = 0, oxOk = 0, cd = 0, cdOk = 0;
+        items.forEach(function (li) { var v = r.ans[li.dataset.i]; if (v === undefined) return; a++; if (li.dataset.t === 'ox') { ox++; if (v) oxOk++; } else { cd++; if (v) cdOk++; } });
         var el = document.getElementById('qa-past');
-        el.hidden = !ks.length;
-        el.innerHTML = '📒 これまでの記録：<b>' + ks.length + ' / ' + n + '問</b>に答えて、まちがい <b class="ng">' + (ks.length - good) + '問</b>（「まちがいだけ」で解き直せます）';
+        el.hidden = !a;
+        el.innerHTML = '📒 前回までの記録：<b>' + a + ' / ' + n + '問</b>に答えました。' + (ox ? '○×は ' + ox + '問中 <b>' + oxOk + '問正解</b>。' : '') + (cd ? '思い出す問題は ' + cd + '問中 <b>' + cdOk + '問「覚えた」</b>。' : '') +
+          ((a - oxOk - cdOk) ? '「まちがいだけ」で、まちがえた・「もう一度」の' + (a - oxOk - cdOk) + '問を解き直せます。' : 'まちがえた問題はありません 🎉');
         items.forEach(function (li) {
           var v = r.ans[li.dataset.i];
           li.classList.toggle('was-wrong', v === 0); li.classList.toggle('was-right', v === 1);
         });
       }
       function finish(li, right) {
-        li.classList.add('answered', right ? 'right' : 'wrong'); done++; if (right) ok++; score();
+        li.classList.add('answered', right ? 'right' : 'wrong'); done++; if (right) { if (li.dataset.t === 'ox') ok++; else mem++; } score();
         save(li.dataset.i, right);
       }
       list.addEventListener('click', function (e) {
@@ -106,17 +116,18 @@ const name = a.data.title.split('｜')[0];
         var now = items.filter(function (li) { return li.classList.contains('wrong'); });
         var r = rec();
         var target = now.length ? now : items.filter(function (li) { return r.ans[li.dataset.i] === 0; });
-        if (!target.length) { document.getElementById('qa-past').hidden = false; document.getElementById('qa-past').textContent = '🎉 まちがえた問題はありません。'; return; }
+        if (!target.length) { say('🎉 まちがえた問題はありません。'); return; }
+        say(target.length + '問を表示しています。「リセット」で全部に戻ります。');
         items.forEach(function (li) {
           var w = target.indexOf(li) >= 0;
           li.hidden = !w;
-          if (w && li.classList.contains('answered')) { if (li.classList.contains('right')) ok--; li.classList.remove('answered', 'wrong', 'right', 'open'); done--; }
+          if (w && li.classList.contains('answered')) { if (li.classList.contains('right')) { if (li.dataset.t === 'ox') ok--; else mem--; } li.classList.remove('answered', 'wrong', 'right', 'open'); done--; }
         });
         score();
       };
       document.getElementById('qa-reset').onclick = function () {
         items.forEach(function (li) { li.hidden = false; li.classList.remove('answered', 'wrong', 'right', 'open'); });
-        done = 0; ok = 0; score();
+        done = 0; ok = 0; mem = 0; score(); past();
       };
       past();
     })();

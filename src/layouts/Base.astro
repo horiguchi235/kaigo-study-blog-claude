@@ -37,7 +37,8 @@ const pageTitle = title === siteName ? title : `${title}｜${siteName}`;
       try {
         if (localStorage.getItem('sideCollapsed')) document.documentElement.classList.add('side-collapsed');
         var pref = localStorage.getItem('lang') || 'ja';
-        if (pref === 'ruby') document.documentElement.classList.add('ruby');
+        // ふりがな付き、または外国語を選んでいるときは、日本語の部分にふりがなを出す
+        if (pref !== 'ja') document.documentElement.classList.add('ruby');
         // 外国語を選んでいて、この日本語記事に翻訳があれば翻訳ページへ
         var h = document.documentElement, t = (h.dataset.trans || '').split(',');
         if (h.dataset.pageLang === 'ja' && h.dataset.article && t.indexOf(pref) >= 0 && !/[?&]ja=1/.test(location.search))
@@ -79,6 +80,7 @@ const pageTitle = title === siteName ? title : `${title}｜${siteName}`;
             <div class="nav-more-menu">
               <a href={url('guide/')}>🔰 {nav('guide', '使い方')}</a>
               <a href={url('level/')}>{nav('level', '重要度別')}</a>
+              <a href={url('part/')}>{nav('part', 'パート別（A・B・C）')}</a>
               <a href={url('anki/')}>{nav('anki', '暗記シート')}</a>
               <a href={url('hikaku/')}>{nav('hikaku', '比較で覚える')}</a>
               <a href={url('mame/')}>{nav('mame', '豆知識・試験情報')}</a>
@@ -108,9 +110,14 @@ const pageTitle = title === siteName ? title : `${title}｜${siteName}`;
         var pref = 'ja'; try { pref = localStorage.getItem('lang') || 'ja'; } catch (e) {}
         var page = h.dataset.pageLang, trans = (h.dataset.trans || '').split(',').filter(Boolean);
         if (page === 'ja') sel.value = pref;
+        var ORIG = { en: ['This is the Japanese original.', 'Back to the translation'], id: ['Ini teks asli bahasa Jepang.', 'Kembali ke terjemahan'], tl: ['Ito ang orihinal na Hapon.', 'Bumalik sa salin'], vi: ['Đây là bản gốc tiếng Nhật.', 'Quay lại bản dịch'] };
         function note(code) {
           var n = document.getElementById('lang-note');
-          if (notes[code] && page === 'ja') { n.textContent = '🌐 ' + notes[code]; n.hidden = false; } else n.hidden = true;
+          if (page === 'ja' && h.dataset.article && trans.indexOf(code) >= 0 && ORIG[code]) {
+            // 翻訳がある記事の日本語原文（?ja=1）：未翻訳ではなく「原文」と出し、翻訳へ戻るリンクを付ける
+            n.innerHTML = '🌐 日本語の原文です（' + ORIG[code][0] + '）　<a href="' + h.dataset.base + code + '/articles/' + h.dataset.article + '/">→ ' + ORIG[code][1] + '</a>';
+            n.hidden = false;
+          } else if (notes[code] && page === 'ja') { n.textContent = '🌐 ' + notes[code]; n.hidden = false; } else n.hidden = true;
         }
         if (page === 'ja' && notes[pref]) note(pref);
         sel.addEventListener('change', function () {
@@ -122,6 +129,7 @@ const pageTitle = title === siteName ? title : `${title}｜${siteName}`;
             else note(v);
             return;
           }
+          h.classList.add('ruby');
           var id = h.dataset.article;
           if (page === 'ja' && id && trans.indexOf(v) >= 0) location.href = h.dataset.base + v + '/articles/' + id + '/' + (h.dataset.idx || '');
           else if (page !== 'ja' && h.dataset.jaUrl) {

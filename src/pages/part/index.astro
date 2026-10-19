@@ -1,0 +1,51 @@
+---
+// パート別（A・B・C）の記事一覧：パート合格した人・Bパートだけ残った人などが、受けるパートの記事だけを勉強できるように。
+// 並び順＝その記事の過去問テスト（過去5年）に、そのパートの問題が多い順。
+import Base from '../../layouts/Base.astro';
+import { shortTitle, url, themeIdOf, levelOf, LEVELS } from '../../data/taxonomy';
+import { getArticles } from '../../data/articles';
+import tests from '../../data/tests.json';
+
+const articles = await getArticles();
+const PARTS = [
+  { p: 'A', time: '午前・60問・105分', subs: ['人間の尊厳と自立', '介護の基本', '社会の理解', '人間関係とコミュニケーション', 'コミュニケーション技術', '生活支援技術'] },
+  { p: 'B', time: '午後・45問', subs: ['こころとからだのしくみ', '発達と老化の理解', '認知症の理解', '障害の理解', '医療的ケア'] },
+  { p: 'C', time: '午後・20問', subs: ['介護過程', '総合問題'] },
+];
+const T = tests as Record<string, any[]>;
+const lists = PARTS.map((P) => {
+  const arts = articles
+    .filter((a) => !['Y', 'Z'].includes(themeIdOf(a.data.theme)))
+    .map((a) => ({ a, n: (T[a.id] ?? []).filter((q) => P.subs.includes(q.sub)).length, all: (T[a.id] ?? []).length }))
+    .filter((x) => x.n > 0 || x.a.data.subjects.some((s: string) => P.subs.includes(s)))
+    .sort((x, y) => y.n - x.n);
+  return { ...P, arts, total: arts.reduce((s, x) => s + x.n, 0) };
+});
+---
+
+<Base title="パート別（A・B・C）の記事" description="介護福祉士試験のパート合格に合わせて、Aパート・Bパート・Cパートの問題が出る記事を、問題の多い順にまとめました。">
+  <section class="hero">
+    <h1>パート別（A・B・C）の記事</h1>
+    <p>第38回からの<b>パート合格</b>で、受けるパートが一部だけの人向けの目次です。そのパートの過去問（過去5年）が<b>多い記事から順に</b>並べました。記事の最後の「過去問テスト」では、<b>パートを選んで</b>そのパートの問題だけを解けます。</p>
+    <p class="meta">パート合格のしくみ → <a href={url('articles/yomimono-02-zatsugaku/')}>読みもの②</a>／再受験の進め方 → <a href={url('articles/yomimono-05-plan/')}>読みもの⑤</a>／過去問演習の「パート別の模試」は <a href={url('app/')}>過去問演習</a> から</p>
+  </section>
+  <nav class="gd-toc" aria-label="パート">{lists.map((L) => <a href={`#part-${L.p}`}>{L.p}パート（{L.arts.length}記事）</a>)}</nav>
+  {
+    lists.map((L) => (
+      <div class="card" id={`part-${L.p}`}>
+        <h3>{L.p}パート <small class="meta">{L.time}｜{L.subs.join('・')}</small></h3>
+        <ol class="article-links part-list">
+          {L.arts.map(({ a, n, all }) => {
+            const lv = levelOf(themeIdOf(a.data.theme));
+            return (
+              <li>
+                <a href={url(`articles/${a.id}/`)}>{a.data.article}：{shortTitle(a.data.title)}</a>
+                <small class="meta"> {LEVELS[lv].stars}・{L.p}パートの過去問 {n}問{n < all ? `（テスト全体は${all}問）` : ''}</small>
+              </li>
+            );
+          })}
+        </ol>
+      </div>
+    ))
+  }
+</Base>

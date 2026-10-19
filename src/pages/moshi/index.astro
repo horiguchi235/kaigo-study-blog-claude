@@ -1,59 +1,112 @@
 ---
-// ○×クイズ：全記事の1問1答（○×）からランダムに20問（本番形式の模試ではない）
+// ○×クイズ：全記事の1問1答（○×）から出題（本番形式の模試ではない）
+// 範囲：すべて／STEPごと／読んだ記事／前にまちがえた○×。結果は localStorage "oxlog"：{ [記事ID|番号]: 1/0 }
 import Base from '../../layouts/Base.astro';
 import { getArticles } from '../../data/articles';
 import { studyOf } from '../../data/study';
-import { shortTitle, url } from '../../data/taxonomy';
+import { shortTitle, url, categories, themeIdOf } from '../../data/taxonomy';
 
 const articles = await getArticles();
+const stepOf = (theme: string) => categories.find((c) => c.themes.some((t) => t.id === themeIdOf(theme)))?.no ?? 0;
 const pool = articles.flatMap((a) =>
-  (studyOf(a.id)?.qa ?? []).filter((q) => q.t === 'ox').map((q) => ({ q: q.q, ans: q.ans, exp: q.exp, a: a.id, t: shortTitle(a.data.title) })),
+  (studyOf(a.id)?.qa ?? [])
+    .map((q, i) => ({ q, i }))
+    .filter(({ q }) => q.t === 'ox')
+    .map(({ q, i }) => ({ id: `${a.id}|${i}`, q: q.q, ans: q.ans, exp: q.exp, art: a.id, t: shortTitle(a.data.title), s: q.sec, n: stepOf(a.data.theme) })),
 );
+const steps = categories.filter((c) => pool.some((p) => p.n === c.no)).map((c) => ({ no: c.no, name: c.name.replace(/（.*）/, '') }));
 ---
 
-<Base title="○×クイズ（ランダム20問）" description="全記事の要点からランダムに20問の○×問題を出題。答え合わせのあと、間違えた問題の記事に戻って復習できます。">
+<Base title="○×クイズ" description="全記事の要点から○×問題を出題。STEPごと・読んだ記事だけ・前にまちがえた問題だけを選べます。答え合わせのあと、まちがえた問題の見出しに戻って復習できます。">
   <article class="article study">
-    <h1>⭕ ○×クイズ<br /><small>全記事からランダム20問</small></h1>
-    <p class="meta">全{pool.length}問の中から毎回ちがう20問が出ます。全部答えると点数と、復習する記事が表示されます。</p>
-    <div class="qa-bar"><span class="qa-score">回答 <b id="m-done">0</b> / 20　正解 <b id="m-ok">0</b></span><span class="qa-btns"><button type="button" id="m-new">別の20問にする</button></span></div>
+    <h1>⭕ ○×クイズ<br /><small>全記事の要点から</small></h1>
+    <p class="meta">全{pool.length}問。範囲と問題数を選んで始めます。結果はこの端末に保存され、「前にまちがえた問題」だけを解き直せます。</p>
+    <div class="qd-opts">
+      <label>範囲 <select id="m-scope">
+        <option value="all">すべての記事</option>
+        <option value="read">読んだ記事（テスト・1問1答に答えた記事）</option>
+        <option value="wrong">前にまちがえた問題</option>
+        {steps.map((s) => <option value={`s${s.no}`}>STEP {s.no} {s.name}</option>)}
+      </select></label>
+      <label>問題数 <select id="m-n"><option value="10">10問</option><option value="20" selected>20問</option><option value="50">50問</option></select></label>
+      <button type="button" id="m-new">▶ はじめる</button>
+    </div>
+    <p class="qa-past" id="m-past" hidden></p>
+    <div class="qa-bar"><span class="qa-score">回答 <b id="m-done">0</b> / <span id="m-total">0</span>　正解 <b id="m-ok">0</b></span><span class="qd-msg" id="m-msg"></span></div>
     <ol class="qa-list" id="m-list"></ol>
     <div class="card" id="m-result" hidden></div>
   </article>
-  <script is:inline define:vars={{ pool, base: url('articles/') }}>
+  <script type="application/json" id="m-data" data-ruby set:html={JSON.stringify(pool).replace(/</g, '\\u003c')}></script>
+  <script is:inline define:vars={{ base: url('articles/') }}>
     (function () {
+      var pool = JSON.parse(document.getElementById('m-data').textContent);
+      var RUBY = document.documentElement.classList.contains('ruby');
+      function f(q, k) { return RUBY && q._r && q._r[k] != null ? q._r[k] : q[k]; }
       var list = document.getElementById('m-list'), res = document.getElementById('m-result');
-      var done = 0, ok = 0, wrong = {};
+      var done = 0, ok = 0, total = 0, wrong = [];
+      function ld(k) { try { return JSON.parse(localStorage.getItem(k) || '{}'); } catch (e) { return {}; } }
+      function log() { return ld('oxlog'); }
+      function save(id, right) { var d = log(); d[id] = right ? 1 : 0; try { localStorage.setItem('oxlog', JSON.stringify(d)); } catch (e) {} }
+      function readArts() {
+        var r = {}, pt = ld('ptest'), qa = ld('qa'), m = ld('marks');
+        Object.keys(pt).forEach(function (k) { r[k] = 1; }); Object.keys(qa).forEach(function (k) { r[k] = 1; });
+        (m.done || []).forEach(function (k) { r[k] = 1; });
+        Object.keys(m).forEach(function (k) { if (m[k] && typeof m[k] === 'object' && !Array.isArray(m[k]) && m[k].done) r[k] = 1; });
+        return r;
+      }
+      function past() {
+        var d = log(), ks = Object.keys(d), g = ks.filter(function (k) { return d[k]; }).length, el = document.getElementById('m-past');
+        el.hidden = !ks.length;
+        el.innerHTML = '📒 これまで：' + pool.length + '問中 <b>' + ks.length + '問</b>に答えて、最新の結果でまちがい <b class="ng">' + (ks.length - g) + '問</b>';
+      }
+      function msg(t) { document.getElementById('m-msg').textContent = t; }
       function pick() {
-        var a = pool.slice(), out = [];
-        for (var i = 0; i < 20 && a.length; i++) out.push(a.splice(Math.floor(Math.random() * a.length), 1)[0]);
+        var sc = document.getElementById('m-scope').value, n = +document.getElementById('m-n').value, d = log(), a;
+        if (sc === 'wrong') a = pool.filter(function (q) { return d[q.id] === 0; });
+        else if (sc === 'read') { var r = readArts(); a = pool.filter(function (q) { return r[q.art]; }); }
+        else if (sc.charAt(0) === 's') a = pool.filter(function (q) { return 's' + q.n === sc; });
+        else a = pool.slice();
+        var out = [];
+        for (var i = 0; i < n && a.length; i++) out.push(a.splice(Math.floor(Math.random() * a.length), 1)[0]);
+        if (!out.length) msg(sc === 'wrong' ? '🎉 まちがえた問題はありません' : sc === 'read' ? 'まだ読んだ記事の記録がありません。記事末のテストか1問1答に答えると、ここで選べます。' : '問題がありません');
+        else msg('');
         return out;
       }
       function start() {
-        done = 0; ok = 0; wrong = {}; res.hidden = true; list.innerHTML = '';
-        document.getElementById('m-done').textContent = 0; document.getElementById('m-ok').textContent = 0;
-        pick().forEach(function (q) {
+        done = 0; ok = 0; wrong = []; res.hidden = true; list.innerHTML = '';
+        var qs = pick(); total = qs.length;
+        document.getElementById('m-done').textContent = 0; document.getElementById('m-ok').textContent = 0; document.getElementById('m-total').textContent = total;
+        past();
+        qs.forEach(function (q) {
           var li = document.createElement('li'); li.className = 'qa';
-          li.innerHTML = '<div class="qa-sec">' + q.t + '</div><p class="qa-q">' + q.q + '</p><div class="qa-act"><button type="button" class="ox">○</button><button type="button" class="ox">×</button></div><div class="qa-ans"><p class="qa-res"></p>' + (q.exp ? '<p class="qa-exp">' + q.exp + '</p>' : '') + '</div>';
+          var href = base + q.art + '/?h=' + encodeURIComponent(q.s);
+          li.innerHTML = '<div class="qa-sec"><a href="' + href + '" title="記事のこの見出しを読む">📖 ' + f(q, 't') + '</a></div><p class="qa-q">' + f(q, 'q') + '</p><div class="qa-act"><button type="button" class="ox">○</button><button type="button" class="ox">×</button></div><div class="qa-ans"><p class="qa-res"></p>' + (q.exp ? '<p class="qa-exp">' + f(q, 'exp') + '</p>' : '') + '</div>';
           li.querySelectorAll('.ox').forEach(function (b) {
             b.onclick = function () {
+              if (li.classList.contains('open')) return;
               var right = b.textContent === q.ans;
-              li.classList.add('open', right ? 'right' : 'wrong');
+              li.classList.add('open', 'answered', right ? 'right' : 'wrong');
               li.querySelector('.qa-res').innerHTML = '<span class="mark">' + (right ? '⭕ 正解' : '❌ 不正解') + '</span>　答えは「' + q.ans + '」';
-              done++; if (right) ok++; else wrong[q.a] = q.t;
+              done++; if (right) ok++; else wrong.push(q);
+              save(q.id, right);
               document.getElementById('m-done').textContent = done; document.getElementById('m-ok').textContent = ok;
-              if (done === 20) finish();
+              if (done === total) finish();
             };
           });
           list.appendChild(li);
         });
       }
       function finish() {
-        var ks = Object.keys(wrong);
-        res.innerHTML = '<h3>結果：20問中 ' + ok + '問正解（' + Math.round(ok / 20 * 100) + '%）</h3>' +
-          (ks.length ? '<p class="lead">まちがえた問題の記事を読み直しましょう：</p><ul>' + ks.map(function (k) { return '<li><a href="' + base + k + '/">' + wrong[k] + '</a></li>'; }).join('') + '</ul>' : '<p>全問正解です！</p>');
+        res.innerHTML = '<h3>結果：' + total + '問中 ' + ok + '問正解（' + Math.round(ok / total * 100) + '%）</h3>' +
+          (wrong.length ? '<p class="lead">まちがえた問題の見出しを読み直しましょう：</p><ul class="pt-wl">' + wrong.map(function (q) { return '<li><a href="' + base + q.art + '/?h=' + encodeURIComponent(q.s) + '">' + f(q, 't') + '「' + q.s + '」</a></li>'; }).join('') + '</ul>' : '<p>全問正解です！</p>') +
+          '<p class="pt-endbtns"><button type="button" id="m-again">別の問題で続ける</button>' + (wrong.length ? ' <button type="button" class="sub" id="m-redo">前にまちがえた問題を解く</button>' : '') + '</p>';
         res.hidden = false; res.scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('m-again').onclick = function () { start(); window.scrollTo(0, 0); };
+        var r = document.getElementById('m-redo'); if (r) r.onclick = function () { document.getElementById('m-scope').value = 'wrong'; start(); window.scrollTo(0, 0); };
       }
       document.getElementById('m-new').onclick = start;
+      document.getElementById('m-scope').onchange = start;
+      document.getElementById('m-n').onchange = start;
       start();
     })();
   </script>
