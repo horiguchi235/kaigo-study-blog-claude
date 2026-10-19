@@ -24,6 +24,7 @@ const total5 = (freq as any).total5 ?? 0;
     </div>
     <div class="pt-total" id="pt-total"></div>
     <div class="ml-tabs" role="tablist">
+      <button type="button" data-k="wrong" aria-selected="false">❌ まちがえた問題 <span></span></button>
       <button type="button" data-k="fav" aria-selected="true">⭐ お気に入り <span></span></button>
       <button type="button" data-k="rev" aria-selected="false">🔁 復習 <span></span></button>
       <button type="button" data-k="weak" aria-selected="false">⚠ 苦手 <span></span></button>
@@ -35,8 +36,9 @@ const total5 = (freq as any).total5 ?? 0;
     <p class="ml-hide"><label><input type="checkbox" id="ml-hide-done" /> ✅ 完璧にした記事を目次にかくす</label><small>（左の目次・テーマ別／科目別／重要度別の目次から消えます。オフにするといつでも戻ります）</small></p>
     <div id="ml-list" class="ml-list"></div>
   </article>
+  <script is:inline src={url('qlog.js')}></script>
   <script is:inline src={url('marks.js')}></script>
-  <script is:inline define:vars={{ links, total5 }}>
+  <script is:inline define:vars={{ links, total5, appUrl: url('app/'), qmapUrl: url('qmap.json'), artBase: url('articles/') }}>
     (function () {
       var marks = window.kaigoMarks.load();
       var anki = {}; try { anki = JSON.parse(localStorage.getItem('myanki') || '{}'); } catch (e) {}
@@ -46,7 +48,10 @@ const total5 = (freq as any).total5 ?? 0;
       Object.keys(pt).forEach(function (id) { if (!links[id]) return; var a = pt[id].ans || {}; Object.keys(a).forEach(function (k) { solved++; if (a[k]) right++; }); });
       document.getElementById('pt-total').innerHTML = '<b>過去問5年分の進み具合</b><div class="pt-bar"><span style="width:' + Math.round(solved / total5 * 100) + '%"></span></div>' +
         '<p>解いた問題 <b>' + solved + ' / ' + total5 + '問</b>（' + Math.round(solved / total5 * 100) + '%）' + (solved ? '　正答率 <b>' + Math.round(right / solved * 100) + '%</b>' : '') + '</p>';
+      var ql = window.kaigoQ ? window.kaigoQ.all() : {};
+      var wrongIds = window.kaigoQ ? window.kaigoQ.wrongIds() : [];
       var EMPTY = {
+        wrong: 'まだありません。記事中の過去問・記事末テスト・過去問演習でまちがえた問題が、ここにまとまります（解き直して正解しても残ります）。',
         fav: 'まだありません。記事の上の「☆ お気に入り」を押すと、ここに入ります。',
         rev: 'まだありません。あとで読み直したい記事は「🔁 復習に入れる」を押しましょう。',
         weak: 'まだありません。過去問をまちがえた記事は「⚠ 苦手に入れる」を押しておくと、試験前にまとめて見直せます。',
@@ -56,9 +61,13 @@ const total5 = (freq as any).total5 ?? 0;
         qa: 'まだありません。記事の上の「📝 1問1答」で答えると、ここに記録されます。',
       };
       function rows(k) {
+        if (k === 'wrong') return wrongIds.map(function (id) {
+          var r = ql[id];
+          return { id: id, qid: id, title: id, t: r.t, href: '', sub: (r.l ? '最新は正解' : '最新もまちがい') + '・まちがえた回数 ' + r.w + '・解いた回数 ' + r.a };
+        });
         if (k === 'test') return Object.keys(pt).filter(function (id) { return links[id]; }).map(function (id) {
           var a = pt[id].ans || {}, ks = Object.keys(a), ok = ks.filter(function (x) { return a[x]; }).length;
-          return { id: id, title: pt[id].title || links[id].title, t: pt[id].t || 0, href: links[id].a + '#ptest', sub: ks.length + '/' + links[id].n + '問　まちがい ' + (ks.length - ok) };
+          return { id: id, title: pt[id].title || links[id].title, t: pt[id].t || 0, rate: ks.length ? ok / ks.length : 1, href: links[id].a + '#ptest', sub: ks.length + '/' + links[id].n + '問　正答率 ' + (ks.length ? Math.round(ok / ks.length * 100) : 0) + '%　まちがい ' + (ks.length - ok) };
         });
         if (k === 'qa') return Object.keys(qa).filter(function (id) { return links[id] && links[id].q; }).map(function (id) {
           var a = qa[id].ans || {}, ks = Object.keys(a), ng = ks.filter(function (x) { return !a[x]; }).length;
@@ -77,11 +86,27 @@ const total5 = (freq as any).total5 ?? 0;
       tabs.forEach(function (b) { b.querySelector('span').textContent = rows(b.dataset.k).length; });
       function show(k) {
         tabs.forEach(function (b) { b.setAttribute('aria-selected', b.dataset.k === k ? 'true' : 'false'); });
-        var r = rows(k).sort(function (x, y) { return y.t - x.t; });
+        var r = rows(k).sort(k === 'test' ? function (x, y) { return x.rate - y.rate || y.t - x.t; } : function (x, y) { return y.t - x.t; });
         list.innerHTML = '';
         if (!r.length) { list.innerHTML = '<p class="ml-empty"></p>'; list.firstChild.textContent = EMPTY[k]; return; }
+        if (k === 'test') { var tip = document.createElement('p'); tip.className = 'ml-tip'; tip.textContent = '正答率の低い記事から並べています。'; list.appendChild(tip); }
+        if (k === 'wrong') {
+          var head = document.createElement('div'); head.className = 'ml-wrong-head';
+          var latest = r.filter(function (x) { return !ql[x.id].l; }).map(function (x) { return x.id; });
+          head.innerHTML = '<a class="ml-go" href="' + appUrl + '?ids=' + r.map(function (x) { return x.id; }).join(',') + '&title=' + encodeURIComponent('まちがえた問題（' + r.length + '問）') + '&n=all">▶ まちがえた' + r.length + '問をまとめて解く</a>' +
+            (latest.length && latest.length < r.length ? ' <a class="ml-go sub" href="' + appUrl + '?ids=' + latest.join(',') + '&title=' + encodeURIComponent('まだ解けていない問題') + '">最新もまちがいの' + latest.length + '問だけ</a>' : '') +
+            '<small>過去問演習のページで解きます。答えるとここにも記録されます。</small>';
+          list.appendChild(head);
+          fetch(qmapUrl).then(function (x) { return x.json(); }).then(function (m) {
+            list.querySelectorAll('.ml-row[data-qid]').forEach(function (row) {
+              var v = m.q[row.dataset.qid]; if (!v) return;
+              var a = row.querySelector('a'); a.href = artBase + v[0] + '/?h=' + encodeURIComponent(v[1]);
+              a.textContent = row.dataset.qid + '：' + (m.arts[v[0]] || v[0]) + '「' + v[1] + '」を読む';
+            });
+          }).catch(function () {});
+        }
         r.forEach(function (x) {
-          var row = document.createElement('div'); row.className = 'ml-row';
+          var row = document.createElement('div'); row.className = 'ml-row'; if (x.qid) row.dataset.qid = x.qid;
           var a = document.createElement('a'); a.href = x.href; a.textContent = x.title;
           var sub = document.createElement('small'); sub.textContent = x.sub;
           row.appendChild(a); row.appendChild(sub);
@@ -99,14 +124,16 @@ const total5 = (freq as any).total5 ?? 0;
         });
       }
       tabs.forEach(function (b) { b.onclick = function () { show(b.dataset.k); try { localStorage.setItem('mlTab', b.dataset.k); } catch (e) {} }; });
-      var first = 'fav'; try { first = localStorage.getItem('mlTab') || 'fav'; } catch (e) {}
+      // 最初に開くタブ：#wrong の指定 → 前回のタブ（中身があれば）→ 中身のある最初のタブ
+      var first = location.hash === '#wrong' ? 'wrong' : ''; try { if (!first) first = localStorage.getItem('mlTab') || ''; } catch (e) {}
+      if (!first || !rows(first).length) { first = 'fav'; for (var ti = 0; ti < tabs.length; ti++) { if (rows(tabs[ti].dataset.k).length) { first = tabs[ti].dataset.k; break; } } }
       show(first);
       var hd = document.getElementById('ml-hide-done');
       try { hd.checked = localStorage.getItem('hideDone') === '1'; } catch (e) {}
       hd.onchange = function () { if (window.kaigoHideDone) window.kaigoHideDone(hd.checked); else try { localStorage.setItem('hideDone', hd.checked ? '1' : ''); } catch (e) {} };
 
       // 記録の書き出し・読み込み（端末を変えるとき用）
-      var KEYS = ['marks', 'ptest', 'qa', 'myanki', 'lastArt'];
+      var KEYS = ['marks', 'ptest', 'qa', 'myanki', 'lastArt', 'qlog', 'oxlog', 'kaigoPwa.v1'];
       var msg = document.getElementById('ml-msg');
       document.getElementById('ml-export').onclick = function () {
         var data = { app: 'kaigo-study-blog', v: 1, at: new Date().toISOString(), data: {} };

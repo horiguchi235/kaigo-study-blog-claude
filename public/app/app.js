@@ -96,6 +96,7 @@
     S.log.push([t, q.id, choice, ok ? 1 : 0, Math.round(sec), unsure ? 1 : 0, mode, r.s]);
     if (S.log.length > 30000) S.log.splice(0, S.log.length - 30000);
     const d = day(dayKey(t)); d.n++; if (ok) d.c++;
+    if (window.kaigoQ) window.kaigoQ.rec(q.id, ok, 'app');
     return S.log.length - 1;
   }
   // 記録を log から作り直す（バックアップ読み込み後など）
@@ -243,7 +244,11 @@
     let qs = pool(opt);
     if (!qs.length) { toast('条件に合う問題がありません'); return; }
     const n = opt.count === 'all' ? qs.length : Math.min(Number(opt.count) || 10, qs.length);
-    qs = opt.order === 'seq' ? qs.slice(0, n) : pickWithCases(qs, n, true);
+    if (opt.order === 'even') {
+      // 科目ごとに同じ数ずつ（パートや全科目で、苦手の科目を見つけやすく）
+      const subs = [...new Set(qs.map((q) => q.subject))], per = Math.max(1, Math.floor(n / subs.length));
+      qs = shuffle(subs.flatMap((s) => pickWithCases(qs.filter((q) => q.subject === s), per, true)));
+    } else qs = opt.order === 'seq' ? qs.slice(0, n) : pickWithCases(qs, n, true);
     newSession('practice', qs, { title: title || practiceTitle(opt), opt });
     go('quiz');
   }
@@ -254,24 +259,40 @@
     if (opt.filter === 'review') bits.push('復習'); if (opt.filter === 'new') bits.push('未回答'); if (opt.filter === 'star') bits.push('★');
     return bits.join('・');
   }
+  // パートだけの模試（本番と同じ科目の配分）。時間はパートの問題数に合わせたもの
+  const PART_MIN = { A: 105, B: 80, C: 35 };
+  // 第38回のパートの合格基準点（厚生労働省の発表）
+  const PART_BASE = { A: [32.23, 60], B: [20.43, 45], C: [11.33, 20] };
   function startMock(size, type) {
-    const dist = size === 'full' ? EXAM_DIST : scaleDist(25);
-    const minutes = size === 'full' ? 220 : 44;
+    const part = /^part[ABC]$/.test(size) ? size.slice(4) : '';
+    const dist = size === 'full' || part ? EXAM_DIST : scaleDist(25);
+    const minutes = part ? PART_MIN[part] : size === 'full' ? 220 : 44;
     const qs = [];
     for (const s of SUBJECTS) {
+      if (part && !PARTS[part].subjects.includes(s)) continue;
       let p = (DATA.bySubject[s] || []).filter((q) => type === 'mix' ? q.type !== '実務者研修' : q.type === type);
       if (p.length < dist[s]) p = (DATA.bySubject[s] || []).filter((q) => q.type !== '実務者研修');
       qs.push(...pickWithCases(p, dist[s], true));
     }
     if (!qs.length) { toast('問題がありません'); return; }
     const label = dataTypes().filter((t) => t !== '実務者研修').length > 1 ? '・' + ({ mix: '混合', '過去問': '過去問', '模擬問題': '模擬問題' }[type] || '') : '';
-    newSession('mock', qs, { title: (size === 'full' ? '模擬試験（本番形式）' : 'ミニ模試') + label, limit: minutes * 60000, mockSize: size, mockType: type });
+    newSession('mock', qs, { title: (part ? PARTS[part].label + 'の模試' : size === 'full' ? '模擬試験（本番形式）' : 'ミニ模試') + label, limit: minutes * 60000, mockSize: size, mockType: type, part });
     go('quiz');
   }
   function startIds(ids, title) {
     const qs = ids.map((id) => DATA.byId.get(id)).filter(Boolean);
     if (!qs.length) { toast('問題が見つかりませんでした'); return false; }
     newSession('practice', qs, { title: title || '指定の問題' }); go('quiz'); return true;
+  }
+
+  // 問題 → 記事・見出し（ブログの qmap.json）
+  let QMAP = null;
+  async function qmapOf(id) {
+    try {
+      if (!QMAP) QMAP = await (await fetch('../qmap.json', { cache: 'no-cache' })).json();
+      const m = QMAP.q[id]; if (!m) return null;
+      return { a: m[0], h: m[1], w: m[2] === 0, t: QMAP.arts[m[0]] || m[0] };
+    } catch (e) { return null; }
   }
 
   // ───────── 画面 ─────────
@@ -384,7 +405,7 @@
     const scopeLabel = el('label', { for: 'f-scope', text: p.by === 'theme' ? 'テーマ' : '範囲' });
     function fillRounds() {
       const rounds = [...new Set(pool({ scope: p.scope }).filter((q) => q.type === '過去問' && q.round).map((q) => q.round))].sort((a, b) => b - a);
-      roundSel.replaceChildren(el('option', { value: '', text: 'すべての回' }), rounds.map((r) => el('option', { value: String(r), text: '第' + r + '回' })));
+      roundSel.replaceChildren(el('option', { value: '', text: 'すべての回' }), ...rounds.map((r) => el('option', { value: String(r), text: '第' + r + '回' })));
       roundSel.value = rounds.includes(Number(p.round)) ? String(p.round) : ''; p.round = roundSel.value;
     }
     function update() {
@@ -408,7 +429,7 @@
       el('div', { class: 'field' }, el('div', { class: 'label', text: '出す問題' }), chipGroup('filter', [['all', 'すべて'], ['new', 'まだ解いていない'], ['review', '間違えた・迷った'], ['star', '★をつけた']], p.filter)),
       el('div', { class: 'row', style: 'gap:16px;align-items:flex-start' },
         el('div', { class: 'field grow' }, el('div', { class: 'label', text: '問題数' }), chipGroup('count', [['10', '10'], ['20', '20'], ['50', '50'], ['all', '全部']], p.count)),
-        el('div', { class: 'field' }, el('div', { class: 'label', text: '順番' }), chipGroup('order', [['random', 'ランダム'], ['seq', '番号順']], p.order))),
+        el('div', { class: 'field' }, el('div', { class: 'label', text: '順番' }), chipGroup('order', [['random', 'ランダム'], ['even', '科目ごとに均等'], ['seq', '番号順']], p.order))),
       info, startBtn].filter(Boolean));
     root.append(form);
     update();
@@ -424,7 +445,9 @@
       mockChoices.length > 1 ? el('div', { class: 'field' }, el('div', { class: 'label', text: '問題の種類' }), el('div', { class: 'chips' }, mockChoices.map(([v, l]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(v === mtype), onclick: (e) => { mtype = v; S.prefs.mockType = v; save(); e.currentTarget.parentNode.querySelectorAll('.chip').forEach((c) => c.setAttribute('aria-pressed', String(c === e.currentTarget))); } }, l)))) : null,
       el('div', { class: 'row' },
         el('button', { type: 'button', class: 'btn primary grow', onclick: () => confirmMock('full', mtype) }, '本番形式 125問・220分'),
-        el('button', { type: 'button', class: 'btn soft grow', onclick: () => confirmMock('mini', mtype) }, 'ミニ模試 25問・44分')));
+        el('button', { type: 'button', class: 'btn soft grow', onclick: () => confirmMock('mini', mtype) }, 'ミニ模試 25問・44分')),
+      el('div', { class: 'label', style: 'margin:12px 0 6px', text: 'パートだけ（パート合格をねらう人・再受験の人）' }),
+      el('div', { class: 'row' }, ['A', 'B', 'C'].map((p) => el('button', { type: 'button', class: 'btn soft grow', onclick: () => confirmMock('part' + p, mtype) }, p + 'パート ' + PART_BASE[p][1] + '問・' + PART_MIN[p] + '分'))));
     root.append(mock);
 
     root.append(el('p', { class: 'small muted', style: 'text-align:center;margin:20px 0', text: '記録はこの端末の中に保存されます（設定からバックアップできます）' }));
@@ -526,6 +549,7 @@
       rq.a ? el('span', { class: 'tag', text: '過去 ' + rq.c + '/' + rq.a + ' 正解' }) : null);
 
     const stem = el('div', { class: 'stem', text: q.stem });
+    if (q.note) stem.append(el('p', { class: 'small muted', style: 'margin:8px 0 0', text: q.note }));
     const fig = q.figure && q.figure.stem ? el('div', { class: 'figure' }, el('img', { src: q.figure.stem, alt: '問題の図', loading: 'lazy' })) : null;
 
     const elim = ses.elim[q.id] || [];
@@ -563,6 +587,12 @@
         el('div', null, ans ? (ok ? '正解！' : '不正解') : '未回答',
           el('small', { text: '正解は ' + keyDisp.join('・') + (keyDisp.length > 1 ? '（どれを選んでも正解）' : '') + (ans ? '｜あなたの答え ' + (order.indexOf(ans.c) + 1) : '') + (ses.qElapsed[q.id] ? '｜' + Math.round(ses.qElapsed[q.id] / 1000) + '秒' : '') }))));
       if (ex.head) body.append(el('section', { class: 'explain', 'aria-label': '解説' }, renderRich(ex.head)));
+      const artBox = el('p', { class: 'notice', style: 'margin:10px 0' }, '📖 この問題の記事を探しています…');
+      body.append(artBox);
+      qmapOf(q.id).then((m) => {
+        if (!m) { artBox.textContent = 'この論点は、まだ記事にありません（解説で確認してください）。'; return; }
+        artBox.replaceChildren(el('a', { href: '../articles/' + m.a + '/?h=' + encodeURIComponent(m.h || ''), text: '📖 この問題の記事を読む：' + m.t + (m.h ? '「' + m.h + '」' : '') }), m.w ? el('span', { class: 'small muted', text: '（近い内容の見出し）' }) : null);
+      });
       const memo = el('textarea', { class: 'input', placeholder: '自分のメモ（この端末に保存）', 'aria-label': '自分のメモ' });
       memo.value = rq.n || '';
       memo.oninput = () => { const r = rec(q.id); r.n = memo.value; r.nt = Date.now(); r.s = SUBJECTS.indexOf(q.subject); save(); };
@@ -664,7 +694,7 @@
     const bySubject = {};
     for (const it of items) { const b = bySubject[it.subject] || (bySubject[it.subject] = { n: 0, c: 0 }); b.n++; if (it.ok) b.c++; }
     const groupsZero = ses.kind === 'mock' ? GROUPS.filter((g) => g.some((s) => bySubject[s]) && g.reduce((a, s) => a + (bySubject[s] ? bySubject[s].c : 0), 0) === 0).map((g) => g.join('・')) : [];
-    return { kind: ses.kind, title: ses.title, total: items.length, correct: items.filter((x) => x.ok).length, items, bySubject, groupsZero, sec: Math.round(ses.elapsed / 1000), mockSize: ses.mockSize, snapshot: { ids: ses.ids, ans: ses.ans, order: ses.order, unsure: ses.unsure, qElapsed: ses.qElapsed, title: ses.title, kind: ses.kind } };
+    return { part: ses.part || '', kind: ses.kind, title: ses.title, total: items.length, correct: items.filter((x) => x.ok).length, items, bySubject, groupsZero, sec: Math.round(ses.elapsed / 1000), mockSize: ses.mockSize, snapshot: { ids: ses.ids, ans: ses.ans, order: ses.order, unsure: ses.unsure, qElapsed: ses.qElapsed, title: ses.title, kind: ses.kind } };
   }
 
   // ── 結果 ──
@@ -676,7 +706,9 @@
       el('div', { class: 'score' },
         el('div', { class: 'big' }, String(r.correct), el('small', { text: ' / ' + r.total + '問' })),
         el('div', { class: 'muted', text: '正答率 ' + rate + '%｜' + fmtMin(r.sec) }),
-        r.kind === 'mock' ? el('span', { class: 'pass ' + (rate >= 60 && !r.groupsZero.length ? 'ok' : 'ng'), text: rate >= 60 && !r.groupsZero.length ? '合格ライン（6割）を超えています' : '合格ライン（6割）まであと ' + Math.max(0, Math.ceil(r.total * 0.6) - r.correct) + '問' }) : null));
+        r.kind === 'mock' && r.part ? (() => { const [b, n] = PART_BASE[r.part]; const need = Math.ceil(b * r.total / n); const okp = r.correct >= need && !r.groupsZero.length;
+          return el('span', { class: 'pass ' + (okp ? 'ok' : 'ng'), text: okp ? '第38回の' + r.part + 'パート基準点（' + b + '点／' + n + '点）を超えています' : '第38回の' + r.part + 'パート基準点（' + b + '点）まであと ' + Math.max(0, need - r.correct) + '問' }); })()
+        : r.kind === 'mock' ? el('span', { class: 'pass ' + (rate >= 60 && !r.groupsZero.length ? 'ok' : 'ng'), text: rate >= 60 && !r.groupsZero.length ? '合格ライン（6割）を超えています' : '合格ライン（6割）まであと ' + Math.max(0, Math.ceil(r.total * 0.6) - r.correct) + '問' }) : null));
     root.append(card);
     if (r.kind === 'mock') {
       if (r.groupsZero.length) root.append(el('div', { class: 'notice warn' }, el('b', { text: '⚠ 0点の科目群があります：' }), r.groupsZero.join('／'), el('div', { class: 'small', text: '本番は総得点に加えて、すべての科目群で得点が必要です。' })));
@@ -955,8 +987,21 @@
   }
 
   // ───────── 起動 ─────────
+  // ブログ（記事中の問題・記事末テスト）で解いた結果を、アプリの記録に取り込む（qlog.js の ba/bc の増えた分だけ）
+  function mergeBlog() {
+    if (!window.kaigoQ) return;
+    const all = window.kaigoQ.all(); S.bimp = S.bimp || {}; let n = 0;
+    for (const id in all) {
+      const b = all[id], got = S.bimp[id] || { a: 0, c: 0 };
+      const da = (b.ba || 0) - got.a, dc = (b.bc || 0) - got.c; if (da <= 0) continue;
+      const r = rec(id); r.a += da; r.c += Math.max(0, dc);
+      if (!r.t || b.t > r.t) { r.l = b.l; r.t = b.t; }
+      S.bimp[id] = { a: b.ba || 0, c: b.bc || 0 }; n += da;
+    }
+    if (n) save();
+  }
   async function boot() {
-    loadStore(); applySettings(); registerSW();
+    loadStore(); applySettings(); registerSW(); mergeBlog();
     const msg = $('.boot p');
     try {
       await loadAllData((d, n) => { if (msg) msg.textContent = '問題データを準備中… ' + d + ' / ' + n; });

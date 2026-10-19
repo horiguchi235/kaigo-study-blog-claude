@@ -103,6 +103,13 @@ function annotateText(s) {
       if (surf === '正' && after.startsWith('し')) r = 'タダ';
       if (surf === '床') r = after.startsWith('ずれ') ? 'トコ' : (r === 'トコ' ? 'ユカ' : r);
       if (surf === '後' && r === 'ノチ') r = 'アト';
+      if (surf === '便') r = 'ベン';
+      if (surf === '野' && /[\u30A0-\u30FF]$/.test(before)) r = 'ヤ';
+      if (surf === '語' && r === 'カタリ') r = 'ゴ';
+      if (surf === '方' && r === 'ホウ' && /[なの]$/.test(before) && !KANJI.test(after.charAt(0))) r = 'カタ';
+      if (surf === '内' && r === 'ウチ' && KANJI.test(after.charAt(0))) r = 'ナイ';
+      if (surf === '混' && after.startsWith('じ')) r = 'マ';
+      if (surf === '問' && r === 'トイ' && !after.startsWith('い')) r = 'モン';
       const FIX = { 柵: 'サク', 米: 'コメ', 甲: 'コウ', 責: 'セキ', 罰: 'バツ', 臍: 'ヘソ' };
       if (FIX[surf]) r = FIX[surf];
       out += align(surf, r);
@@ -112,7 +119,39 @@ function annotateText(s) {
 }
 
 const SKIP = new Set(['script', 'style', 'svg', 'code', 'pre', 'textarea', 'title', 'rt', 'rp', 'ruby', 'head', 'noscript', 'option', 'math']);
+// HTML の断片（テキストとタグ）の、テキスト部分だけにルビを付ける
+function annotateFragment(h) {
+  return h.split(/(<[^>]+>)/).map((p) => (p.startsWith('<') ? p : annotateText(p))).join('');
+}
+// <script type="application/json" data-ruby> の中のデータに、ルビ付きの HTML を「_r」として足す
+// （JS で作る画面＝過去問テスト・○×クイズ・1問1答の一覧で、ふりがなを出すため）
+const JSON_SKIP = new Set(['id', 'h', 'href', 'url', 'ans', 'ox', 'art', 'slug', 'src', 'sub', 'kai', 'tag']);
+function rubyJson(v) {
+  if (Array.isArray(v)) { v.forEach(rubyJson); return v; }
+  if (v && typeof v === 'object') {
+    const r = {};
+    for (const k of Object.keys(v)) {
+      const x = v[k];
+      if (JSON_SKIP.has(k)) continue;
+      if (typeof x === 'string' && KANJI.test(x)) r[k] = annotateFragment(x);
+      else if (Array.isArray(x) && x.length && x.every((y) => typeof y === 'string')) r[k] = x.map((y) => (KANJI.test(y) ? annotateFragment(y) : y));
+      else rubyJson(x);
+    }
+    if (Object.keys(r).length) v._r = r;
+  }
+  return v;
+}
+function annotateJsonScripts(html) {
+  return html.replace(/(<script type="application\/json"[^>]*\bdata-ruby\b[^>]*>)([\s\S]*?)(<\/script>)/g, (all, a, body, c) => {
+    try {
+      const d = rubyJson(JSON.parse(body));
+      return a + JSON.stringify(d).replace(/</g, '\\u003c') + c;
+    } catch (e) { return all; }
+  });
+}
+
 function annotateHtml(html) {
+  html = annotateJsonScripts(html);
   const bodyAt = html.indexOf('<body');
   if (bodyAt < 0) return html;
   const head = html.slice(0, bodyAt);

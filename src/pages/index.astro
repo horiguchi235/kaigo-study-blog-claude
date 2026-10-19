@@ -30,6 +30,10 @@ for (const list of Object.values(tests as Record<string, any[]>)) for (const q o
   if (!p || qpart[q.id]) continue;
   qpart[q.id] = p; ptotal[p]++;
 }
+// 勉強の順番（STEP 1 → 6）と、記事ごとの記事末テストの問題数（「次に読む記事」を決めるため）
+const order = categories.flatMap((c) => c.themes).flatMap((t) => byTheme(t.id)).map((a) => ({ id: a.id, t: `${a.data.article}：${shortTitle(a.data.title)}`, h: url(`articles/${a.id}/`) }));
+const tcount: Record<string, number> = {};
+for (const [id, list] of Object.entries(tests as Record<string, any[]>)) tcount[id] = list.length;
 ---
 
 <Base title="介護福祉士 過去問でつなぐ合格ノート">
@@ -47,17 +51,22 @@ for (const list of Object.values(tests as Record<string, any[]>)) for (const q o
         <small id="ts-go-sub">はじめての方</small>
         <span id="ts-go-t">STEP 1 の最初の記事から始める →</span>
       </a>
+      <a class="ts-last" id="ts-last" href="#" hidden>
+        <small>最後に開いた記事</small>
+        <span id="ts-last-t"></span>
+      </a>
       <a class="ts-guide" href={url('guide/')}>🔰 このサイトの使い方</a>
     </div>
     <div class="ts-parts" id="ts-parts" hidden>
       <p class="ts-parts-h">過去問5年分の進み具合（パート別）</p>
+      <p class="ts-parts-note">試験は3つのパートに分かれます。<b>A</b>＝人間と社会・介護（午前・60問）、<b>B</b>＝こころとからだのしくみ（午後・45問）、<b>C</b>＝介護過程と総合問題（午後・20問）。<a href={url('articles/yomimono-02-zatsugaku/')}>パート合格のしくみ →</a></p>
       {['A', 'B', 'C'].map((p) => (
         <div class="ts-part" data-p={p}><span class="ts-pn">{p}パート</span><span class="ts-bar"><span></span></span><span class="ts-num">0 / {ptotal[p]}</span></div>
       ))}
       <p class="ts-note">記録はこの端末だけに保存されます。<a href={url('mylist/')}>マイリストで書き出せます →</a></p>
     </div>
   </section>
-  <script is:inline define:vars={{ qpart, ptotal }}>
+  <script is:inline define:vars={{ qpart, ptotal, order, tcount }}>
     (function () {
       // 試験日までの日数
       var exam = new Date(2027, 0, 31), now = new Date(); now.setHours(0, 0, 0, 0);
@@ -65,19 +74,41 @@ for (const list of Object.values(tests as Record<string, any[]>)) for (const q o
       if (d > 0) el.innerHTML = '第39回試験（2027年1月31日）まで あと <b>' + d + '日</b>';
       else if (d === 0) el.innerHTML = '今日は第39回試験の日です。がんばって！';
       else el.hidden = true;
-      // 続きから（最後に開いた記事）
+      // 次に読む記事＝勉強の順番で、記事末テストをまだ終えていない一番前の記事（テストの途中ならテストの位置へ）
       try {
+        var pt0 = JSON.parse(localStorage.getItem('ptest') || '{}');
         var last = JSON.parse(localStorage.getItem('lastArt') || 'null');
-        if (last && last.href) {
-          document.getElementById('ts-go').href = last.href;
-          document.getElementById('ts-go-sub').textContent = '前回の続きから';
-          document.getElementById('ts-go-t').textContent = last.title + ' →';
+        var started = Object.keys(pt0).length > 0;
+        if (started) {
+          var nx = null, nd = 0;
+          for (var k = 0; k < order.length; k++) {
+            var o = order[k], tc = tcount[o.id] || 0; if (!tc) continue;
+            var r = pt0[o.id], d = r ? Object.keys(r.ans || {}).length : 0;
+            if (d < tc) { nx = o; nd = d; break; }
+          }
+          if (nx) {
+            document.getElementById('ts-go').href = nx.h + (nd ? '#ptest' : '');
+            document.getElementById('ts-go-sub').textContent = nd ? '前回の続きから（テスト ' + nd + ' / ' + tcount[nx.id] + '問）' : '次に読む記事';
+            document.getElementById('ts-go-t').textContent = nx.t + ' →';
+          } else {
+            document.getElementById('ts-go-sub').textContent = '全記事のテストを終えました 🎉';
+            document.getElementById('ts-go-t').textContent = 'まちがえた問題をまとめて解き直す →';
+            document.getElementById('ts-go').href = 'mylist/#wrong';
+          }
+        }
+        if (last && last.href && (!started || !nx || last.href.indexOf(nx.id) < 0)) {
+          var lk = document.getElementById('ts-last'); lk.hidden = false; lk.href = last.href;
+          document.getElementById('ts-last-t').textContent = last.title + ' →';
+          if (!started) { lk.querySelector('small').textContent = '前回の続きから（最後に開いた記事）'; }
         }
       } catch (e) {}
       // パート別の進み具合
       try {
         var pt = JSON.parse(localStorage.getItem('ptest') || '{}'), got = { A: 0, B: 0, C: 0 }, any = 0;
-        Object.keys(pt).forEach(function (id) { Object.keys(pt[id].ans || {}).forEach(function (q) { var p = qpart[q]; if (p) { got[p]++; any++; } }); });
+        var seen = {};
+        Object.keys(pt).forEach(function (id) { Object.keys(pt[id].ans || {}).forEach(function (q) { seen[q] = 1; }); });
+        try { var ql = JSON.parse(localStorage.getItem('qlog') || '{}'); Object.keys(ql).forEach(function (q) { seen[q] = 1; }); } catch (e) {}
+        Object.keys(seen).forEach(function (q) { var p = qpart[q]; if (p) { got[p]++; any++; } });
         if (any) {
           document.getElementById('ts-parts').hidden = false;
           document.querySelectorAll('.ts-part').forEach(function (row) {

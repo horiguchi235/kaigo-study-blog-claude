@@ -45,6 +45,7 @@ const pageTitle = title === siteName ? title : `${title}｜${siteName}`;
       } catch (e) {}
     </script>
     <script is:inline>try { if (localStorage.getItem('hideImg') === '1') document.documentElement.classList.add('img-off'); } catch (e) {}</script>
+    <script is:inline src={url('qlog.js')}></script>
     <link rel="icon" href={url('favicon.svg')} type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -196,6 +197,24 @@ const pageTitle = title === siteName ? title : `${title}｜${siteName}`;
         nav.querySelector('.next').onclick = function () { show(i === steps.length - 1 ? 0 : i + 1); };
         show(0);
       });
+    </script>
+    <script is:inline>
+      // 目次の記事リンクに、記事末テストの進み具合の印（✓ 9/9・途中 3/9）を付ける
+      (function () {
+        var pt; try { pt = JSON.parse(localStorage.getItem('ptest') || '{}'); } catch (e) { return; }
+        if (!Object.keys(pt).length) return;
+        document.querySelectorAll('a[href*="/articles/"]').forEach(function (a) {
+          if (a.closest('#art-body, .art-nav, .ptest, .art-tools, .pt-end')) return;
+          var m = a.getAttribute('href').match(/\/articles\/([^/?#]+)\/?(?:[?#].*)?$/); if (!m) return;
+          var r = pt[m[1]]; if (!r || !r.n) return;
+          var d = Object.keys(r.ans || {}).length, ok = 0; for (var k in r.ans) if (r.ans[k]) ok++;
+          var b = document.createElement('span');
+          if (d >= r.n) { b.className = 'prog done'; b.textContent = '✓ ' + ok + '/' + r.n; b.title = 'テスト終了・正解 ' + ok + '/' + r.n; }
+          else if (d) { b.className = 'prog mid'; b.textContent = '途中 ' + d + '/' + r.n; }
+          else return;
+          a.appendChild(b);
+        });
+      })();
     </script>
   </body>
 </html>

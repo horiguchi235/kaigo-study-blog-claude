@@ -9,6 +9,7 @@ import { sequences } from '../../data/nav';
 import { getTranslations } from '../../data/translations';
 import { LANGS } from '../../data/i18n';
 import tests from '../../data/tests.json';
+import qmap from '../../../public/qmap.json';
 
 export async function getStaticPaths() {
   const articles = await getArticles();
@@ -55,7 +56,18 @@ if (special) {
   };
 }
 const def = navData[''];
-const ptest = ((tests as Record<string, any[]>)[a.id] ?? []).map(({ id, kai, sub, q, c, a: ans, e, note }) => ({ id, kai, sub, q, c, a: ans, e, note }));
+// 科目 → パート（A・B・C）
+const PART_OF: Record<string, string> = {
+  人間の尊厳と自立: 'A', 介護の基本: 'A', 社会の理解: 'A', 人間関係とコミュニケーション: 'A', コミュニケーション技術: 'A', 生活支援技術: 'A',
+  こころとからだのしくみ: 'B', 発達と老化の理解: 'B', 認知症の理解: 'B', 障害の理解: 'B', 医療的ケア: 'B', 介護過程: 'C', 総合問題: 'C',
+};
+// 読み直す見出し（tools/qmap/make.py で作った qmap.json）
+const QM = (qmap as any).q as Record<string, [string, string, number]>;
+const QT = (qmap as any).arts as Record<string, string>;
+const ptest = ((tests as Record<string, any[]>)[a.id] ?? []).map(({ id, kai, sub, q, c, a: ans, e, note }) => {
+  const m = QM[id];
+  return { id, kai, sub, q, c, a: ans, e, note, p: PART_OF[sub] ?? '', sa: m?.[0], sh: m?.[1], sat: m && m[0] !== a.id ? QT[m[0]] : undefined };
+});
 const total5 = (freq as any).total5 ?? 0;
 // 「つながる知識」の〔T17〕や「排泄②」を記事へのリンクにするための対応表
 const linkMap: { t: Record<string, string>; a: Record<string, string> } = { t: {}, a: {} };
@@ -135,9 +147,9 @@ const maxR = fr ? Math.max(1, ...fr.ronten.map((r) => r.last5)) : 1;
           <p class="pt-lead">この記事の内容から出た<b>過去5年分の本試験問題すべて</b>です。問題文と選択肢は試験センターが公表した原文のまま、解説は当サイトが独自に作成したものです。全記事のテストを解けば、5年分{total5}問（図だけで答える1問を除く）をすべて解いたことになります。</p>
           <div class="pt-bar"><span></span></div>
           <p class="pt-stat"></p>
-          <p class="pt-btns"><button type="button" class="pt-all">▶ 1問目から解く</button><button type="button" class="pt-wrong" hidden>まちがえた問題だけ解く</button></p>
+          <p class="pt-btns"></p>
           <div class="pt-view"></div>
-          <script type="application/json" id="ptest-data" set:html={JSON.stringify(ptest).replace(/</g, '\\u003c')}></script>
+          <script type="application/json" id="ptest-data" data-ruby set:html={JSON.stringify(ptest).replace(/</g, '\\u003c')}></script>
         </section>
       )
     }

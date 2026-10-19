@@ -31,9 +31,13 @@
       sm.appendChild(st);
     }
     var ol = q.querySelector(':scope > ol'); if (!ol) return;
-    var m = ans.textContent.match(/正解\s*[:：]\s*([1-5１-５])/);
-    if (!m) return;
-    var right = '１２３４５'.indexOf(m[1]) >= 0 ? '１２３４５'.indexOf(m[1]) + 1 : +m[1];
+    // 正解の番号：data-ans（ビルド時に原文の正解を入れたもの）→ 解説の「正解：N」（翻訳ページは Answer／Jawaban／Sagot／Đáp án）
+    var right = +q.dataset.ans || 0;
+    if (!right) {
+      var m = ans.textContent.match(/(?:正解|Answer|Jawaban|Sagot|Đáp án)\s*[:：]\s*([1-5１-５])/);
+      if (!m) return;
+      right = '１２３４５'.indexOf(m[1]) >= 0 ? '１２３４５'.indexOf(m[1]) + 1 : +m[1];
+    }
     ol.classList.add('qz-ch');
     Array.prototype.forEach.call(ol.children, function (li, k) {
       var b = document.createElement('button'); b.type = 'button'; b.className = 'qz-btn';
@@ -50,9 +54,15 @@
         r.textContent = k + 1 === right ? '⭕ 正解！' : '❌ ざんねん。正解は ' + right + ' です';
         ol.after(r);
         ans.open = true;
+        // 記録（全記事・アプリ共通の qlog と、この記事の過去問テスト）
+        var qid = q.dataset.qid;
+        if (qid && window.kaigoQ) window.kaigoQ.rec(qid, k + 1 === right, 'art');
+        if (qid && window.kaigoPtestInline) window.kaigoPtestInline(qid, k + 1 === right);
       });
     });
-    var hint = document.createElement('p'); hint.className = 'qz-hint'; hint.textContent = '👆 答えだと思う選択肢をタップ';
+    var hint = document.createElement('p'); hint.className = 'qz-hint';
+    var L = document.documentElement.lang;
+    hint.textContent = L === 'en' ? '👆 Tap the answer you think is right' : L === 'id' ? '👆 Ketuk jawaban yang menurut Anda benar' : L === 'fil' ? '👆 I-tap ang sagot na sa tingin mo ay tama' : L === 'vi' ? '👆 Chạm vào đáp án bạn cho là đúng' : '👆 答えだと思う選択肢をタップ';
     ol.before(hint);
   });
 
@@ -92,9 +102,12 @@
     var el = h.nextElementSibling;
     while (el && el.tagName !== 'H2') {
       el.querySelectorAll('li, p').forEach(function (li) {
+        // 〔T02〕のようなテーマ番号は読者には意味がないので消し、記事へのリンクにする
+        var code = null;
+        if (/〔T\d+〕/.test(li.innerHTML)) li.innerHTML = li.innerHTML.replace(/\s*〔(T\d+)〕/g, function (s, id) { code = code || id; return ''; });
         if (li.querySelector('a')) return;
         var html = li.innerHTML, done = false;
-        html = html.replace(/〔(T\d+)〕/g, function (s, id) { if (!map.t[id]) return s; done = true; return '<a class="tl" href="' + map.t[id] + '">' + s + '</a>'; });
+        if (code && map.t[code]) { html += ' <a class="tl tl-go" href="' + map.t[code] + '">→ 記事を開く</a>'; done = true; }
         if (!done) {
           // 「排泄②」など記事の呼び名（ふりがな付きのHTMLでも見つかるよう、文字だけで探す）
           var txt = li.textContent.replace(/\s+/g, ''), keys = Object.keys(map.a).sort(function (a, b) { return b.length - a.length; });
@@ -155,6 +168,21 @@
     if (d) { d.open = true; t.scrollIntoView(); }
   }
   openHash(); window.addEventListener('hashchange', openHash);
+  // ?h=見出し（過去問演習アプリ・別の記事のテストから「この見出しを読む」で来たとき）
+  var qh = new URLSearchParams(location.search).get('h');
+  if (qh) {
+    var nk = function (t) { return String(t).replace(/[\s、。，．・「」（）()？?①-⑳]/g, ''); }, key = nk(qh);
+    var hs = body.querySelectorAll('h2, h3');
+    for (var k = 0; k < hs.length; k++) {
+      var c = hs[k].cloneNode(true); c.querySelectorAll('rt,rp').forEach(function (x) { x.remove(); });
+      var tx = nk(c.textContent);
+      if (tx.indexOf(key) >= 0 || (key.indexOf(tx) >= 0 && tx.length > 3)) {
+        var dd = hs[k].closest('details.sec'); if (dd) dd.open = true;
+        (function (el) { setTimeout(function () { el.scrollIntoView({ block: 'start' }); el.classList.add('hl'); }, 100); })(hs[k]);
+        break;
+      }
+    }
+  }
   // 本文中・右の見出し一覧の「#見出し」へのリンクも開いてから飛ぶ
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[href^="#"]'); if (!a) return;
@@ -192,4 +220,13 @@
   var slot = document.querySelector('.art-tools .study-links') || document.querySelector('.art-tools');
   if (slot) slot.appendChild(btn);
   else { var p = document.createElement('p'); p.className = 'img-toggle-row'; p.appendChild(btn); body.parentNode.insertBefore(p, body); }
+})();
+
+// 「✏️ 過去問を解いてみよう（N問）」を開いたら、中の問題もぜんぶ開く（1問ずつ開かなくてよいように）
+(function () {
+  document.querySelectorAll('#art-body details.quiz-group').forEach(function (g) {
+    g.addEventListener('toggle', function () {
+      if (g.open) g.querySelectorAll(':scope > details.quiz').forEach(function (q) { q.open = true; });
+    });
+  });
 })();
