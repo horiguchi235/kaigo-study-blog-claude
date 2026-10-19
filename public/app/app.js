@@ -5,7 +5,7 @@
 (function () {
   'use strict';
   const K = window.KaigoCore;
-  const APP_VERSION = '3.4.1';
+  const APP_VERSION = '3.4.2';
   const CFG = Object.assign({
     dataUrl: '', staticBase: 'data/', blogUrl: '../', linksUrl: 'links.json',
     examDate: '2027-01-31',      // 次の試験日（残り日数と今日のメニューに使う）
@@ -1311,6 +1311,8 @@
       ].filter(Boolean));
     root.append(form);
     update();
+    // 「今日はあと○問・今日のメニュー」（と途中の問題）のすぐ下に置く
+    const anchor = root.querySelector('.partcard'); if (anchor) root.insertBefore(form, anchor);
 
     root.append(oxCard());
     // 3. 模擬試験
