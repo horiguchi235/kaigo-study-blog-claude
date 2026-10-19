@@ -1,28 +1,30 @@
 :root {
-  /* 早番の朝：やわらかい緑の紙・松の深緑・バターの黄色 */
-  --bg: #f1f5f1;
+  /* みかん：あざやかなオレンジ・ココアの文字・ごほうびの黄色 */
+  --bg: #fff3e6;
   --surface: #ffffff;
-  --surface-2: #eaf1ec;
-  --text: #1f3a36;
-  --muted: #5d716c;
-  --line: #d6e2db;
-  --accent: #1e6b5c;
-  --accent-strong: #2f8f78;
-  --accent-soft: #e0efe8;
-  --butter: #f2c14e;
-  --hero: #1d5a4e;
-  --hero-ink: #f6fbf8;
-  --ok: #2b7a52;
-  --ok-soft: #e1f2e7;
-  --ng: #c0432c;
-  --ng-soft: #fbe7e1;
-  --warn: #8a5d00;
-  --btn: #1e6b5c;
+  --surface-2: #ffeedd;
+  --text: #3a1f0f;
+  --muted: #7d5a45;
+  --line: #f6d9bd;
+  --accent: #c2410c;
+  --accent-strong: #ff7a1a;
+  --accent-soft: #ffe6cf;
+  --butter: #ffd23f;
+  --hero: #ff7a1a;
+  --hero-2: #ff5a1f;
+  --hero-ink: #ffffff;
+  --ok: #1f9d63;
+  --ok-soft: #dcf5e8;
+  --ng: #d93a3f;
+  --ng-soft: #fde3e3;
+  --warn: #8a5300;
+  --btn: #f06a0f;
+  --btn-edge: #b9480a;
   --on-btn: #ffffff;
   --on-mark: #ffffff;
-  --warn-soft: #fff2cc;
-  --shadow: 0 1px 0 rgba(31, 58, 54, .04);
-  --radius: 16px;
+  --warn-soft: #fff1c7;
+  --shadow: none;
+  --radius: 18px;
   --fs: 16px;
   --lh: 1.75;
   --round: 'Hiragino Maru Gothic ProN', 'Zen Maru Gothic', 'BIZ UDPGothic', 'Hiragino Sans', system-ui, sans-serif;
@@ -30,17 +32,17 @@
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0f1d1a; --surface: #172824; --surface-2: #1d322d; --text: #e6f1ec; --muted: #9db3ab; --line: #2a423c;
-    --accent: #7fd1b9; --accent-strong: #4fb497; --accent-soft: #1d3a33; --ok: #77d3a0; --ok-soft: #173326;
-    --ng: #ff8f78; --ng-soft: #3b211c; --warn: #f2c14e; --warn-soft: #3a3118; --shadow: none; color-scheme: dark;
-    --btn: #7fd1b9; --on-btn: #0f1d1a; --on-mark: #0f1d1a; --hero: #13453b; --hero-ink: #f1faf6;
+    --bg: #1d140e; --surface: #2a1d14; --surface-2: #33241a; --text: #fbeee3; --muted: #c9ab95; --line: #4a3324;
+    --accent: #ffa25c; --accent-strong: #ff8a33; --accent-soft: #432a18; --ok: #5fd69a; --ok-soft: #173326;
+    --ng: #ff8a80; --ng-soft: #3d2220; --warn: #ffd23f; --warn-soft: #3a3018; color-scheme: dark;
+    --btn: #ff8a33; --btn-edge: #a8510f; --on-btn: #1d140e; --on-mark: #1d140e; --hero: #c2500e; --hero-2: #a43b0a;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #0f1d1a; --surface: #172824; --surface-2: #1d322d; --text: #e6f1ec; --muted: #9db3ab; --line: #2a423c;
-  --accent: #7fd1b9; --accent-strong: #4fb497; --accent-soft: #1d3a33; --ok: #77d3a0; --ok-soft: #173326;
-  --ng: #ff8f78; --ng-soft: #3b211c; --warn: #f2c14e; --warn-soft: #3a3118; --shadow: none; color-scheme: dark;
-  --btn: #7fd1b9; --on-btn: #0f1d1a; --on-mark: #0f1d1a; --hero: #13453b; --hero-ink: #f1faf6;
+  --bg: #1d140e; --surface: #2a1d14; --surface-2: #33241a; --text: #fbeee3; --muted: #c9ab95; --line: #4a3324;
+  --accent: #ffa25c; --accent-strong: #ff8a33; --accent-soft: #432a18; --ok: #5fd69a; --ok-soft: #173326;
+  --ng: #ff8a80; --ng-soft: #3d2220; --warn: #ffd23f; --warn-soft: #3a3018; color-scheme: dark;
+  --btn: #ff8a33; --btn-edge: #a8510f; --on-btn: #1d140e; --on-mark: #1d140e; --hero: #c2500e; --hero-2: #a43b0a;
 }
 :root[data-font="s"] { --fs: 15px; }
 :root[data-font="l"] { --fs: 18px; }
@@ -365,13 +367,13 @@ details.case .case-text { padding: 0 14px 12px; margin: 0; font-size: .95em; }
 
 /* ───── v3：GAS版の機能（タイマーのねこ・マーク・未理解・演出・積み重ね）───── */
 /* 画面の色（ライトのとき。ダークでは使わない） */
-:root[data-palette="orange"][data-theme="light"] { --accent: #a84a10; --accent-strong: #e07a36; --accent-soft: #fdeedf; --btn: #b4520f; --bg: #fffaf4; --surface-2: #fff6ec; --line: #f0dfcd; --hero: #8f3f0e; }
+:root[data-palette="green"][data-theme="light"] { --accent: #1e6b5c; --accent-strong: #2f8f78; --accent-soft: #e0efe8; --btn: #1e6b5c; --btn-edge: #134a3f; --bg: #f1f5f1; --surface-2: #eaf1ec; --line: #d6e2db; --hero: #1d5a4e; --hero-2: #17483e; --text: #1f3a36; --muted: #5d716c; }
 :root[data-palette="blue"][data-theme="light"] { --accent: #22609a; --accent-strong: #3f86c8; --accent-soft: #e6f0fa; --btn: #22609a; --bg: #f4f7fb; --surface-2: #eef3f9; --line: #d9e3ee; --hero: #1d4f7e; }
 :root[data-palette="pink"][data-theme="light"] { --accent: #a33a62; --accent-strong: #d16a92; --accent-soft: #fbe9f0; --btn: #a33a62; --bg: #fdf6f8; --surface-2: #fbeef3; --line: #f0dbe3; --hero: #86304f; }
 :root[data-palette="purple"][data-theme="light"] { --accent: #6a4c9c; --accent-strong: #8f72c2; --accent-soft: #efe9f8; --btn: #6a4c9c; --bg: #f8f6fc; --surface-2: #f2eef9; --line: #e3dcef; --hero: #563d80; }
 :root[data-palette="beige"][data-theme="light"] { --accent: #7a5a2e; --accent-strong: #b08a52; --accent-soft: #f5ecdd; --btn: #7a5a2e; --bg: #fbf8f1; --surface-2: #f6f0e3; --line: #e9dfcb; --hero: #5f4622; }
 @media (prefers-color-scheme: light) {
-  :root[data-palette="orange"]:not([data-theme]) { --accent: #a84a10; --accent-strong: #e07a36; --accent-soft: #fdeedf; --btn: #b4520f; --bg: #fffaf4; --surface-2: #fff6ec; --line: #f0dfcd; --hero: #8f3f0e; }
+  :root[data-palette="green"]:not([data-theme]) { --accent: #1e6b5c; --accent-strong: #2f8f78; --accent-soft: #e0efe8; --btn: #1e6b5c; --btn-edge: #134a3f; --bg: #f1f5f1; --surface-2: #eaf1ec; --line: #d6e2db; --hero: #1d5a4e; --hero-2: #17483e; --text: #1f3a36; --muted: #5d716c; }
   :root[data-palette="blue"]:not([data-theme]) { --accent: #22609a; --accent-strong: #3f86c8; --accent-soft: #e6f0fa; --btn: #22609a; --bg: #f4f7fb; --surface-2: #eef3f9; --line: #d9e3ee; --hero: #1d4f7e; }
   :root[data-palette="pink"]:not([data-theme]) { --accent: #a33a62; --accent-strong: #d16a92; --accent-soft: #fbe9f0; --btn: #a33a62; --bg: #fdf6f8; --surface-2: #fbeef3; --line: #f0dbe3; --hero: #86304f; }
   :root[data-palette="purple"]:not([data-theme]) { --accent: #6a4c9c; --accent-strong: #8f72c2; --accent-soft: #efe9f8; --btn: #6a4c9c; --bg: #f8f6fc; --surface-2: #f2eef9; --line: #e3dcef; --hero: #563d80; }
@@ -646,3 +648,83 @@ h1, h2, h3, .hero-h, .brand, .counter, .score .big, .mstat b, .part-rate, .ring 
 .part-head .grow { min-width: 0; }
 .part-msg { font-size: .92em; }
 @media (max-width: 360px) { .hero-h { font-size: 1em; } .ring { width: 64px; height: 64px; } }
+
+/* ───── v3.2：みかん色のゲーム風 ───── */
+body { background: var(--bg); }
+/* 押せるボタン：下に厚みのある、ゲームのボタン */
+.btn { border-width: 2px; }
+.btn.primary { background: var(--btn); border-color: var(--btn); box-shadow: 0 4px 0 var(--btn-edge); transition: transform .06s, box-shadow .06s; }
+.btn.primary:active:not(:disabled) { transform: translateY(4px); box-shadow: 0 0 0 var(--btn-edge); }
+.btn.soft { box-shadow: 0 3px 0 color-mix(in srgb, var(--accent-strong) 35%, transparent); }
+.btn.soft:active { transform: translateY(3px); box-shadow: none; }
+.chip[aria-pressed="true"] { box-shadow: 0 2px 0 var(--btn-edge); }
+.card { border-width: 2px; }
+
+/* ホームの主役 */
+.card.hero { background: linear-gradient(160deg, var(--hero) 0%, var(--hero-2) 100%); }
+.card.hero::after { background: radial-gradient(circle, rgba(255,210,63,.35), transparent 70%); width: 240px; height: 240px; }
+.ring { background: radial-gradient(closest-side, var(--hero-2) 78%, transparent 80% 100%), conic-gradient(var(--butter) calc(var(--p) * 360deg), rgba(255,255,255,.22) 0); }
+.hero .pill { background: rgba(255,255,255,.2); }
+.hero-sub { color: rgba(255,255,255,.88); }
+.hero .btn.cta { background: var(--butter); border-color: var(--butter); color: #3a1f0f; box-shadow: 0 5px 0 #c99a12; }
+.hero .btn.cta:active { transform: translateY(5px); box-shadow: none; }
+.hero .btn.soft { background: rgba(255,255,255,.2); color: #fff; box-shadow: 0 3px 0 rgba(0,0,0,.12); }
+.profile .avatar { background: var(--butter); }
+
+/* 問題画面：ステージの道 */
+.stage { display: flex; gap: 3px; margin-top: 8px; }
+.stage i { flex: 1; height: 8px; border-radius: 99px; background: var(--line); transition: background .3s; }
+.stage i.ok { background: var(--ok); }
+.stage i.ng { background: var(--ng); }
+.stage i.done { background: var(--accent-strong); }
+.stage i.cur { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent-strong); }
+.combo-pill { font-family: var(--round); font-weight: 800; color: #fff; background: linear-gradient(135deg, #ff9f1a, #ff4d1a); border-radius: 99px; padding: 1px 10px; font-size: .85em; animation: pop .3s ease-out; white-space: nowrap; }
+main.quiz.enter .stem-wrap, main.quiz.enter .opts { animation: slidein .32s cubic-bezier(.2,.8,.2,1) both; }
+main.quiz.enter .opts { animation-delay: .06s; }
+@keyframes slidein { from { transform: translateX(28px); opacity: 0; } }
+.opt { border-width: 2px; box-shadow: 0 3px 0 var(--line); transition: transform .08s, box-shadow .08s, border-color .15s, background .15s; }
+.opt .pick:active { transform: scale(.985); }
+.opt.selected { box-shadow: 0 3px 0 var(--btn-edge); animation: pick .22s ease-out; }
+@keyframes pick { 50% { transform: scale(1.02); } }
+.answered .opt.correct { animation: glow .9s ease-out 1; box-shadow: 0 3px 0 color-mix(in srgb, var(--ok) 60%, #000); }
+.answered .opt.wrong { animation: shake .4s ease-in-out 1; box-shadow: 0 3px 0 color-mix(in srgb, var(--ng) 60%, #000); }
+@keyframes glow { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--ok) 60%, transparent); } 100% { box-shadow: 0 0 0 14px transparent; } }
+@keyframes shake { 20%, 60% { transform: translateX(-6px); } 40%, 80% { transform: translateX(6px); } }
+.opt .num { font-family: var(--round); }
+.verdict { border: 2px solid currentColor; }
+.verdict .mark { animation: stamp .45s cubic-bezier(.2,1.6,.4,1) both; }
+@keyframes stamp { from { transform: scale(2.2) rotate(-12deg); opacity: 0; } }
+
+/* +EXP・コンボ */
+.floater { position: fixed; left: 50%; top: 20%; z-index: 65; transform: translateX(-50%); pointer-events: none; font-family: var(--round); font-weight: 900; font-size: 1.6em; color: var(--accent-strong); text-shadow: 0 2px 0 #fff, 0 0 12px rgba(255,255,255,.9); animation: floatup 1.3s ease-out forwards; white-space: nowrap; }
+.floater.combo { top: 28%; font-size: 2em; color: #ff4d1a; }
+@keyframes floatup { 0% { opacity: 0; transform: translate(-50%, 16px) scale(.6); } 20% { opacity: 1; transform: translate(-50%, 0) scale(1.1); } 70% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -50px) scale(1); } }
+
+/* スタートの合図 */
+.splash { position: fixed; inset: 0; z-index: 75; display: grid; place-items: center; background: rgba(58,31,15,.25); pointer-events: none; animation: fadeout 1.3s ease-in forwards; }
+.splash-card { background: linear-gradient(160deg, var(--hero), var(--hero-2)); color: #fff; border-radius: 24px; padding: 22px 34px; text-align: center; display: grid; gap: 2px; box-shadow: 0 8px 0 rgba(0,0,0,.15); animation: pop .35s cubic-bezier(.2,1.6,.4,1); }
+.splash-card small { opacity: .9; }
+.splash-card b { font-family: var(--round); font-size: 1.6em; }
+.splash-card .go { font-family: var(--round); font-weight: 900; font-size: 2.2em; color: var(--butter); animation: go .6s .35s cubic-bezier(.2,1.6,.4,1) both; }
+@keyframes go { from { transform: scale(0); } }
+@keyframes fadeout { 0%, 75% { opacity: 1; } 100% { opacity: 0; } }
+
+/* 結果：星とランク */
+.rank-row { display: flex; align-items: center; justify-content: center; gap: 18px; margin: 4px 0 2px; flex-wrap: wrap; }
+.stars { display: flex; gap: 4px; }
+.star { font-size: 2.3em; line-height: 1; color: var(--line); }
+.star.on { color: var(--butter); text-shadow: 0 2px 0 #d9a30f; }
+.rank-row.fresh .star.on { animation: starpop .5s calc(var(--k) * .22s + .2s) cubic-bezier(.2,1.6,.4,1) both; }
+@keyframes starpop { from { transform: scale(0) rotate(-90deg); } }
+.rank { width: 64px; height: 64px; border-radius: 18px; display: grid; place-content: center; text-align: center; line-height: 1; background: var(--surface-2); border: 3px solid var(--accent-strong); transform: rotate(-6deg); }
+.rank small { font-size: .62em; color: var(--muted); }
+.rank b { font-family: var(--round); font-size: 2em; color: var(--accent); }
+.rank.rS { background: var(--butter); border-color: #e0a800; } .rank.rS b { color: #b3410e; }
+.rank-row.fresh .rank { animation: stamp .5s .9s cubic-bezier(.2,1.6,.4,1) both; }
+.maxcombo { text-align: center; line-height: 1.1; }
+.maxcombo small { display: block; font-size: .7em; color: var(--muted); }
+.maxcombo b { font-family: var(--round); font-size: 1.4em; color: #ff4d1a; }
+.milestone .ms-card { border: 3px solid var(--butter); }
+.milestone.major .ms-card b { color: var(--accent-strong); font-family: var(--round); }
+.tabbar button[aria-current="page"] .ico { background: var(--accent-soft); }
+@media (prefers-reduced-motion: reduce) { .floater, .splash { display: none; } }

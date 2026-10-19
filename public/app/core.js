@@ -358,6 +358,13 @@
       if (!o.settings.palette || o.settings.palette === 'orange') o.settings.palette = 'green';
       o.v = 4;
     }
+    if (v < 5) {
+      // v4 → v5：標準の色をオレンジに戻す（グリーンは設定で選べる）
+      o.settings = Object.assign({}, o.settings || {});
+      if (!o.settings.palette || o.settings.palette === 'green') o.settings.palette = 'orange';
+      if (o.settings.vibrate == null) o.settings.vibrate = true;
+      o.v = 5;
+    }
     return o;
   }
   function sanitizeLogEntry(e) {
@@ -369,7 +376,7 @@
   }
   function sanitize(S, blank) {
     const out = Object.assign(blank, {});
-    out.v = 4;
+    out.v = 5;
     out.settings = Object.assign(blank.settings, isObj(S.settings) ? S.settings : {});
     out.prefs = isObj(S.prefs) ? S.prefs : {};
     out.q = {};

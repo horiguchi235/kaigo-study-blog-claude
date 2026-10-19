@@ -5,7 +5,7 @@
 (function () {
   'use strict';
   const K = window.KaigoCore;
-  const APP_VERSION = '3.1.0';
+  const APP_VERSION = '3.2.0';
   const CFG = Object.assign({
     dataUrl: '', staticBase: 'data/', blogUrl: '../', linksUrl: 'links.json',
     examDate: '2027-01-31',      // 次の試験日（残り日数と今日のメニューに使う）
@@ -22,7 +22,7 @@
   const CONFIRM = true; // 選択肢を選んでから「答え合わせ」で確定する（押しただけでは答えにしない）
   const LIMITS = [[30, '30秒'], [60, '60秒'], [90, '90秒'], [120, '120秒'], ['custom', '指定'], [0, '無制限']];
   const DIFFS = ['初級', '中級', '上級'];
-  const PALETTES = [['green', 'グリーン（標準）'], ['orange', 'オレンジ'], ['blue', 'ブルー'], ['pink', 'ピンク'], ['purple', 'ラベンダー'], ['beige', 'ベージュ']];
+  const PALETTES = [['orange', 'オレンジ（標準）'], ['green', 'グリーン'], ['blue', 'ブルー'], ['pink', 'ピンク'], ['purple', 'ラベンダー'], ['beige', 'ベージュ']];
   const AVATARS = ['📚', '🌱', '🦉', '🐶', '🐰', '🐼', '🐧', '🦊', '🐻', '🐢', '🌸', '⭐', '🐱'];
 
   // ───────── 小さな道具 ─────────
@@ -107,10 +107,10 @@
   // ───────── 学習記録（端末内） ─────────
   function blankStore() {
     return {
-      v: 4, q: {}, log: [], days: {}, mocks: [],
-      settings: { shuffle: true, confirmMode: true, font: 'm', theme: 'auto', palette: 'green', goal: 20, goals: { day: 20, week: 140, month: 600, total: 3000 }, sound: true, countdown: true,
+      v: 5, q: {}, log: [], days: {}, mocks: [],
+      settings: { shuffle: true, confirmMode: true, font: 'm', theme: 'auto', palette: 'orange', goal: 20, goals: { day: 20, week: 140, month: 600, total: 3000 }, sound: true, countdown: true,
         speech: true, autoSpeech: false, speechRate: 1, effects: true, foldTools: true, parts: ['A', 'B', 'C'], mockTime: 1, mockPreferNew: false, mockShuffle: false,
-        qLimit: 60, qLimitCustom: 180, playMode: 'normal', lives: 3, showExplain: true, diffs: ['初級', '中級', '上級'], rest: true, lh: 'n', examDate: '', remind: { days: [1, 2, 3, 4, 5, 6, 0], time: '12:30' } },
+        qLimit: 60, qLimitCustom: 180, playMode: 'normal', lives: 3, showExplain: true, diffs: ['初級', '中級', '上級'], rest: true, vibrate: true, lh: 'n', examDate: '', remind: { days: [1, 2, 3, 4, 5, 6, 0], time: '12:30' } },
       profile: { name: '学習者', age: '', pref: '', avatar: '📚', at: 0 },
       session: null, lastResult: null, prefs: {}, createdAt: Date.now(), lastBackup: 0, launches: 0, migratedIds: '',
     };
@@ -359,6 +359,7 @@
     if (kind === 'practice' && !ses.rules) ses.rules = { mode: S.settings.playMode || 'normal', lives: S.settings.playMode === 'sudden' ? 1 : Math.max(1, Math.min(10, Number(S.settings.lives) || 3)), explain: S.settings.showExplain !== false };
     ses.marks = {};
     ses.base = growthBase();
+    ses.splash = true;
     S.session = ses; saveNow(); return ses;
   }
   // 1問の制限時間（秒）。0 は無制限
@@ -818,7 +819,7 @@
         el('div', { class: 'meter', role: 'progressbar', 'aria-label': '学習済みの割合', 'aria-valuemin': '0', 'aria-valuemax': String(DATA.byId.size), 'aria-valuenow': String(g.uniqueCount) }, el('i', { style: 'width:' + Math.min(100, pct(g.uniqueCount, DATA.byId.size)) + '%' })),
         el('div', { class: 'badges' }, el('span', { text: '今週 ' + g.week.count + '問' }), el('span', { text: '連続学習 ' + g.streak + '日' }), el('span', { text: '累計 ' + g.total.count + '回回答' }), el('span', { text: '累計解答時間 ' + fmtDur(g.total.seconds) }), el('span', { text: '今回正答率 ' + pct(r.correct, r.answered) + '%' }))));
     if (!snap.celebrated) {
-      snap.celebrated = true; saveNow();
+      snap.celebrated = true; saveNow(); sfx.clear(); buzz([20, 30, 20]);
       // 数字が0から増えていく
       if (S.settings.effects && !reduced()) {
         const els = [...box.querySelectorAll('[data-target]')], start = performance.now();
@@ -993,7 +994,7 @@
       const ok = v === it.truth;
       OX.ans[OX.i] = { item: it, ok };
       const st = oxStat(), r = st[it.id] || [0, 0, 0]; r[0]++; if (ok) r[1]++; r[2] = ok ? 1 : 0; st[it.id] = r; save();
-      showFeedback(ok); if (navigator.vibrate) navigator.vibrate(ok ? 20 : [40, 60, 40]);
+      showFeedback(ok); buzz(ok ? 20 : [40, 60, 40]);
       announce(ok ? '正解です' : '不正解です'); renderOx();
     }
   }
@@ -1472,6 +1473,28 @@
     if (ok) tone([[1046.5, 0, 0.14], [783.99, 0.16, 0.22], [1046.5, 0.43, 0.14], [783.99, 0.59, 0.28]], 'sine', 0.08);
     else tone([[146.83, 0, 0.16], [130.81, 0.23, 0.46]], 'square', 0.045);
   }
+  // ゲームの効果音（すべて「効果音」の設定でオン・オフ）
+  const sfx = {
+    tick: () => S.settings.sound && tone([[660, 0, 0.05]], 'triangle', 0.035),
+    combo: (n) => { if (!S.settings.sound) return; const base = 523.25 * Math.pow(2, Math.min(n - 2, 10) / 12); tone([[base, 0, 0.08], [base * 1.26, 0.07, 0.08], [base * 1.5, 0.14, 0.16]], 'square', 0.03); },
+    levelUp: () => S.settings.sound && tone([[523.25, 0, 0.12], [659.25, 0.12, 0.12], [783.99, 0.24, 0.12], [1046.5, 0.36, 0.42], [783.99, 0.36, 0.42]], 'triangle', 0.07),
+    clear: () => S.settings.sound && tone([[783.99, 0, 0.1], [987.77, 0.1, 0.1], [1174.66, 0.2, 0.1], [1567.98, 0.32, 0.5]], 'sine', 0.07),
+    start: () => S.settings.sound && tone([[392, 0, 0.1], [523.25, 0.12, 0.1], [659.25, 0.24, 0.22]], 'triangle', 0.05),
+  };
+  const buzz = (pat) => { if (S.settings.vibrate !== false && navigator.vibrate) try { navigator.vibrate(pat); } catch (e) { /* なし */ } };
+  // 画面にふわっと出る文字（+1 EXP・コンボ）
+  function floatText(text, cls) {
+    if (!S.settings.effects || reduced()) return;
+    const n = el('div', { class: 'floater ' + (cls || ''), 'aria-hidden': 'true', text });
+    document.body.append(n); setTimeout(() => n.remove(), 1400);
+  }
+  // 始まりの合図
+  function startSplash(title, n) {
+    sfx.start();
+    if (!S.settings.effects || reduced()) return;
+    const o = el('div', { class: 'splash', 'aria-hidden': 'true' }, el('div', { class: 'splash-card' }, el('small', { text: title }), el('b', { text: n + '問チャレンジ' }), el('span', { class: 'go', text: 'スタート！' })));
+    document.body.append(o); setTimeout(() => o.remove(), 1300);
+  }
   function beep(last) { if (S.settings.sound && S.settings.countdown) tone([[last ? 1200 : 900, 0, 0.095]], 'sine', 0.065); }
   // iPhone は、画面を触ったときに音と読み上げを有効にする
   let speechPrimed = false;
@@ -1575,7 +1598,13 @@
           const answered = Object.keys(ses.ans).length;
           if (answered >= ses.ids.length || await ask('ここで終えて結果を見ますか？\n（' + answered + '問 回答済み。残りの ' + (ses.ids.length - answered) + '問は「未回答」になります）', '結果を見る')) finishPractice();
         } }, '終える') : null),
-      el('div', { class: 'qbar', 'aria-hidden': 'true' }, el('i', { style: 'width:' + pct(isMock ? Object.keys(ses.ans).length : ses.i + (ses.ans[ids[ses.i]] ? 1 : 0), ids.length) + '%' })));
+      ids.length <= 60 ? el('div', { class: 'stage', 'aria-hidden': 'true' }, ids.map((id, k) => {
+        const a = ses.ans[id], qq = DATA.byId.get(id);
+        const okk = a && qq && (a.ok != null ? a.ok : qq.keys.includes(a.c));
+        return el('i', { class: (k === ses.i ? 'cur ' : '') + (!a ? '' : isMock && !reviewMode ? 'done' : okk ? 'ok' : 'ng') });
+      })) : el('div', { class: 'qbar', 'aria-hidden': 'true' }, el('i', { style: 'width:' + pct(isMock ? Object.keys(ses.ans).length : ses.i + (ses.ans[ids[ses.i]] ? 1 : 0), ids.length) + '%' })));
+    if (!isMock && !reviewMode && (ses.combo || 0) >= 2) top.querySelector('.row').insertBefore(el('span', { class: 'combo-pill', title: '連続正解', text: '🔥' + ses.combo }), top.querySelector('.counter'));
+    if (ses.splash) { delete ses.splash; save(); startSplash(ses.title, ids.length); }
 
     if (!q) {
       app().replaceChildren(el('main', { class: 'shell quiz' }, top,
@@ -1812,6 +1841,7 @@
     }
     if (!showAnswer && !isMock && CONFIRM && !sel) body.append(el('p', { id: 'pick-hint', class: 'small muted', style: 'margin:10px 4px 0', text: '選択肢を選んでから「答え合わせ」を押します。違うと思う選択肢は「✕ 不正解」で消せます（消した選択肢は選べません）。理由を説明できない選択肢は「未理解」で記録できます。' }));
     body.append(quizFoot(ses, { isMock, reviewMode, ans, isLast: ses.i === ids.length - 1, sel, q }));
+    if (ses.lastShown !== q.id) { ses.lastShown = q.id; body.classList.add('enter'); }
     app().replaceChildren(body);
     updTimer();
     if (!reviewMode) startTick(updTimer);
@@ -1831,6 +1861,7 @@
     function pick(orig) {
       if (showAnswer) return;
       if (elim.includes(orig)) { toast('「不正解」で消した選択肢は選べません。「解除」で元に戻せます'); return; }
+      sfx.tick(); buzz(8);
       if (isMock) { ses.ans[q.id] = { c: orig, t: Date.now() }; save(); rerender(); return; }
       if (CONFIRM) { ses.sel = ses.sel || {}; ses.sel[q.id] = orig; save(); rerender(); const b = $('.quiz-foot .btn.primary'); b && b.focus({ preventScroll: true }); return; }
       submit(orig);
@@ -1879,12 +1910,18 @@
     if (!q || ses.ans[q.id]) return;
     const ok = !byTimeout && q.keys.includes(orig);
     const sec = (ses.qElapsed[q.id] || 0) / 1000;
+    const lvBefore = K.careLevelAt(S.log.length).level;
+    ses.combo = ok ? (ses.combo || 0) + 1 : 0; ses.maxCombo = Math.max(ses.maxCombo || 0, ses.combo);
     const logIdx = recordAnswer(q, orig || 0, ok, sec, ses.unsure[q.id] || 0, 'p');
     ses.ans[q.id] = { c: orig || 0, ok, log: logIdx, t: S.log[logIdx] && S.log[logIdx][0], timeout: byTimeout ? true : undefined };
     if (ses.sel) delete ses.sel[q.id];
     ses.pausedAt = 0; ses.justAnswered = q.id;
-    saveNow(); showFeedback(ok); if (navigator.vibrate) navigator.vibrate(ok ? 20 : [40, 60, 40]);
+    saveNow(); showFeedback(ok); buzz(ok ? 20 : [40, 60, 40]);
     announce(byTimeout && !orig ? '時間切れです' : ok ? '正解です' : '不正解です');
+    setTimeout(() => floatText('+1 EXP', 'exp'), 250);
+    if (ses.combo >= 2) setTimeout(() => { floatText(ses.combo + ' コンボ！', 'combo'); sfx.combo(ses.combo); }, 650);
+    const lvAfter = K.careLevelAt(S.log.length).level;
+    if (lvAfter > lvBefore) setTimeout(() => { sfx.levelUp(); buzz([30, 40, 30, 40, 80]); milestone('LEVEL UP!', '介護福祉士 Lv.' + lvBefore + ' → Lv.' + lvAfter, true); }, 1100);
     const n = Object.keys(ses.ans).length, isLast = ses.i >= ses.ids.length - 1;
     const life = lifeState(ses);
     if (life.over) {
@@ -1938,7 +1975,7 @@
     }, { label: '問題の一覧' });
   }
   function snapshot(ses) {
-    return { ids: ses.ids, ans: ses.ans, order: ses.order, unsure: ses.unsure, qElapsed: ses.qElapsed, title: ses.title, kind: ses.kind, opt: ses.opt || null, mockSize: ses.mockSize, mockType: ses.mockType, sec: Math.round(ses.elapsed / 1000), ansSec: Math.round(answerSec(ses) / 1000), rules: ses.rules || null, base: ses.base || null, reason: ses.reason || 'complete', qLimit: ses.qLimit || 0, at: Date.now() };
+    return { ids: ses.ids, ans: ses.ans, order: ses.order, unsure: ses.unsure, qElapsed: ses.qElapsed, title: ses.title, kind: ses.kind, opt: ses.opt || null, mockSize: ses.mockSize, mockType: ses.mockType, sec: Math.round(ses.elapsed / 1000), ansSec: Math.round(answerSec(ses) / 1000), maxCombo: ses.maxCombo || 0, rules: ses.rules || null, base: ses.base || null, reason: ses.reason || 'complete', qLimit: ses.qLimit || 0, at: Date.now() };
   }
   function finishPractice(reason) {
     const ses = S.session; if (!ses) return;
@@ -1979,10 +2016,18 @@
     const base = isMock ? r.total : r.answered;
     const rate = pct(r.correct, base);
     const j = r.judge;
-    const card = el('section', { class: 'card' }, el('h1', { class: 'h2like', 'data-focus': '' }, isMock ? '模擬試験の結果' : 'おつかれさまでした', el('span', { class: 'sub', text: snap.title })),
+    const card = el('section', { class: 'card' }, el('h1', { class: 'h2like', 'data-focus': '' }, isMock ? '模擬試験の結果' : snap.reason === 'life' ? 'チャレンジ終了' : 'ステージクリア！', el('span', { class: 'sub', text: snap.title })),
       el('div', { class: 'score' },
         el('div', { class: 'big' }, String(r.correct), el('small', { text: ' / ' + base + '問' })),
         el('div', { class: 'muted', text: '正答率 ' + rate + '%｜' + fmtMin(snap.sec || 0) + (r.total > r.answered ? '｜未回答 ' + (r.total - r.answered) + '問' : '') })));
+    if (!isMock && r.answered) {
+      const ratio = r.correct / r.answered, stars = ratio >= 0.9 ? 3 : ratio >= 0.7 ? 2 : ratio >= 0.5 ? 1 : 0;
+      const rank = ratio >= 0.9 ? 'S' : ratio >= 0.75 ? 'A' : ratio >= 0.6 ? 'B' : 'C';
+      card.insertBefore(el('div', { class: 'rank-row' + (snap.celebrated ? '' : ' fresh') },
+        el('div', { class: 'stars', role: 'img', 'aria-label': '星' + stars + 'つ' }, [0, 1, 2].map((k) => el('span', { class: 'star' + (k < stars ? ' on' : ''), style: '--k:' + k, text: '★' }))),
+        el('div', { class: 'rank r' + rank, role: 'img', 'aria-label': 'ランク' + rank }, el('small', { text: 'ランク' }), el('b', { text: rank })),
+        (snap.maxCombo || 0) >= 2 ? el('div', { class: 'maxcombo' }, el('small', { text: '最大コンボ' }), el('b', { text: '🔥' + snap.maxCombo })) : null), card.querySelector('.score'));
+    }
     if (!isMock) {
       card.append(el('div', { class: 'today', style: 'margin-top:8px' }, stat(r.answered + ' / ' + r.total, '回答した問題'), stat(r.correct, '正解'), stat(r.answered - r.correct, '不正解'), stat(fmtTime((snap.ansSec || 0) * 1000), '全体解答時間')));
       const rl = snap.rules || {};
@@ -2159,14 +2204,15 @@
       el('div', { class: 'field' }, el('div', { class: 'label', text: '明るさ' }), seg('theme', [['auto', '端末に合わせる'], ['light', 'ライト'], ['dark', 'ダーク']], '明るさ')),
       sw('スマホでは補助機能を折りたたむ', 'foldTools', 'マーク・コピー・音声などを、押したときだけ開くようにして画面をすっきりさせます')));
     root.append(el('section', { class: 'card' }, el('h2', null, '音・音声・演出'),
-      sw('効果音', 'sound', '正解（チャイム）・不正解のときに音を鳴らします'),
+      sw('効果音', 'sound', '選んだとき・正解・コンボ・レベルアップ・クリアの音。オフでも画面の演出はそのまま出ます'),
+      sw('振動（スマホ）', 'vibrate', '選んだとき・答え合わせのときに軽く震えます（対応している端末だけ）'),
       sw('残り5秒でカウントダウン音', 'countdown', '1問の制限時間があるときに鳴ります'),
       sw('音声解説', 'speech', '端末の日本語音声で、問題や解説を読み上げます（外部には送りません）'),
       sw('答え合わせ後に自動で読み上げ', 'autoSpeech', '解説を表示する設定のときに読み上げます'),
       el('label', { class: 'row small', style: 'margin:10px 0' }, '読み上げの速さ',
         el('input', { type: 'range', min: '0.8', max: '2.4', step: '0.1', value: String(S.settings.speechRate || 1), 'aria-label': '読み上げの速さ', oninput: (e) => { S.settings.speechRate = Math.round(Number(e.target.value) * 10) / 10; e.target.nextSibling.textContent = S.settings.speechRate.toFixed(1) + '倍'; save(); } }),
         el('output', { text: (Number(S.settings.speechRate) || 1).toFixed(1) + '倍' })),
-      sw('達成演出', 'effects', '10問ごと・完了・レベルアップのときに、お祝いの画面を出します'),
+      sw('ゲームの演出', 'effects', 'スタートの合図・+EXP・コンボ・10問ごと・レベルアップ・クリアのお祝いを出します'),
       el('div', { class: 'row', style: 'margin-top:10px' },
         el('button', { type: 'button', class: 'btn small', onclick: () => { unlockAudio(); sound(true); toast('音を有効にしました。鳴らないときは端末の音量・消音スイッチを確かめてください'); } }, '🔊 音を有効にする（iPhone）'),
         canSpeak() ? el('button', { type: 'button', class: 'btn small', onclick: () => speakText('読み上げのテストです。介護福祉士国家試験、合格をめざしましょう。') }, '読み上げを試す') : null),
@@ -2275,7 +2321,7 @@
   function applySettings() {
     const r = document.documentElement;
     r.dataset.font = S.settings.font || 'm';
-    r.dataset.palette = S.settings.palette || 'green';
+    r.dataset.palette = S.settings.palette || 'orange';
     r.dataset.lh = S.settings.lh || 'n';
     if (S.settings.theme === 'auto') delete r.dataset.theme; else r.dataset.theme = S.settings.theme;
   }
