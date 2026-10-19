@@ -66,7 +66,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1316" data-ans="4">
 <summary>第37回：生活支援技術</summary>
 
 ノーリフティングケアに関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -86,7 +86,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0483" data-ans="1">
 <summary>第34回：こころとからだのしくみ</summary>
 
 介護者が効率的かつ安全に介護を行うためのボディメカニクスの原則に関する次の記述のうち、適切なものを1つ選びなさい。
@@ -106,7 +106,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1241" data-ans="3">
 <summary>第34回：生活支援技術</summary>
 
 利用者を仰臥位（ぎょうがい）〈背臥位（はいがい）〉から側臥位（そくがい）へ体位変換するとき、トルクの原理を応用した介護方法として、最も適切なものを1つ選びなさい。
@@ -185,7 +185,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1359" data-ans="4">
 <summary>第38回：生活支援技術</summary>
 
 Aさん（83歳、女性、要介護3）は、脳梗塞（cerebral infarction）の後遺症で左片麻痺（ひだりかたまひ）があり、介護老人福祉施設に入所している。ある日の夜間、仰臥位（ぎょうがい）（背臥位（はいがい））で寝ていたAさんが、「背中が重く感じて、眠れない」と介護福祉職に訴えた。
@@ -207,7 +207,7 @@ Aさん（83歳、女性、要介護3）は、脳梗塞（cerebral infarction）
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1289" data-ans="2">
 <summary>第36回：生活支援技術</summary>
 
 仰臥位（ぎょうがい）（背臥位（はいがい））から半座位（ファーラー位）にするとき、ギャッチベッドの背上げを行う前の介護に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -283,7 +283,7 @@ Aさん（83歳、女性、要介護3）は、脳梗塞（cerebral infarction）
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0529" data-ans="1">
 <summary>第38回：こころとからだのしくみ</summary>
 
 次の記述のうち、人の動作時に収縮する筋肉に関する説明として、適切なものを1つ選びなさい。
@@ -303,7 +303,7 @@ Aさん（83歳、女性、要介護3）は、脳梗塞（cerebral infarction）
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0492" data-ans="3">
 <summary>第35回：こころとからだのしくみ</summary>
 
 立位姿勢を維持するための筋肉（抗重力筋）として、最も適切なものを1つ選びなさい。
@@ -323,7 +323,7 @@ Aさん（83歳、女性、要介護3）は、脳梗塞（cerebral infarction）
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0482" data-ans="1">
 <summary>第34回：こころとからだのしくみ</summary>
 
 骨に関する次の記述のうち、正しいものを1つ選びなさい。
@@ -343,7 +343,7 @@ Aさん（83歳、女性、要介護3）は、脳梗塞（cerebral infarction）
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0504" data-ans="3">
 <summary>第36回：こころとからだのしくみ</summary>
 
 Fさん（82歳、女性）は、健康診断で骨粗鬆症（こつそしょうしょう　osteoporosis）と診断され、内服治療が開始された。

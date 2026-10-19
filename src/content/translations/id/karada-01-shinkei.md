@@ -49,7 +49,7 @@ description: "Fungsi lobus otak besar, amigdala, hipokampus, otak kecil dan medu
 
 <p class="quiz-note">Soal dan pilihan jawaban ditampilkan apa adanya dalam bahasa Jepang sesuai yang dipublikasikan oleh pusat ujian. Penjelasan di bagian jawaban dibuat sendiri oleh situs ini dan tidak berkaitan dengan pusat ujian.</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0524" data-ans="4">
 <summary>Ujian ke-37: Pikiran dan Tubuh (こころとからだのしくみ)</summary>
 
 <div lang="ja">
@@ -73,7 +73,7 @@ description: "Fungsi lobus otak besar, amigdala, hipokampus, otak kecil dan medu
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0525" data-ans="5">
 <summary>Ujian ke-37: Pikiran dan Tubuh (こころとからだのしくみ)</summary>
 
 <div lang="ja">
@@ -97,7 +97,7 @@ description: "Fungsi lobus otak besar, amigdala, hipokampus, otak kecil dan medu
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0527" data-ans="3">
 <summary>Ujian ke-38: Pikiran dan Tubuh (こころとからだのしくみ)</summary>
 
 <div lang="ja">
@@ -121,7 +121,7 @@ description: "Fungsi lobus otak besar, amigdala, hipokampus, otak kecil dan medu
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0515" data-ans="2">
 <summary>Ujian ke-37: Pikiran dan Tubuh (こころとからだのしくみ)</summary>
 
 <div lang="ja">
@@ -219,7 +219,7 @@ Manakah efek saraf simpatis?
 
 <p class="quiz-note">Soal dan pilihan jawaban ditampilkan apa adanya dalam bahasa Jepang sesuai yang dipublikasikan oleh pusat ujian. Penjelasan di bagian jawaban dibuat sendiri oleh situs ini dan tidak berkaitan dengan pusat ujian.</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0530" data-ans="5">
 <summary>Ujian ke-38: Pikiran dan Tubuh (こころとからだのしくみ)</summary>
 
 <div lang="ja">
@@ -243,7 +243,7 @@ Manakah efek saraf simpatis?
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0516" data-ans="2">
 <summary>Ujian ke-37: Pikiran dan Tubuh (こころとからだのしくみ)</summary>
 
 <div lang="ja">
@@ -267,7 +267,7 @@ Manakah efek saraf simpatis?
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0505" data-ans="1">
 <summary>Ujian ke-36: Pikiran dan Tubuh (こころとからだのしくみ)</summary>
 
 <div lang="ja">
@@ -291,7 +291,7 @@ Manakah efek saraf simpatis?
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0514" data-ans="1">
 <summary>Ujian ke-37: Pikiran dan Tubuh (こころとからだのしくみ)</summary>
 
 <div lang="ja">
@@ -315,7 +315,7 @@ Manakah efek saraf simpatis?
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0480" data-ans="3">
 <summary>Ujian ke-34: Pikiran dan Tubuh (こころとからだのしくみ)</summary>
 
 <div lang="ja">

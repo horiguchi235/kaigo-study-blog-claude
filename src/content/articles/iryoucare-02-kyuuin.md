@@ -98,7 +98,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1003" data-ans="3">
 <summary>第38回：医療的ケア</summary>
 
 Aさん（85歳、男性）は、慢性閉塞性肺疾患（chronic obstructive pulmonary disease）で、介護老人福祉施設に入所している。ある日、Aさんから、「痰（たん）がからんでいて、咳（せき）をしても出せない」という訴えがあった。介護福祉士が呼吸回数を確認すると、1分間に22回で、ゴロゴロという音がしていた。看護職からは、右肺に痰が貯留しやすいという情報提供があった。口腔内吸引（こうくうないきゅういん）をすると、粘性の強い透明な痰が吸引できた。
@@ -120,7 +120,7 @@ Aさん（85歳、男性）は、慢性閉塞性肺疾患（chronic obstructive 
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0998" data-ans="4">
 <summary>第37回：医療的ケア</summary>
 
 次の記述のうち、介護福祉士が行う口腔内（こうくうない）の喀痰吸引（かくたんきゅういん）の方法として、最も適切なものを1つ選びなさい。
@@ -140,7 +140,7 @@ Aさん（85歳、男性）は、慢性閉塞性肺疾患（chronic obstructive 
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0993" data-ans="1">
 <summary>第36回：医療的ケア</summary>
 
 次のうち、痰（たん）の吸引の準備に関する記述として、最も適切なものを1つ選びなさい。
@@ -160,7 +160,7 @@ Aさん（85歳、男性）は、慢性閉塞性肺疾患（chronic obstructive 
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0988" data-ans="2">
 <summary>第35回：医療的ケア</summary>
 
 喀痰吸引（かくたんきゅういん）を行う前の準備に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -209,7 +209,7 @@ Aさん（85歳、男性）は、慢性閉塞性肺疾患（chronic obstructive 
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1002" data-ans="5">
 <summary>第38回：医療的ケア</summary>
 
 気管カニューレの構造等に関する次の記述のうち、正しいものを1つ選びなさい。
@@ -229,7 +229,7 @@ Aさん（85歳、男性）は、慢性閉塞性肺疾患（chronic obstructive 
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0982" data-ans="3">
 <summary>第34回：医療的ケア</summary>
 
 気管カニューレ内部の喀痰吸引（かくたんきゅういん）で、指示された吸引時間よりも長くなった場合、吸引後に注意すべき項目として、最も適切なものを1つ選びなさい。

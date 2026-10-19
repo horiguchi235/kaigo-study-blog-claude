@@ -218,7 +218,7 @@ Cさんがおやつ作りの会に参加しなくなった理由の解釈とし�
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1641" data-ans="3">
 <summary>第36回：介護過程（1問目・型1）</summary>
 
 次の事例を読んで、答えなさい。
@@ -248,7 +248,7 @@ Aさん（75歳、女性）は、一人暮らしで、身体機能に問題は�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1642" data-ans="5">
 <summary>第36回：介護過程（2問目・型3）</summary>
 
 次の事例を読んで答えなさい。
@@ -287,7 +287,7 @@ Aさんの状況から支援を見直すことになった。
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1650" data-ans="5">
 <summary>第37回：介護過程（1問目・型1）</summary>
 
 次の事例を読んで、問いに答えなさい。
@@ -317,7 +317,7 @@ Aさん（78歳、男性、要介護1）は、一人暮らしで、脳梗塞（c
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1651" data-ans="4">
 <summary>第37回：介護過程（2問目・型3）</summary>
 
 次の事例を読んで、問いに答えなさい。
@@ -354,7 +354,7 @@ Aさん（78歳、男性、要介護1）は、一人暮らしで、脳梗塞（c
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1660" data-ans="3">
 <summary>第38回：介護過程（1問目・型1）</summary>
 
 次の事例を読んで、問いに答えなさい。
@@ -384,7 +384,7 @@ Aさん（50歳、男性、障害支援区分3）は、中度の知的障害が�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1661" data-ans="5">
 <summary>第38回：介護過程（2問目・型3）</summary>
 
 次の事例を読んで、問いに答えなさい。
@@ -423,7 +423,7 @@ Aさん（50歳、男性、障害支援区分3）は、中度の知的障害が�
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1658" data-ans="2">
 <summary>第38回：介護過程（1問目・型2）</summary>
 
 次の事例を読んで、問いに答えなさい。
@@ -453,7 +453,7 @@ Aさんは、通所介護（デイサービス）を休むことなく利用し�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1659" data-ans="2">
 <summary>第38回：介護過程（2問目・型2）</summary>
 
 次の事例を読んで、問いに答えなさい。
@@ -492,7 +492,7 @@ Aさんの娘から連絡を受けた通所介護（デイサービス）では�
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1652" data-ans="4">
 <summary>第37回：介護過程（1問目・型1）</summary>
 
 次の事例を読んで、問いに答えなさい。
@@ -522,7 +522,7 @@ Bさん（42歳、女性、障害支援区分3）は、知的障害があり、�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1653" data-ans="1">
 <summary>第37回：介護過程（2問目・型3）</summary>
 
 次の事例を読んで、問いに答えなさい。

@@ -37,16 +37,20 @@ draft: true
 
 **よく出る不正解**：介護福祉職の価値観・満足度で判断する／介護福祉職の経験を積むことが目的
 
-<details>
+<details data-qid="K1656" data-ans="5">
 <summary>✏️ 過去問を解いてみよう（第38回：介護過程）</summary>
 
-介護計画の実施について、適切なものはどれ？
+<p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-1. 実践の様子は評価日にまとめて記録する
-2. 介護職が満足するまで続ける
-3. 介護職の経験を積むことを目的にする
-4. 他職種が立てた介護計画をチームで実践する
-5. 利用者に支援内容を説明して同意を得る
+次の記述のうち、介護計画の実施に関するものとして、適切なものを1つ選びなさい。
+
+1. 利用者の実践状況は評価日にまとめて記録する。
+2. 介護福祉職が結果に満足できるまで実践を続ける。
+3. 介護福祉職の実践経験を積むことを目的にする。
+4. 他職種が立案した介護計画をチームで実践する。
+5. 利用者に支援内容を説明して同意を得る。
+
+<p class="q-src">出典：第38回 介護福祉士国家試験（介護過程）</p>
 
 <details class="answer">
 <summary>正解を見る</summary>
@@ -93,7 +97,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1648" data-ans="3">
 <summary>第37回：介護過程</summary>
 
 次の記述のうち、介護過程の展開における評価の説明として、最も適切なものを1つ選びなさい。
@@ -113,7 +117,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1639" data-ans="4">
 <summary>第36回：介護過程</summary>
 
 介護過程の評価に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -133,7 +137,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1631" data-ans="5">
 <summary>第35回：介護過程</summary>
 
 次のうち、介護過程を展開した結果を評価する項目として、最も優先すべきものを1つ選びなさい。
@@ -189,7 +193,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1657" data-ans="1">
 <summary>第38回：介護過程</summary>
 
 次のうち、サービス担当者会議にサービス管理責任者が出席する目的として、最も適切なものを1つ選びなさい。
@@ -209,7 +213,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1649" data-ans="5">
 <summary>第37回：介護過程</summary>
 
 次のうち、介護保険制度のサービス担当者会議におけるサービス提供責任者の役割として、最も適切なものを1つ選びなさい。
@@ -229,7 +233,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1640" data-ans="1">
 <summary>第36回：介護過程</summary>
 
 次の記述のうち、介護老人保健施設で多職種連携によるチームアプローチ（team approach）を実践するとき、介護福祉職が担う役割として、最も適切なものを1つ選びなさい。
@@ -249,7 +253,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1645" data-ans="1">
 <summary>第36回：介護過程</summary>
 
 事例研究を行うときに、遵守すべき倫理的配慮として、適切なものを1つ選びなさい。
@@ -269,7 +273,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1636" data-ans="4">
 <summary>第35回：介護過程</summary>
 
 次の事例を読んで、問題に答えなさい。
@@ -301,7 +305,7 @@ Mさんへの介護福祉職の対応に関する次の記述のうち、最も�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1637" data-ans="3">
 <summary>第35回：介護過程</summary>
 
 介護福祉職が事例研究を行う目的として、最も適切なものを1つ選びなさい。

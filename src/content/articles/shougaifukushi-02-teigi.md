@@ -63,7 +63,7 @@ ICFは、**健康状態**、**生活機能**（心身機能・身体構造／活
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0949" data-ans="2">
 <summary>第38回：障害の理解</summary>
 
 次の記述のうち、国際障害者年を契機に、日本の障害福祉に起きた変化として、最も適切なものを1つ選びなさい。
@@ -83,7 +83,7 @@ ICFは、**健康状態**、**生活機能**（心身機能・身体構造／活
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0926" data-ans="1">
 <summary>第36回：障害の理解</summary>
 
 次のうち、ノーマライゼーション（normalization）の原理を盛り込んだ法律（いわゆる「1959年法」）を制定した最初の国として、正しいものを1つ選びなさい。
@@ -165,7 +165,7 @@ ICFは、**健康状態**、**生活機能**（心身機能・身体構造／活
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0942" data-ans="1">
 <summary>第37回：障害の理解</summary>
 
 聴覚障害者の特徴や支援の方法に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -185,7 +185,7 @@ ICFは、**健康状態**、**生活機能**（心身機能・身体構造／活
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0927" data-ans="2">
 <summary>第36回：障害の理解</summary>
 
 法定後見制度において、成年後見人等を選任する機関等として、正しいものを1つ選びなさい。
@@ -205,7 +205,7 @@ ICFは、**健康状態**、**生活機能**（心身機能・身体構造／活
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0906" data-ans="1">
 <summary>第34回：障害の理解</summary>
 
 障害者の法的定義に関する次の記述のうち、正しいものを1つ選びなさい。

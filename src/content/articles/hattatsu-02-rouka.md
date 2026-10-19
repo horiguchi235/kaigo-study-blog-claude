@@ -71,7 +71,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0635" data-ans="5">
 <summary>第36回：発達と老化の理解</summary>
 
 生理的老化に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -91,7 +91,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0654" data-ans="1">
 <summary>第38回：発達と老化の理解</summary>
 
 次のうち、加齢に伴い階段を上ると息切れしやすくなる現象に関係する恒常性の機能として、最も適切なものを1つ選びなさい。
@@ -134,7 +134,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0630" data-ans="3">
 <summary>第35回：発達と老化の理解</summary>
 
 高齢期の腎・泌尿器系の状態や変化に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -154,7 +154,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0623" data-ans="4">
 <summary>第34回：発達と老化の理解</summary>
 
 高齢者の睡眠に関する次の記述のうち、適切なものを1つ選びなさい。
@@ -216,7 +216,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0645" data-ans="3">
 <summary>第37回：発達と老化の理解</summary>
 
 次の記述のうち、加齢に伴う感覚機能の変化として、最も適切なものを1つ選びなさい。
@@ -236,7 +236,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0629" data-ans="5">
 <summary>第35回：発達と老化の理解</summary>
 
 加齢の影響を受けにくい認知機能として、最も適切なものを1つ選びなさい。
@@ -256,7 +256,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0622" data-ans="1">
 <summary>第34回：発達と老化の理解</summary>
 
 老化に伴う感覚機能や認知機能の変化に関する次の記述のうち、最も適切なものを1つ選びなさい。

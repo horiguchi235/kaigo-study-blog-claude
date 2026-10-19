@@ -44,7 +44,7 @@ description: "Normalization, social inclusion, the Independent Living Movement, 
 
 <p class="quiz-note">The question and choices are shown exactly as published in Japanese by the exam center (Japan Social Welfare Promotion and National Examination Center). The explanation under “Show answer” is our own and is not affiliated with the exam center.</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0946" data-ans="5">
 <summary>38th exam: Understanding Disabilities (障害の理解)</summary>
 
 <div lang="ja">
@@ -68,7 +68,7 @@ description: "Normalization, social inclusion, the Independent Living Movement, 
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1391" data-ans="2">
 <summary>38th exam: Human Dignity and Independence (人間の尊厳と自立)</summary>
 
 <div lang="ja">
@@ -92,7 +92,7 @@ description: "Normalization, social inclusion, the Independent Living Movement, 
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1383" data-ans="4">
 <summary>34th exam: Human Dignity and Independence (人間の尊厳と自立)</summary>
 
 <div lang="ja">
@@ -157,7 +157,7 @@ description: "Normalization, social inclusion, the Independent Living Movement, 
 
 <p class="quiz-note">The question and choices are shown exactly as published in Japanese by the exam center (Japan Social Welfare Promotion and National Examination Center). The explanation under “Show answer” is our own and is not affiliated with the exam center.</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0352" data-ans="1">
 <summary>38th exam: Basics of Care (介護の基本)</summary>
 
 <div lang="ja">
@@ -181,7 +181,7 @@ description: "Normalization, social inclusion, the Independent Living Movement, 
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1388" data-ans="2">
 <summary>36th exam: Human Dignity and Independence (人間の尊厳と自立)</summary>
 
 <div lang="ja">
@@ -205,7 +205,7 @@ description: "Normalization, social inclusion, the Independent Living Movement, 
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0324" data-ans="1">
 <summary>35th exam: Basics of Care (介護の基本)</summary>
 
 <div lang="ja">
@@ -229,7 +229,7 @@ description: "Normalization, social inclusion, the Independent Living Movement, 
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1385" data-ans="4">
 <summary>35th exam: Human Dignity and Independence (人間の尊厳と自立)</summary>
 
 <div lang="ja">
@@ -253,7 +253,7 @@ description: "Normalization, social inclusion, the Independent Living Movement, 
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0312" data-ans="5">
 <summary>34th exam: Basics of Care (介護の基本)</summary>
 
 <div lang="ja">

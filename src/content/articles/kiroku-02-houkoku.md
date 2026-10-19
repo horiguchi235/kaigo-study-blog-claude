@@ -78,7 +78,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1523" data-ans="4">
 <summary>第35回：コミュニケーション技術</summary>
 
 介護実践の場で行われる、勤務交代時の申し送りの目的に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -98,7 +98,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1524" data-ans="5">
 <summary>第35回：コミュニケーション技術</summary>
 
 Eさん（87歳、女性、要介護3）は、介護老人福祉施設に入所していて、認知症（dementia）がある。ある日、担当のF介護福祉職がEさんの居室を訪問すると、Eさんは、イライラした様子で、「私の財布が盗まれた」と言ってベッドの周りをうろうろしていた。一緒に探すと、タンスの引き出しの奥から財布が見つかった。
@@ -122,7 +122,7 @@ Eさんの状況に関する報告として、最も適切なものを1つ選び
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1517" data-ans="2">
 <summary>第34回：コミュニケーション技術</summary>
 
 利用者の家族から苦情があったときの上司への報告に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -188,7 +188,7 @@ Eさんの状況に関する報告として、最も適切なものを1つ選び
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1530" data-ans="4">
 <summary>第36回：コミュニケーション技術</summary>
 
 事例検討の目的に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -208,7 +208,7 @@ Eさんの状況に関する報告として、最も適切なものを1つ選び
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1518" data-ans="3">
 <summary>第34回：コミュニケーション技術</summary>
 
 利用者の自宅で行うケアカンファレンス（care conference）に関する次の記述のうち、最も適切なものを1つ選びなさい。

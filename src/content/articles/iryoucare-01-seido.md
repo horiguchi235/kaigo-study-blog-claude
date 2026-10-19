@@ -85,7 +85,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0991" data-ans="5">
 <summary>第36回：医療的ケア</summary>
 
 次の記述のうち、喀痰吸引等（かくたんきゅういんとう）を実施する訪問介護事業所として登録するときに、事業所が行うべき事項として、正しいものを1つ選びなさい。
@@ -105,7 +105,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0981" data-ans="4">
 <summary>第34回：医療的ケア</summary>
 
 社会福祉士及び介護福祉士法で規定されている介護福祉士が実施できる経管栄養の行為として、正しいものを1つ選びなさい。
@@ -210,7 +210,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1001" data-ans="1">
 <summary>第38回：医療的ケア</summary>
 
 次の記述のうち、バイタルサインを測定するときの留意点として、最も適切なものを1つ選びなさい。
@@ -230,7 +230,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0996" data-ans="1">
 <summary>第37回：医療的ケア</summary>
 
 次の記述のうち、成人に対する救急蘇生法（きゅうきゅうそせいほう）での胸骨圧迫の方法として、最も適切なものを1つ選びなさい。
@@ -250,7 +250,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0997" data-ans="4">
 <summary>第37回：医療的ケア</summary>
 
 次の記述のうち、痰（たん）を喀出（かくしゅつ）する仕組みに関するものとして、正しいものを1つ選びなさい。
@@ -270,7 +270,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0992" data-ans="4">
 <summary>第36回：医療的ケア</summary>
 
 次のうち、呼吸器官の部位の説明に関する記述として、正しいものを1つ選びなさい。
@@ -290,7 +290,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0987" data-ans="1">
 <summary>第35回：医療的ケア</summary>
 
 次の記述のうち、成人の正常な呼吸状態として、最も適切なものを1つ選びなさい。
@@ -310,7 +310,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0983" data-ans="4">
 <summary>第34回：医療的ケア</summary>
 
 呼吸器官の換気とガス交換に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -354,7 +354,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1004" data-ans="2">
 <summary>第38回：医療的ケア</summary>
 
 次の記述のうち、胃の構造として、正しいものを1つ選びなさい。
@@ -374,7 +374,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0999" data-ans="1">
 <summary>第37回：医療的ケア</summary>
 
 次の記述のうち、消化器症状の説明として、正しいものを1つ選びなさい。

@@ -99,7 +99,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0944" data-ans="5">
 <summary>第37回：障害の理解</summary>
 
 次の記述のうち、「障害者差別解消法」の合理的配慮に沿った対応として、最も適切なものを1つ選びなさい。
@@ -121,7 +121,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0151" data-ans="5">
 <summary>第36回：社会の理解</summary>
 
 「障害者差別解消法」に関する次の記述のうち、適切なものを1つ選びなさい。
@@ -143,7 +143,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0933" data-ans="2">
 <summary>第36回：障害の理解</summary>
 
 次のうち、障害の特性に応じた休憩時間の調整など、柔軟に対応することで障害者の権利を確保する考え方を示すものとして、最も適切なものを1つ選びなさい。
@@ -163,7 +163,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0138" data-ans="4">
 <summary>第35回：社会の理解</summary>
 
 我が国の「障害者権利条約」の批准（2014年（平成26年））に向けて行われた、障害者基本法の改正（2011年（平成23年））で新たに法律上に規定されたものとして、適切なものを1つ選びなさい。
@@ -185,7 +185,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0137" data-ans="4">
 <summary>第35回：社会の理解</summary>
 
 Fさん（19歳、女性、身体障害者手帳2級）は、先天性の聴覚障害がある。Fさんは大学生で、授業のときは手話通訳者が配置されている。Fさんは筆記による定期試験を受けることになり、試験実施に関する配慮を大学に申し出た。
@@ -263,7 +263,7 @@ Fさん（19歳、女性、身体障害者手帳2級）は、先天性の聴覚�
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1355" data-ans="4">
 <summary>第38回：生活支援技術</summary>
 
 Aさん（83歳、男性、要介護1）は、一人暮らしで、少額の年金で生活している。Aさんは軽度の認知症（dementia）と診断を受けている。近所には親しくしている人が複数人いる。ある日、訪問介護員（ホームヘルパー）が訪問すると、近所のスーパーで購入した未開封の健康食品が山積みになっていた。Aさんが財布を持ってきて、「買いたいものがたくさんあるが、お金が足りない。どうしたらよいか」と訪問介護員（ホームヘルパー）に相談した。
@@ -285,7 +285,7 @@ Aさん（83歳、男性、要介護1）は、一人暮らしで、少額の年�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1305" data-ans="4">
 <summary>第36回：生活支援技術</summary>
 
 Kさん（77歳、女性、要支援2）は、もの忘れが目立ちはじめ、訪問介護（ホームヘルプサービス）を利用しながら夫と二人で生活している。

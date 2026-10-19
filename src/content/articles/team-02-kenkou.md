@@ -70,7 +70,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1421" data-ans="4">
 <summary>第36回：人間関係とコミュニケーション</summary>
 
 V介護老人福祉施設では、感染症が流行したために、緊急的な介護体制で事業を継続することになった。
@@ -94,7 +94,7 @@ V介護老人福祉施設では、感染症が流行したために、緊急的�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0319" data-ans="2">
 <summary>第34回：介護の基本</summary>
 
 訪問介護員（ホームヘルパー）が、利用者や家族からハラスメント（harassment）を受けたときの対応に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -152,7 +152,7 @@ V介護老人福祉施設では、感染症が流行したために、緊急的�
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0359" data-ans="4">
 <summary>第38回：介護の基本</summary>
 
 介護福祉職が受けるストレスチェック制度に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -172,7 +172,7 @@ V介護老人福祉施設では、感染症が流行したために、緊急的�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0345" data-ans="1">
 <summary>第37回：介護の基本</summary>
 
 次の記述のうち、介護従事者を守る法制度として、正しいものを1つ選びなさい。

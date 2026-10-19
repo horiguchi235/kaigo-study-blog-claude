@@ -44,7 +44,7 @@ description: "Bình thường hóa, hòa nhập xã hội, Phong trào Sống Đ
 
 <p class="quiz-note">Đề bài và các lựa chọn được giữ nguyên văn tiếng Nhật như Trung tâm thi đã công bố. Phần giải thích trong “xem đáp án” do trang này tự biên soạn, không liên quan đến Trung tâm thi.</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0946" data-ans="5">
 <summary>Kỳ thi thứ 38: Hiểu về khuyết tật (障害の理解)</summary>
 
 <div lang="ja">
@@ -68,7 +68,7 @@ description: "Bình thường hóa, hòa nhập xã hội, Phong trào Sống Đ
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1391" data-ans="2">
 <summary>Kỳ thi thứ 38: Phẩm giá con người và tự lập (人間の尊厳と自立)</summary>
 
 <div lang="ja">
@@ -92,7 +92,7 @@ description: "Bình thường hóa, hòa nhập xã hội, Phong trào Sống Đ
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1383" data-ans="4">
 <summary>Kỳ thi thứ 34: Phẩm giá con người và tự lập (人間の尊厳と自立)</summary>
 
 <div lang="ja">
@@ -157,7 +157,7 @@ description: "Bình thường hóa, hòa nhập xã hội, Phong trào Sống Đ
 
 <p class="quiz-note">Đề bài và các lựa chọn được giữ nguyên văn tiếng Nhật như Trung tâm thi đã công bố. Phần giải thích trong “xem đáp án” do trang này tự biên soạn, không liên quan đến Trung tâm thi.</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0352" data-ans="1">
 <summary>Kỳ thi thứ 38: Cơ bản về chăm sóc (介護の基本)</summary>
 
 <div lang="ja">
@@ -181,7 +181,7 @@ description: "Bình thường hóa, hòa nhập xã hội, Phong trào Sống Đ
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1388" data-ans="2">
 <summary>Kỳ thi thứ 36: Phẩm giá con người và tự lập (人間の尊厳と自立)</summary>
 
 <div lang="ja">
@@ -205,7 +205,7 @@ description: "Bình thường hóa, hòa nhập xã hội, Phong trào Sống Đ
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0324" data-ans="1">
 <summary>Kỳ thi thứ 35: Cơ bản về chăm sóc (介護の基本)</summary>
 
 <div lang="ja">
@@ -229,7 +229,7 @@ description: "Bình thường hóa, hòa nhập xã hội, Phong trào Sống Đ
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1385" data-ans="4">
 <summary>Kỳ thi thứ 35: Phẩm giá con người và tự lập (人間の尊厳と自立)</summary>
 
 <div lang="ja">
@@ -253,7 +253,7 @@ description: "Bình thường hóa, hòa nhập xã hội, Phong trào Sống Đ
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0312" data-ans="5">
 <summary>Kỳ thi thứ 34: Cơ bản về chăm sóc (介護の基本)</summary>
 
 <div lang="ja">

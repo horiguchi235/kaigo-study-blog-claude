@@ -50,7 +50,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0532" data-ans="2">
 <summary>第38回：こころとからだのしくみ</summary>
 
 次のうち、バリア機能をもつ表皮の構造として、最も適切なものを1つ選びなさい。
@@ -70,7 +70,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0519" data-ans="3">
 <summary>第37回：こころとからだのしくみ</summary>
 
 皮膚の構造に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -128,16 +128,20 @@ draft: true
 
 > 「乾かす」と「湿らせる」の区別：**水虫（カビ）はよく乾かす**、**傷（感染していないもの）は乾かさず湿潤環境**のほうが早く治ります。
 
-<details>
+<details data-qid="K0494" data-ans="4">
 <summary>✏️ 過去問を解いてみよう（第35回：こころとからだのしくみ）</summary>
 
-褥瘡ができやすい部位として、最も適切なものはどれ？
+<p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
+
+褥瘡（じょくそう）の好発部位として、最も適切なものを1つ選びなさい。
 
 1. 側頭部
-2. 首
-3. お腹
+2. 頸部（けいぶ）
+3. 腹部
 4. 仙骨部
-5. 足の指
+5. 足趾部（そくしぶ）
+
+<p class="q-src">出典：第35回 介護福祉士国家試験（こころとからだのしくみ）</p>
 
 <details class="answer">
 <summary>正解を見る</summary>
@@ -177,7 +181,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0506" data-ans="1">
 <summary>第36回：こころとからだのしくみ</summary>
 
 成人の爪に関する次の記述のうち、正しいものを1つ選びなさい。
@@ -197,7 +201,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1292" data-ans="5">
 <summary>第36回：生活支援技術</summary>
 
 医学的管理の必要がない高齢者の爪の手入れに関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -241,7 +245,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1313" data-ans="1">
 <summary>第37回：生活支援技術</summary>
 
 次の記述のうち、介護福祉職が行う身じたく・整容の介護として、最も適切なものを1つ選びなさい。
@@ -261,7 +265,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1265" data-ans="5">
 <summary>第35回：生活支援技術</summary>
 
 Hさん（82歳、男性、要介護2）は、一人暮らしで、週1回、訪問介護（ホームヘルプサービス）を利用している。訪問時に、「足の爪が伸びているので、切ってほしい」と依頼された。爪を切ろうとしたところ、両足とも親指の爪が伸びて両端が皮膚に食い込んで赤くなっていて、触ると熱感があった。
@@ -283,7 +287,7 @@ Hさん（82歳、男性、要介護2）は、一人暮らしで、週1回、訪
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1236" data-ans="1">
 <summary>第34回：生活支援技術</summary>
 
 耳の清潔に関する介護福祉職の対応として、最も適切なものを1つ選びなさい。

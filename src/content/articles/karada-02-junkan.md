@@ -71,16 +71,20 @@ draft: true
 | 体温（わきの下） | 36〜37℃ |
 | 血圧 | 正常＝120/80mmHg未満、**高血圧＝140/90mmHg以上**（日本高血圧学会 高血圧治療ガイドライン2019） |
 
-<details>
+<details data-qid="K0528" data-ans="2">
 <summary>✏️ 過去問を解いてみよう（第38回：こころとからだのしくみ）</summary>
 
-循環器のしくみとして、正しいものはどれ？
+<p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-1. 心臓は体性神経が支配する
-2. 肺動脈には静脈血が流れている
-3. 左心室を出た血液は大静脈へ流れる
-4. リンパ管には血液が流れている
-5. 静脈血は酸素を多く含む
+次の記述のうち、循環器系のしくみとして、正しいものを1つ選びなさい。
+
+1. 心臓は体性神経が支配している。
+2. 肺動脈には静脈血が流れている。
+3. 左心室から出た血液は大静脈へ流れる。
+4. リンパ管には血液が流れている。
+5. 静脈血とは酸素を多く含む血液である。
+
+<p class="q-src">出典：第38回 介護福祉士国家試験（こころとからだのしくみ）</p>
 
 <details class="answer">
 <summary>正解を見る</summary>
@@ -139,7 +143,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0517" data-ans="5">
 <summary>第37回：こころとからだのしくみ</summary>
 
 次のうち、歯周病（periodontal disease）の症状として、適切なものを1つ選びなさい。
@@ -159,7 +163,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0508" data-ans="5">
 <summary>第36回：こころとからだのしくみ</summary>
 
 Gさん（79歳、男性）は、介護老人保健施設に入所している。
@@ -189,7 +193,7 @@ Gさんに起きていることとして、最も適切なものを1つ選びな
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0485" data-ans="3">
 <summary>第34回：こころとからだのしくみ</summary>
 
 コントロール不良の糖尿病（diabetes mellitus）で高血糖時にみられる症状として、適切なものを1つ選びなさい。

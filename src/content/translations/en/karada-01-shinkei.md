@@ -49,7 +49,7 @@ description: "Functions of the cerebral lobes, amygdala, hippocampus, cerebellum
 
 <p class="quiz-note">The question and choices are shown exactly as published in Japanese by the exam center (Japan Social Welfare Promotion and National Examination Center). The explanation under “Show answer” is our own and is not affiliated with the exam center.</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0524" data-ans="4">
 <summary>37th exam: Mind and Body (こころとからだのしくみ)</summary>
 
 <div lang="ja">
@@ -73,7 +73,7 @@ description: "Functions of the cerebral lobes, amygdala, hippocampus, cerebellum
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0525" data-ans="5">
 <summary>37th exam: Mind and Body (こころとからだのしくみ)</summary>
 
 <div lang="ja">
@@ -97,7 +97,7 @@ description: "Functions of the cerebral lobes, amygdala, hippocampus, cerebellum
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0527" data-ans="3">
 <summary>38th exam: Mind and Body (こころとからだのしくみ)</summary>
 
 <div lang="ja">
@@ -121,7 +121,7 @@ description: "Functions of the cerebral lobes, amygdala, hippocampus, cerebellum
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0515" data-ans="2">
 <summary>37th exam: Mind and Body (こころとからだのしくみ)</summary>
 
 <div lang="ja">
@@ -219,7 +219,7 @@ Which is an effect of the sympathetic nerves?
 
 <p class="quiz-note">The question and choices are shown exactly as published in Japanese by the exam center (Japan Social Welfare Promotion and National Examination Center). The explanation under “Show answer” is our own and is not affiliated with the exam center.</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0530" data-ans="5">
 <summary>38th exam: Mind and Body (こころとからだのしくみ)</summary>
 
 <div lang="ja">
@@ -243,7 +243,7 @@ Which is an effect of the sympathetic nerves?
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0516" data-ans="2">
 <summary>37th exam: Mind and Body (こころとからだのしくみ)</summary>
 
 <div lang="ja">
@@ -267,7 +267,7 @@ Which is an effect of the sympathetic nerves?
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0505" data-ans="1">
 <summary>36th exam: Mind and Body (こころとからだのしくみ)</summary>
 
 <div lang="ja">
@@ -291,7 +291,7 @@ Which is an effect of the sympathetic nerves?
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0514" data-ans="1">
 <summary>37th exam: Mind and Body (こころとからだのしくみ)</summary>
 
 <div lang="ja">
@@ -315,7 +315,7 @@ Which is an effect of the sympathetic nerves?
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0480" data-ans="3">
 <summary>34th exam: Mind and Body (こころとからだのしくみ)</summary>
 
 <div lang="ja">

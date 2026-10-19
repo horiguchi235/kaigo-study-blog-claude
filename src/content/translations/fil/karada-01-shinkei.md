@@ -49,7 +49,7 @@ description: "Gawain ng mga lobe ng cerebrum, amygdala, hippocampus, cerebellum 
 
 <p class="quiz-note">Ang tanong at mga pagpipilian ay ipinapakita nang eksakto sa orihinal na Japanese gaya ng inilathala ng exam center. Ang paliwanag sa sagot ay gawa ng site na ito at walang kaugnayan sa exam center.</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0524" data-ans="4">
 <summary>Ika-37 na exam: Isip at Katawan (こころとからだのしくみ)</summary>
 
 <div lang="ja">
@@ -73,7 +73,7 @@ description: "Gawain ng mga lobe ng cerebrum, amygdala, hippocampus, cerebellum 
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0525" data-ans="5">
 <summary>Ika-37 na exam: Isip at Katawan (こころとからだのしくみ)</summary>
 
 <div lang="ja">
@@ -97,7 +97,7 @@ description: "Gawain ng mga lobe ng cerebrum, amygdala, hippocampus, cerebellum 
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0527" data-ans="3">
 <summary>Ika-38 na exam: Isip at Katawan (こころとからだのしくみ)</summary>
 
 <div lang="ja">
@@ -121,7 +121,7 @@ description: "Gawain ng mga lobe ng cerebrum, amygdala, hippocampus, cerebellum 
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0515" data-ans="2">
 <summary>Ika-37 na exam: Isip at Katawan (こころとからだのしくみ)</summary>
 
 <div lang="ja">
@@ -219,7 +219,7 @@ Alin ang epekto ng sympathetic nerves?
 
 <p class="quiz-note">Ang tanong at mga pagpipilian ay ipinapakita nang eksakto sa orihinal na Japanese gaya ng inilathala ng exam center. Ang paliwanag sa sagot ay gawa ng site na ito at walang kaugnayan sa exam center.</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0530" data-ans="5">
 <summary>Ika-38 na exam: Isip at Katawan (こころとからだのしくみ)</summary>
 
 <div lang="ja">
@@ -243,7 +243,7 @@ Alin ang epekto ng sympathetic nerves?
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0516" data-ans="2">
 <summary>Ika-37 na exam: Isip at Katawan (こころとからだのしくみ)</summary>
 
 <div lang="ja">
@@ -267,7 +267,7 @@ Alin ang epekto ng sympathetic nerves?
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0505" data-ans="1">
 <summary>Ika-36 na exam: Isip at Katawan (こころとからだのしくみ)</summary>
 
 <div lang="ja">
@@ -291,7 +291,7 @@ Alin ang epekto ng sympathetic nerves?
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0514" data-ans="1">
 <summary>Ika-37 na exam: Isip at Katawan (こころとからだのしくみ)</summary>
 
 <div lang="ja">
@@ -315,7 +315,7 @@ Alin ang epekto ng sympathetic nerves?
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0480" data-ans="3">
 <summary>Ika-34 na exam: Isip at Katawan (こころとからだのしくみ)</summary>
 
 <div lang="ja">

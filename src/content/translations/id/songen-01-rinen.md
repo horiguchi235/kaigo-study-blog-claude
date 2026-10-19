@@ -44,7 +44,7 @@ description: "Normalisasi, inklusi sosial, Gerakan Hidup Mandiri, tokoh-tokoh ke
 
 <p class="quiz-note">Soal dan pilihan jawaban ditampilkan apa adanya dalam bahasa Jepang sesuai yang dipublikasikan oleh pusat ujian. Penjelasan di bagian jawaban dibuat sendiri oleh situs ini dan tidak berkaitan dengan pusat ujian.</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0946" data-ans="5">
 <summary>Ujian ke-38: Pemahaman Disabilitas (障害の理解)</summary>
 
 <div lang="ja">
@@ -68,7 +68,7 @@ description: "Normalisasi, inklusi sosial, Gerakan Hidup Mandiri, tokoh-tokoh ke
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1391" data-ans="2">
 <summary>Ujian ke-38: Martabat Manusia dan Kemandirian (人間の尊厳と自立)</summary>
 
 <div lang="ja">
@@ -92,7 +92,7 @@ description: "Normalisasi, inklusi sosial, Gerakan Hidup Mandiri, tokoh-tokoh ke
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1383" data-ans="4">
 <summary>Ujian ke-34: Martabat Manusia dan Kemandirian (人間の尊厳と自立)</summary>
 
 <div lang="ja">
@@ -157,7 +157,7 @@ description: "Normalisasi, inklusi sosial, Gerakan Hidup Mandiri, tokoh-tokoh ke
 
 <p class="quiz-note">Soal dan pilihan jawaban ditampilkan apa adanya dalam bahasa Jepang sesuai yang dipublikasikan oleh pusat ujian. Penjelasan di bagian jawaban dibuat sendiri oleh situs ini dan tidak berkaitan dengan pusat ujian.</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0352" data-ans="1">
 <summary>Ujian ke-38: Dasar-dasar Perawatan (介護の基本)</summary>
 
 <div lang="ja">
@@ -181,7 +181,7 @@ description: "Normalisasi, inklusi sosial, Gerakan Hidup Mandiri, tokoh-tokoh ke
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1388" data-ans="2">
 <summary>Ujian ke-36: Martabat Manusia dan Kemandirian (人間の尊厳と自立)</summary>
 
 <div lang="ja">
@@ -205,7 +205,7 @@ description: "Normalisasi, inklusi sosial, Gerakan Hidup Mandiri, tokoh-tokoh ke
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0324" data-ans="1">
 <summary>Ujian ke-35: Dasar-dasar Perawatan (介護の基本)</summary>
 
 <div lang="ja">
@@ -229,7 +229,7 @@ description: "Normalisasi, inklusi sosial, Gerakan Hidup Mandiri, tokoh-tokoh ke
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1385" data-ans="4">
 <summary>Ujian ke-35: Martabat Manusia dan Kemandirian (人間の尊厳と自立)</summary>
 
 <div lang="ja">
@@ -253,7 +253,7 @@ description: "Normalisasi, inklusi sosial, Gerakan Hidup Mandiri, tokoh-tokoh ke
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0312" data-ans="5">
 <summary>Ujian ke-34: Dasar-dasar Perawatan (介護の基本)</summary>
 
 <div lang="ja">

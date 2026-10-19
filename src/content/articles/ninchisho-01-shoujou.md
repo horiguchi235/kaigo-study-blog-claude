@@ -53,7 +53,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0804" data-ans="4">
 <summary>第38回：認知症の理解</summary>
 
 次の記述のうち、認知症（dementia）の人の遂行機能障害の症状として、最も適切なものを1つ選びなさい。
@@ -73,7 +73,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0783" data-ans="3">
 <summary>第36回：認知症の理解</summary>
 
 認知機能障害による生活への影響に関する記述として、最も適切なものを1つ選びなさい。
@@ -93,7 +93,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0768" data-ans="1">
 <summary>第35回：認知症の理解</summary>
 
 次の記述のうち、見当識障害に関する質問として、最も適切なものを1つ選びなさい。
@@ -113,7 +113,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0776" data-ans="5">
 <summary>第35回：認知症の理解</summary>
 
 Mさん（88歳、女性）は、アルツハイマー型認知症（dementia of the Alzheimerʼs type）と診断された。夫と二人暮らしで、訪問介護（ホームヘルプサービス）を利用している。訪問介護員（ホームヘルパー）が訪問したときに夫から、「最近、日中することがなく寝てしまい、夜眠れていないようだ」と相談を受けた。訪問介護員（ホームヘルパー）は、Mさんが長年していた裁縫を日中にしてみることを勧めた。早速、裁縫をしてみるとMさんは、短時間で雑巾を縫うことができた。
@@ -175,7 +175,7 @@ BPSDは、中核症状に**体調・環境・関わり方**が重なって起こ
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0797" data-ans="5">
 <summary>第38回：認知症の理解</summary>
 
 次の記述のうち、認知症（dementia）のある人にみられる妄想の説明として、最も適切なものを1つ選びなさい。
@@ -195,7 +195,7 @@ BPSDは、中核症状に**体調・環境・関わり方**が重なって起こ
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0799" data-ans="3">
 <summary>第38回：認知症の理解</summary>
 
 次の記述のうち、認知症（dementia）の行動・心理症状（BPSD）に該当するものとして、最も適切なものを1つ選びなさい。
@@ -215,7 +215,7 @@ BPSDは、中核症状に**体調・環境・関わり方**が重なって起こ
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0782" data-ans="3">
 <summary>第36回：認知症の理解</summary>
 
 Lさん（78歳、女性、要介護1）は、3年前にアルツハイマー型認知症（dementia of the Alzheimerʼs type）と診断された。
@@ -241,7 +241,7 @@ Lさんの症状に該当するものとして、最も適切なものを1つ選
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0778" data-ans="1">
 <summary>第36回：認知症の理解</summary>
 
 認知症（dementia）の行動・心理症状（BPSD）であるアパシー（apathy）に関する次の記述のうち、適切なものを1つ選びなさい。
@@ -286,7 +286,7 @@ Lさんの症状に該当するものとして、最も適切なものを1つ選
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0789" data-ans="5">
 <summary>第37回：認知症の理解</summary>
 
 認知症（dementia）の高齢者にみられる、せん妄に関する記述として、適切なものを1つ選びなさい。
@@ -306,7 +306,7 @@ Lさんの症状に該当するものとして、最も適切なものを1つ選
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0779" data-ans="4">
 <summary>第36回：認知症の理解</summary>
 
 認知症（dementia）の人にみられる、せん妄に関する次の記述のうち、最も適切なものを1つ選びなさい。

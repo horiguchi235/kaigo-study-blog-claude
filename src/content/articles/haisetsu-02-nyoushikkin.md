@@ -50,7 +50,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0510" data-ans="2">
 <summary>第36回：こころとからだのしくみ</summary>
 
 男性に比べて女性に尿路感染症（urinary tract infection）が起こりやすい要因として、最も適切なものを1つ選びなさい。
@@ -70,7 +70,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0487" data-ans="5">
 <summary>第34回：こころとからだのしくみ</summary>
 
 次のうち、ブリストル便性状スケールの普通便に該当するものとして、最も適切なものを1つ選びなさい。
@@ -155,7 +155,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1353" data-ans="5">
 <summary>第38回：生活支援技術</summary>
 
 Aさん（85歳、男性、要介護3）は、アルツハイマー型認知症（dementia of the Alzheimer’s type）と診断され、認知症対応型共同生活介護（認知症高齢者グループホーム）で生活をしている。入所時、Aさんは、尿意や便意はあり、自分でトイレに行って排泄（はいせつ）できていた。最近、認知機能の低下によって、トイレ以外の場所で排泄するようになった。
@@ -177,7 +177,7 @@ Aさん（85歳、男性、要介護3）は、アルツハイマー型認知症�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1251" data-ans="5">
 <summary>第34回：生活支援技術</summary>
 
 認知機能の低下による機能性尿失禁で、夜間、トイレではない場所で排尿してしまう利用者への対応として、最も適切なものを1つ選びなさい。
@@ -197,7 +197,7 @@ Aさん（85歳、男性、要介護3）は、アルツハイマー型認知症�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1252" data-ans="1">
 <summary>第34回：生活支援技術</summary>
 
 次の記述のうち、排泄物（はいせつぶつ）で汚れた衣類をタンスに隠してしまう認知症（dementia）の利用者への対応として、最も適切なものを1つ選びなさい。
@@ -236,7 +236,7 @@ Aさん（85歳、男性、要介護3）は、アルツハイマー型認知症�
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1326" data-ans="1">
 <summary>第37回：生活支援技術</summary>
 
 次のうち、同居の高齢者におむつを使用する家族介護者に対する、介護福祉職の説明として、最も適切なものを1つ選びなさい。
@@ -256,7 +256,7 @@ Aさん（85歳、男性、要介護3）は、アルツハイマー型認知症�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1300" data-ans="4">
 <summary>第36回：生活支援技術</summary>
 
 Jさん（84歳、女性、要介護3）は、認知症（dementia）があり、夫（86歳、要支援1）と二人暮らしである。
@@ -282,7 +282,7 @@ Jさんの尿路感染症（urinary tract infection）を予防する介護と�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1276" data-ans="4">
 <summary>第35回：生活支援技術</summary>
 
 Kさん（76歳、女性、要介護2）は、介護老人保健施設に入所している。日頃から、「排泄（はいせつ）は最期まで他人の世話にならない」と言い、自分でトイレに行き排泄（はいせつ）している。先日、趣味活動に参加しているときにトイレに間に合わず失禁した。その後、トイレの近くで過ごすことが多くなり、趣味活動に参加することが少なくなった。Kさんを観察すると、1日の水分摂取量、排尿量は変わりないが、日中の排尿回数（はいにょうかいすう）が増えていることがわかった。

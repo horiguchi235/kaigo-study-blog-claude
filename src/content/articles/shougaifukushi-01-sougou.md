@@ -88,7 +88,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0174" data-ans="3">
 <summary>第38回：社会の理解</summary>
 
 次の記述のうち、障害者福祉に関係する機関やシステムとして、最も適切なものを1つ選びなさい。
@@ -108,7 +108,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0953" data-ans="2">
 <summary>第38回：障害の理解</summary>
 
 次のうち、「障害者総合支援法」に規定する補装具として、適切なものを1つ選びなさい。
@@ -130,7 +130,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0934" data-ans="5">
 <summary>第36回：障害の理解</summary>
 
 「障害者総合支援法」において、障害福祉サービスを利用する人の意向のもとにサービス等利用計画案を作成する事業所に置かなければならない専門職として、最も適切なものを1つ選びなさい。
@@ -152,7 +152,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0139" data-ans="1">
 <summary>第35回：社会の理解</summary>
 
 次のうち、「障害者総合支援法」の介護給付を利用するときに、利用者が最初に市町村に行う手続きとして、適切なものを1つ選びなさい。
@@ -174,7 +174,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0140" data-ans="2">
 <summary>第35回：社会の理解</summary>
 
 「障害者総合支援法」の居宅介護を利用したときの利用者負担の考え方として、最も適切なものを1つ選びなさい。
@@ -261,7 +261,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0165" data-ans="2">
 <summary>第37回：社会の理解</summary>
 
 「障害者総合支援法」のサービスに関する次の記述のうち、適切なものを1つ選びなさい。
@@ -283,7 +283,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0166" data-ans="5">
 <summary>第37回：社会の理解</summary>
 
 障害児支援に関する次の記述のうち、適切なものを1つ選びなさい。
@@ -303,7 +303,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0152" data-ans="4">
 <summary>第36回：社会の理解</summary>
 
 「障害者総合支援法」に規定された移動に関する支援の説明として、最も適切なものを1つ選びなさい。
@@ -325,7 +325,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0129" data-ans="1">
 <summary>第34回：社会の理解</summary>
 
 重度訪問介護に関する次の記述のうち、適切なものを1つ選びなさい。
@@ -345,7 +345,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0128" data-ans="4">
 <summary>第34回：社会の理解</summary>
 
 Eさん（30歳、女性、知的障害、障害支援区分2）は、現在、日中は特例子会社で働き、共同生活援助（グループホーム）で生活している。今後、一人暮らしをしたいと思っているが、初めてなので不安もある。次のうち、Eさんが安心して一人暮らしをするために利用するサービスとして、適切なものを1つ選びなさい。

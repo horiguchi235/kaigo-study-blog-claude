@@ -96,7 +96,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0950" data-ans="3">
 <summary>第38回：障害の理解</summary>
 
 次のうち、筋萎縮性側索硬化症（amyotrophic lateral sclerosis：ALS）によくみられる症状として、最も適切なものを1つ選びなさい。
@@ -116,7 +116,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0941" data-ans="4">
 <summary>第37回：障害の理解</summary>
 
 Aさん（76歳、女性）は、パーキンソン病（Parkinson disease）と診断され、日常生活動作（Activities of Daily Living：ADL）は、車いすやベッド上で全介助である。最近、食事に時間がかかって嫌がるようになり、かすれ声が目立つようになった。
@@ -138,7 +138,7 @@ Aさん（76歳、女性）は、パーキンソン病（Parkinson disease）と
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0938" data-ans="2">
 <summary>第37回：障害の理解</summary>
 
 次のうち、クローン病（Crohn disease）にみられる特徴的な症状として、最も適切なものを1つ選びなさい。
@@ -158,7 +158,7 @@ Aさん（76歳、女性）は、パーキンソン病（Parkinson disease）と
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0931" data-ans="3">
 <summary>第36回：障害の理解</summary>
 
 Cさん（55歳、男性）は、5年前に筋萎縮性側索硬化症（amyotrophic lateral sclerosis：ALS）と診断された。
@@ -182,7 +182,7 @@ Cさん（55歳、男性）は、5年前に筋萎縮性側索硬化症（amyotro
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0922" data-ans="2">
 <summary>第35回：障害の理解</summary>
 
 Aさん（60歳、男性）は、脊髄小脳変性症（spinocerebellar degeneration）のため、物をつかもうとすると手が震え、起立時や歩行時に身体がふらつき、ろれつが回らないため発語が不明瞭である。
@@ -204,7 +204,7 @@ Aさん（60歳、男性）は、脊髄小脳変性症（spinocerebellar degener
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0909" data-ans="4">
 <summary>第34回：障害の理解</summary>
 
 筋萎縮性側索硬化症（amyotrophic lateral sclerosis：ALS）では出現しにくい症状として、適切なものを1つ選びなさい。
@@ -224,7 +224,7 @@ Aさん（60歳、男性）は、脊髄小脳変性症（spinocerebellar degener
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0911" data-ans="5">
 <summary>第34回：障害の理解</summary>
 
 Gさんはパーキンソン病（Parkinson disease）と診断され、薬物療法が開始されている。立位で重心が傾き、歩行中に停止することや向きを変えることが困難である。
@@ -283,7 +283,7 @@ Gさんのこの症状を表現するものとして、最も適切なものを1
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0939" data-ans="4">
 <summary>第37回：障害の理解</summary>
 
 次の記述のうち、遂行機能障害の特徴として、最も適切なものを1つ選びなさい。
@@ -303,7 +303,7 @@ Gさんのこの症状を表現するものとして、最も適切なものを1
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0907" data-ans="1">
 <summary>第34回：障害の理解</summary>
 
 半側空間無視に関する次の記述のうち、最も適切なものを1つ選びなさい。

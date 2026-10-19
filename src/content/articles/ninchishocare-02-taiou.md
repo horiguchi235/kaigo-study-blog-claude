@@ -70,7 +70,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0788" data-ans="3">
 <summary>第37回：認知症の理解</summary>
 
 Aさん（84歳、女性、要介護3）は、アルツハイマー型認知症（dementia of the Alzheimerʼs type）で、介護老人福祉施設に入所している。赤ちゃんの人形を持っていて、「はなちゃん」と呼んで話しかけている。
@@ -94,7 +94,7 @@ Aさんに対する介護福祉職の最初の声かけとして、最も適切�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0785" data-ans="1">
 <summary>第36回：認知症の理解</summary>
 
 Mさん（80歳、女性、要介護1）は、アルツハイマー型認知症（dementia of the Alzheimerʼs type）であり、3日前に認知症対応型共同生活介護（認知症高齢者グループホーム）に入居した。
@@ -122,7 +122,7 @@ Mさんの介護を検討するときに優先することとして、最も適�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0763" data-ans="4">
 <summary>第34回：認知症の理解</summary>
 
 Bさん（86歳、女性）は、中等度のアルツハイマー型認知症（dementia of the Alzheimerʼs type）である。短期入所生活介護（ショートステイ）の利用を始めた日の翌朝、両手に便が付着した状態でベッドに座っていた。
@@ -144,7 +144,7 @@ Bさんへの声かけとして、適切なものを1つ選びなさい。
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0764" data-ans="3">
 <summary>第34回：認知症の理解</summary>
 
 Cさん（80歳、女性）は夫（85歳）と二人暮らしである。
@@ -190,7 +190,7 @@ Cさん（80歳、女性）は夫（85歳）と二人暮らしである。
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0803" data-ans="1">
 <summary>第38回：認知症の理解</summary>
 
 認知症（dementia）の人への環境の配慮に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -210,7 +210,7 @@ Cさん（80歳、女性）は夫（85歳）と二人暮らしである。
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0765" data-ans="1">
 <summary>第34回：認知症の理解</summary>
 
 認知症（dementia）の人に配慮した施設の生活環境として、最も適切なものを1つ選びなさい。

@@ -87,7 +87,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0946" data-ans="5">
 <summary>第38回：障害の理解</summary>
 
 次のうち、障害福祉におけるソーシャルインクルージョン（social inclusion）の考え方の説明として、最も適切なものを1つ選びなさい。
@@ -107,7 +107,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1391" data-ans="2">
 <summary>第38回：人間の尊厳と自立</summary>
 
 社会福祉の理念を発展させた人物に関する次の記述のうち、適切なものを1つ選びなさい。
@@ -127,7 +127,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1383" data-ans="4">
 <summary>第34回：人間の尊厳と自立</summary>
 
 著書『ケアの本質－生きることの意味』の中で、「一人の人格をケアするとは、最も深い意味で、その人が成長すること、自己実現することをたすけることである」と述べた人物として、正しいものを1つ選びなさい。
@@ -205,7 +205,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0352" data-ans="1">
 <summary>第38回：介護の基本</summary>
 
 ユニバーサルデザイン（universal design）の7原則に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -225,7 +225,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1388" data-ans="2">
 <summary>第36回：人間の尊厳と自立</summary>
 
 次の記述のうち、介護を必要とする人の自立についての考え方として、最も適切なものを1つ選びなさい。
@@ -245,7 +245,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0324" data-ans="1">
 <summary>第35回：介護の基本</summary>
 
 すべての人が暮らしやすい社会の実現に向けて、どこでも、だれでも、自由に、使いやすくという考え方を表す用語として、適切なものを1つ選びなさい。
@@ -265,7 +265,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1385" data-ans="4">
 <summary>第35回：人間の尊厳と自立</summary>
 
 利用者の生活の質（QOL）を高めるための介護実践に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -285,7 +285,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0312" data-ans="5">
 <summary>第34回：介護の基本</summary>
 
 利用者の自立支援に関する次の記述のうち、最も適切なものを1つ選びなさい。

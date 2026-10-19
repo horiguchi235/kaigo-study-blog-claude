@@ -66,7 +66,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0793" data-ans="5">
 <summary>第37回：認知症の理解</summary>
 
 次の記述のうち、「認知症（dementia）の人の日常生活・社会生活における意思決定支援ガイドライン」（2018年（平成30年）（厚生労働省））で示されている、意思決定支援として、最も適切なものを1つ選びなさい。
@@ -86,7 +86,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0775" data-ans="3">
 <summary>第35回：認知症の理解</summary>
 
 認知症ライフサポートモデルに関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -106,7 +106,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0757" data-ans="3">
 <summary>第34回：認知症の理解</summary>
 
 認知症ケアにおける「ひもときシート」に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -164,7 +164,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0805" data-ans="3">
 <summary>第38回：認知症の理解</summary>
 
 Aさん（75歳、男性）は、認知症（dementia）で、通所介護（デイサービス）を利用している。介護福祉職が、「今日は何月何日でしょうか」と聞くと、Aさんは、「9月」と答えた。介護福祉職が、「今朝、Aさんの家の庭にあじさいが咲いていましたね」と言うと、Bさんが、「あじさいが咲くのは6月？」と答えた。介護福祉職は、「そうです。今日は6月22日です」と言い、ホワイトボードに日付とあじさいの絵を描いた。介護福祉職が、「6月生まれの方はいますか」と聞くが、返事がない。介護福祉職は、「今日は6月22日ですが、あと3日でAさんの誕生日ですね」と伝えた。
@@ -186,7 +186,7 @@ Aさん（75歳、男性）は、認知症（dementia）で、通所介護（デ
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0794" data-ans="4">
 <summary>第37回：認知症の理解</summary>
 
 次の記述のうち、回想法として、最も適切なものを1つ選びなさい。
@@ -206,7 +206,7 @@ Aさん（75歳、男性）は、認知症（dementia）で、通所介護（デ
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0784">
 <summary>第36回：認知症の理解</summary>
 
 バリデーション（validation）に基づく、認知症（dementia）の人の動きや感情に合わせるコミュニケーション技法として、正しいものを1つ選びなさい。
@@ -226,7 +226,7 @@ Aさん（75歳、男性）は、認知症（dementia）で、通所介護（デ
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0772" data-ans="4">
 <summary>第35回：認知症の理解</summary>
 
 認知症ケアの技法であるユマニチュードに関する次の記述のうち、正しいものを1つ選びなさい。
@@ -246,7 +246,7 @@ Aさん（75歳、男性）は、認知症（dementia）で、通所介護（デ
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0762" data-ans="2">
 <summary>第34回：認知症の理解</summary>
 
 軽度の認知症（dementia）の人に、日付、季節、天気、場所などの情報をふだんの会話の中で伝えて認識してもらう認知症ケアとして、正しいものを1つ選びなさい。

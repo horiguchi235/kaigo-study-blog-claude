@@ -63,7 +63,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0524" data-ans="4">
 <summary>第37回：こころとからだのしくみ</summary>
 
 次のうち、呼吸中枢がある部位として、正しいものを1つ選びなさい。
@@ -83,7 +83,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0525" data-ans="5">
 <summary>第37回：こころとからだのしくみ</summary>
 
 次のうち、脳の機能停止を示す徴候に該当するものとして、適切なものを1つ選びなさい。
@@ -103,7 +103,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0527" data-ans="3">
 <summary>第38回：こころとからだのしくみ</summary>
 
 次の記述のうち、脳のしくみとその働きとして、適切なものを1つ選びなさい。
@@ -123,7 +123,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0515" data-ans="2">
 <summary>第37回：こころとからだのしくみ</summary>
 
 次のうち、顔の感覚に関与する脳神経として、正しいものを1つ選びなさい。
@@ -143,7 +143,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0514" data-ans="1">
 <summary>第37回：こころとからだのしくみ</summary>
 
 次のうち、恐怖や不安、喜びなどの情動に関わる脳の機能局在の部位として、正しいものを1つ選びなさい。
@@ -206,16 +206,20 @@ draft: true
 
 - 肺は右3葉・左2葉。<strong>右の気管支は左より太く・短く、垂直に近い（まっすぐ下に向かう）</strong>ので、誤嚥した物は右肺に入りやすい
 
-<details>
+<details data-qid="K0503" data-ans="1">
 <summary>✏️ 過去問を解いてみよう（第36回：こころとからだのしくみ）</summary>
 
-交感神経の作用にあたるものはどれ？
+<p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-1. 血管が縮む
-2. 心拍数が減る
-3. 気道が縮む
-4. 消化が進む
-5. 瞳孔が縮む
+次のうち、交感神経の作用に該当するものとして、正しいものを1つ選びなさい。
+
+1. 血管収縮
+2. 心拍数減少
+3. 気道収縮
+4. 消化促進
+5. 瞳孔収縮
+
+<p class="q-src">出典：第36回 介護福祉士国家試験（こころとからだのしくみ）</p>
 
 <details class="answer">
 <summary>正解を見る</summary>
@@ -262,7 +266,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0530" data-ans="5">
 <summary>第38回：こころとからだのしくみ</summary>
 
 次のうち、白内障（cataract）で混濁する部位として、適切なものを1つ選びなさい。
@@ -282,7 +286,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0516" data-ans="2">
 <summary>第37回：こころとからだのしくみ</summary>
 
 次の記述のうち、鼻の構造と機能として、適切なものを1つ選びなさい。
@@ -302,7 +306,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0505" data-ans="1">
 <summary>第36回：こころとからだのしくみ</summary>
 
 中耳にある耳小骨として、正しいものを1つ選びなさい。
@@ -322,7 +326,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0480" data-ans="3">
 <summary>第34回：こころとからだのしくみ</summary>
 
 老化に伴う視覚機能の変化に関する次の記述のうち、正しいものを1つ選びなさい。

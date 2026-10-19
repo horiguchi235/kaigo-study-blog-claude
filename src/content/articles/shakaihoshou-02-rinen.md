@@ -47,7 +47,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0134" data-ans="5">
 <summary>第35回：社会の理解</summary>
 
 近年、人と人、人と社会とがつながり、一人ひとりが生きがいや役割をもち、助け合いながら暮らしていくことのできる、包摂的なコミュニティ、地域や社会を創るという考え方が示されている。この考え方を表すものとして、最も適切なものを1つ選びなさい。
@@ -67,7 +67,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0121" data-ans="2">
 <summary>第34回：社会の理解</summary>
 
 2016年（平成28年）に閣議決定された、「ニッポン一億総活躍プラン」にある「地域共生社会の実現」に関する記述として、最も適切なものを1つ選びなさい。
@@ -152,7 +152,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0173" data-ans="1">
 <summary>第38回：社会の理解</summary>
 
 次の記述のうち、障害者福祉の歴史的展開として、最も適切なものを1つ選びなさい。
@@ -174,7 +174,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0148" data-ans="5">
 <summary>第36回：社会の理解</summary>
 
 社会福祉基礎構造改革に関する次の記述のうち、適切なものを1つ選びなさい。
@@ -194,7 +194,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0124" data-ans="3">
 <summary>第34回：社会の理解</summary>
 
 次のうち、2020年（令和2年）の社会福祉法等の改正に関する記述として、最も適切なものを1つ選びなさい。

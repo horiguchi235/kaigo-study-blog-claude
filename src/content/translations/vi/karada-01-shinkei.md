@@ -49,7 +49,7 @@ description: "Chức năng các thùy đại não, hạnh nhân, hồi hải mã
 
 <p class="quiz-note">Đề bài và các lựa chọn được giữ nguyên văn tiếng Nhật như Trung tâm thi đã công bố. Phần giải thích trong “xem đáp án” do trang này tự biên soạn, không liên quan đến Trung tâm thi.</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0524" data-ans="4">
 <summary>Kỳ thi thứ 37: Cấu tạo tâm trí và cơ thể (こころとからだのしくみ)</summary>
 
 <div lang="ja">
@@ -73,7 +73,7 @@ description: "Chức năng các thùy đại não, hạnh nhân, hồi hải mã
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0525" data-ans="5">
 <summary>Kỳ thi thứ 37: Cấu tạo tâm trí và cơ thể (こころとからだのしくみ)</summary>
 
 <div lang="ja">
@@ -97,7 +97,7 @@ description: "Chức năng các thùy đại não, hạnh nhân, hồi hải mã
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0527" data-ans="3">
 <summary>Kỳ thi thứ 38: Cấu tạo tâm trí và cơ thể (こころとからだのしくみ)</summary>
 
 <div lang="ja">
@@ -121,7 +121,7 @@ description: "Chức năng các thùy đại não, hạnh nhân, hồi hải mã
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0515" data-ans="2">
 <summary>Kỳ thi thứ 37: Cấu tạo tâm trí và cơ thể (こころとからだのしくみ)</summary>
 
 <div lang="ja">
@@ -219,7 +219,7 @@ description: "Chức năng các thùy đại não, hạnh nhân, hồi hải mã
 
 <p class="quiz-note">Đề bài và các lựa chọn được giữ nguyên văn tiếng Nhật như Trung tâm thi đã công bố. Phần giải thích trong “xem đáp án” do trang này tự biên soạn, không liên quan đến Trung tâm thi.</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0530" data-ans="5">
 <summary>Kỳ thi thứ 38: Cấu tạo tâm trí và cơ thể (こころとからだのしくみ)</summary>
 
 <div lang="ja">
@@ -243,7 +243,7 @@ description: "Chức năng các thùy đại não, hạnh nhân, hồi hải mã
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0516" data-ans="2">
 <summary>Kỳ thi thứ 37: Cấu tạo tâm trí và cơ thể (こころとからだのしくみ)</summary>
 
 <div lang="ja">
@@ -267,7 +267,7 @@ description: "Chức năng các thùy đại não, hạnh nhân, hồi hải mã
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0505" data-ans="1">
 <summary>Kỳ thi thứ 36: Cấu tạo tâm trí và cơ thể (こころとからだのしくみ)</summary>
 
 <div lang="ja">
@@ -291,7 +291,7 @@ description: "Chức năng các thùy đại não, hạnh nhân, hồi hải mã
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0514" data-ans="1">
 <summary>Kỳ thi thứ 37: Cấu tạo tâm trí và cơ thể (こころとからだのしくみ)</summary>
 
 <div lang="ja">
@@ -315,7 +315,7 @@ description: "Chức năng các thùy đại não, hạnh nhân, hồi hải mã
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0480" data-ans="3">
 <summary>Kỳ thi thứ 34: Cấu tạo tâm trí và cơ thể (こころとからだのしくみ)</summary>
 
 <div lang="ja">

@@ -50,7 +50,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1358" data-ans="3">
 <summary>第38回：生活支援技術</summary>
 
 次の記述のうち、良質な睡眠のための環境づくりとして、最も適切なものを1つ選びなさい。
@@ -70,7 +70,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1281" data-ans="1">
 <summary>第35回：生活支援技術</summary>
 
 利用者の入眠に向けた介護福祉職の助言として、最も適切なものを1つ選びなさい。
@@ -90,7 +90,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1256" data-ans="4">
 <summary>第34回：生活支援技術</summary>
 
 夜勤のある施設職員が良質な睡眠をとるための生活習慣に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -163,7 +163,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1332" data-ans="4">
 <summary>第37回：生活支援技術</summary>
 
 次の記述のうち、介護の現場で行うベッドメイキングとして、最も適切なものを1つ選びなさい。
@@ -183,7 +183,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1280" data-ans="4">
 <summary>第35回：生活支援技術</summary>
 
 睡眠の環境を整える介護に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -203,7 +203,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1255" data-ans="2">
 <summary>第34回：生活支援技術</summary>
 
 心地よい睡眠環境を整備するためのベッドメイキングに関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -259,7 +259,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1333" data-ans="1">
 <summary>第37回：生活支援技術</summary>
 
 Bさん（90歳、女性、要介護3）は、アルツハイマー型認知症（dementia of the Alzheimerʼs type）があり、介護老人福祉施設に入所している。テレビを見ることが好きで、日中はお茶を飲みながら、テレビを見て過ごすことが日課である。1週間前からBさんは、夜中に目が覚めたり、3時ごろに起きたりと、不眠が続いている。2時間ほどしか寝ていない日もある。ある日、Bさんは、「昼間、眠くてしかたがない。からだがだるい」と介護福祉職に話した。
@@ -281,7 +281,7 @@ Bさん（90歳、女性、要介護3）は、アルツハイマー型認知症�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1306" data-ans="2">
 <summary>第36回：生活支援技術</summary>
 
 消化管ストーマを造設した利用者への睡眠の介護に関する記述として、最も適切なものを1つ選びなさい。
@@ -301,7 +301,7 @@ Bさん（90歳、女性、要介護3）は、アルツハイマー型認知症�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1307" data-ans="5">
 <summary>第36回：生活支援技術</summary>
 
 Lさん（79歳、男性、要介護2）は、介護老人保健施設に入所して1か月が経過した。

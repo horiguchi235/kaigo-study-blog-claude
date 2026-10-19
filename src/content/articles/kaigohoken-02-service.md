@@ -88,7 +88,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0354" data-ans="2">
 <summary>第38回：介護の基本</summary>
 
 次の記述のうち、介護保険制度における一人暮らしの要支援者を支えるサービスの内容として、適切なものを1つ選びなさい。
@@ -108,7 +108,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0158" data-ans="2">
 <summary>第37回：社会の理解</summary>
 
 次の記述のうち、定期巡回・随時対応型訪問介護看護の説明として、正しいものを1つ選びなさい。
@@ -128,7 +128,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0162" data-ans="3">
 <summary>第37回：社会の理解</summary>
 
 Bさん（85歳、男性、要支援1）は、自宅で一人暮らしをしている。最近、物忘れが多くなり、1か月前から地域支援事業の訪問型サービスを利用するようになった。ある日、Bさんが、「これからも自宅で生活したいが、日中、話し相手がいなくて寂しい」と介護福祉職に話した。
@@ -150,7 +150,7 @@ Bさん（85歳、男性、要支援1）は、自宅で一人暮らしをして�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0344" data-ans="3">
 <summary>第37回：介護の基本</summary>
 
 次の記述のうち、介護保険制度における訪問介護員（ホームヘルパー）が行うサービス内容として、最も適切なものを1つ選びなさい。
@@ -170,7 +170,7 @@ Bさん（85歳、男性、要支援1）は、自宅で一人暮らしをして�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0150" data-ans="3">
 <summary>第36回：社会の理解</summary>
 
 次のうち、介護保険法に基づき、都道府県・指定都市・中核市が指定（許可）、監督を行うサービスとして、正しいものを1つ選びなさい。

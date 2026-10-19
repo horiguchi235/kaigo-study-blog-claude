@@ -76,16 +76,20 @@ draft: true
 
 「高齢者が優先」「訓練が必要」「伝達手段は1つ」は×です。
 
-<details>
+<details data-qid="K1288" data-ans="4">
 <summary>✏️ 過去問を解いてみよう（第36回：生活支援技術）</summary>
 
-心身機能が低下した高齢者の住環境の改善として、最も適切なものはどれ？
+<p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-1. 玄関から道路までをコンクリートから砂利敷きにする
-2. 取っ手をレバーハンドルから丸いドアノブにする
-3. 階段の踏み板と先端を反対色から同系色にする
-4. 車いすを使う部屋の床を畳からフローリングにする
-5. 浴槽を和洋折衷式から洋式にする
+心身機能が低下した高齢者の住環境の改善に関する次の記述のうち、最も適切なものを1つ選びなさい。
+
+1. 玄関から道路までは、コンクリートから砂利敷きにする。
+2. 扉の取っ手は、レバーハンドルから丸いドアノブにする。
+3. 階段の足が乗る板と板の先端部分は、反対色から同系色にする。
+4. 車いすを使用する居室の床は、畳から板製床材（フローリング）にする。
+5. 浴槽は、和洋折衷式から洋式にする。
+
+<p class="q-src">出典：第36回 介護福祉士国家試験（生活支援技術）</p>
 
 <details class="answer">
 <summary>正解を見る</summary>
@@ -120,7 +124,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1338" data-ans="1">
 <summary>第38回：生活支援技術</summary>
 
 介護老人福祉施設における、快適な室内環境に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -140,7 +144,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1314" data-ans="3">
 <summary>第37回：生活支援技術</summary>
 
 次の記述のうち、障害のある人への事故防止の対応として、最も適切なものを1つ選びなさい。
@@ -212,7 +216,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0350" data-ans="3">
 <summary>第38回：介護の基本</summary>
 
 介護施設における介護ロボットに関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -232,7 +236,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1339" data-ans="2">
 <summary>第38回：生活支援技術</summary>
 
 パーキンソン病（Parkinson disease）の人の住まいに関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -252,7 +256,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1287" data-ans="1">
 <summary>第36回：生活支援技術</summary>
 
 関節リウマチ（rheumatoid arthritis）で、関節の変形や痛みがある人への住まいに関する介護福祉職の助言として、最も適切なものを1つ選びなさい。
@@ -272,7 +276,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1310" data-ans="2">
 <summary>第36回：生活支援技術</summary>
 
 福祉用具を活用するときの基本的な考え方として、最も適切なものを1つ選びなさい。
@@ -292,7 +296,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1284" data-ans="2">
 <summary>第35回：生活支援技術</summary>
 
 利用者の障害特性に適した福祉用具の選択に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -312,7 +316,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1285" data-ans="1">
 <summary>第35回：生活支援技術</summary>
 
 福祉用具等を安全に使用するための方法として、最も適切なものを1つ選びなさい。
@@ -332,7 +336,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0326" data-ans="1">
 <summary>第35回：介護の基本</summary>
 
 介護保険施設の駐車場で、下記のマークを付けた車の運転手が困った様子で手助けを求めていた。介護福祉職の対応として、最も適切なものを1つ選びなさい。

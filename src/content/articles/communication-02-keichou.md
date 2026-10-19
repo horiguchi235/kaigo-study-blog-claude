@@ -57,7 +57,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1413" data-ans="5">
 <summary>第34回：人間関係とコミュニケーション</summary>
 
 介護福祉職はBさんから、「認知症（dementia）の母の介護がなぜかうまくいかない。深夜に徘徊（はいかい）するので、心身共に疲れてきた」と相談された。介護福祉職は、「落ち込んでいてはダメですよ。元気を出して頑張ってください」とBさんに言った。後日、介護福祉職はBさんに対する自身の発言を振り返り、不適切だったと反省した。
@@ -79,7 +79,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1513" data-ans="4">
 <summary>第34回：コミュニケーション技術</summary>
 
 次の事例を読んで、問いに答えなさい。
@@ -171,7 +171,7 @@ Jさんの発言への介護福祉職の共感的理解を示す対応として�
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1537" data-ans="4">
 <summary>第38回：コミュニケーション技術</summary>
 
 次のうち、利用者とのコミュニケーション場面で、介護福祉職が行う自己開示の目的として、最も適切なものを1つ選びなさい。
@@ -191,7 +191,7 @@ Jさんの発言への介護福祉職の共感的理解を示す対応として�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1538" data-ans="1">
 <summary>第38回：コミュニケーション技術</summary>
 
 A介護福祉職は、認知症（dementia）のあるBさん（80歳、女性）と会話をしている。Bさんは、「私は小さい頃毎年お祭りに行くことが楽しみでね」「なんだか最近ひざが痛いような気がしてね」「今から何をしようかしらね」と、次々に話している。A介護福祉職は、Bさんが混乱しないように、「Bさん、子どもの頃の思い出や体調のことをお話しくださっているのですね」と返答した。
@@ -213,7 +213,7 @@ A介護福祉職は、認知症（dementia）のあるBさん（80歳、女性�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1531" data-ans="4">
 <summary>第37回：コミュニケーション技術</summary>
 
 次の記述のうち、利用者とのコミュニケーションの場面で用いる要約の技法として、適切なものを1つ選びなさい。
@@ -233,7 +233,7 @@ A介護福祉職は、認知症（dementia）のあるBさん（80歳、女性�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1519" data-ans="1">
 <summary>第35回：コミュニケーション技術</summary>
 
 次のうち、閉じられた質問として、適切なものを1つ選びなさい。
@@ -253,7 +253,7 @@ A介護福祉職は、認知症（dementia）のあるBさん（80歳、女性�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1512" data-ans="5">
 <summary>第34回：コミュニケーション技術</summary>
 
 介護福祉職によるアサーティブ・コミュニケーション（assertive communication）として、最も適切なものを1つ選びなさい。

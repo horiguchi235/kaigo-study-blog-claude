@@ -92,7 +92,7 @@ SOAPは、情報を4つの欄に分けて書く記録の型です。
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1542" data-ans="2">
 <summary>第38回：コミュニケーション技術</summary>
 
 次の記述のうち、客観的事実に該当するものとして、最も適切なものを1つ選びなさい。
@@ -112,7 +112,7 @@ SOAPは、情報を4つの欄に分けて書く記録の型です。
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1536" data-ans="5">
 <summary>第37回：コミュニケーション技術</summary>
 
 介護保険サービスにおける記録に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -132,7 +132,7 @@ SOAPは、情報を4つの欄に分けて書く記録の型です。
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1509" data-ans="3">
 <summary>第33回：コミュニケーション技術</summary>
 
 介護記録を書くときの留意点として、最も適切なものを1つ選びなさい。

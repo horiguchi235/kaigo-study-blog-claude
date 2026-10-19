@@ -89,7 +89,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0984" data-ans="3">
 <summary>第34回：医療的ケア</summary>
 
 経管栄養で用いる半固形タイプの栄養剤の特徴に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -109,7 +109,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0985" data-ans="2">
 <summary>第34回：医療的ケア</summary>
 
 経管栄養で、栄養剤の注入後に白湯を経管栄養チューブに注入する理由として、最も適切なものを1つ選びなさい。
@@ -168,7 +168,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0994" data-ans="2">
 <summary>第36回：医療的ケア</summary>
 
 次のうち、経管栄養で起こるトラブルに関する記述として、最も適切なものを1つ選びなさい。
@@ -188,7 +188,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0995" data-ans="3">
 <summary>第36回：医療的ケア</summary>
 
 Eさん（75歳、女性）は、介護老人福祉施設に入所している。
@@ -216,7 +216,7 @@ Eさん（75歳、女性）は、介護老人福祉施設に入所している�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0990" data-ans="5">
 <summary>第35回：医療的ケア</summary>
 
 Fさん（87歳、女性）は、介護老人福祉施設に入所している。嚥下（えんげ）機能が低下したため、胃ろうによる経管栄養が行われている。担当の介護福祉士は、Fさんの経管栄養を開始して、しばらく観察した。その後、15分後に訪室すると、Fさんが嘔吐（おうと）して、意識はあるが苦しそうな表情をしていた。介護福祉士は、すぐに経管栄養を中止して看護職員を呼んだ。
@@ -263,7 +263,7 @@ Fさん（87歳、女性）は、介護老人福祉施設に入所している�
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1005" data-ans="4">
 <summary>第38回：医療的ケア</summary>
 
 次の記述のうち、ボタン型胃ろうチューブを挿入している利用者に対して、介護福祉士が行うケアとして、最も適切なものを1つ選びなさい。
@@ -283,7 +283,7 @@ Fさん（87歳、女性）は、介護老人福祉施設に入所している�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1000" data-ans="3">
 <summary>第37回：医療的ケア</summary>
 
 Aさん（80歳、女性）は、脳梗塞（cerebral infarction）の後遺症で左片麻痺（ひだりかたまひ）があり、介護老人保健施設に入所して在宅復帰に向けた訓練をしている。嚥下障害（えんげしょうがい）もあるため、経鼻経管栄養による栄養摂取をしているが、経口摂取できないことでイライラしてチューブを抜去したことがある。
@@ -309,7 +309,7 @@ Aさん（80歳、女性）は、脳梗塞（cerebral infarction）の後遺症�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0989" data-ans="4">
 <summary>第35回：医療的ケア</summary>
 
 胃ろうによる経管栄養での生活上の留意点の説明として、最も適切なものを1つ選びなさい。

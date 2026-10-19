@@ -65,7 +65,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0536" data-ans="4">
 <summary>第38回：こころとからだのしくみ</summary>
 
 次のうち、65歳の人の妥当な睡眠時間として、最も適切なものを1つ選びなさい。
@@ -85,7 +85,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0522" data-ans="1">
 <summary>第37回：こころとからだのしくみ</summary>
 
 次の記述のうち、レム睡眠に関するものとして、最も適切なものを1つ選びなさい。
@@ -149,7 +149,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0523" data-ans="5">
 <summary>第37回：こころとからだのしくみ</summary>
 
 Bさん（76歳、男性）は、この数週間、日中に、「眠い」と訴えている。Bさんは毎日15時にコーヒー1杯を飲み、たばこを1本吸い、21時に就寝する。夜間の睡眠状態を数日間観察すると、睡眠中にぴくぴくと下肢が動いていることがたびたびあった。起床後、手足に異常を感じるかをBさんに確認したが、「特にない」とのことだった。
@@ -171,7 +171,7 @@ Bさん（76歳、男性）は、この数週間、日中に、「眠い」と�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0511" data-ans="2">
 <summary>第36回：こころとからだのしくみ</summary>
 
 次のうち、眠りが浅くなる原因として、最も適切なものを1つ選びなさい。
@@ -191,7 +191,7 @@ Bさん（76歳、男性）は、この数週間、日中に、「眠い」と�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0512" data-ans="5">
 <summary>第36回：こころとからだのしくみ</summary>
 
 概日リズム睡眠障害（circadian rhythm sleep disorder）に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -211,7 +211,7 @@ Bさん（76歳、男性）は、この数週間、日中に、「眠い」と�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0499" data-ans="2">
 <summary>第35回：こころとからだのしくみ</summary>
 
 高齢者の睡眠薬の使用に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -231,7 +231,7 @@ Bさん（76歳、男性）は、この数週間、日中に、「眠い」と�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0500" data-ans="2">
 <summary>第35回：こころとからだのしくみ</summary>
 
 大切な人を亡くした後にみられる、寂しさやむなしさ、無力感などの精神的反応や、睡眠障害、食欲不振、疲労感などの身体的反応を表すものとして、最も適切なものを1つ選びなさい。
@@ -251,7 +251,7 @@ Bさん（76歳、男性）は、この数週間、日中に、「眠い」と�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0488" data-ans="5">
 <summary>第34回：こころとからだのしくみ</summary>
 
 Aさん（65歳、女性）は、最近、熟睡できないと訴えている。Aさんの日常生活は、毎日6時に起床し、午前中は家事を行い、14時から20分の昼寝をし、16時から30分の散歩をしている。食事は朝食7時、昼食12時、夕食18時にとり、朝食のときはコーヒーを1杯飲む。21時に好きな音楽を聞きながら、夜食を満腹になる程度に食べ、21時30分に就寝している。

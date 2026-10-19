@@ -66,7 +66,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1334" data-ans="5">
 <summary>第37回：生活支援技術</summary>
 
 終末期の介護に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -86,7 +86,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1282" data-ans="2">
 <summary>第35回：生活支援技術</summary>
 
 終末期で終日臥床（しゅうじつがしょう）している利用者に対する介護福祉職の対応として、最も適切なものを1つ選びなさい。
@@ -161,7 +161,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1360" data-ans="3">
 <summary>第38回：生活支援技術</summary>
 
 次の記述のうち、介護老人福祉施設で、終末期にある利用者とその家族に行う介護福祉職の支援として、最も適切なものを1つ選びなさい。
@@ -181,7 +181,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1361" data-ans="5">
 <summary>第38回：生活支援技術</summary>
 
 次の記述のうち、施設で亡くなった利用者家族への介護福祉職の対応として、最も適切なものを1つ選びなさい。
@@ -201,7 +201,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1309" data-ans="4">
 <summary>第36回：生活支援技術</summary>
 
 デスカンファレンス（death conference）の目的に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -221,7 +221,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1283" data-ans="5">
 <summary>第35回：生活支援技術</summary>
 
 介護老人福祉施設に入所している利用者の看取りにおける、介護福祉職による家族への支援として、最も適切なものを1つ選びなさい。
@@ -241,7 +241,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1258" data-ans="3">
 <summary>第34回：生活支援技術</summary>
 
 介護老人福祉施設における終末期の利用者の家族支援に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -261,7 +261,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1259" data-ans="2">
 <summary>第34回：生活支援技術</summary>
 
 死亡後の介護に関する次の記述のうち、最も適切なものを1つ選びなさい。

@@ -72,7 +72,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0649" data-ans="2">
 <summary>第38回：発達と老化の理解</summary>
 
 次の記述のうち、ハヴィガースト（Havighurst, R.）の示す中年期の発達課題に該当するものとして、適切なものを1つ選びなさい。
@@ -92,7 +92,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0633" data-ans="3">
 <summary>第36回：発達と老化の理解</summary>
 
 スキャモン（Scammon, R.E.）の発達曲線に関する次の記述のうち、適切なものを1つ選びなさい。
@@ -112,7 +112,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0626" data-ans="5">
 <summary>第35回：発達と老化の理解</summary>
 
 コールバーグ（Kohlberg, L.）による道徳性判断に関する次の記述のうち、最も高い発達の段階を示すものとして、適切なものを1つ選びなさい。
@@ -165,7 +165,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0641" data-ans="2">
 <summary>第37回：発達と老化の理解</summary>
 
 次の記述のうち、子どもの標準的な成長として、適切なものを1つ選びなさい。
@@ -185,7 +185,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0627" data-ans="1">
 <summary>第35回：発達と老化の理解</summary>
 
 標準的な発育をしている子どもの体重が、出生時の約2倍になる時期として、最も適切なものを1つ選びなさい。
@@ -205,7 +205,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0625" data-ans="4">
 <summary>第35回：発達と老化の理解</summary>
 
 今、発達の実験のために、図のようなテーブルの左端に、Kさん（1歳1か月）を座らせた。テーブルの反対側には母親が立っている。Kさんは、格子柄と透明な板との境目でいったん動くのをやめて、怖がった表情で母親の顔を見た。母親が穏やかにほほ笑むと、Kさんは母親の方に近づいていった。
@@ -229,7 +229,7 @@ Kさんの行動を説明する用語として、最も適切なものを1つ選
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0618" data-ans="3">
 <summary>第34回：発達と老化の理解</summary>
 
 乳幼児期の言語発達に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -249,7 +249,7 @@ Kさんの行動を説明する用語として、最も適切なものを1つ選
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0617" data-ans="1">
 <summary>第34回：発達と老化の理解</summary>
 
 愛着行動に関する次の記述のうち、ストレンジ・シチュエーション法における安定型の愛着行動として、適切なものを1つ選びなさい。
@@ -289,7 +289,7 @@ Kさんの行動を説明する用語として、最も適切なものを1つ選
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0650" data-ans="2">
 <summary>第38回：発達と老化の理解</summary>
 
 次の記述のうち、自閉症スペクトラム障害（autism spectrum disorder）の特徴として、最も適切なものを1つ選びなさい。
@@ -309,7 +309,7 @@ Kさんの行動を説明する用語として、最も適切なものを1つ選
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0634" data-ans="2">
 <summary>第36回：発達と老化の理解</summary>
 
 幼稚園児のJさん（6歳、男性）には、広汎性発達障害（pervasive developmental disorder）がある。

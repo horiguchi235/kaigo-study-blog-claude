@@ -87,7 +87,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0163" data-ans="4">
 <summary>第37回：社会の理解</summary>
 
 介護保険制度に関する記述として、正しいものを1つ選びなさい。
@@ -107,7 +107,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0126" data-ans="5">
 <summary>第34回：社会の理解</summary>
 
 介護保険制度の保険給付の財源構成として、適切なものを1つ選びなさい。
@@ -180,7 +180,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0172" data-ans="2">
 <summary>第38回：社会の理解</summary>
 
 介護保険制度における介護サービス利用に関する次の記述のうち、適切なものを1つ選びなさい。
@@ -200,7 +200,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0136" data-ans="1">
 <summary>第35回：社会の理解</summary>
 
 Eさん（75歳、女性、要介護2）は、訪問介護（ホームヘルプサービス）を利用している。最近、Eさんの認知症（dementia）が進行して、家での介護が困難になり、介護老人福祉施設の申込みをすることにした。家族が訪問介護員（ホームヘルパー）に相談したところ、まだ要介護認定の有効期間が残っていたが、要介護状態区分の変更の申請ができることがわかった。

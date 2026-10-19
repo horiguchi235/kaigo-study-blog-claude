@@ -53,7 +53,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1646" data-ans="2">
 <summary>第37回：介護過程</summary>
 
 次の記述のうち、介護過程を展開する目的として、最も適切なものを1つ選びなさい。
@@ -73,7 +73,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1630" data-ans="5">
 <summary>第35回：介護過程</summary>
 
 介護過程を展開する目的として、最も適切なものを1つ選びなさい。
@@ -174,7 +174,7 @@ ICFそのものの詳しい説明は[ICF（国際生活機能分類）の見分�
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1638" data-ans="2">
 <summary>第36回：介護過程</summary>
 
 介護福祉職が、初回の面談で情報を収集するときの留意点として、最も適切なものを1つ選びなさい。
@@ -194,7 +194,7 @@ ICFそのものの詳しい説明は[ICF（国際生活機能分類）の見分�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1623" data-ans="4">
 <summary>第34回：介護過程</summary>
 
 介護過程における情報収集に関する次の記述のうち、最も適切なものを1つ選びなさい。

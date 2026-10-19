@@ -55,7 +55,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0533" data-ans="1">
 <summary>第38回：こころとからだのしくみ</summary>
 
 Aさん（98歳、女性）は、認知症（dementia）があるが、食事動作は自立していた。最近、配膳されても食事動作が始まらないことが増えてきた。介護福祉職が献立や食材などの説明をしたところ、Aさんは食べ始めるようになった。
@@ -77,7 +77,7 @@ Aさん（98歳、女性）は、認知症（dementia）があるが、食事動
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0507" data-ans="4">
 <summary>第36回：こころとからだのしくみ</summary>
 
 食物が入り誤嚥（ごえん）が生じる部位として、適切なものを1つ選びなさい。
@@ -141,7 +141,7 @@ Aさん（98歳、女性）は、認知症（dementia）があるが、食事動
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1347" data-ans="1">
 <summary>第38回：生活支援技術</summary>
 
 次の記述のうち、椅子に座って食事をするときに、利用者が食事をしやすい姿勢を確保するための介護として、最も適切なものを1つ選びなさい。
@@ -161,7 +161,7 @@ Aさん（98歳、女性）は、認知症（dementia）があるが、食事動
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1346" data-ans="3">
 <summary>第38回：生活支援技術</summary>
 
 次の記述のうち、介護老人福祉施設における食事に関する支援として、最も適切なものを1つ選びなさい。
@@ -181,7 +181,7 @@ Aさん（98歳、女性）は、認知症（dementia）があるが、食事動
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1348" data-ans="2">
 <summary>第38回：生活支援技術</summary>
 
 咀嚼機能（そしゃくきのう）が低下した利用者の食事介護に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -201,7 +201,7 @@ Aさん（98歳、女性）は、認知症（dementia）があるが、食事動
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1349" data-ans="2">
 <summary>第38回：生活支援技術</summary>
 
 Aさん（80歳、女性、要介護3）は、介護老人福祉施設で生活している。食事は見守りのもとでほぼ自力で摂取しているが、嚥下機能（えんげきのう）は低下してきている。医師からは、食事摂取に配慮するように指導されている。ある日の昼食中、Aさんは食事を1／3ほど食べたところで箸を止め、表情がこわばり、呼吸もやや浅くなった。
@@ -277,7 +277,7 @@ Aさん（80歳、女性、要介護3）は、介護老人福祉施設で生活�
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1321" data-ans="2">
 <summary>第37回：生活支援技術</summary>
 
 Aさん（75歳、男性）は、1年前に前頭側頭型認知症（frontotemporal dementia）と診断され、現在は、認知症対応型共同生活介護（認知症高齢者グループホーム）に入居している。若い頃から食べることが好きである。現在、咀嚼（そしゃく）や嚥下機能（えんげきのう）の低下はなく、スプーンを使い、自分で食べている。最近、飲み込む前に次々と食べ物を口に入れることが増えた。
@@ -299,7 +299,7 @@ Aさん（75歳、男性）は、1年前に前頭側頭型認知症（frontotemp
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1322" data-ans="2">
 <summary>第37回：生活支援技術</summary>
 
 次の記述のうち、パーキンソン病（Parkinson disease）で上肢の震えはあるが、自力摂取が可能な利用者の食事の介護として、最も適切なものを1つ選びなさい。
@@ -319,7 +319,7 @@ Aさん（75歳、男性）は、1年前に前頭側頭型認知症（frontotemp
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1294" data-ans="5">
 <summary>第36回：生活支援技術</summary>
 
 次のうち、嚥下機能（えんげきのう）の低下している利用者に提供するおやつとして、最も適切なものを1つ選びなさい。
@@ -339,7 +339,7 @@ Aさん（75歳、男性）は、1年前に前頭側頭型認知症（frontotemp
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1295" data-ans="1">
 <summary>第36回：生活支援技術</summary>
 
 介護老人福祉施設の介護福祉職が、管理栄養士と連携することが必要な利用者の状態として、最も適切なものを1つ選びなさい。

@@ -44,7 +44,7 @@ description: "Normalization, social inclusion, Independent Living Movement, maha
 
 <p class="quiz-note">Ang tanong at mga pagpipilian ay ipinapakita nang eksakto sa orihinal na Japanese gaya ng inilathala ng exam center. Ang paliwanag sa sagot ay gawa ng site na ito at walang kaugnayan sa exam center.</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0946" data-ans="5">
 <summary>Ika-38 na exam: Pag-unawa sa Kapansanan (障害の理解)</summary>
 
 <div lang="ja">
@@ -68,7 +68,7 @@ description: "Normalization, social inclusion, Independent Living Movement, maha
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1391" data-ans="2">
 <summary>Ika-38 na exam: Dignidad ng Tao at Pagsasarili (人間の尊厳と自立)</summary>
 
 <div lang="ja">
@@ -92,7 +92,7 @@ description: "Normalization, social inclusion, Independent Living Movement, maha
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1383" data-ans="4">
 <summary>Ika-34 na exam: Dignidad ng Tao at Pagsasarili (人間の尊厳と自立)</summary>
 
 <div lang="ja">
@@ -157,7 +157,7 @@ description: "Normalization, social inclusion, Independent Living Movement, maha
 
 <p class="quiz-note">Ang tanong at mga pagpipilian ay ipinapakita nang eksakto sa orihinal na Japanese gaya ng inilathala ng exam center. Ang paliwanag sa sagot ay gawa ng site na ito at walang kaugnayan sa exam center.</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0352" data-ans="1">
 <summary>Ika-38 na exam: Mga Batayan ng Pag-aalaga (介護の基本)</summary>
 
 <div lang="ja">
@@ -181,7 +181,7 @@ description: "Normalization, social inclusion, Independent Living Movement, maha
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1388" data-ans="2">
 <summary>Ika-36 na exam: Dignidad ng Tao at Pagsasarili (人間の尊厳と自立)</summary>
 
 <div lang="ja">
@@ -205,7 +205,7 @@ description: "Normalization, social inclusion, Independent Living Movement, maha
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0324" data-ans="1">
 <summary>Ika-35 na exam: Mga Batayan ng Pag-aalaga (介護の基本)</summary>
 
 <div lang="ja">
@@ -229,7 +229,7 @@ description: "Normalization, social inclusion, Independent Living Movement, maha
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1385" data-ans="4">
 <summary>Ika-35 na exam: Dignidad ng Tao at Pagsasarili (人間の尊厳と自立)</summary>
 
 <div lang="ja">
@@ -253,7 +253,7 @@ description: "Normalization, social inclusion, Independent Living Movement, maha
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0312" data-ans="5">
 <summary>Ika-34 na exam: Mga Batayan ng Pag-aalaga (介護の基本)</summary>
 
 <div lang="ja">

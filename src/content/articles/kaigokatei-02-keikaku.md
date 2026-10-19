@@ -69,7 +69,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1647" data-ans="2">
 <summary>第37回：介護過程</summary>
 
 生活課題に関する記述として、最も適切なものを1つ選びなさい。
@@ -89,7 +89,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1654" data-ans="2">
 <summary>第38回：介護過程</summary>
 
 次のうち、介護過程における生活課題への対応として、最も適切なものを1つ選びなさい。
@@ -109,7 +109,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1624" data-ans="5">
 <summary>第34回：介護過程</summary>
 
 介護過程における生活課題に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -167,7 +167,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1655" data-ans="4">
 <summary>第38回：介護過程</summary>
 
 次の記述のうち、短期目標に関する説明として、最も適切なものを1つ選びなさい。
@@ -187,7 +187,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1625" data-ans="5">
 <summary>第34回：介護過程</summary>
 
 介護過程における目標の設定に関する次の記述のうち、適切なものを1つ選びなさい。
@@ -260,7 +260,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1632" data-ans="4">
 <summary>第35回：介護過程</summary>
 
 次の記述のうち、居宅サービス計画と訪問介護計画の関係として、最も適切なものを1つ選びなさい。
@@ -280,7 +280,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1626" data-ans="3">
 <summary>第34回：介護過程</summary>
 
 介護計画における介護内容に関する次の記述のうち、最も適切なものを1つ選びなさい。

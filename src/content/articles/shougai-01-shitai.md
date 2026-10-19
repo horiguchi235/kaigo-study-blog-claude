@@ -70,7 +70,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0948" data-ans="1">
 <summary>第38回：障害の理解</summary>
 
 次のうち、後遺症によって片麻痺（かたまひ）や言語障害を伴うことがある疾患や病態として、最も適切なものを1つ選びなさい。
@@ -90,7 +90,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0920" data-ans="3">
 <summary>第35回：障害の理解</summary>
 
 次のうち、四肢麻痺（ししまひ）を伴う疾患や外傷として、適切なものを1つ選びなさい。
@@ -110,7 +110,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0899" data-ans="5">
 <summary>第33回：障害の理解</summary>
 
 Dさん（31歳、男性）は、脊髄損傷（spinal cord injury）による対麻痺で、リハビリテーションのため入院中である。車いすでの日常生活動作（Activities of Daily Living：ADL）は自立したが、退院後自宅で生活するときに、褥瘡が生じないか心配している。

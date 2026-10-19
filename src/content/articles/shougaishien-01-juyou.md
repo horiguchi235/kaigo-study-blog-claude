@@ -55,7 +55,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0928" data-ans="5">
 <summary>第36回：障害の理解</summary>
 
 次の記述のうち、障害を受容した心理的段階にみられる言動として、最も適切なものを1つ選びなさい。
@@ -75,7 +75,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0919" data-ans="5">
 <summary>第35回：障害の理解</summary>
 
 上田敏の障害受容のモデルにおける受容期の説明として、最も適切なものを1つ選びなさい。
@@ -95,7 +95,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0910" data-ans="4">
 <summary>第34回：障害の理解</summary>
 
 Fさん（21歳、男性）は、交通事故による頸髄損傷（けいずいそんしょう）（cervical cord injury）で重度の四肢麻痺（ししまひ）になった。最近はリハビリテーションに取り組まず、周囲の人に感情をぶつけ強くあたるようになった。
@@ -155,7 +155,7 @@ Fさん（21歳、男性）は、交通事故による頸髄損傷（けいず�
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0952" data-ans="4">
 <summary>第38回：障害の理解</summary>
 
 Aさん（45歳、男性）は、1年前、交通事故で頭部外傷を負った。四肢に障害は残らなかったが、高次脳機能障害（higher brain dysfunction）と診断された。
@@ -177,7 +177,7 @@ Aさん（45歳、男性）は、1年前、交通事故で頭部外傷を負っ�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0937" data-ans="3">
 <summary>第37回：障害の理解</summary>
 
 次の記述のうち、障害者のエンパワメントに関するものとして、最も適切なものを1つ選びなさい。
@@ -197,7 +197,7 @@ Aさん（45歳、男性）は、1年前、交通事故で頭部外傷を負っ�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0930" data-ans="4">
 <summary>第36回：障害の理解</summary>
 
 Bさん（60歳、男性）は、一人暮らしをしている。
@@ -221,7 +221,7 @@ Bさんの日常生活において、介護福祉職が留意すべき点とし�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0916" data-ans="1">
 <summary>第35回：障害の理解</summary>
 
 ストレングス（strength）の視点に基づく利用者支援の説明として、最も適切なものを1つ選びなさい。
@@ -241,7 +241,7 @@ Bさんの日常生活において、介護福祉職が留意すべき点とし�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0917" data-ans="3">
 <summary>第35回：障害の理解</summary>
 
 1960年代のアメリカにおける自立生活運動（IL運動）に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -261,7 +261,7 @@ Bさんの日常生活において、介護福祉職が留意すべき点とし�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0923" data-ans="5">
 <summary>第35回：障害の理解</summary>
 
 Bさん（21歳、男性）は、統合失調症（schizophrenia）を発症し、継続した内服によって幻覚や妄想などの症状は改善しているが、意欲や自発性が低下して引きこもりがちである。現在、Bさんは、外来に通院しながら自宅で生活していて、就労を考えるようになってきた。

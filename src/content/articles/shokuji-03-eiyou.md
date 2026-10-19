@@ -70,7 +70,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0531" data-ans="4">
 <summary>第38回：こころとからだのしくみ</summary>
 
 次の記述のうち、低栄養の高齢者にみられる症状や行動の特徴として、最も適切なものを1つ選びなさい。
@@ -90,7 +90,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0521" data-ans="2">
 <summary>第37回：こころとからだのしくみ</summary>
 
 次のうち、食物の栄養素の大部分を吸収する部位として、正しいものを1つ選びなさい。
@@ -110,7 +110,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0484" data-ans="2">
 <summary>第34回：こころとからだのしくみ</summary>
 
 次のうち、三大栄養素に該当する成分として、正しいものを1つ選びなさい。
@@ -178,7 +178,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1354" data-ans="1">
 <summary>第38回：生活支援技術</summary>
 
 次のうち、下痢をしている利用者の水分補給として、最も適切なものを1つ選びなさい。
@@ -198,7 +198,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1320" data-ans="5">
 <summary>第37回：生活支援技術</summary>
 
 次の記述のうち、介護が必要な人への熱中症対策のために、介護福祉職が行う水分補給の対応として、最も適切なものを1つ選びなさい。
@@ -218,7 +218,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0497" data-ans="5">
 <summary>第35回：こころとからだのしくみ</summary>
 
 次のうち、誤嚥（ごえん）しやすい高齢者の脱水予防のために確認することとして、最も優先すべきものを1つ選びなさい。
@@ -275,7 +275,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1296" data-ans="2">
 <summary>第36回：生活支援技術</summary>
 
 次の記述のうち、血液透析を受けている利用者への食事の介護として、最も適切なものを1つ選びなさい。
@@ -295,7 +295,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1269" data-ans="3">
 <summary>第35回：生活支援技術</summary>
 
 逆流性食道炎（reflux esophagitis）の症状がある利用者への助言として、最も適切なものを1つ選びなさい。

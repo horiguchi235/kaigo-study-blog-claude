@@ -77,7 +77,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0936" data-ans="3">
 <summary>第37回：障害の理解</summary>
 
 次のうち、ICF（International Classification of Functioning, Disability and Health：国際生活機能分類）の社会（人生）レベルに該当するものとして、正しいものを1つ選びなさい。
@@ -97,7 +97,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0343" data-ans="2">
 <summary>第37回：介護の基本</summary>
 
 ICF（International Classification of Functioning, Disability and Health：国際生活機能分類）における「参加」と「活動」の2つが関連した、認知症の人の支援に関する記述として、最も適切なものを1つ選びなさい。
@@ -117,7 +117,7 @@ ICF（International Classification of Functioning, Disability and Health：国�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0313" data-ans="4">
 <summary>第34回：介護の基本</summary>
 
 Gさん（70歳、男性、要介護2）は、パーキンソン病（Parkinson disease）と診断されていて、外出するときは車いすを使用している。歩行が不安定なため、週2回通所リハビリテーションを利用している。Gさんは、1年前に妻が亡くなり、息子と二人暮らしである。Gさんは社交的な性格で地域住民との交流を望んでいるが、自宅周辺は坂道や段差が多くて移動が難しく、交流ができていない。

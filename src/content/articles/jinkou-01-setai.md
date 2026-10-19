@@ -55,7 +55,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0638" data-ans="5">
 <summary>第36回：発達と老化の理解</summary>
 
 次のうち、健康寿命の説明として、適切なものを1つ選びなさい。
@@ -75,7 +75,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0619" data-ans="5">
 <summary>第34回：発達と老化の理解</summary>
 
 2019年（平成31年、令和元年）における、我が国の寿命と死因に関する次の記述のうち、正しいものを1つ選びなさい。
@@ -118,16 +118,22 @@ draft: true
 
 - 地域社会のつながり：本家・分家の縦のつながり＝**同族**、近所の横のつながり＝**組**。村落では住民の助け合いが中心、都市では専門機関への依存が強い
 
-<details>
+<details data-qid="K0123" data-ans="4">
 <summary>✏️ 過去問を解いてみよう（第34回：社会の理解）</summary>
 
-2015年以降の日本の社会福祉をとりまく環境として、適切なものはどれ？
+<p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-1. 人口は増えている
-2. 共働き世帯は減っている
-3. 非正規雇用の労働者は減っている
-4. 高齢者を支える現役世代（生産年齢人口）は減っている
-5. 国民負担率はOECDの中で上位である
+2015年（平成27年）以降の日本の社会福祉を取り巻く環境に関する次の記述のうち、適切なものを1つ選びなさい。
+
+（注）OECDとは、経済協力開発機構（Organisation for Economic Co-operation and Development）のことで、2020年（令和2年）現在38か国が加盟している。
+
+1. 人口は、増加傾向にある。
+2. 共働き世帯数は、減少傾向にある。
+3. 非正規雇用労働者数は、減少傾向にある。
+4. 高齢世代を支える現役世代（生産年齢人口）は、減少傾向にある。
+5. 日本の国民負担率は、OECD加盟国の中では上位にある。
+
+<p class="q-src">出典：第34回 介護福祉士国家試験（社会の理解）</p>
 
 <details class="answer">
 <summary>正解を見る</summary>
@@ -195,7 +201,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0169" data-ans="4">
 <summary>第38回：社会の理解</summary>
 
 民法の親族に関する次の記述のうち、正しいものを1つ選びなさい。
@@ -215,7 +221,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0170" data-ans="3">
 <summary>第38回：社会の理解</summary>
 
 次の記述のうち、「令和4（2022）年　国民生活基礎調査」（厚生労働省）における、高齢者に関する調査結果として、適切なものを1つ選びなさい。
@@ -235,7 +241,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0330" data-ans="5">
 <summary>第36回：介護の基本</summary>
 
 介護を取り巻く状況に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -255,7 +261,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0122" data-ans="2">
 <summary>第34回：社会の理解</summary>
 
 2019年（平成31年、令和元年）の日本の世帯に関する次の記述のうち、正しいものを1つ選びなさい。

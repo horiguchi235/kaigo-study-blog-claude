@@ -48,7 +48,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1329" data-ans="1">
 <summary>第37回：生活支援技術</summary>
 
 次の記述のうち、調理における基本調味料の効果や使い方として、適切なものを1つ選びなさい。
@@ -68,7 +68,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1330" data-ans="4">
 <summary>第37回：生活支援技術</summary>
 
 食品の保存に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -140,7 +140,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1278" data-ans="5">
 <summary>第35回：生活支援技術</summary>
 
 弱視で物の区別がつきにくい人の調理と買い物の支援に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -160,7 +160,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1279" data-ans="3">
 <summary>第35回：生活支援技術</summary>
 
 次の記述のうち、関節リウマチ（rheumatoid arthritis）のある人が、少ない負担で家事をするための介護福祉職の助言として、最も適切なものを1つ選びなさい。
@@ -180,7 +180,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1244" data-ans="2">
 <summary>第34回：生活支援技術</summary>
 
 慢性腎不全（chronic renal failure）の利用者の食材や調理方法として、最も適切なものを1つ選びなさい。

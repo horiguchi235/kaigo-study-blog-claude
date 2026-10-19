@@ -56,7 +56,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0520" data-ans="1">
 <summary>第37回：こころとからだのしくみ</summary>
 
 次のうち、高齢者が嗜好（しこう）や温度覚の低下によって高温浴を希望した場合に、説明すべき高温浴の特徴として、最も適切なものを1つ選びなさい。
@@ -76,7 +76,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1323" data-ans="3">
 <summary>第37回：生活支援技術</summary>
 
 次の記述のうち、入浴の作用を生かした、高齢者への入浴の介護として、最も適切なものを1つ選びなさい。
@@ -96,7 +96,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0509" data-ans="4">
 <summary>第36回：こころとからだのしくみ</summary>
 
 Hさん（60歳、男性）は、身長170cm、体重120kgである。
@@ -162,7 +162,7 @@ Hさんが話している内容に関連する入浴の作用として、最も�
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0486" data-ans="5">
 <summary>第34回：こころとからだのしくみ</summary>
 
 Mさん（85歳、男性）は、通所介護（デイサービス）での入浴を楽しみにしていて、いつも時間をかけて湯につかっている。ある時、介護福祉職が、「そろそろあがりましょうか」と声をかけると、浴槽から急に立ち上がりふらついてしまった。
@@ -184,7 +184,7 @@ Mさんがふらついた原因として、最も適切なものを1つ選びな
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1246" data-ans="2">
 <summary>第34回：生活支援技術</summary>
 
 入浴の介護に関する次の記述のうち、最も適切なものを1つ選びなさい。

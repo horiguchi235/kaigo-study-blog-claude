@@ -52,7 +52,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0781" data-ans="5">
 <summary>第36回：認知症の理解</summary>
 
 次の記述のうち、若年性認知症（dementia with early onset）の特徴として、最も適切なものを1つ選びなさい。
@@ -72,7 +72,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0760" data-ans="5">
 <summary>第34回：認知症の理解</summary>
 
 若年性認知症（dementia with early onset）に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -138,7 +138,7 @@ HDS-R・MMSEは**スクリーニング**（認知症の疑いがある人をふ�
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0802" data-ans="4">
 <summary>第38回：認知症の理解</summary>
 
 次のうち、認知症（dementia）の人の生活をアセスメントするうえで、身体的要因に含まれる項目として、適切なものを1つ選びなさい。
@@ -158,7 +158,7 @@ HDS-R・MMSEは**スクリーニング**（認知症の疑いがある人をふ�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0792" data-ans="2">
 <summary>第37回：認知症の理解</summary>
 
 次のうち、全般的な認知機能を評価する尺度であり、30点満点で20点以下を認知症の目安とするものとして、正しいものを1つ選びなさい。
@@ -178,7 +178,7 @@ HDS-R・MMSEは**スクリーニング**（認知症の疑いがある人をふ�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0759" data-ans="1">
 <summary>第34回：認知症の理解</summary>
 
 軽度認知障害（mild cognitive impairment）に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -244,7 +244,7 @@ HDS-R・MMSEは**スクリーニング**（認知症の疑いがある人をふ�
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0791" data-ans="3">
 <summary>第37回：認知症の理解</summary>
 
 次のうち、認知症（dementia）のリスクを高める要因として、最も適切なものを1つ選びなさい。
@@ -264,7 +264,7 @@ HDS-R・MMSEは**スクリーニング**（認知症の疑いがある人をふ�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0761" data-ans="2">
 <summary>第34回：認知症の理解</summary>
 
 認知症（dementia）の行動・心理症状（BPSD）に対する抗精神病薬を用いた薬物療法でよくみられる副作用として、最も適切なものを1つ選びなさい。

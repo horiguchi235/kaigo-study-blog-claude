@@ -82,7 +82,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0321" data-ans="5">
 <summary>第35回：介護の基本</summary>
 
 「求められる介護福祉士像」で示された内容に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -104,7 +104,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0317" data-ans="2">
 <summary>第34回：介護の基本</summary>
 
 介護福祉士の職業倫理に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -182,7 +182,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0153" data-ans="4">
 <summary>第36回：社会の理解</summary>
 
 Dさん（80歳、男性、要介護2）は、認知症（dementia）がある。訪問介護（ホームヘルプサービス）を利用しながら一人暮らしをしている。
@@ -206,7 +206,7 @@ Dさん（80歳、男性、要介護2）は、認知症（dementia）がある�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0332" data-ans="3">
 <summary>第36回：介護の基本</summary>
 
 施設利用者の個人情報の保護に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -226,7 +226,7 @@ Dさん（80歳、男性、要介護2）は、認知症（dementia）がある�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0141" data-ans="4">
 <summary>第35回：社会の理解</summary>
 
 「個人情報保護法」に基づくプライバシー保護に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -248,7 +248,7 @@ Dさん（80歳、男性、要介護2）は、認知症（dementia）がある�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0318" data-ans="4">
 <summary>第34回：介護の基本</summary>
 
 施設における利用者の個人情報の安全管理対策として、最も適切なものを1つ選びなさい。

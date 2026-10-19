@@ -83,7 +83,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0142" data-ans="4">
 <summary>第35回：社会の理解</summary>
 
 「高齢者虐待防止法」に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -105,7 +105,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1384" data-ans="1">
 <summary>第34回：人間の尊厳と自立</summary>
 
 Aさん（80歳、女性、要介護1）は、筋力や理解力の低下がみられ、訪問介護（ホームヘルプサービス）を利用している。訪問介護員（ホームヘルパー）がいない時間帯は、同居している長男（53歳、無職）に頼って生活をしている。長男はAさんの年金で生計を立てていて、ほとんど外出しないで家にいる。
@@ -200,7 +200,7 @@ Aさん（80歳、女性、要介護1）は、筋力や理解力の低下がみ�
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0175" data-ans="5">
 <summary>第38回：社会の理解</summary>
 
 障害者虐待防止に関する次の記述のうち、適切なものを1つ選びなさい。
@@ -220,7 +220,7 @@ Aさん（80歳、女性、要介護1）は、筋力や理解力の低下がみ�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0918" data-ans="4">
 <summary>第35回：障害の理解</summary>
 
 「障害者虐待防止法」における、障害者に対する著しい暴言が当てはまる障害者虐待の類型として、最も適切なものを1つ選びなさい。

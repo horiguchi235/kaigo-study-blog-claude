@@ -79,7 +79,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1341" data-ans="5">
 <summary>第38回：生活支援技術</summary>
 
 次の記述のうち、右片麻痺（みぎかたまひ）のある利用者に対する、仰臥位（ぎょうがい）（背臥位（はいがい））から車いすへの移乗の介護として、最も適切なものを1つ選びなさい。
@@ -99,7 +99,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1317" data-ans="2">
 <summary>第37回：生活支援技術</summary>
 
 次の記述のうち、左片麻痺（ひだりかたまひ）の利用者を右側臥位（みぎそくがい）から端座位にするときの介護として、最も適切なものを1つ選びなさい。
@@ -119,7 +119,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1290" data-ans="5">
 <summary>第36回：生活支援技術</summary>
 
 回復期にある左片麻痺（ひだりかたまひ）の利用者が、ベッドで端座位から立位になるときの基本的な介護方法に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -139,7 +139,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1293" data-ans="3">
 <summary>第36回：生活支援技術</summary>
 
 左片麻痺（ひだりかたまひ）の利用者が、端座位でズボンを着脱するときの介護に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -200,7 +200,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1340" data-ans="3">
 <summary>第38回：生活支援技術</summary>
 
 次の記述のうち、歩行が不安定になり、移動の意欲が低下している利用者に対する介護として、最も適切なものを1つ選びなさい。
@@ -220,7 +220,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1315" data-ans="1">
 <summary>第37回：生活支援技術</summary>
 
 次のうち、右片麻痺（みぎかたまひ）の利用者が多点杖（たてんづえ）を使用して3動作歩行を開始するときに、介護福祉職が行う説明として、適切なものを1つ選びなさい。
@@ -240,7 +240,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1262" data-ans="4">
 <summary>第35回：生活支援技術</summary>
 
 介護予防教室で介護福祉職が行う安定した歩行に関する助言として、最も適切なものを1つ選びなさい。
@@ -260,7 +260,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1263" data-ans="5">
 <summary>第35回：生活支援技術</summary>
 
 T字杖（じつえ）を用いて歩行する左片麻痺（ひだりかたまひ）の利用者が、20cm幅の溝をまたぐときの介護方法として、最も適切なものを1つ選びなさい。
@@ -312,7 +312,7 @@ T字杖（じつえ）を用いて歩行する左片麻痺（ひだりかたま�
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1362" data-ans="4">
 <summary>第38回：生活支援技術</summary>
 
 次のうち、固定式歩行器が適した利用者として、最も適切なものを1つ選びなさい。
@@ -332,7 +332,7 @@ T字杖（じつえ）を用いて歩行する左片麻痺（ひだりかたま�
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K1311" data-ans="3">
 <summary>第36回：生活支援技術</summary>
 
 以下の図のうち、握力の低下がある利用者が使用する杖（つえ）として、最も適切なものを1つ選びなさい。

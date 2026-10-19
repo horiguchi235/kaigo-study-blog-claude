@@ -55,7 +55,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0800" data-ans="5">
 <summary>第38回：認知症の理解</summary>
 
 次の記述のうち、アルツハイマー型認知症（dementia of the Alzheimer’s type）の説明として、最も適切なものを1つ選びなさい。
@@ -75,7 +75,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0790" data-ans="1">
 <summary>第37回：認知症の理解</summary>
 
 次の記述のうち、アルツハイマー型認知症（dementia of the Alzheimerʼs type）の特徴として、適切なものを1つ選びなさい。
@@ -95,7 +95,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0769" data-ans="2">
 <summary>第35回：認知症の理解</summary>
 
 アルツハイマー型認知症（dementia of the Alzheimerʼs type）の、もの盗られ妄想に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -138,7 +138,7 @@ draft: true
 
 <p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0801" data-ans="2">
 <summary>第38回：認知症の理解</summary>
 
 次のうち、レビー小体型認知症（dementia with Lewy bodies）の症状として、最も適切なものを1つ選びなさい。
@@ -158,7 +158,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0780" data-ans="2">
 <summary>第36回：認知症の理解</summary>
 
 レビー小体型認知症（dementia with Lewy bodies）にみられる歩行障害として、最も適切なものを1つ選びなさい。
@@ -178,7 +178,7 @@ draft: true
 </details>
 </details>
 
-<details class="quiz">
+<details class="quiz" data-qid="K0758" data-ans="4">
 <summary>第34回：認知症の理解</summary>
 
 レビー小体型認知症（dementia with Lewy bodies）の幻視の特徴に関する次の記述のうち、最も適切なものを1つ選びなさい。
@@ -239,16 +239,20 @@ draft: true
 
 そのほか、治療で改善が期待できるもの：**甲状腺機能低下症**、**ビタミンB12不足**。アルコール多飲などによる**ビタミンB1不足**は**ウェルニッケ脳症**を起こし、記憶障害と**作話**（記憶の穴を作り話でうめる）が目立つ**コルサコフ症候群**に進むことがあります。
 
-<details>
+<details data-qid="K0770" data-ans="3">
 <summary>✏️ 過去問を解いてみよう（第35回：認知症の理解）</summary>
 
-慢性硬膜下血腫について、最も適切なものはどれ？
+<p class="quiz-note">問題文と選択肢は、社会福祉振興・試験センターが公表した介護福祉士国家試験の問題を<strong>そのまま</strong>載せています。「正解を見る」の解説は当サイトが独自に作成したもので、試験センターとは関係ありません。</p>
 
-1. 運動機能障害はまれ
-2. 頭蓋骨骨折を伴って発症する
-3. 抗凝固薬の使用はリスクになる
-4. 転倒の2〜3日後に発症することが多い
-5. 保存的治療が第一選択
+慢性硬膜下血腫（chronic subdural hematoma）に関する次の記述のうち、最も適切なものを1つ選びなさい。
+
+1. 運動機能障害が起こることは非常に少ない。
+2. 頭蓋骨骨折を伴い発症する。
+3. 抗凝固薬の使用はリスクとなる。
+4. 転倒の後、2～3日で発症することが多い。
+5. 保存的治療が第一選択である。
+
+<p class="q-src">出典：第35回 介護福祉士国家試験（認知症の理解）</p>
 
 <details class="answer">
 <summary>正解を見る</summary>
