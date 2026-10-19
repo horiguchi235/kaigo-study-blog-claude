@@ -5,7 +5,7 @@
 (function () {
   'use strict';
   const K = window.KaigoCore;
-  const APP_VERSION = '3.4.3';
+  const APP_VERSION = '3.4.4';
   const CFG = Object.assign({
     dataUrl: '', staticBase: 'data/', blogUrl: '../', linksUrl: 'links.json',
     examDate: '2027-01-31',      // 次の試験日（残り日数と今日のメニューに使う）
@@ -1725,7 +1725,7 @@
         stemBox.replaceChildren(det, el('div', { class: 'stem' }, markedText(q.stem, cut, q.stem.length, mEntry.r, q.negative)));
       } else stemBox.replaceChildren(el('div', { class: 'stem' }, markedText(q.stem, 0, q.stem.length, mEntry.r, q.negative)));
       undoBtn.disabled = !(markUndo[q.id] || []).length; clearBtn.disabled = !mEntry.r.length;
-      if (mEntry.r.length) stemBox.append(el('p', { class: 'mark-hint small muted' }, 'マークを押すと、種類を変えたり消したりできます。',
+      if (mEntry.r.length) stemBox.append(el('p', { class: 'mark-hint small muted' }, 'マークを押すと種類の変更・消去、ダブルクリック（2回タップ）で消去できます。',
         el('button', { type: 'button', class: 'linklike', onclick: () => commit([], 'この問題のマークを全部消しました（「戻す」で戻せます）。') }, 'マークを全部消す'),
         (markUndo[q.id] || []).length ? [' ', el('button', { type: 'button', class: 'linklike', onclick: () => undoBtn.click() }, '↶ 戻す')] : null));
     };
@@ -1759,10 +1759,20 @@
     });
     // マークを押すと、小さなメニュー（種類を変える・消す）を出す
     const closeMenu = () => { const m = stemBox.querySelector('.mark-menu'); if (m) m.remove(); };
+    // ダブルクリック（スマホは2回すばやくタップ）で、そのマークを消す
+    const removeAt = (m) => {
+      const a = Number(m.dataset.a), b = Number(m.dataset.b), i = mEntry.r.findIndex((r) => r[0] === a && r[1] === b); if (i < 0) return;
+      closeMenu(); if (window.getSelection) window.getSelection().removeAllRanges();
+      commit(mEntry.r.filter((_, k) => k !== i), 'マークを消しました（「戻す」で戻せます）。');
+    };
+    stemBox.addEventListener('dblclick', (e) => { const m = e.target.closest && e.target.closest('.rmark'); if (m) { e.preventDefault(); removeAt(m); } });
     stemBox.addEventListener('click', (e) => {
       if (e.target.closest && e.target.closest('.mark-menu')) return;
       const m = e.target.closest && e.target.closest('.rmark');
       closeMenu(); if (!m) return;
+      const now = Date.now();
+      if (lastTap && lastTap.a === m.dataset.a && lastTap.b === m.dataset.b && now - lastTap.t < 400) { lastTap = null; removeAt(m); return; }
+      lastTap = { a: m.dataset.a, b: m.dataset.b, t: now };
       const sel2 = window.getSelection && window.getSelection();
       if (sel2 && !sel2.isCollapsed && sel2.toString().length > 1) return; // なぞって選んでいるときは、選択を優先
       if (sel2) sel2.removeAllRanges();
@@ -1790,7 +1800,7 @@
       markStatus,
       el('details', { class: 'small muted reading-guide' }, el('summary', null, '長文の読み方・マークの使い分け'),
         el('p', null, '① 最後の設問に☆：誰に対する、何の判断か。② 本人の希望に○、必要な状態・事実に□。③ 以前と今の変化・困りごとに△、否定語・条件・数字に！。④「本人は○を望み、□の状態で、△に困っている」と1文にまとめて選択肢を比べる。全文に付けず短い語句に絞る。家族の希望と本人の希望を区別する。'),
-        el('p', null, coarse ? '文字を長押しして範囲を選び、「選択に付ける」を押します。マークを押すと ○→□→△→☆→！ と切り替わり、すばやく2回押すと消えます。' : '先にマークの種類を選び、問題文をドラッグします。マークを押すと ○→□→△→☆→！ と切り替わり、すばやく2回押すと消えます。キーボードで選んだときは「選択に付ける」を押します。'),
+        el('p', null, coarse ? '文字を長押しして範囲を選び、「選択に付ける」を押します。マークを押すと種類の変更・消去のメニューが出ます。すばやく2回押すと、そのマークが消えます。' : '先にマークの種類を選び、問題文をドラッグします。マークを押すと種類の変更・消去のメニューが出ます。ダブルクリックすると、そのマークが消えます。キーボードで選んだときは「選択に付ける」を押します。'),
         el('p', null, 'マークは、この回の演習の途中経過と一緒に保存されます（新しく始めるとリセット）。')));
     drawStem();
 
