@@ -712,9 +712,9 @@ main.quiz.enter .opts { animation-delay: .06s; }
 /* 結果：星とランク */
 .rank-row { display: flex; align-items: center; justify-content: center; gap: 18px; margin: 4px 0 2px; flex-wrap: wrap; }
 .stars { display: flex; gap: 4px; }
-.star { font-size: 2.3em; line-height: 1; color: var(--line); }
-.star.on { color: var(--butter); text-shadow: 0 2px 0 #d9a30f; }
-.rank-row.fresh .star.on { animation: starpop .5s calc(var(--k) * .22s + .2s) cubic-bezier(.2,1.6,.4,1) both; }
+.rstar { font-size: 2.3em; line-height: 1; color: var(--line); }
+.rstar.on { color: var(--butter); text-shadow: 0 2px 0 #d9a30f; }
+.rank-row.fresh .rstar.on { animation: starpop .5s calc(var(--k) * .22s + .2s) cubic-bezier(.2,1.6,.4,1) both; }
 @keyframes starpop { from { transform: scale(0) rotate(-90deg); } }
 .rank { width: 64px; height: 64px; border-radius: 18px; display: grid; place-content: center; text-align: center; line-height: 1; background: var(--surface-2); border: 3px solid var(--accent-strong); transform: rotate(-6deg); }
 .rank small { font-size: .62em; color: var(--muted); }
@@ -728,3 +728,25 @@ main.quiz.enter .opts { animation-delay: .06s; }
 .milestone.major .ms-card b { color: var(--accent-strong); font-family: var(--round); }
 .tabbar button[aria-current="page"] .ico { background: var(--accent-soft); }
 @media (prefers-reduced-motion: reduce) { .floater, .splash { display: none; } }
+
+/* v3.3：受験生レビューの指摘 */
+#toast { top: calc(env(safe-area-inset-top) + 10px); bottom: auto; }
+.shell.quiz { padding-bottom: calc(120px + env(safe-area-inset-bottom)); }
+.timerbox { margin-top: 6px; padding: 6px 10px 8px; }
+.timer-metrics { gap: 2px 12px; font-size: .82em; }
+.timer-metrics .pause { min-height: 30px; padding: 0 10px; font-size: .9em; }
+.timer-metrics .extra { color: var(--muted); font-size: .85em; margin-left: 2px; }
+.trail { height: 8px; margin: 10px 10px 0; }
+.trail-cat { width: 24px; height: 26px; }
+.meta { margin: 10px 0 6px; align-items: center; }
+.meta .tools-fold.inline { margin: 0; padding: 0 10px; border-radius: 99px; border-width: 1px; }
+.meta .tools-fold.inline > summary { min-height: 28px; font-size: .78em; }
+.meta .tools-fold.inline[open] { flex-basis: 100%; border-radius: 12px; padding: 0 12px 10px; }
+.point-box { border: 2px solid var(--butter); background: color-mix(in srgb, var(--butter) 16%, var(--surface)); border-radius: 14px; padding: 10px 14px; margin: 0 0 12px; }
+.point-box b { color: var(--accent); font-size: .9em; }
+.point-box p { margin: 4px 0 0; font-weight: 600; line-height: 1.7; }
+.btn.similar { margin: 0 0 12px; }
+.result-btns { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin: 12px 0; }
+.result-btns .btn { min-height: 52px; }
+details.more-result > summary { cursor: pointer; font-weight: 700; color: var(--accent); min-height: 44px; display: flex; align-items: center; }
+.gwarn { white-space: nowrap; }
