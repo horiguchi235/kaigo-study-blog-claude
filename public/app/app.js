@@ -5,7 +5,7 @@
 (function () {
   'use strict';
   const K = window.KaigoCore;
-  const APP_VERSION = '3.0.0';
+  const APP_VERSION = '3.1.0';
   const CFG = Object.assign({
     dataUrl: '', staticBase: 'data/', blogUrl: '../', linksUrl: 'links.json',
     examDate: '2027-01-31',      // 次の試験日（残り日数と今日のメニューに使う）
@@ -22,7 +22,7 @@
   const CONFIRM = true; // 選択肢を選んでから「答え合わせ」で確定する（押しただけでは答えにしない）
   const LIMITS = [[30, '30秒'], [60, '60秒'], [90, '90秒'], [120, '120秒'], ['custom', '指定'], [0, '無制限']];
   const DIFFS = ['初級', '中級', '上級'];
-  const PALETTES = [['orange', 'オレンジ'], ['green', 'グリーン'], ['blue', 'ブルー'], ['pink', 'ピンク'], ['purple', 'ラベンダー'], ['beige', 'ベージュ']];
+  const PALETTES = [['green', 'グリーン（標準）'], ['orange', 'オレンジ'], ['blue', 'ブルー'], ['pink', 'ピンク'], ['purple', 'ラベンダー'], ['beige', 'ベージュ']];
   const AVATARS = ['📚', '🌱', '🦉', '🐶', '🐰', '🐼', '🐧', '🦊', '🐻', '🐢', '🌸', '⭐', '🐱'];
 
   // ───────── 小さな道具 ─────────
@@ -40,6 +40,10 @@
     }
     for (const kid of kids.flat(Infinity)) if (kid != null && kid !== false) n.append(kid.nodeType ? kid : String(kid));
     return n;
+  }
+  // append / replaceChildren に null・false・配列を渡しても「null」と表示されないようにする（このアプリの画面の中だけ）
+  for (const P of [Element.prototype, DocumentFragment.prototype]) for (const m of ['append', 'prepend', 'replaceChildren']) {
+    const orig = P[m]; P[m] = function (...kids) { return orig.apply(this, kids.flat(Infinity).filter((k) => k != null && k !== false)); };
   }
   // 子要素を入れ替える（null・false は飛ばし、配列は広げる）
   const put = (node, ...kids) => node.replaceChildren(...kids.flat(Infinity).filter((k) => k != null && k !== false));
@@ -103,10 +107,10 @@
   // ───────── 学習記録（端末内） ─────────
   function blankStore() {
     return {
-      v: 3, q: {}, log: [], days: {}, mocks: [],
-      settings: { shuffle: true, confirmMode: true, font: 'm', theme: 'auto', palette: 'orange', goal: 20, goals: { day: 20, week: 140, month: 600, total: 3000 }, sound: true, countdown: true,
+      v: 4, q: {}, log: [], days: {}, mocks: [],
+      settings: { shuffle: true, confirmMode: true, font: 'm', theme: 'auto', palette: 'green', goal: 20, goals: { day: 20, week: 140, month: 600, total: 3000 }, sound: true, countdown: true,
         speech: true, autoSpeech: false, speechRate: 1, effects: true, foldTools: true, parts: ['A', 'B', 'C'], mockTime: 1, mockPreferNew: false, mockShuffle: false,
-        qLimit: 60, qLimitCustom: 180, playMode: 'normal', lives: 3, showExplain: true, diffs: ['初級', '中級', '上級'] },
+        qLimit: 60, qLimitCustom: 180, playMode: 'normal', lives: 3, showExplain: true, diffs: ['初級', '中級', '上級'], rest: true, lh: 'n', examDate: '', remind: { days: [1, 2, 3, 4, 5, 6, 0], time: '12:30' } },
       profile: { name: '学習者', age: '', pref: '', avatar: '📚', at: 0 },
       session: null, lastResult: null, prefs: {}, createdAt: Date.now(), lastBackup: 0, launches: 0, migratedIds: '',
     };
@@ -158,24 +162,21 @@
   function rec(id) { return S.q[id] || (S.q[id] = { a: 0, c: 0 }); }
   function day(k) { return S.days[k] || (S.days[k] = { n: 0, c: 0, sec: 0 }); }
   let srsCache = null;
-  function srs() { return srsCache || (srsCache = K.srsFromLog(S.log)); }
+  const examDate = () => (/^\d{4}-\d\d-\d\d$/.test(S.settings.examDate || '') ? S.settings.examDate : CFG.examDate);
+  function srs() { return srsCache || (srsCache = K.srsFromLog(S.log, { examAt: new Date(examDate() + 'T04:00:00+09:00').getTime() })); }
   function recordAnswer(q, choice, ok, sec, unsure, mode) {
     const t = Date.now(), r = rec(q.id);
-    r.s = SUBJECTS.indexOf(q.subject); r.a++; if (ok) r.c++; r.l = ok ? 1 : 0; r.t = t; r.lu = unsure ? 1 : 0; if (unsure) r.u = (r.u || 0) + 1;
-    S.log.push([t, q.id, choice, ok ? 1 : 0, Math.round(sec), unsure ? 1 : 0, mode, r.s]);
+    const conf = Number(unsure) === 2 ? 2 : unsure ? 1 : 0; // 0=自信あり 1=なんとなく（迷った） 2=わからない
+    r.s = SUBJECTS.indexOf(q.subject); r.a++; if (ok) r.c++; r.l = ok ? 1 : 0; r.t = t; r.lu = conf; if (conf) r.u = (r.u || 0) + 1;
+    S.log.push([t, q.id, choice, ok ? 1 : 0, Math.round(sec), conf, mode, r.s]);
     if (S.log.length > 30000) S.log.splice(0, S.log.length - 30000);
     const d = day(dayKey(t)); d.n++; if (ok) d.c++;
     srsCache = null;
     return S.log.length - 1;
   }
   const isDue = (id) => K.isDue(srs()[id]);
-  const isWrong = (r) => r && r.a > 0 && (r.l === 0 || r.lu === 1);
-  function streak() {
-    let n = 0; let t = Date.now();
-    if (!(S.days[dayKey(t)] || {}).n) t -= K.DAY;
-    while ((S.days[dayKey(t)] || {}).n) { n++; t -= K.DAY; }
-    return n;
-  }
+  const isWrong = (r) => r && r.a > 0 && (r.l === 0 || r.lu >= 1);
+  function streak() { return growth().streak; }
 
   // ───────── 問題データ ─────────
   const DATA = { index: null, bySubject: {}, byId: new Map(), loaded: 0, error: '', links: null, mocks: null };
@@ -422,7 +423,18 @@
     const doneToday = (S.days[dayKey()] || {}).n || 0;
     const quota = left > 0 ? Math.ceil(fresh.length / left) : fresh.length;
     const newN = Math.max(0, Math.min(fresh.length, Math.max(5, quota) - Math.max(0, doneToday - due.length)));
-    return { due, fresh, newN, quota, left };
+    return { due, fresh, newN, quota, left, all };
+  }
+  // 今日の5問：復習の時期が来た問題を先に、足りない分は新しい問題
+  async function startFive() {
+    const p = todayPlan();
+    let qs = K.pickWithCases(p.due, Math.min(5, p.due.length));
+    if (qs.length < 5) qs = qs.concat(K.pickWithCases(p.fresh.filter((q) => !qs.includes(q)), 5 - qs.length));
+    if (qs.length < 5) qs = qs.concat(K.pickWithCases(p.all.filter((q) => !qs.includes(q)), 5 - qs.length));
+    if (!qs.length) { toast('問題がありません'); return; }
+    if (!(await confirmReplace())) return;
+    newSession('practice', interleave(K.groupCases(qs)), { title: '今日の5問', opt: { scope: 'mine', filter: 'all', count: '5', order: 'random', five: true } });
+    track('five_start'); go('quiz');
   }
   async function startToday() {
     const p = todayPlan();
@@ -445,7 +457,7 @@
     return out;
   }
   function daysLeft() {
-    const d = new Date(CFG.examDate + 'T00:00:00+09:00').getTime();
+    const d = new Date(examDate() + 'T00:00:00+09:00').getTime();
     return isFinite(d) ? Math.ceil((d - K.dayStart(Date.now())) / K.DAY) : 0;
   }
   async function startMock(size, type, skipConfirm) {
@@ -490,6 +502,7 @@
     else if (r === 'settings') renderSettings();
     else if (r === 'quiz') renderQuiz();
     else if (r === 'result') renderResult(arg);
+    else if (r === 'ox' && OX.items.length) renderOx();
     else { r = 'home'; renderHome(); }
     route = r;
   }
@@ -510,7 +523,7 @@
     $('.sheet-bg') && $('.sheet-bg').remove();
     const r = (e.state && e.state.r) || 'home';
     // 問題画面から戻ったらホーム（途中の問題は「続きから」で再開できる）
-    render(r === 'quiz' && !(S.session && !S.session.done) ? 'home' : r, r === 'result' ? S.lastResult : undefined);
+    render((r === 'quiz' && !(S.session && !S.session.done)) || (r === 'ox' && !OX.items.length) ? 'home' : r, r === 'result' ? S.lastResult : undefined);
     focusMain();
   });
   // アドレスの #stats などを書き換えたとき（ブックマークやリンク）
@@ -566,7 +579,7 @@
   let growthCache = null;
   function growth() {
     const key = S.log.length + '|' + (S.log.length ? S.log[S.log.length - 1][0] : 0) + '|' + dayKey();
-    if (!growthCache || growthCache.key !== key) growthCache = { key, g: K.growthSummary(S.log, { totalQuestions: DATA.byId.size }) };
+    if (!growthCache || growthCache.key !== key) growthCache = { key, g: K.growthSummary(S.log, { totalQuestions: DATA.byId.size, rest: S.settings.rest !== false }) };
     return growthCache.g;
   }
   function growthBase() {
@@ -827,7 +840,7 @@
       const q = DATA.byId.get(it.id), rq = S.q[it.id] || {}, a = snap.ans[it.id];
       const flags = [];
       if (a && a.timeout) flags.push('時間切れ'); else if (it.answered && !it.ok) flags.push('不正解');
-      if (it.unsure) flags.push('迷った');
+      if (it.unsure) flags.push(Number((snap.unsure || {})[it.id]) === 2 ? 'わからない' : '迷った');
       if (rq.n && rq.n.trim()) flags.push('コメント');
       if (rq.nu && rq.nu.length) flags.push('未理解');
       return { i, id: it.id, q, flags, a, note: rq.n || '', nu: rq.nu || [] };
@@ -845,6 +858,246 @@
         el('button', { type: 'button', class: 'btn small', onclick: async () => { try { await navigator.clipboard.writeText(asText()); toast('振り返りをコピーしました'); } catch (e) { toast('コピーできませんでした'); } } }, '📋 コピー'),
         el('button', { type: 'button', class: 'btn small', onclick: () => { const a = el('a', { href: URL.createObjectURL(new Blob([csv()], { type: 'text/csv' })), download: '振り返り_' + dayKey() + '.csv' }); document.body.append(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000); } }, '⬇ CSVで書き出す（スプレッドシート用）'),
         rows.length ? el('button', { type: 'button', class: 'btn small soft', onclick: () => startIds(rows.map((x) => x.id), '振り返りの問題（' + rows.length + '問）') }, 'この' + rows.length + '問をもう一度') : null));
+  }
+
+  // ── パート別・11科目群別の合格ラインまでの距離（提案書：最優先）──
+  function partProgress() {
+    const qs = []; DATA.byId.forEach((q) => qs.push(q));
+    return K.groupProgress(qs, S.q);
+  }
+  function rateBar(x, line) {
+    const r = x.rate == null ? 0 : x.rate;
+    return el('div', { class: 'ratebar' + (x.rate == null ? ' none' : r >= line ? ' ok' : r >= line - 0.1 ? ' near' : ' ng'), role: 'img', 'aria-label': x.name + '：正答率' + (x.rate == null ? 'なし' : Math.round(r * 100) + '%') + '、合格ラインの目安' + Math.round(line * 100) + '%' },
+      el('i', { style: 'width:' + Math.round(r * 100) + '%' }), el('b', { class: 'line', style: 'left:' + line * 100 + '%' }));
+  }
+  function partCard(compact) {
+    const g = partProgress(), line = g.line;
+    const mine = myParts();
+    let cur = S.prefs.partTab && PARTS[S.prefs.partTab] ? S.prefs.partTab : mine[0] || 'A';
+    const body = el('div');
+    const warn = g.groups.filter((x) => mine.includes(x.part) && x.warn);
+    const tabs = el('div', { class: 'seg', role: 'tablist', 'aria-label': 'パート' }, Object.keys(PARTS).map((k) => {
+      const x = g.parts[k];
+      return el('button', { type: 'button', role: 'tab', class: 'seg-btn', 'aria-selected': String(k === cur), onclick: (e) => { cur = k; S.prefs.partTab = k; save(); tabs.querySelectorAll('.seg-btn').forEach((b) => b.setAttribute('aria-selected', String(b === e.currentTarget))); draw(); } },
+        el('b', { text: PARTS[k].label }), el('small', { text: x.rate == null ? '–' : Math.round(x.rate * 100) + '%' }));
+    }));
+    const msg = (x) => x.rate == null ? 'まだ解いていません' : x.gap > 0 ? 'あと' + x.gap + '%で合格圏' : '合格圏（6割以上）';
+    function draw() {
+      const p = g.parts[cur];
+      put(body,
+        el('div', { class: 'part-head' },
+          el('div', null, el('div', { class: 'part-rate', text: p.rate == null ? '–' : Math.round(p.rate * 100) + '%' }), el('div', { class: 'small muted', text: '正答率（最新の結果）' })),
+          el('div', { class: 'grow' }, el('b', { class: 'part-msg ' + (p.gap === 0 ? 'ok' : ''), text: PARTS[cur].label + '：' + msg(p) }), rateBar(p, line),
+            el('div', { class: 'small muted', text: '解いた ' + p.answered + ' / ' + p.total + '問（' + Math.round(p.coverage * 100) + '%）' + (mine.includes(cur) ? '' : '｜受けないパート') }))),
+        compact ? null : el('div', { class: 'groups' }, g.groups.filter((x) => x.part === cur).map((x) => el('button', { type: 'button', class: 'grow-row', onclick: () => startPractice({ scope: x.subjects.length === 1 ? x.subjects[0] : x.part, filter: x.answered < x.total ? 'new' : 'weak', count: '5', order: 'random' }, x.name + 'の5問') },
+          el('span', { class: 'gname' }, x.name, x.warn ? el('em', { class: 'gwarn', text: x.warn }) : null),
+          el('span', { class: 'gval', text: (x.rate == null ? '–' : Math.round(x.rate * 100) + '%') + '｜' + x.answered + '/' + x.total }),
+          rateBar(x, line)))));
+    }
+    draw();
+    return el('section', { class: 'card partcard', 'aria-label': 'パート別の合格ラインまでの距離' },
+      el('h2', null, ico('🎯'), ' 合格ラインまでの距離', el('span', { class: 'sub', text: '目安：6割' })),
+      warn.length ? el('div', { class: 'notice warn slim' }, el('b', { text: '0点の科目群を作らないように：' }), warn.slice(0, 4).map((x, i) => [i ? '、' : '', el('button', { type: 'button', class: 'linklike', onclick: () => startPractice({ scope: x.subjects[0], filter: 'all', count: '5', order: 'random' }, x.name + 'の5問') }, x.name), '（' + x.warn + '）'])) : null,
+      tabs, body,
+      el('p', { class: 'small muted', style: 'margin:8px 0 0', text: '合格基準は毎年変わります（第38回は総得点125点中64点＝約51%）。ここでは約6割を目安にしています。全11科目群で得点することが合格の条件です。科目群を押すと、その5問を解きます。' }));
+  }
+  // 学習の草（カレンダーのヒートマップ）
+  function heatmap() {
+    const g = growth(), weeks = 17, today = K.dayKey();
+    const td = Date.UTC(+today.slice(0, 4), +today.slice(5, 7) - 1, +today.slice(8, 10)) / K.DAY;
+    const start = td - (new Date(td * K.DAY).getUTCDay() + 6) % 7 - (weeks - 1) * 7;
+    const max = Math.max(1, ...Object.values(g.days).map((d) => d.count));
+    const grid = el('div', { class: 'heat', role: 'img', 'aria-label': '最近' + weeks + '週間の学習の記録' });
+    for (let w = 0; w < weeks; w++) {
+      const col = el('div', { class: 'hcol' });
+      for (let d = 0; d < 7; d++) {
+        const n = start + w * 7 + d, key = new Date(n * K.DAY).toISOString().slice(0, 10), v = g.days[key];
+        const lv = !v || !v.count ? 0 : Math.min(4, Math.ceil(v.count / max * 4));
+        col.append(el('i', { class: 'h' + lv + (n > td ? ' future' : '') + (g.restDays.includes(key) ? ' rest' : '') + (key === today ? ' today' : ''), title: key + '：' + (v ? v.count + '問・' + Math.round(v.seconds / 60) + '分' : g.restDays.includes(key) ? 'お休みチケット' : '0問') }));
+      }
+      grid.append(col);
+    }
+    return el('section', { class: 'card' }, el('h2', null, '学習の記録', el('span', { class: 'sub', text: '最近' + weeks + '週間' })),
+      el('div', { class: 'heat-wrap' }, el('div', { class: 'heat-days', 'aria-hidden': 'true' }, ['月', '', '水', '', '金', '', '日'].map((x) => el('span', { text: x }))), grid),
+      el('div', { class: 'legend' }, el('span', { text: '少' }), [0, 1, 2, 3, 4].map((i) => el('i', { class: 'hl h' + i })), el('span', { text: '多' }), el('span', null, el('i', { class: 'hl rest' }), 'お休みチケット')),
+      el('p', { class: 'small muted', text: '連続 ' + g.streak + '日（最長 ' + g.longestStreak + '日）。お休みチケット：1週間に1日だけ、休んでも連続記録が切れません' + (S.settings.rest === false ? '（設定でオフ）' : g.restThisWeek ? '（今週は使用済み）' : '（今週はまだ使えます）') + '。' }));
+  }
+
+  // ───────── 一問一答（○×）：5択の選択肢を1つずつ「正しい／誤り」で確かめる ─────────
+  const OX_POS = /(正しいもの|適切なもの)/, OX_NEG = /(誤っているもの|適切でないもの|適切ではないもの|正しくないもの|不適切なもの)/;
+  function oxItems(scope) {
+    const out = [];
+    for (const s of scopeSubjects(scope) || []) for (const q of DATA.bySubject[s] || []) {
+      const qp = K.questionPart(q.stem);
+      if (/最も/.test(qp) || !(OX_POS.test(qp) || OX_NEG.test(qp)) || q.keys.length !== 1 || q.figure || !playable(q)) continue;
+      if (q.options.some((o) => /^[A-EＡ-Ｅ　 ・、,]+$/.test(o.trim()) || o.trim().length < 6)) continue;
+      const neg = OX_NEG.test(qp);
+      for (let n = 1; n <= 5; n++) out.push({ id: q.id + ':' + n, q, n, truth: neg ? !q.keys.includes(n) : q.keys.includes(n) });
+    }
+    return out;
+  }
+  const OX = { items: [], i: 0, ans: [], title: '' };
+  function oxStat() { return S.prefs.ox || (S.prefs.ox = {}); }
+  function startOx(scope, filter, count) {
+    let items = oxItems(scope || 'mine');
+    const st = oxStat();
+    if (filter === 'wrong') items = items.filter((x) => st[x.id] && st[x.id][2] === 0);
+    if (filter === 'new') items = items.filter((x) => !st[x.id]);
+    if (!items.length) { toast(filter === 'wrong' ? 'まちがえた○×はまだありません' : '問題がありません'); return; }
+    OX.items = K.shuffle(items).slice(0, count || 10); OX.i = 0; OX.ans = [];
+    OX.title = '一問一答（○×）' + (filter === 'wrong' ? '・まちがえた問題' : '');
+    track('ox_start'); go('ox');
+  }
+  function renderOx() {
+    if (!OX.items.length) { render('home'); return; }
+    const done = OX.i >= OX.items.length;
+    const root = el('main', { class: 'shell quiz ox' });
+    root.append(el('div', { class: 'quiz-top' }, el('div', { class: 'row' },
+      el('button', { type: 'button', class: 'icon-btn', 'aria-label': 'やめる', onclick: () => { OX.items = []; go('home'); } }, '✕'),
+      el('h1', { class: 'title', text: OX.title }), el('span', { class: 'counter', 'data-focus': '', text: Math.min(OX.i + 1, OX.items.length) + ' / ' + OX.items.length })),
+      el('div', { class: 'qbar', 'aria-hidden': 'true' }, el('i', { style: 'width:' + pct(OX.ans.length, OX.items.length) + '%' }))));
+    if (done) {
+      const c = OX.ans.filter((a) => a.ok).length;
+      root.append(el('section', { class: 'card' }, el('h2', { class: 'h2like', text: '一問一答の結果' }),
+        el('div', { class: 'score' }, el('div', { class: 'big' }, String(c), el('small', { text: ' / ' + OX.ans.length })), el('div', { class: 'muted', text: '正答率 ' + pct(c, OX.ans.length) + '%' })),
+        el('ul', { class: 'qlist' }, OX.ans.map((a) => el('li', null, el('div', { class: 'oxrow' }, el('span', { class: 'res ' + (a.ok ? 'ok' : 'ng'), text: a.ok ? '○' : '×' }), el('span', { class: 't' }, el('span', { class: 's', text: a.item.q.subject + '｜正しくは「' + (a.item.truth ? '○ 正しい' : '× 誤り') + '」' }), a.item.q.options[a.item.n - 1]))))),
+        el('div', { class: 'row', style: 'margin-top:12px' },
+          el('button', { type: 'button', class: 'btn primary grow lg', onclick: () => startOx('mine', 'all', 10) }, 'もう10問'),
+          OX.ans.some((a) => !a.ok) ? el('button', { type: 'button', class: 'btn soft grow lg', onclick: () => { OX.items = OX.ans.filter((a) => !a.ok).map((a) => a.item); OX.i = 0; OX.ans = []; OX.title = '一問一答・まちがえた問題'; renderOx(); } }, 'まちがえた問題をもう一度') : null,
+          el('button', { type: 'button', class: 'btn grow lg', onclick: () => { OX.items = []; go('home'); } }, 'ホームへ'))));
+      app().replaceChildren(root); return;
+    }
+    const it = OX.items[OX.i], q = it.q, a = OX.ans[OX.i];
+    const ex = K.parseExplanation(q.explanation);
+    const qp = K.questionPart(q.stem);
+    root.append(el('div', { class: 'meta' }, el('span', { class: 'tag type', text: q.round ? '第' + q.round + '回 ' + q.subject : q.subject }), q.theme ? el('span', { class: 'tag', text: q.theme }) : null, el('span', { class: 'tag id', text: q.id + '-' + it.n })),
+      q.stem !== qp ? el('details', { class: 'case' }, el('summary', null, '問題文の全体を見る'), el('div', { class: 'stem case-text', text: q.stem })) : null,
+      el('p', { class: 'ox-context', text: '「' + qp.replace(/(を)?1つ選びなさい。?|として、?$/g, '').trim() + '」について' }),
+      el('div', { class: 'ox-card' + (a ? (a.ok ? ' ok' : ' ng') : '') }, el('p', { class: 'ox-statement', text: q.options[it.n - 1] }),
+        el('p', { class: 'small muted', style: 'margin:8px 0 0', text: 'この内容は正しい（適切）？' })));
+    if (!a) {
+      root.append(el('div', { class: 'ox-btns' },
+        el('button', { type: 'button', class: 'ox-btn o', onclick: () => answer(true), 'aria-label': '○ 正しい' }, el('span', { text: '○' }), el('small', { text: '正しい' })),
+        el('button', { type: 'button', class: 'ox-btn x', onclick: () => answer(false), 'aria-label': '× 誤り' }, el('span', { text: '×' }), el('small', { text: '誤り' }))));
+    } else {
+      root.append(el('div', { class: 'verdict ' + (a.ok ? 'ok' : 'ng'), role: 'status' }, el('span', { class: 'mark', 'aria-hidden': 'true', text: a.ok ? '○' : '×' }),
+        el('div', { class: 'grow' }, el('div', { class: 'vt', text: (a.ok ? '正解！' : '不正解') + '　この選択肢は「' + (it.truth ? '○ 正しい' : '× 誤り') + '」' }),
+          ex.opts[it.n] ? el('p', { class: 'mine-why', text: ex.opts[it.n] }) : null)),
+        el('p', { class: 'small muted', text: '出典：' + SOURCE + (q.round ? ' 第' + q.round + '回' : '') + 'の選択肢' + it.n + '。解説は当サイト独自のものです。' }),
+        el('button', { type: 'button', class: 'btn soft small', onclick: () => startIds([q.id], 'もとの5択（' + q.id + '）') }, 'もとの5択で解く'));
+    }
+    root.append(el('div', { class: 'quiz-foot' }, el('div', { class: 'inner' },
+      el('button', { type: 'button', class: 'btn primary', disabled: a ? null : true, onclick: () => { OX.i++; renderOx(); window.scrollTo(0, 0); focusMain(); } }, OX.i + 1 >= OX.items.length ? '結果を見る' : '次へ →'))));
+    app().replaceChildren(root);
+    function answer(v) {
+      const ok = v === it.truth;
+      OX.ans[OX.i] = { item: it, ok };
+      const st = oxStat(), r = st[it.id] || [0, 0, 0]; r[0]++; if (ok) r[1]++; r[2] = ok ? 1 : 0; st[it.id] = r; save();
+      showFeedback(ok); if (navigator.vibrate) navigator.vibrate(ok ? 20 : [40, 60, 40]);
+      announce(ok ? '正解です' : '不正解です'); renderOx();
+    }
+  }
+  function oxCard() {
+    const n = oxItems('mine').length, st = oxStat();
+    const wrong = Object.values(st).filter((r) => r[2] === 0).length, done = Object.keys(st).length;
+    return el('section', { class: 'card' }, el('h2', null, ico('⭕'), ' 一問一答（○×）', el('span', { class: 'sub', text: done + ' / ' + n + '問' })),
+      el('p', { class: 'small muted', style: 'margin:0 0 10px', text: '5択の選択肢を1つずつ「正しい／誤り」で確かめます。1問から5つの知識を確認できます（「最も適切なもの」を選ぶ問題は対象外）。' }),
+      el('div', { class: 'row' },
+        el('button', { type: 'button', class: 'btn primary grow', onclick: () => startOx('mine', 'all', 10) }, '○×を10問'),
+        el('button', { type: 'button', class: 'btn soft grow', onclick: () => startOx('mine', 'new', 10) }, 'まだの問題'),
+        wrong ? el('button', { type: 'button', class: 'btn soft grow', onclick: () => startOx('mine', 'wrong', 10) }, 'まちがえた（' + wrong + '）') : null));
+  }
+
+  // ───────── 暗記カード（解説の「覚えるポイント」を保存して、めくって復習）─────────
+  function pointOf(q) {
+    const head = K.parseExplanation(q.explanation).head;
+    const m = head.match(/【(?:学習ポイント|覚えるポイント|ポイント)】\n?([\s\S]*?)(?=\n【|$)/);
+    const keyText = q.keys.map((k) => k + '. ' + q.options[k - 1]).join('／');
+    return { point: (m ? m[1] : head.split('\n').filter(Boolean)[0] || '').trim().slice(0, 400), answer: keyText };
+  }
+  function cardIds() { return Object.keys(S.q).filter((id) => S.q[id].cd && DATA.byId.has(id)); }
+  function toggleCard(q) { const r = rec(q.id); r.cd = r.cd ? 0 : 1; r.s = SUBJECTS.indexOf(q.subject); saveNow(); toast(r.cd ? '暗記カードに保存しました（成績 → 暗記カード）' : '暗記カードから外しました'); }
+  function openCards(ids) {
+    ids = K.shuffle(ids || cardIds());
+    if (!ids.length) { toast('暗記カードはまだありません。解説の「📌 カードに保存」で作れます'); return; }
+    let i = 0, flipped = false;
+    openSheet((sh, close) => {
+      const box = el('div');
+      const draw = () => {
+        const q = DATA.byId.get(ids[i]), pt = pointOf(q);
+        put(box,
+          el('div', { class: 'row' }, el('b', { class: 'grow', text: '暗記カード ' + (i + 1) + ' / ' + ids.length }), el('button', { type: 'button', class: 'icon-btn', 'aria-label': '閉じる', onclick: close }, '✕')),
+          el('button', { type: 'button', class: 'flash' + (flipped ? ' back' : ''), onclick: () => { flipped = !flipped; draw(); }, 'aria-label': flipped ? 'カードの裏（タップで表へ）' : 'カードの表（タップで裏へ）' },
+            flipped ? [el('small', { text: '覚えるポイント' }), el('p', { text: pt.point || '（ポイントの記載なし）' }), el('p', { class: 'small', text: '正解：' + pt.answer })]
+              : [el('small', { text: q.subject + (q.round ? '・第' + q.round + '回' : '') + (q.theme ? '・' + q.theme : '') }), el('p', { text: (K.splitCase(q.stem) || { question: q.stem }).question }), el('span', { class: 'small muted', text: 'タップでめくる' })]),
+          el('div', { class: 'row' },
+            el('button', { type: 'button', class: 'btn grow', disabled: i === 0 ? true : null, onclick: () => { i--; flipped = false; draw(); } }, '← 前'),
+            el('button', { type: 'button', class: 'btn ghost small', onclick: () => { toggleCard(q); ids.splice(i, 1); if (!ids.length) { close(); return; } if (i >= ids.length) i = ids.length - 1; flipped = false; draw(); } }, '外す'),
+            el('button', { type: 'button', class: 'btn primary grow', disabled: i >= ids.length - 1 ? true : null, onclick: () => { i++; flipped = false; draw(); } }, '次 →')));
+      };
+      sh.append(box); draw();
+    }, { label: '暗記カード', cls: 'cards-sheet' });
+  }
+
+  // ───────── 最初の設定（3問だけ・1分）─────────
+  function onboarding() {
+    const sel = { parts: myParts().slice(), date: examDate(), min: S.prefs.dailyMin || 20 };
+    openSheet((sh, close) => {
+      const partBtns = el('div', { class: 'chips', role: 'group', 'aria-label': '受けるパート' }, Object.keys(PARTS).map((k) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(sel.parts.includes(k)), onclick: (e) => {
+        if (sel.parts.includes(k) && sel.parts.length === 1) return; sel.parts = sel.parts.includes(k) ? sel.parts.filter((x) => x !== k) : sel.parts.concat(k).sort(); e.currentTarget.setAttribute('aria-pressed', String(sel.parts.includes(k))); } }, PARTS[k].label)));
+      const date = el('input', { class: 'input', type: 'date', id: 'ob-date', value: sel.date, style: 'max-width:200px' });
+      const mins = el('div', { class: 'chips', role: 'group', 'aria-label': '1日に使える時間' }, [5, 10, 20, 30, 60].map((m) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(sel.min === m), onclick: (e) => { sel.min = m; mins.querySelectorAll('.chip').forEach((c) => c.setAttribute('aria-pressed', String(c === e.currentTarget))); } }, m + '分')));
+      sh.append(catNode('ob-cat'), el('h2', { text: 'はじめに3つだけ教えてください' }),
+        el('div', { class: 'field' }, el('div', { class: 'label', text: '① 受けるパート（パート合格した人は残りだけ）' }), partBtns),
+        el('div', { class: 'field' }, el('label', { for: 'ob-date', text: '② 試験日' }), date),
+        el('div', { class: 'field' }, el('div', { class: 'label', text: '③ 1日に使える時間（1問はおよそ1分）' }), mins),
+        el('div', { class: 'row', style: 'margin-top:12px' },
+          el('button', { type: 'button', class: 'btn grow', onclick: () => { S.prefs.onboarded = 1; save(); close(); } }, 'あとで'),
+          el('button', { type: 'button', class: 'btn primary grow lg', onclick: () => {
+            S.settings.parts = sel.parts;
+            if (/^\d{4}-\d\d-\d\d$/.test(date.value)) S.settings.examDate = date.value;
+            const day = Math.max(5, sel.min);
+            S.settings.goals = { day, week: day * 7, month: day * 30, total: Math.max(day * 30, Math.min(20000, day * Math.max(30, daysLeft()))) }; S.settings.goal = day;
+            S.prefs.onboarded = 1; S.prefs.dailyMin = sel.min; srsCache = null; growthCache = null; saveNow(); close();
+            toast('1日の目標を ' + day + '問にしました（設定・ホームで変えられます）');
+            startFive();
+          } }, 'はじめる（最初の5問へ）')));
+    }, { label: '最初の設定' });
+  }
+
+  // ───────── 学習リマインダー（カレンダーに登録する .ics ファイル。曜日ごとに時刻を変えられる）─────────
+  function reminderCard() {
+    const R = S.settings.remind = Object.assign({ days: [1, 2, 3, 4, 5, 6, 0], time: '12:30', times: {} }, S.settings.remind || {});
+    R.times = R.times || {};
+    const names = ['日', '月', '火', '水', '木', '金', '土'];
+    const rows = [1, 2, 3, 4, 5, 6, 0].map((d) => el('div', { class: 'remind-row' },
+      el('label', { class: 'row' }, el('input', { type: 'checkbox', checked: R.days.includes(d) ? true : null, onchange: (e) => { R.days = e.target.checked ? R.days.concat(d) : R.days.filter((x) => x !== d); save(); } }), names[d] + '曜'),
+      el('input', { class: 'input', type: 'time', value: R.times[d] || R.time, 'aria-label': names[d] + '曜の時刻', onchange: (e) => { R.times[d] = e.target.value; save(); } })));
+    return el('section', { class: 'card' }, el('h2', null, '学習リマインダー'),
+      el('p', { class: 'small muted', style: 'margin:0 0 8px', text: 'スマホのカレンダーに「今日の5問」の予定と通知を入れます。シフトに合わせて、曜日ごとに時刻を変えられます（例：夜勤の日は休憩時間に）。' }),
+      el('div', { class: 'remind-grid' }, rows),
+      el('button', { type: 'button', class: 'btn primary block', style: 'margin-top:10px', onclick: () => downloadIcs(R) }, '📅 カレンダーに登録するファイルを作る'),
+      el('p', { class: 'small muted', text: 'ファイルを開くと、カレンダーアプリに追加できます（iPhone：ファイルを開く→追加、Android：Googleカレンダーで読み込み）。やめるときはカレンダーから予定を消します。' }));
+  }
+  function downloadIcs(R) {
+    if (!R.days.length) { toast('曜日を1つ以上選んでください'); return; }
+    const by = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
+    const p2 = (n) => String(n).padStart(2, '0');
+    const now = new Date(), stamp = now.toISOString().replace(/[-:]/g, '').replace(/\.\d+/, '');
+    const url = location.origin + location.pathname + '?menu=today';
+    const ev = R.days.map((d) => {
+      const [hh, mm] = (R.times[d] || R.time).split(':').map(Number);
+      const t = new Date(now); t.setDate(t.getDate() + ((d - t.getDay() + 7) % 7));
+      const ds = t.getFullYear() + p2(t.getMonth() + 1) + p2(t.getDate()) + 'T' + p2(hh) + p2(mm) + '00';
+      return ['BEGIN:VEVENT', 'UID:kaigo-remind-' + d + '-' + stamp + '@kaigo-study', 'DTSTAMP:' + stamp, 'DTSTART;TZID=Asia/Tokyo:' + ds, 'DURATION:PT10M', 'RRULE:FREQ=WEEKLY;BYDAY=' + by[d],
+        'SUMMARY:介護福祉士：今日の5問（約2分）', 'DESCRIPTION:休憩中に5問どうですか。' + url, 'URL:' + url,
+        'BEGIN:VALARM', 'ACTION:DISPLAY', 'DESCRIPTION:今日の5問どうですか', 'TRIGGER:PT0M', 'END:VALARM', 'END:VEVENT'].join('\r\n');
+    });
+    const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//kaigo-study//reminder//JA', 'CALSCALE:GREGORIAN',
+      'BEGIN:VTIMEZONE', 'TZID:Asia/Tokyo', 'BEGIN:STANDARD', 'DTSTART:19700101T000000', 'TZOFFSETFROM:+0900', 'TZOFFSETTO:+0900', 'TZNAME:JST', 'END:STANDARD', 'END:VTIMEZONE'].concat(ev, ['END:VCALENDAR']).join('\r\n');
+    const a = el('a', { href: URL.createObjectURL(new Blob([ics], { type: 'text/calendar' })), download: 'kaigo-study-reminder.ics' });
+    document.body.append(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+    toast('カレンダーのファイルを作りました');
   }
 
   // ── ホーム ──
@@ -874,20 +1127,25 @@
         el('button', { type: 'button', class: 'btn small ghost', onclick: () => { S.prefs.backupSnooze = Date.now() + 7 * K.DAY; save(); render('home'); } }, 'あとで')));
     }
 
-    root.append(profileCard());
     // 1. いちばん上：1ボタンで始める
     const left = plan.left;
     const ses = S.session;
+    const gg = growth(), goalDay = goals().day, leftQ = Math.max(0, goalDay - gg.today.count);
+    const ringP = Math.min(1, gg.today.count / Math.max(1, goalDay));
+    const ring = el('div', { class: 'ring', role: 'img', 'aria-label': '今日 ' + gg.today.count + ' / ' + goalDay + '問', style: '--p:' + ringP }, el('b', { text: String(gg.today.count) }), el('small', { text: '/ ' + goalDay + '問' }));
     const todayCard = el('section', { class: 'card hero' },
-      el('h1', { class: 'hero-h', 'data-focus': '' }, '今日のメニュー'),
-      el('p', { class: 'hero-sub' },
-        left > 0 ? ['試験（', CFG.examDate.replace(/^(\d+)-0?(\d+)-0?(\d+)$/, '$2月$3日'), '）まで ', el('b', { text: 'あと' + left + '日' }), '。'] : null,
-        plan.due.length ? ['復習の時期が来た問題 ', el('b', { text: plan.due.length + '問' }), '、'] : null,
-        '新しい問題 ', el('b', { text: Math.min(plan.newN || 5, 20) + '問' }),
-        left > 0 && plan.fresh.length ? '（まだ解いていない' + plan.fresh.length + '問を、1日' + plan.quota + '問で終わるペース）' : ''),
-      el('button', { type: 'button', class: 'btn primary block lg', onclick: startToday }, ico('▶'), ' 今日のメニューを始める'),
+      el('div', { class: 'hero-top' },
+        el('div', { class: 'grow' },
+          el('div', { class: 'hero-pills' },
+            left > 0 ? el('span', { class: 'pill' }, '試験まで ', el('b', { text: left + '日' })) : null,
+            el('span', { class: 'pill' }, '🔥 ', el('b', { text: gg.streak + '日' }), ' 連続'),
+            gg.restThisWeek ? el('span', { class: 'pill', title: '今週はお休みチケットを使いました', text: '🎫 使用済み' }) : null),
+          el('h1', { class: 'hero-h', 'data-focus': '' }, leftQ ? ['今日はあと ', el('span', { class: 'big', text: String(leftQ) }), ' 問'] : '今日の目標達成！'),
+          el('p', { class: 'hero-sub' }, plan.due.length ? ['復習の時期 ', el('b', { text: plan.due.length + '問' }), '・'] : null, 'まだ解いていない ', el('b', { text: plan.fresh.length + '問' }))),
+        ring),
+      el('button', { type: 'button', class: 'btn primary block lg cta', onclick: startFive }, ico('▶'), ' 今日の5問をはじめる', el('small', { text: '約2分' })),
       el('div', { class: 'row', style: 'margin-top:8px' },
-        el('button', { type: 'button', class: 'btn soft grow', onclick: () => startPractice({ scope: 'mine', filter: 'all', count: '5', order: 'random' }, 'すきま時間の5問') }, '5問だけ'),
+        el('button', { type: 'button', class: 'btn soft grow', onclick: startToday }, '今日のメニュー（' + (Math.min(plan.due.length, 30) + Math.min(plan.newN || 5, 20)) + '問）'),
         plan.due.length ? el('button', { type: 'button', class: 'btn soft grow', onclick: () => startPractice({ scope: 'mine', filter: 'due', count: '20', order: 'random' }, '今日の復習') }, '復習だけ（' + plan.due.length + '）') : null));
     root.append(todayCard);
 
@@ -903,7 +1161,9 @@
           el('button', { type: 'button', class: 'btn', onclick: async () => { if (await confirmReplace()) { S.session = null; saveNow(); render('home'); } } }, 'やめる'))));
     }
 
+    root.append(partCard());
     root.append(growthCard());
+    root.append(profileCard());
 
     // 2. 自分で選ぶ（たたむ）
     const scopeSel = el('select', { class: 'input', id: 'f-scope' });
@@ -1026,6 +1286,7 @@
     root.append(form);
     update();
 
+    root.append(oxCard());
     // 3. 模擬試験
     const mockTypes = types.filter((t) => t !== '実務者研修');
     let mtype = S.prefs.mockType || mockTypes[0] || '過去問';
@@ -1492,13 +1753,18 @@
       list.append(li);
     });
 
-    const unsure = !!ses.unsure[q.id];
-    const unsureBtn = reviewMode ? null : el('button', { type: 'button', class: 'toggle', 'aria-pressed': String(unsure), onclick: toggleUnsure, title: '正解しても「迷った」問題は復習に回ります' }, ico('🤔'), unsure ? ' 迷った（記録します）' : ' 迷った');
+    const conf = Number(ses.unsure[q.id]) === 2 ? 2 : ses.unsure[q.id] ? 1 : 0;
+    const unsure = conf > 0;
+    // 自信の3段階（1タップ）。なんとなく＝迷った。復習の間隔に反映する
+    const unsureBtn = reviewMode ? null : el('div', { class: 'conf', role: 'group', 'aria-label': '自信' },
+      el('span', { class: 'small muted', text: showAnswer ? '自信は？' : '自信：' }),
+      [[0, '😊 自信あり'], [1, '🤔 なんとなく'], [2, '😵 わからない']].map(([v, l]) => el('button', { type: 'button', class: 'chip conf-' + v, 'aria-pressed': String(conf === v), onclick: () => setConf(v), title: v === 0 ? '正解なら間隔を広げます' : v === 1 ? '正解しても「迷った」として、短い間隔でもう一度出します' : '正解しても翌日にもう一度出します' }, l)));
     const memo = el('textarea', { class: 'input', id: 'memo', maxlength: '5000', placeholder: '迷った点や覚えたいこと（この端末に保存）' });
     memo.value = rq.n || '';
     memo.oninput = () => { const r = rec(q.id); r.n = memo.value; r.nt = Date.now(); r.s = SUBJECTS.indexOf(q.subject); save(); };
     const tools = el('div', { class: 'qtools' }, unsureBtn,
       el('button', { type: 'button', class: 'toggle star', 'aria-pressed': String(!!rq.st), onclick: toggleStar }, rq.st ? '★ あとで見る' : '☆ あとで見る'),
+      showAnswer ? el('button', { type: 'button', class: 'toggle star', 'aria-pressed': String(!!rq.cd), onclick: () => { toggleCard(q); rerender(); } }, rq.cd ? '📌 カードに保存済み' : '📌 ポイントをカードに保存') : null,
       canSpeak() && !showAnswer ? el('button', { type: 'button', class: 'toggle', onclick: () => speakText(q.stem + '\n' + order.map((o, i) => (i + 1) + '。' + q.options[o - 1]).join('\n')) }, ico('🔊'), ' 問題を読み上げ') : null);
     const notes = el('details', { class: 'tools-fold', open: showAnswer || rq.n ? true : null }, el('summary', null, '📝 コメント（自分のメモ）'),
       el('div', { class: 'field', style: 'margin-top:8px' }, el('label', { for: 'memo', class: 'sr-only', text: 'この問題のコメント' }), memo,
@@ -1580,10 +1846,10 @@
       r.nu = a.sort(); if (!r.nu.length) delete r.nu; r.nut = Date.now(); r.s = SUBJECTS.indexOf(q.subject); saveNow();
       announce(a.length ? '未理解の選択肢：' + a.map(disp).sort().join('・') + '番' : 'すべて理解済み'); rerender();
     }
-    // 「迷った」は答え合わせのあとでも変えられる（記録も直す）
-    function toggleUnsure() {
-      ses.unsure[q.id] = !ses.unsure[q.id];
-      if (ans && ans.t) { const e = S.log.find((x) => x[1] === q.id && x[0] === ans.t); if (e) { e[5] = ses.unsure[q.id] ? 1 : 0; K.rebuild(S); srsCache = null; } }
+    // 自信は答え合わせのあとでも変えられる（記録も直す）
+    function setConf(v) {
+      ses.unsure[q.id] = v;
+      if (ans && ans.t) { const e = S.log.find((x) => x[1] === q.id && x[0] === ans.t); if (e) { e[5] = v; K.rebuild(S); srsCache = null; } }
       saveNow(); rerender();
     }
     function toggleStar() {
@@ -1613,11 +1879,11 @@
     if (!q || ses.ans[q.id]) return;
     const ok = !byTimeout && q.keys.includes(orig);
     const sec = (ses.qElapsed[q.id] || 0) / 1000;
-    const logIdx = recordAnswer(q, orig || 0, ok, sec, !!ses.unsure[q.id], 'p');
+    const logIdx = recordAnswer(q, orig || 0, ok, sec, ses.unsure[q.id] || 0, 'p');
     ses.ans[q.id] = { c: orig || 0, ok, log: logIdx, t: S.log[logIdx] && S.log[logIdx][0], timeout: byTimeout ? true : undefined };
     if (ses.sel) delete ses.sel[q.id];
     ses.pausedAt = 0; ses.justAnswered = q.id;
-    saveNow(); showFeedback(ok); if (navigator.vibrate && !ok) navigator.vibrate(60);
+    saveNow(); showFeedback(ok); if (navigator.vibrate) navigator.vibrate(ok ? 20 : [40, 60, 40]);
     announce(byTimeout && !orig ? '時間切れです' : ok ? '正解です' : '不正解です');
     const n = Object.keys(ses.ans).length, isLast = ses.i >= ses.ids.length - 1;
     const life = lifeState(ses);
@@ -1686,7 +1952,7 @@
     for (const id of ses.ids) {
       const q = DATA.byId.get(id), a = ses.ans[id]; if (!q || !a) continue;
       a.ok = q.keys.includes(a.c);
-      recordAnswer(q, a.c, a.ok, (ses.qElapsed[id] || 0) / 1000, !!ses.unsure[id], 'm');
+      recordAnswer(q, a.c, a.ok, (ses.qElapsed[id] || 0) / 1000, ses.unsure[id] || 0, 'm');
     }
     const snap = snapshot(ses);
     const r = buildResult(snap);
@@ -1723,7 +1989,10 @@
       card.append(el('p', { class: 'small muted', style: 'margin:8px 0 0', text: (snap.reason === 'life' ? (rl.mode === 'sudden' ? '1問不正解でチャレンジ終了。' : 'ライフ ' + rl.lives + '個を使い切ってチャレンジ終了。') + '未回答 ' + (r.total - r.answered) + '問。' : '') + (snap.qLimit ? '1問の制限時間 ' + snap.qLimit + '秒（時間切れ ' + r.items.filter((x) => x.timeout).length + '問）。' : '') + '解説を読む時間・中断中の時間は全体解答時間に含みません。' }));
     }
     root.append(card);
-    if (!isMock && r.answered) { root.append(sessionGrowth(snap, r)); const rv = reviewList(snap, r); if (rv) root.append(rv); }
+    if (!isMock && r.answered) {
+      const gg = growth(), gd = goals().day;
+      card.prepend(el('div', { class: 'goal-banner' + (gg.today.count >= gd ? ' done' : '') }, gg.today.count >= gd ? '🎉 今日の目標 ' + gd + '問、達成！' : '今日の目標まで あと ' + (gd - gg.today.count) + '問（' + gg.today.count + ' / ' + gd + '問）'));
+      root.append(sessionGrowth(snap, r)); const rv = reviewList(snap, r); if (rv) root.append(rv); }
 
     if (isMock) {
       // 公式の手順：①総得点の基準と、全11科目群に得点があるか ②届かなければパートごと
@@ -1764,7 +2033,8 @@
     root.append(el('div', { class: 'row', style: 'margin:12px 0;flex-wrap:wrap' },
       wrongIds.length ? el('button', { type: 'button', class: 'btn primary grow lg', onclick: () => startIds(wrongIds, '間違えた・迷った問題（' + wrongIds.length + '問）') }, '間違えた・迷った ' + wrongIds.length + '問をもう一度') : null,
       unIds.length && !isMock ? el('button', { type: 'button', class: 'btn soft grow lg', onclick: () => startIds(unIds, '未回答の問題（' + unIds.length + '問）') }, '未回答の ' + unIds.length + '問を解く') : null,
-      snap.opt ? el('button', { type: 'button', class: 'btn soft grow lg', onclick: () => startPractice(Object.assign({}, snap.opt, { count: '10' }), null) }, '続けて10問') : null,
+      !isMock ? el('button', { type: 'button', class: 'btn primary grow lg', onclick: startFive }, '▶ もう5問') : null,
+      snap.opt && !snap.opt.five ? el('button', { type: 'button', class: 'btn soft grow lg', onclick: () => startPractice(Object.assign({}, snap.opt, { count: '10' }), null) }, '続けて10問') : null,
       el('button', { type: 'button', class: 'btn grow lg', onclick: () => go('home') }, 'ホームへ')));
 
     const list = el('ul', { class: 'qlist' }, r.items.map((it, i) => {
@@ -1803,6 +2073,11 @@
       el('div', { class: 'goal', role: 'progressbar', 'aria-label': '全問題のうち解いた割合', 'aria-valuemin': '0', 'aria-valuemax': String(totalQ), 'aria-valuenow': String(answered) }, el('i', { style: 'width:' + pct(answered, totalQ) + '%' })),
       el('p', { class: 'small muted', style: 'margin:6px 0 0', text: '全' + totalQ + '問のうち ' + pct(answered, totalQ) + '% を解きました｜今日の復習 ' + due + '問｜定着（30日後も正解）' + mastered + '問｜★ ' + stars + '問' + (att ? '｜自信がない ' + pct(unsureN, att) + '%' : '') })));
 
+    root.append(heatmap());
+    root.append(el('section', { class: 'card' }, el('h2', null, ico('📌'), ' 暗記カード', el('span', { class: 'sub', text: cardIds().length + '枚' })),
+      el('p', { class: 'small muted', style: 'margin:0 0 8px', text: '解説の「📌 ポイントをカードに保存」で作ったカードを、表（問題）→裏（覚えるポイント・正解）でめくって復習します。' }),
+      el('button', { type: 'button', class: 'btn primary block', onclick: () => openCards() }, 'カードをめくる')));
+    root.append(partCard());
     // 14日
     const days = [], labels = [];
     let maxN = 1;
@@ -1879,6 +2154,7 @@
       el('div', { class: 'field' }, el('div', { class: 'label', text: 'プレイモード' }), seg('playMode', [['normal', '通常'], ['life', 'ライフ'], ['sudden', 'サドンデス']], 'プレイモード'),
         S.settings.playMode === 'life' ? el('div', { style: 'margin-top:6px' }, seg('lives', Array.from({ length: 10 }, (_, i) => [i + 1, (i + 1) + '個']), 'ライフの個数')) : null),
       el('div', { class: 'field' }, el('div', { class: 'label', text: '文字の大きさ' }), seg('font', [['s', '小'], ['m', '中'], ['l', '大'], ['xl', '特大']], '文字の大きさ')),
+      el('div', { class: 'field' }, el('div', { class: 'label', text: '行間' }), seg('lh', [['n', '標準'], ['w', '広め'], ['ww', 'とても広め']], '行間')),
       el('div', { class: 'field' }, el('div', { class: 'label', text: '画面の色' }), seg('palette', PALETTES, '画面の色')),
       el('div', { class: 'field' }, el('div', { class: 'label', text: '明るさ' }), seg('theme', [['auto', '端末に合わせる'], ['light', 'ライト'], ['dark', 'ダーク']], '明るさ')),
       sw('スマホでは補助機能を折りたたむ', 'foldTools', 'マーク・コピー・音声などを、押したときだけ開くようにして画面をすっきりさせます')));
@@ -1907,7 +2183,11 @@
         el('p', { class: 'small muted', text: '外国籍の受験者や障害のある受験者の、試験時間の延長などに合わせて練習できます。' })),
       sw('模擬試験で、まだ解いていない問題を優先する', 'mockPreferNew', '解いたことのある問題で点数が上がりすぎるのを防ぎます'),
       sw('模擬試験でも選択肢をシャッフルする', 'mockShuffle', 'オフのときは本試験と同じ並びです'),
-      el('p', { class: 'small muted', text: '試験日：' + CFG.examDate + '（残り日数の計算に使います）' })));
+      el('div', { class: 'field' }, el('label', { for: 'exam-date', text: '試験日（残り日数・今日のメニュー・試験前の復習間隔に使います）' }),
+        el('input', { class: 'input', type: 'date', id: 'exam-date', value: examDate(), style: 'max-width:200px', onchange: (e) => { if (/^\d{4}-\d\d-\d\d$/.test(e.target.value)) { S.settings.examDate = e.target.value; srsCache = null; saveNow(); toast('試験日を変えました'); } } })),
+      sw('お休みチケット', 'rest', '1週間に1日だけ、休んでも連続記録が切れません（夜勤・連勤の日のために）'),
+      el('button', { type: 'button', class: 'btn small', style: 'margin-top:8px', onclick: onboarding }, '最初の設定（受けるパート・1日の時間）をやり直す')));
+    root.append(reminderCard());
 
     const idx = DATA.index || {};
     const offline = el('span', { class: 'small muted', text: '確認中…' });
@@ -1995,7 +2275,8 @@
   function applySettings() {
     const r = document.documentElement;
     r.dataset.font = S.settings.font || 'm';
-    r.dataset.palette = S.settings.palette || 'orange';
+    r.dataset.palette = S.settings.palette || 'green';
+    r.dataset.lh = S.settings.lh || 'n';
     if (S.settings.theme === 'auto') delete r.dataset.theme; else r.dataset.theme = S.settings.theme;
   }
   // 誤りの報告：Google フォームを事前入力つきで開く。フォームがまだなければ、内容をコピーできるようにする
@@ -2115,7 +2396,8 @@
     if (startRoute === 'quiz' && S.session && !S.session.done) go('quiz');
     else if (startRoute === 'result' && S.lastResult) go('result', S.lastResult);
     else if (startRoute === 'stats' || startRoute === 'settings') go(startRoute);
-    await handleLinkParams();
+    const linked = await handleLinkParams();
+    if (!linked && route === 'home' && !S.prefs.onboarded && !S.log.length) onboarding();
     window.addEventListener('online', () => refreshData(false));
   }
   boot();

@@ -130,22 +130,32 @@
   }
 
   // ── 間隔反復 ──
-  // log: [時刻, 問題ID, 選んだ番号, 正解(1/0), 秒, 自信がない(1/0), 'p'|'m', 科目番号]
-  // 間違い・自信がない → 翌日。正解すると 3日→7日→14日→30日。30日後にも正解したら「定着」。
+  // log: [時刻, 問題ID, 選んだ番号, 正解(1/0), 秒, 自信(0=自信あり 1=なんとなく 2=わからない), 'p'|'m', 科目番号]
+  // 間違い・わからない → 翌日。自信ありで正解すると 3日→7日→14日→30日。30日後にも正解したら「定着」。
+  // なんとなく正解 → 段階は上げず、今の間隔の半分（最短1日）でもう一度。
   // 同じ日にもう一度正解しても段階は上げない（直後の「もう一度」で外れないように）。
+  // 試験日（opts.examAt）が近いときは、試験までに一巡できるよう間隔を「残り日数の1/3」までに縮める。
   const STEPS = [1, 3, 7, 14, 30];
-  function srsFromLog(log) {
+  function srsFromLog(log, opts) {
+    opts = opts || {};
     const st = Object.create(null);
     const sorted = log.slice().sort((a, b) => a[0] - b[0]);
+    const cap = (t, days) => {
+      if (!opts.examAt) return days;
+      const left = Math.floor((opts.examAt - dayStart(t)) / DAY);
+      return left > 0 ? Math.max(1, Math.min(days, Math.ceil(left / 3))) : days;
+    };
     for (const e of sorted) {
-      const id = e[1], t = e[0], ok = e[3] === 1 && e[5] !== 1;
+      const id = e[1], t = e[0], conf = Number(e[5]) || 0;
       const s = st[id] || (st[id] = { stage: 0, due: 0, last: 0, lastDay: '', mastered: false });
       const dk = dayKey(t);
-      if (!ok) {
+      if (e[3] !== 1 || conf >= 2) {
         s.stage = 0; s.mastered = false; s.due = dayStart(t) + DAY;
+      } else if (conf === 1) {
+        s.mastered = false; s.due = dayStart(t) + cap(t, Math.max(1, Math.floor(STEPS[s.stage] / 2))) * DAY;
       } else if (dk !== s.lastDay) {
         if (s.stage >= STEPS.length - 1 && s.last && t >= s.due) { s.mastered = true; s.due = 0; }
-        else { s.stage = Math.min(s.stage + 1, STEPS.length - 1); s.due = dayStart(t) + STEPS[s.stage] * DAY; }
+        else { s.stage = Math.min(s.stage + 1, STEPS.length - 1); s.due = dayStart(t) + cap(t, STEPS[s.stage]) * DAY; }
       }
       s.last = t; s.lastDay = dk;
     }
@@ -250,7 +260,16 @@
       unique.add(e[1]);
     }
     const range = (a, b) => { const r = empty(); for (const k of Object.keys(days)) { const n = dayNum(k); if (n < a || n > b) continue; r.count += days[k].count; r.correct += days[k].correct; r.seconds += days[k].seconds; } return r; };
-    let streak = 0; for (let n = days[today] ? td : td - 1; days[numKey(n)] && days[numKey(n)].count > 0; n--) streak++;
+    // 連続日数。お休みチケット：1週間（月〜日）に1日だけ、休んだ日があっても途切れない（前後に学習した日があるとき）
+    const has = (n) => !!(days[numKey(n)] && days[numKey(n)].count > 0);
+    const weekOf = (n) => n - (new Date(n * DAY).getUTCDay() + 6) % 7;
+    let streak = 0; const restDays = [], usedWeeks = new Set();
+    for (let n = has(td) ? td : td - 1; ; n--) {
+      if (has(n)) { streak++; continue; }
+      if (opts.rest !== false && n < td && has(n - 1) && !usedWeeks.has(weekOf(n)) && streak > 0) { usedWeeks.add(weekOf(n)); restDays.push(numKey(n)); continue; }
+      break;
+    }
+    const restThisWeek = restDays.some((k) => weekOf(dayNum(k)) === weekOf(td));
     let longest = 0, cur = 0, last = -2;
     for (const k of Object.keys(days).sort()) { const n = dayNum(k); cur = n === last + 1 ? cur + 1 : 1; longest = Math.max(longest, cur); last = n; }
     const achievements = [];
@@ -262,14 +281,38 @@
       week: range(monday, td), lastWeek: range(monday - 7, monday - 1), month: range(monthStart, td), total,
       recent: Array.from({ length: 7 }, (_, i) => Object.assign({ date: numKey(td - 6 + i) }, days[numKey(td - 6 + i)] || empty())),
       best: { day: Math.max(0, ...Object.values(days).map((d) => d.count)), week: Math.max(0, ...Object.values(weeks)), month: Math.max(0, ...Object.values(months)) },
-      streak, longestStreak: longest, uniqueCount: unique.size, totalQuestions: opts.totalQuestions || 0,
+      streak, longestStreak: Math.max(longest, streak), restDays, restThisWeek, days, uniqueCount: unique.size, totalQuestions: opts.totalQuestions || 0,
       subjects: SUBJECTS.map((name, i) => Object.assign({ name }, subj[i])), achievements, learner: careLearner(log),
     };
   }
+  // パート別・11科目群別の進み具合。正答率は「解いた問題の最新の結果」で数える（今の実力に近い）
+  const PASS_RATE = 0.6;
+  function groupProgress(questions, Q, now) {
+    now = now == null ? Date.now() : now;
+    const mk = (name) => ({ name, total: 0, answered: 0, correct: 0, last: 0 });
+    const groups = GROUPS.map((g) => Object.assign(mk(g.join('・')), { subjects: g, part: groupPart(g) }));
+    const parts = {}; for (const k of Object.keys(PARTS)) parts[k] = Object.assign(mk(PARTS[k].label), { part: k });
+    for (const q of questions) {
+      const gi = GROUPS.findIndex((g) => g.includes(q.subject)); if (gi < 0) continue;
+      const r = Q[q.id], g = groups[gi], p = parts[g.part];
+      for (const x of [g, p]) { x.total++; if (r && r.a) { x.answered++; if (r.l === 1) x.correct++; x.last = Math.max(x.last, r.t || 0); } }
+    }
+    const fin = (x) => {
+      x.rate = x.answered ? x.correct / x.answered : null;
+      x.coverage = x.total ? x.answered / x.total : 0;
+      x.gap = x.rate == null ? null : Math.max(0, Math.ceil((PASS_RATE - x.rate) * 100));
+      x.idleDays = x.last ? Math.floor((now - x.last) / DAY) : null;
+      x.warn = !x.answered ? '未学習' : x.answered >= 5 && x.rate < 0.4 ? '正答率が低い' : x.idleDays >= 14 ? x.idleDays + '日解いていない' : '';
+      return x;
+    };
+    groups.forEach(fin); Object.values(parts).forEach(fin);
+    return { groups, parts, line: PASS_RATE };
+  }
+
   // 要復習：最新の回答が不正解・時間切れ／正解でも迷った／コメントあり／未理解の選択肢あり
   function reviewFlags(r) {
     r = r || {};
-    return { wrong: !!(r.a && r.l === 0), uncertain: !!(r.a && r.l === 1 && r.lu === 1), comment: !!(r.n && String(r.n).trim()), understanding: !!(r.nu && r.nu.length) };
+    return { wrong: !!(r.a && r.l === 0), uncertain: !!(r.a && r.l === 1 && r.lu >= 1), comment: !!(r.n && String(r.n).trim()), understanding: !!(r.nu && r.nu.length) };
   }
   const needsReview = (r) => { const f = reviewFlags(r); return f.wrong || f.uncertain || f.comment || f.understanding; };
   // questions: [{id, subject, type}]、Q: 記録（S.q）
@@ -309,17 +352,24 @@
       if (!o.settings.goals) o.settings.goals = { day: d, week: d * 7, month: d * 30, total: 3000 };
       o.v = 3;
     }
+    if (v < 4) {
+      // v3 → v4：標準の色をグリーンに。自信は3段階（0/1/2）
+      o.settings = Object.assign({}, o.settings || {});
+      if (!o.settings.palette || o.settings.palette === 'orange') o.settings.palette = 'green';
+      o.v = 4;
+    }
     return o;
   }
   function sanitizeLogEntry(e) {
     if (!Array.isArray(e) || e.length < 7) return null;
     const t = Number(e[0]), id = String(e[1]).toUpperCase(), c = Number(e[2]);
     if (!isFinite(t) || t < 1.5e12 || t > 4e12 || !ID_RE.test(id) || !(c >= 0 && c <= 5)) return null;
-    return [t, id, c, e[3] ? 1 : 0, Math.max(0, Math.min(86400, Math.round(Number(e[4]) || 0))), e[5] ? 1 : 0, e[6] === 'm' ? 'm' : 'p', Number.isInteger(e[7]) ? e[7] : -1];
+    const conf = Number(e[5]) === 2 ? 2 : e[5] ? 1 : 0;
+    return [t, id, c, e[3] ? 1 : 0, Math.max(0, Math.min(86400, Math.round(Number(e[4]) || 0))), conf, e[6] === 'm' ? 'm' : 'p', Number.isInteger(e[7]) ? e[7] : -1];
   }
   function sanitize(S, blank) {
     const out = Object.assign(blank, {});
-    out.v = 3;
+    out.v = 4;
     out.settings = Object.assign(blank.settings, isObj(S.settings) ? S.settings : {});
     out.prefs = isObj(S.prefs) ? S.prefs : {};
     out.q = {};
@@ -328,7 +378,7 @@
       const r = S.q[id];
       const nu = Array.isArray(r.nu) ? [...new Set(r.nu.filter((n) => Number.isInteger(n) && n >= 1 && n <= 5))].sort() : [];
       out.q[id] = { a: 0, c: 0, n: typeof r.n === 'string' ? r.n.slice(0, 5000) : undefined, nt: Number(r.nt) || undefined, st: r.st ? 1 : undefined, s: Number.isInteger(r.s) ? r.s : undefined,
-        nu: nu.length ? nu : undefined, nut: Number(r.nut) || undefined, xi: r.xi ? 1 : undefined, xit: Number(r.xit) || undefined };
+        nu: nu.length ? nu : undefined, nut: Number(r.nut) || undefined, xi: r.xi ? 1 : undefined, xit: Number(r.xit) || undefined, cd: r.cd ? 1 : undefined };
     }
     const p = isObj(S.profile) ? S.profile : {};
     out.profile = { name: typeof p.name === 'string' && p.name.trim() ? p.name.trim().slice(0, 40) : '学習者', age: Number.isInteger(p.age) && p.age >= 0 && p.age <= 120 ? p.age : '', pref: typeof p.pref === 'string' ? p.pref.slice(0, 10) : '', avatar: typeof p.avatar === 'string' && p.avatar.length <= 8 ? p.avatar : '📚', at: Number(p.at) || 0 };
@@ -372,6 +422,7 @@
       const a = o.q[id], b = S.q[id] || (S.q[id] = { a: 0, c: 0 });
       if (a.n != null && (b.n == null || (a.nt || 0) > (b.nt || 0))) { b.n = a.n; b.nt = a.nt; notes++; }
       if (a.st) b.st = 1;
+      if (a.cd) b.cd = 1;
       if (a.s != null) b.s = a.s;
       if (a.nut && (a.nut || 0) > (b.nut || 0)) { b.nu = a.nu; b.nut = a.nut; }
       if (a.xit && (a.xit || 0) > (b.xit || 0)) { b.xi = a.xi; b.xit = a.xit; }
@@ -403,6 +454,6 @@
     dayKey, dayStart, caseKey, groupCases, pickWithCases, sortExam, byExamOrder, scaleDist, shuffle, judge,
     srsFromLog, isDue, STEPS, parseExplanation, remapNumbers, NEG_RE, questionPart, splitCase,
     migrate, sanitize, rebuild, merge, applyIdMap, ID_RE,
-    careLevelAt, careLearner, careSnapshotAt, growthSummary, reviewFlags, needsReview, reviewSummary,
+    groupProgress, PASS_RATE, careLevelAt, careLearner, careSnapshotAt, growthSummary, reviewFlags, needsReview, reviewSummary,
   };
 });

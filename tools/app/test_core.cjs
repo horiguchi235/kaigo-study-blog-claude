@@ -170,4 +170,36 @@ t('未理解・解説がおかしい・プロフィールを保存して合わ�
   C.merge(S, { v: 3, q: { K0001: { nu: [2], nut: 9 }, K0002: { xi: 1, xit: 3 } }, log: [], profile: { name: 'たろう', avatar: '🐶', at: 10 } }, blank());
   assert.deepStrictEqual(S.q.K0001.nu, [2]); assert.strictEqual(S.q.K0002.xi, 1); assert.strictEqual(S.profile.name, 'たろう');
 });
+t('自信の3段階と試験前の間隔', () => {
+  const t0 = Date.parse('2026-10-01T10:00:00+09:00'), D = 86400000;
+  let st = C.srsFromLog([[t0, 'K1', 1, 1, 5, 0, 'p', 0]]);
+  assert.strictEqual(Math.round((st.K1.due - C.dayStart(t0)) / D), 3);
+  st = C.srsFromLog([[t0, 'K1', 1, 1, 5, 0, 'p', 0], [t0 + 3 * D, 'K1', 1, 1, 5, 0, 'p', 0]]);
+  assert.strictEqual(Math.round((st.K1.due - C.dayStart(t0 + 3 * D)) / D), 7);
+  st = C.srsFromLog([[t0, 'K1', 1, 1, 5, 0, 'p', 0], [t0 + 2 * D, 'K1', 1, 1, 5, 1, 'p', 0]]); // なんとなく
+  assert.strictEqual(st.K1.stage, 1); assert.strictEqual(Math.round((st.K1.due - C.dayStart(t0 + 2 * D)) / D), 1);
+  st = C.srsFromLog([[t0, 'K1', 1, 1, 5, 2, 'p', 0]]); // わからない
+  assert.strictEqual(st.K1.stage, 0);
+  // 試験まで6日 → 間隔は最大2日
+  const log = [0, 3, 10, 20].map((d) => [t0 + d * D, 'K2', 1, 1, 5, 0, 'p', 0]);
+  st = C.srsFromLog(log, { examAt: C.dayStart(t0 + 26 * D) });
+  assert.ok((st.K2.due - C.dayStart(t0 + 20 * D)) / D <= 2);
+});
+t('お休みチケット（週に1日）', () => {
+  const at = (d) => Date.parse('2026-10-' + d + 'T12:00:00+09:00');
+  const e = (d) => [at(d), 'K' + d, 1, 1, 10, 0, 'p', 0];
+  let g = C.growthSummary([e(13), e(14), e(16), e(17)], { now: at(17) }); // 15日（木）休み
+  assert.strictEqual(g.streak, 4); assert.deepStrictEqual(g.restDays, ['2026-10-15']);
+  g = C.growthSummary([e(13), e(15), e(17)], { now: at(17) }); // 同じ週に2日休み → 途切れる
+  assert.strictEqual(g.streak, 2);
+  g = C.growthSummary([e(13), e(14), e(16), e(17)], { now: at(17), rest: false });
+  assert.strictEqual(g.streak, 2);
+});
+t('パート別・科目群別の進み具合', () => {
+  const qs = [{ id: 'A', subject: '社会の理解' }, { id: 'B', subject: '社会の理解' }, { id: 'C', subject: '医療的ケア' }];
+  const g = C.groupProgress(qs, { A: { a: 2, l: 1, t: Date.now() }, B: { a: 1, l: 0, t: Date.now() } });
+  const s = g.groups.find((x) => x.name === '社会の理解');
+  assert.strictEqual(s.rate, 0.5); assert.strictEqual(s.gap, 10);
+  assert.strictEqual(g.parts.A.answered, 2); assert.strictEqual(g.groups.find((x) => x.name === '医療的ケア').warn, '未学習');
+});
 console.log('\nすべて合格：' + ok + '件');
