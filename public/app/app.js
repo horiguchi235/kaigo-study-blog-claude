@@ -5,7 +5,7 @@
 (function () {
   'use strict';
   const K = window.KaigoCore;
-  const APP_VERSION = '3.4.2';
+  const APP_VERSION = '3.4.3';
   const CFG = Object.assign({
     dataUrl: '', staticBase: 'data/', blogUrl: '../', linksUrl: 'links.json',
     examDate: '2027-01-31',      // 次の試験日（残り日数と今日のメニューに使う）
@@ -1848,7 +1848,7 @@
       el('div', { class: 'field', style: 'margin-top:8px' }, el('label', { for: 'memo', class: 'sr-only', text: 'この問題のコメント' }), memo,
         el('p', { class: 'small muted', style: 'margin:4px 0 0', text: 'コメントがある問題は「要復習」に入ります。消すと外れます。' })));
 
-    metaTags.append(markTools);
+    metaTags.append(el('button', { type: 'button', class: 'tag-btn', 'aria-label': '問題文と選択肢をコピー', onclick: () => copyBtn.click() }, '📋 問題をコピー'), markTools);
     const body = el('main', { class: 'shell quiz' }, top, metaTags, fig, figText, stemBox);
 
     let simBtn = null;
