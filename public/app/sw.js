@@ -3,7 +3,7 @@
  * 問題データ（data/*.json）は app.js が Cache Storage（kaigo-data-v1）に保存するので、ここでは扱わない。
  * ★アプリのファイルを直したら、下の VERSION を上げてください（利用者に「新しいバージョンがあります」が出ます）。
  */
-const VERSION = '3.3.0';
+const VERSION = '3.4.0';
 const FIG_CACHE = 'kaigo-fig-v1';
 const SHELL_CACHE = 'kaigo-shell-' + VERSION;
 const SHELL = ['./', 'index.html', 'app.css', 'core.js', 'app.js', 'config.js', 'manifest.webmanifest',

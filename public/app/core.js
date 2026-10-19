@@ -178,6 +178,23 @@
     head = head.replace(/【知識のまとめ】\n((?:・(?:基本|補足|混同注意)＝[^\n]*\n?)+)/g, '').trim();
     return { head, opts };
   }
+  // スプレッドシート版と同じ並びで出すための分解：学習ポイント・知識のまとめ・（その他）・選択肢解説
+  function explainSections(text) {
+    const s = String(text || '');
+    const first = s.search(/【選択肢[1-5]｜/);
+    let head = first >= 0 ? s.slice(0, first) : s;
+    const opts = {};
+    if (first >= 0) {
+      const re = /【選択肢([1-5])｜[^】]*?｜(正解|不正解)[^】]*】\n?([\s\S]*?)(?=【選択肢[1-5]｜|$)/g; let m;
+      while ((m = re.exec(s.slice(first)))) opts[Number(m[1])] = { ok: m[2] === '正解', body: m[3].trim() };
+    }
+    head = head.replace(/^正解[：:][^\n]*\n*/, '').replace(/【選択肢解説】\s*$/, '').trim();
+    const sections = [];
+    const parts = head.split(/^【(学習ポイント|知識のまとめ|覚えるポイント|ポイント|補足|注意)】[ \t]*$/m);
+    if (parts[0].trim()) sections.push({ title: '', body: parts[0].trim() });
+    for (let i = 1; i < parts.length; i += 2) sections.push({ title: parts[i], body: (parts[i + 1] || '').trim() });
+    return { sections: sections.filter((x) => x.body), opts };
+  }
   // 解説の中の選択肢番号（元の番号）を、画面に出している番号に置き換える
   const toHalf = (d) => String(d).replace(/[１-５]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0xFEE0));
   function remapNumbers(text, order) {
@@ -459,7 +476,7 @@
   return {
     SUBJECTS, PARTS, EXAM_DIST, EXAM_MINUTES, GROUPS, PASS_LINE, PART_Q, partOf, DAY, DAY_START_HOUR,
     dayKey, dayStart, caseKey, groupCases, pickWithCases, sortExam, byExamOrder, scaleDist, shuffle, judge,
-    srsFromLog, isDue, STEPS, parseExplanation, remapNumbers, NEG_RE, questionPart, splitCase,
+    srsFromLog, isDue, STEPS, parseExplanation, explainSections, remapNumbers, NEG_RE, questionPart, splitCase,
     migrate, sanitize, rebuild, merge, applyIdMap, ID_RE,
     groupProgress, PASS_RATE, careLevelAt, careLearner, careSnapshotAt, growthSummary, reviewFlags, needsReview, reviewSummary,
   };

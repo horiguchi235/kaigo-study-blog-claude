@@ -5,7 +5,7 @@
 (function () {
   'use strict';
   const K = window.KaigoCore;
-  const APP_VERSION = '3.3.0';
+  const APP_VERSION = '3.4.0';
   const CFG = Object.assign({
     dataUrl: '', staticBase: 'data/', blogUrl: '../', linksUrl: 'links.json',
     examDate: '2027-01-31',      // 次の試験日（残り日数と今日のメニューに使う）
@@ -1813,7 +1813,7 @@
             showAnswer ? null : el('button', { type: 'button', class: 'elim', 'aria-label': d + '番を' + (isElim ? '不正解の印から戻す' : '不正解として消す（選べなくなります）'), 'aria-pressed': String(isElim), onclick: () => toggleElim(orig) }, isElim ? ['↩', el('small', { text: '解除' })] : ['✕', el('small', { text: '不正解' })]),
             el('button', { type: 'button', class: 'nu-btn', 'aria-pressed': String(isNu), 'aria-label': d + '番を' + (isNu ? '理解済みに戻す' : '理由を説明できない（未理解）として記録する'), title: '理由を説明できない選択肢を記録します（「未理解の選択肢あり」で出題できます）', onclick: () => toggleNu(orig) }, isNu ? '理解に戻す' : '未理解'))),
         optFig ? figBox(optFig, '選択肢' + d + 'の図') : null,
-        showAnswer && !hideExplain && ex.opts[orig] ? el('div', { class: 'why' }, el('b', { text: label }), el('span', { text: K.remapNumbers(ex.opts[orig], order) })) : null);
+        null);
       list.append(li);
     });
 
@@ -1838,6 +1838,7 @@
     metaTags.append(markTools);
     const body = el('main', { class: 'shell quiz' }, top, metaTags, fig, figText, stemBox);
 
+    let simBtn = null;
     if (showAnswer) {
       const keyDisp = q.keys.map(disp).sort((a, b) => a - b);
       const ok = ans ? q.keys.includes(ans.c) && !(ans.timeout && !ans.c) && ans.ok !== false : null;
@@ -1847,25 +1848,22 @@
         el('span', { class: 'mark', 'aria-hidden': 'true', text: ok ? '○' : '×' }),
         el('div', { class: 'grow' }, el('div', { class: 'vt', text: msg }),
           el('small', { text: '正解は ' + keyDisp.join('・') + '番' + (keyDisp.length > 1 ? '（どれを選んでも正解）' : '') + (shuffled ? '（本試験では' + q.keys.join('・') + '番）' : '') + (ans && ans.c ? '｜あなたの答え ' + disp(ans.c) + '番' : '') + '｜所要時間 ' + fmtTime(ses.qElapsed[q.id] || 0) }),
-          mineWhy ? el('p', { class: 'mine-why' }, el('b', { text: 'あなたが選んだ「' + q.options[ans.c - 1].slice(0, 30) + (q.options[ans.c - 1].length > 30 ? '…' : '') + '」が違う理由：' }), mineWhy) : null)));
-      // いちばん大事な「覚えるポイント」を判定のすぐ下に
-      const pt = pointOf(q).point;
-      if (pt) body.append(el('div', { class: 'point-box' }, el('b', null, '💡 覚えるポイント'), el('p', { text: K.remapNumbers(pt, order) })));
+          el('small', { class: 'see-below', text: '↓ 解説は選択肢の下にまとめています' }))));
       // まちがえたら、同じ論点の類題をこの回の次に足せる
       const sim = ans && !ok && !reviewMode && !isMock ? similarOf(q, ses) : null;
-      if (sim) body.append(el('button', { type: 'button', class: 'btn soft block similar', onclick: (e) => {
+      if (sim) simBtn = (el('button', { type: 'button', class: 'btn soft block similar', onclick: (e) => {
         ses.ids.splice(ses.i + 1, 0, sim.id); save(); e.currentTarget.disabled = true; e.currentTarget.textContent = '✓ 次の問題に類題を入れました'; toast('同じ論点の問題を次に出します');
       } }, '＋ 同じ論点の類題を次に解く'));
     }
-    body.append(list, tools, notes);
+    body.append(list);
+    if (showAnswer && !hideExplain) body.append(explainBlock(q, order, ans));
+    if (simBtn) body.append(simBtn);
+    body.append(tools, notes);
 
     if (showAnswer) {
       if (q.lawNote) body.append(el('div', { class: 'lawnote' }, el('b', { text: '⚠ 法改正の注記' }), el('p', { text: q.lawNote })));
       if (hideExplain) body.append(el('p', { class: 'small muted', text: '解説は表示しない設定です（ホームの「答え合わせ後に解説を表示する」）。結果の画面から、あとで解説を見られます。' }));
-      else {
-        const rest = ex.head.replace(/【(?:学習ポイント|覚えるポイント|ポイント)】\n?[\s\S]*?(?=\n【|$)/, '').trim();
-        if (rest) body.append(el('section', { class: 'explain', 'aria-label': '解説' }, renderRich(K.remapNumbers(rest, order))));
-      }
+
       const links = rontenLinks(q);
       const wrong = ans && !q.keys.includes(ans.c);
       if (links.length && !hideExplain) body.append(el('div', { class: 'artlinks' + (wrong || unsure ? ' strong' : '') },
@@ -1940,6 +1938,35 @@
       else ses.pausedAt = Date.now();
       saveNow(); rerender();
     }
+  }
+  // 解説：スプレッドシート版と同じ順（正解 → 学習ポイント → 知識のまとめ → 選択肢解説）で、選択肢の下にまとめて出す
+  function explainBlock(q, order, ans) {
+    const E = K.explainSections(q.explanation);
+    const disp = (o) => order.indexOf(o) + 1;
+    const shuffled = order.join('') !== '12345';
+    const keys = q.keys.slice().sort((a, b) => disp(a) - disp(b));
+    const box = el('section', { class: 'explain-full', 'aria-label': '解説' },
+      el('p', { class: 'ex-answer' }, '正解：', keys.map((k, i) => [i ? '／' : '', disp(k) + '．' + q.options[k - 1]])));
+    for (const s of E.sections) {
+      const sec = el('div', { class: 'ex-sec' + (s.title === '学習ポイント' ? ' learn' : '') }, s.title ? el('h4', { text: '【' + s.title + '】' }) : null);
+      const lines = K.remapNumbers(s.body, order).split('\n').map((x) => x.trim()).filter(Boolean);
+      if (lines.every((x) => /^[・●○]/.test(x))) sec.append(el('ul', null, lines.map((x) => el('li', { text: x.replace(/^[・●○]\s*/, '') }))));
+      else sec.append(lines.map((x) => el('p', { text: x })));
+      box.append(sec);
+    }
+    if (Object.keys(E.opts).length) {
+      box.append(el('h4', { text: '【選択肢解説】' }));
+      for (const o of order) {
+        const x = E.opts[o]; if (!x) continue;
+        const ok = q.keys.includes(o), mine = ans && ans.c === o;
+        box.append(el('div', { class: 'ex-opt ' + (ok ? 'ok' : 'ng') + (mine ? ' mine' : '') },
+          el('div', { class: 'ex-opt-h' }, '【選択肢' + disp(o) + '｜' + q.options[o - 1] + '｜', el('b', { text: ok ? '正解' : '不正解' }), '】',
+            mine ? el('span', { class: 'mine-badge', text: '✓ あなたの答え' }) : null,
+            shuffled ? el('span', { class: 'small muted', text: '（本試験では' + o + '番）' }) : null),
+          el('p', { text: K.remapNumbers(x.body, order) })));
+      }
+    }
+    return box;
   }
   function figBox(src, alt) {
     const img = el('img', { src, alt, loading: 'lazy' });

@@ -750,3 +750,20 @@ main.quiz.enter .opts { animation-delay: .06s; }
 .result-btns .btn { min-height: 52px; }
 details.more-result > summary { cursor: pointer; font-weight: 700; color: var(--accent); min-height: 44px; display: flex; align-items: center; }
 .gwarn { white-space: nowrap; }
+
+/* v3.4：解説をスプレッドシート版と同じ順でまとめて */
+.explain-full { background: var(--surface); border: 2px solid var(--line); border-radius: 16px; padding: 14px 16px 6px; margin: 14px 0; }
+.explain-full .ex-answer { margin: 0 0 10px; padding: 8px 12px; border-radius: 10px; background: var(--ok-soft); color: var(--ok); font-weight: 800; font-family: var(--round); }
+.explain-full h4 { margin: 12px 0 4px; font-size: .92em; color: var(--accent); font-family: var(--round); }
+.explain-full p { margin: 4px 0; line-height: 1.75; white-space: pre-wrap; word-break: break-word; }
+.explain-full ul { margin: 4px 0; padding-left: 1.2em; }
+.explain-full li { margin: 3px 0; }
+.ex-sec.learn p { font-weight: 700; }
+.ex-opt { border-left: 4px solid var(--line); padding: 6px 0 6px 12px; margin: 8px 0 12px; }
+.ex-opt.ok { border-left-color: var(--ok); }
+.ex-opt.mine:not(.ok) { border-left-color: var(--ng); background: var(--ng-soft); border-radius: 0 10px 10px 0; padding-right: 8px; }
+.ex-opt-h { font-weight: 700; font-size: .92em; line-height: 1.6; }
+.ex-opt.ok .ex-opt-h b { color: var(--ok); }
+.ex-opt.ng .ex-opt-h b { color: var(--ng); }
+.ex-opt .mine-badge { margin-left: 6px; }
+.verdict .see-below { display: block; margin-top: 4px; color: var(--muted); font-weight: 600; }
