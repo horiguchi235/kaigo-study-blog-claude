@@ -5,7 +5,7 @@
 (function () {
   'use strict';
   const K = window.KaigoCore;
-  const APP_VERSION = '3.4.0';
+  const APP_VERSION = '3.4.1';
   const CFG = Object.assign({
     dataUrl: '', staticBase: 'data/', blogUrl: '../', linksUrl: 'links.json',
     examDate: '2027-01-31',      // 次の試験日（残り日数と今日のメニューに使う）
@@ -1723,6 +1723,9 @@
         stemBox.replaceChildren(det, el('div', { class: 'stem' }, markedText(q.stem, cut, q.stem.length, mEntry.r, q.negative)));
       } else stemBox.replaceChildren(el('div', { class: 'stem' }, markedText(q.stem, 0, q.stem.length, mEntry.r, q.negative)));
       undoBtn.disabled = !(markUndo[q.id] || []).length; clearBtn.disabled = !mEntry.r.length;
+      if (mEntry.r.length) stemBox.append(el('p', { class: 'mark-hint small muted' }, 'マークを押すと、種類を変えたり消したりできます。',
+        el('button', { type: 'button', class: 'linklike', onclick: () => commit([], 'この問題のマークを全部消しました（「戻す」で戻せます）。') }, 'マークを全部消す'),
+        (markUndo[q.id] || []).length ? [' ', el('button', { type: 'button', class: 'linklike', onclick: () => undoBtn.click() }, '↶ 戻す')] : null));
     };
     const markStatus = el('p', { class: 'small muted mark-status', role: 'status', 'aria-live': 'polite' });
     const markType = el('select', { class: 'input', 'aria-label': 'マークの種類', style: 'max-width:220px' },
@@ -1752,15 +1755,23 @@
       const moved = down && Math.hypot(e.clientX - down.x, e.clientY - down.y) > 3; down = null;
       if (moved) setTimeout(() => applyMark(), 0);
     });
+    // マークを押すと、小さなメニュー（種類を変える・消す）を出す
+    const closeMenu = () => { const m = stemBox.querySelector('.mark-menu'); if (m) m.remove(); };
     stemBox.addEventListener('click', (e) => {
-      const m = e.target.closest && e.target.closest('.rmark'); if (!m) return;
-      const sel2 = window.getSelection && window.getSelection(); if (sel2 && !sel2.isCollapsed) return;
+      if (e.target.closest && e.target.closest('.mark-menu')) return;
+      const m = e.target.closest && e.target.closest('.rmark');
+      closeMenu(); if (!m) return;
+      const sel2 = window.getSelection && window.getSelection();
+      if (sel2 && !sel2.isCollapsed && sel2.toString().length > 1) return; // なぞって選んでいるときは、選択を優先
+      if (sel2) sel2.removeAllRanges();
       const a = Number(m.dataset.a), b = Number(m.dataset.b), i = mEntry.r.findIndex((r) => r[0] === a && r[1] === b); if (i < 0) return;
-      const now = Date.now(), twice = lastTap && lastTap.a === a && lastTap.b === b && now - lastTap.t < 350;
-      if (twice) { lastTap = null; const st = markUndo[q.id]; if (st && st.length) mEntry.r = st.pop(); commit(mEntry.r.filter((_, k) => k !== i), 'マークを消しました。'); return; }
-      const next = mEntry.r.map((r) => r.slice()); next[i][2] = (next[i][2] + 1) % MARK_TYPES.length;
-      lastTap = { a, b, t: now };
-      commit(next, MARK_TYPES[next[i][2]].sym + ' ' + MARK_TYPES[next[i][2]].label + ' に切り替えました。');
+      const rect = m.getBoundingClientRect(), base = stemBox.getBoundingClientRect();
+      const menu = el('div', { class: 'mark-menu', role: 'menu', 'aria-label': 'マークの変更', style: 'top:' + (rect.bottom - base.top + 6) + 'px;left:' + Math.max(0, Math.min(rect.left - base.left, base.width - 300)) + 'px' },
+        MARK_TYPES.map((t, k) => el('button', { type: 'button', role: 'menuitem', class: 'mm rm-' + k + (k === mEntry.r[i][2] ? ' cur' : ''), title: t.label, 'aria-label': t.sym + ' ' + t.label + 'にする', onclick: () => { const next = mEntry.r.map((r) => r.slice()); next[i][2] = k; closeMenu(); commit(next, t.sym + ' ' + t.label + ' にしました。'); } }, t.sym)),
+        el('button', { type: 'button', role: 'menuitem', class: 'mm del', 'aria-label': 'このマークを消す', onclick: () => { closeMenu(); commit(mEntry.r.filter((_, k) => k !== i), 'マークを消しました（「戻す」で戻せます）。'); } }, '🗑 消す'),
+        el('button', { type: 'button', class: 'mm', 'aria-label': '閉じる', onclick: closeMenu }, '✕'));
+      stemBox.append(menu);
+      const first = menu.querySelector('.del'); first && first.focus({ preventScroll: true });
     });
     const copyBtn = el('button', { type: 'button', class: 'btn small', onclick: async () => {
       const text = '【問題】\n' + q.stem + '\n\n【選択肢】\n' + order.map((o, i) => (i + 1) + '. ' + q.options[o - 1]).join('\n\n');

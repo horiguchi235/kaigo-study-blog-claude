@@ -767,3 +767,12 @@ details.more-result > summary { cursor: pointer; font-weight: 700; color: var(--
 .ex-opt.ng .ex-opt-h b { color: var(--ng); }
 .ex-opt .mine-badge { margin-left: 6px; }
 .verdict .see-below { display: block; margin-top: 4px; color: var(--muted); font-weight: 600; }
+
+/* マークのメニュー（押すと出る） */
+.stem-wrap { position: relative; }
+.mark-menu { position: absolute; z-index: 8; display: flex; gap: 4px; flex-wrap: wrap; max-width: 300px; padding: 6px; border-radius: 14px; background: var(--surface); border: 2px solid var(--line); box-shadow: 0 6px 20px rgba(58,31,15,.18); animation: pop .18s ease-out; }
+.mark-menu .mm { min-width: 40px; min-height: 40px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--surface-2); font-weight: 800; font-size: 1em; }
+.mark-menu .mm.cur { outline: 2px solid var(--accent-strong); }
+.mark-menu .mm.del { background: var(--ng-soft); color: var(--ng); border-color: var(--ng); padding: 0 10px; font-size: .88em; }
+.mark-hint { margin: -6px 0 10px; }
+.mark-hint .linklike { margin-left: 8px; }
