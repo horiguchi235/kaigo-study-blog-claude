@@ -1,1 +1,34 @@
-{}
+{
+ "idou-02__sliding-board": {
+  "n": 1,
+  "date": "2026-10-19"
+ },
+ "idou-02__tsue": {
+  "n": 1,
+  "date": "2026-10-19"
+ },
+ "idou-03__eki-home": {
+  "n": 1,
+  "date": "2026-10-19"
+ },
+ "idou-03__hakujo-tenji": {
+  "n": 1,
+  "date": "2026-10-19"
+ },
+ "idou-03__kurumaisu": {
+  "n": 1,
+  "date": "2026-10-19"
+ },
+ "nyuyoku-02__bathboard": {
+  "n": 1,
+  "date": "2026-10-19"
+ },
+ "nyuyoku-02__kelly-pad": {
+  "n": 1,
+  "date": "2026-10-19"
+ },
+ "nyuyoku-02__lift": {
+  "n": 1,
+  "date": "2026-10-19"
+ }
+}
