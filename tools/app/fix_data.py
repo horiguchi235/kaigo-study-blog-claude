@@ -9,6 +9,9 @@
      tests.json にあってアプリにない問題（K1839 など）は追加する。
   2. 図がないと答えられない問題（FIG_REQUIRED）は出題データから外し、index.excluded に記録する。
   3. tools/app/law_notes.tsv の法改正の注記を lawStatus・lawNote として入れる。
+  0. 図の画像（public/app/figures/<ID>_stem.jpg・<ID>_o1.jpg…）がある問題は figure を付ける。
+     図がなくて外していた問題は restored_questions.json から戻す。
+  3c. tools/app/difficulty.tsv の難易度（初級・中級・上級。学習用の目安）を diff・diffWhy として入れる。
   4. index.json の問題数・回・テーマ別の数・hash を作り直し、rev を上げて changelog に記録する。
 """
 import json, os, re, sys, hashlib, datetime
@@ -43,6 +46,32 @@ for art, arr in load(TESTS).items():
 
 report = []
 excluded = {e['id']: e for e in index.get('excluded', [])}
+
+# 0. 図の画像
+FIG_DIR = os.path.join(ROOT, 'public', 'app', 'figures')
+figs = {}
+for name in sorted(os.listdir(FIG_DIR)) if os.path.isdir(FIG_DIR) else []:
+    m = re.match(r'^([A-Z]\d{4})_(stem|o([1-5]))\.(jpg|jpeg|png|webp)$', name)
+    if not m: continue
+    f = figs.setdefault(m.group(1), {'stem': '', 'options': [''] * 5})
+    if m.group(2) == 'stem': f['stem'] = 'figures/' + name
+    else: f['options'][int(m.group(3)) - 1] = 'figures/' + name
+restored = load(os.path.join(HERE, 'restored_questions.json')) if os.path.exists(os.path.join(HERE, 'restored_questions.json')) else {}
+for qid, fig in figs.items():
+    if qid not in by_id and qid in restored:
+        q = dict(restored[qid]); sub = q.pop('subject')
+        f = {m['name']: m['file'] for m in index['subjects']}[sub]
+        files[f]['questions'].append(q); by_id[qid] = (f, q)
+        excluded.pop(qid, None)
+        report.append('%s 図を用意したので出題に戻した（%s）' % (qid, sub))
+    if qid in by_id:
+        q = by_id[qid][1]
+        fig = {'stem': fig['stem'], 'options': fig['options'] if any(fig['options']) else []}
+        if not fig['options']: del fig['options']
+        if q.get('figure') != fig:
+            q['figure'] = fig
+            report.append('%s 図の画像を付けた' % qid)
+    excluded.pop(qid, None)
 
 # 1. 第34〜38回の照合
 SUBJ_FILE = {m['name']: m['file'] for m in index['subjects']}
@@ -104,12 +133,12 @@ for f, d in files.items():
 for qid, why in FIG_REQUIRED.items():
     if qid in by_id:
         f, q = by_id[qid]
-        if q.get('figure'): continue
+        if q.get('figure') or qid in figs: continue
         files[f]['questions'] = [x for x in files[f]['questions'] if x['id'] != qid]
         excluded[qid] = {'id': qid, 'round': q.get('round'), 'subject': files[f]['subject'], 'reason': '図が必要（準備中）：' + why}
         del by_id[qid]
         report.append('%s 図が必要なので出題から外した' % qid)
-    elif qid not in excluded:
+    elif qid not in excluded and qid not in figs:
         excluded[qid] = {'id': qid, 'reason': '図が必要（準備中）：' + why}
 
 # 3. 法改正の注記
@@ -121,6 +150,17 @@ for line in open(os.path.join(HERE, 'law_notes.tsv'), encoding='utf-8'):
         if q.get('lawStatus') != status or q.get('lawNote') != note:
             q['lawStatus'] = status; q['lawNote'] = note
             report.append('%s 法改正の注記を付けた（%s）' % (qid, status))
+
+# 3c. 難易度（学習用の目安。公式の区分ではない）
+for line in open(os.path.join(HERE, 'difficulty.tsv'), encoding='utf-8'):
+    if not line.strip() or line.startswith('問題ID'): continue
+    qid, diff, why = (line.rstrip('\n').split('\t') + ['', ''])[:3]
+    if qid in by_id and diff in ('初級', '中級', '上級'):
+        q = by_id[qid][1]
+        if q.get('diff') != diff or q.get('diffWhy', '') != why:
+            q['diff'] = diff
+            if why: q['diffWhy'] = why
+            report.append('%s 難易度：%s' % (qid, diff))
 
 # 3b. 解説の手直し（選択肢ごとの解説を置き換える）
 for line in open(os.path.join(HERE, 'expl_patches.tsv'), encoding='utf-8'):

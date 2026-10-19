@@ -128,4 +128,46 @@ t('記録の点検：壊れた値・__proto__ を捨てる', () => {
   const r = C.merge(S, other, blank());
   assert.strictEqual(r.added, 1); assert.strictEqual(S.q.K0002.st, 1); assert.strictEqual(S.q.K0002.a, 1);
 });
+t('介護福祉士レベル（GAS版と同じ式）', () => {
+  assert.strictEqual(C.careLevelAt(0).level, 1); assert.strictEqual(C.careLevelAt(9).level, 1);
+  assert.strictEqual(C.careLevelAt(10).level, 2); assert.strictEqual(C.careLevelAt(29).level, 2); assert.strictEqual(C.careLevelAt(30).level, 3);
+  assert.strictEqual(C.careLevelAt(49500).level, 100); assert.strictEqual(C.careLevelAt(49499).level, 99);
+  // 10問で Lv2。社会の理解を10問 → 能力値 +1
+  const log = Array.from({ length: 10 }, (_, i) => [1760000000000 + i * 1000, 'K' + String(i).padStart(4, '0'), 1, 1, 5, 0, 'p', 2]);
+  const L = C.careLearner(log);
+  assert.strictEqual(L.level, 2); assert.strictEqual(L.statuses[2].value, 1);
+  assert.strictEqual(C.careSnapshotAt(L, 5).statuses[2].value, 0);
+});
+t('積み重ね：今日・今週・連続日数・実績（1日の区切りは午前4時）', () => {
+  const at = (s) => Date.parse(s);
+  const log = [
+    [at('2026-10-17T10:00:00+09:00'), 'K0001', 1, 1, 30, 0, 'p', 0],
+    [at('2026-10-18T03:30:00+09:00'), 'K0002', 1, 0, 40, 0, 'p', 0], // 午前4時前 → 17日
+    [at('2026-10-18T09:00:00+09:00'), 'K0003', 1, 1, 50, 0, 'p', 0],
+    [at('2026-10-19T08:00:00+09:00'), 'K0004', 1, 1, 60, 0, 'p', 0],
+  ];
+  const g = C.growthSummary(log, { now: at('2026-10-19T12:00:00+09:00') });
+  assert.strictEqual(g.today.count, 1); assert.strictEqual(g.yesterday.count, 1);
+  assert.strictEqual(g.streak, 3); assert.strictEqual(g.best.day, 2);
+  assert.strictEqual(g.week.count, 1); // 10/19 は月曜
+  assert.strictEqual(g.lastWeek.count, 3);
+  assert.strictEqual(g.total.seconds, 180);
+  assert.strictEqual(g.recent.length, 7); assert.strictEqual(g.recent[6].date, '2026-10-19');
+});
+t('要復習の判定', () => {
+  assert.ok(C.needsReview({ a: 1, l: 0 }));
+  assert.ok(C.needsReview({ a: 1, l: 1, lu: 1 }));
+  assert.ok(!C.needsReview({ a: 1, l: 1, lu: 0 }));
+  assert.ok(C.needsReview({ n: 'メモ' })); assert.ok(C.needsReview({ nu: [2] }));
+  const r = C.reviewSummary([{ id: 'A', subject: 'x', type: '過去問' }, { id: 'B', subject: 'x', type: '過去問' }], { A: { a: 1, l: 0, n: 'm' } }, ['subject']);
+  assert.strictEqual(r.total.needed, 1); assert.strictEqual(r.total.wrong, 1); assert.strictEqual(r.total.comment, 1); assert.strictEqual(r.groups['subject:x'].ratio, 0.5);
+});
+t('未理解・解説がおかしい・プロフィールを保存して合わせる', () => {
+  const blank = () => ({ v: 3, q: {}, log: [], days: {}, mocks: [], settings: {}, prefs: {}, session: null });
+  const S = C.rebuild(C.sanitize(C.migrate({ v: 2, q: { K0001: { nu: [3, 9, 1], nut: 5 } }, log: [], settings: { qLimit: 0, goal: 30 } }), blank()));
+  assert.deepStrictEqual(S.q.K0001.nu, [1, 3]);
+  assert.strictEqual(S.settings.qLimit, 60); assert.strictEqual(S.settings.goals.day, 30);
+  C.merge(S, { v: 3, q: { K0001: { nu: [2], nut: 9 }, K0002: { xi: 1, xit: 3 } }, log: [], profile: { name: 'たろう', avatar: '🐶', at: 10 } }, blank());
+  assert.deepStrictEqual(S.q.K0001.nu, [2]); assert.strictEqual(S.q.K0002.xi, 1); assert.strictEqual(S.profile.name, 'たろう');
+});
 console.log('\nすべて合格：' + ok + '件');

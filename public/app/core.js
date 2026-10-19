@@ -197,6 +197,97 @@
     return { case: s.slice(0, i).replace(/【問題】\s*$/, '').trim(), question: q };
   }
 
+  // ── 学習の積み重ね（GAS版と同じ考え方）──
+  // 1問＝1EXP。レベルL→L+1に10L問。Lv.100まで累計49,500問。
+  function careLevelAt(count) {
+    const n = Math.max(0, Math.floor(Number(count) || 0));
+    const level = Math.min(100, Math.floor((1 + Math.sqrt(1 + 0.8 * n)) / 2));
+    const base = 5 * level * (level - 1), required = level === 100 ? 0 : level * 10;
+    return { level, totalExp: n, baseExp: base, required, inLevel: level === 100 ? 0 : n - base, toNext: level === 100 ? 0 : base + required - n, progress: level === 100 ? 1 : (n - base) / required };
+  }
+  // 科目の能力値：レベルが上がるとき、そのレベルの間に解いた問題数に応じて上がる（1〜10問で+1、11〜20問で+2…）
+  function careLearner(log) {
+    const sorted = log.slice().sort((a, b) => a[0] - b[0]);
+    const values = SUBJECTS.map(() => 0), stage = SUBJECTS.map(() => 0), stages = [];
+    let level = 1, inLevel = 0;
+    for (let i = 0; i < sorted.length && level < 100; i++) {
+      const s = sorted[i][7]; if (s >= 0 && s < SUBJECTS.length) stage[s]++;
+      inLevel++;
+      if (inLevel === level * 10) {
+        const gains = {};
+        SUBJECTS.forEach((name, k) => { const g = Math.ceil(stage[k] / 10); if (g) { gains[name] = g; values[k] += g; } stage[k] = 0; });
+        stages.push({ level: level + 1, atExp: i + 1, gains }); level++; inLevel = 0;
+      }
+    }
+    return Object.assign(careLevelAt(sorted.length), {
+      statuses: SUBJECTS.map((name, k) => ({ name, value: values[k], stageCount: stage[k], pending: level === 100 ? 0 : Math.ceil(stage[k] / 10) })), stages,
+    });
+  }
+  // ある時点（count問目）のレベルと能力値
+  function careSnapshotAt(learner, count) {
+    const st = careLevelAt(count), v = {};
+    for (const s of learner.statuses) v[s.name] = 0;
+    for (const e of learner.stages) if (e.atExp <= count) for (const k of Object.keys(e.gains)) v[k] += e.gains[k];
+    return Object.assign(st, { statuses: learner.statuses.map((s) => ({ name: s.name, value: v[s.name] })) });
+  }
+  const dayNum = (k) => Math.floor(Date.UTC(+k.slice(0, 4), +k.slice(5, 7) - 1, +k.slice(8, 10)) / DAY);
+  const numKey = (n) => new Date(n * DAY).toISOString().slice(0, 10);
+  // log から、今日・昨日・今週（月曜〜）・先週・今月・累計・最近7日・自己ベスト・連続日数・実績を作る
+  function growthSummary(log, opts) {
+    opts = opts || {};
+    const now = opts.now == null ? Date.now() : opts.now;
+    const today = dayKey(now), td = dayNum(today);
+    const monday = td - (new Date(td * DAY).getUTCDay() + 6) % 7, monthStart = dayNum(today.slice(0, 7) + '-01');
+    const empty = () => ({ count: 0, correct: 0, seconds: 0 });
+    const days = {}, weeks = {}, months = {}, total = empty(), unique = new Set(), subj = SUBJECTS.map(empty);
+    for (const e of log) {
+      if (e[0] > now + 300000) continue;
+      const k = dayKey(e[0]), n = dayNum(k);
+      const d = days[k] || (days[k] = empty());
+      const wk = n - (new Date(n * DAY).getUTCDay() + 6) % 7;
+      weeks[wk] = (weeks[wk] || 0) + 1; months[k.slice(0, 7)] = (months[k.slice(0, 7)] || 0) + 1;
+      for (const v of [d, total, subj[e[7]]]) { if (!v) continue; v.count++; if (e[3]) v.correct++; v.seconds += Number(e[4]) || 0; }
+      unique.add(e[1]);
+    }
+    const range = (a, b) => { const r = empty(); for (const k of Object.keys(days)) { const n = dayNum(k); if (n < a || n > b) continue; r.count += days[k].count; r.correct += days[k].correct; r.seconds += days[k].seconds; } return r; };
+    let streak = 0; for (let n = days[today] ? td : td - 1; days[numKey(n)] && days[numKey(n)].count > 0; n--) streak++;
+    let longest = 0, cur = 0, last = -2;
+    for (const k of Object.keys(days).sort()) { const n = dayNum(k); cur = n === last + 1 ? cur + 1 : 1; longest = Math.max(longest, cur); last = n; }
+    const achievements = [];
+    for (const n of [7, 30]) achievements.push({ id: 'streak-' + n, label: n + '日連続学習', value: longest, target: n, achieved: longest >= n });
+    for (const n of [500, 1000, 5000, 10000]) achievements.push({ id: 'total-' + n, label: '累計' + n.toLocaleString('ja-JP') + '問', value: total.count, target: n, achieved: total.count >= n });
+    SUBJECTS.forEach((s, i) => achievements.push({ id: 'subject-' + s, label: s + '500問', value: subj[i].count, target: 500, achieved: subj[i].count >= 500 }));
+    return {
+      todayKey: today, today: days[today] || empty(), yesterday: days[numKey(td - 1)] || empty(),
+      week: range(monday, td), lastWeek: range(monday - 7, monday - 1), month: range(monthStart, td), total,
+      recent: Array.from({ length: 7 }, (_, i) => Object.assign({ date: numKey(td - 6 + i) }, days[numKey(td - 6 + i)] || empty())),
+      best: { day: Math.max(0, ...Object.values(days).map((d) => d.count)), week: Math.max(0, ...Object.values(weeks)), month: Math.max(0, ...Object.values(months)) },
+      streak, longestStreak: longest, uniqueCount: unique.size, totalQuestions: opts.totalQuestions || 0,
+      subjects: SUBJECTS.map((name, i) => Object.assign({ name }, subj[i])), achievements, learner: careLearner(log),
+    };
+  }
+  // 要復習：最新の回答が不正解・時間切れ／正解でも迷った／コメントあり／未理解の選択肢あり
+  function reviewFlags(r) {
+    r = r || {};
+    return { wrong: !!(r.a && r.l === 0), uncertain: !!(r.a && r.l === 1 && r.lu === 1), comment: !!(r.n && String(r.n).trim()), understanding: !!(r.nu && r.nu.length) };
+  }
+  const needsReview = (r) => { const f = reviewFlags(r); return f.wrong || f.uncertain || f.comment || f.understanding; };
+  // questions: [{id, subject, type}]、Q: 記録（S.q）
+  function reviewSummary(questions, Q, groupsBy) {
+    const blank = (name) => ({ name, total: 0, answered: 0, needed: 0, wrong: 0, uncertain: 0, comment: 0, understanding: 0, ratio: 0 });
+    const total = blank('全体'), groups = {};
+    for (const q of questions) {
+      const r = Q[q.id], f = reviewFlags(r), need = f.wrong || f.uncertain || f.comment || f.understanding;
+      const keys = (groupsBy || ['subject']).map((k) => k + ':' + q[k]);
+      for (const g of [total].concat(keys.map((k) => groups[k] || (groups[k] = blank(k.slice(k.indexOf(':') + 1)))))) {
+        g.total++; if (r && r.a) g.answered++; if (need) g.needed++;
+        for (const k of Object.keys(f)) if (f[k]) g[k]++;
+      }
+    }
+    for (const g of [total].concat(Object.values(groups))) g.ratio = g.total ? g.needed / g.total : 0;
+    return { total, groups };
+  }
+
   // ── 記録の点検・移行 ──
   const ID_RE = /^[A-Z]\d{4,}$/;
   const isObj = (o) => o && typeof o === 'object' && !Array.isArray(o);
@@ -210,6 +301,14 @@
       delete o.lastResult; // v1 にはない
       o.v = 2;
     }
+    if (v < 3) {
+      // v2 → v3：GAS版と同じ初期値（1問60秒・効果音あり）に。目標を日・週・月・累計の4つに
+      o.settings = Object.assign({}, o.settings || {});
+      if (!o.settings.qLimit) o.settings.qLimit = 60;
+      const d = Number(o.settings.goal) || 20;
+      if (!o.settings.goals) o.settings.goals = { day: d, week: d * 7, month: d * 30, total: 3000 };
+      o.v = 3;
+    }
     return o;
   }
   function sanitizeLogEntry(e) {
@@ -220,15 +319,19 @@
   }
   function sanitize(S, blank) {
     const out = Object.assign(blank, {});
-    out.v = 2;
+    out.v = 3;
     out.settings = Object.assign(blank.settings, isObj(S.settings) ? S.settings : {});
     out.prefs = isObj(S.prefs) ? S.prefs : {};
     out.q = {};
     if (isObj(S.q)) for (const id of Object.keys(S.q)) {
       if (!ID_RE.test(id) || !isObj(S.q[id])) continue;
       const r = S.q[id];
-      out.q[id] = { a: 0, c: 0, n: typeof r.n === 'string' ? r.n.slice(0, 5000) : undefined, nt: Number(r.nt) || undefined, st: r.st ? 1 : undefined, s: Number.isInteger(r.s) ? r.s : undefined };
+      const nu = Array.isArray(r.nu) ? [...new Set(r.nu.filter((n) => Number.isInteger(n) && n >= 1 && n <= 5))].sort() : [];
+      out.q[id] = { a: 0, c: 0, n: typeof r.n === 'string' ? r.n.slice(0, 5000) : undefined, nt: Number(r.nt) || undefined, st: r.st ? 1 : undefined, s: Number.isInteger(r.s) ? r.s : undefined,
+        nu: nu.length ? nu : undefined, nut: Number(r.nut) || undefined, xi: r.xi ? 1 : undefined, xit: Number(r.xit) || undefined };
     }
+    const p = isObj(S.profile) ? S.profile : {};
+    out.profile = { name: typeof p.name === 'string' && p.name.trim() ? p.name.trim().slice(0, 40) : '学習者', age: Number.isInteger(p.age) && p.age >= 0 && p.age <= 120 ? p.age : '', pref: typeof p.pref === 'string' ? p.pref.slice(0, 10) : '', avatar: typeof p.avatar === 'string' && p.avatar.length <= 8 ? p.avatar : '📚', at: Number(p.at) || 0 };
     out.log = Array.isArray(S.log) ? S.log.map(sanitizeLogEntry).filter(Boolean) : [];
     out.days = {};
     if (isObj(S.days)) for (const k of Object.keys(S.days)) if (/^\d{4}-\d\d-\d\d$/.test(k) && isObj(S.days[k])) out.days[k] = { n: 0, c: 0, sec: Math.round(Number(S.days[k].sec) || 0) };
@@ -270,7 +373,10 @@
       if (a.n != null && (b.n == null || (a.nt || 0) > (b.nt || 0))) { b.n = a.n; b.nt = a.nt; notes++; }
       if (a.st) b.st = 1;
       if (a.s != null) b.s = a.s;
+      if (a.nut && (a.nut || 0) > (b.nut || 0)) { b.nu = a.nu; b.nut = a.nut; }
+      if (a.xit && (a.xit || 0) > (b.xit || 0)) { b.xi = a.xi; b.xit = a.xit; }
     }
+    if (o.profile && o.profile.at > ((S.profile || {}).at || 0)) S.profile = o.profile;
     for (const k of Object.keys(o.days)) { const d = S.days[k] || (S.days[k] = { n: 0, c: 0, sec: 0 }); d.sec = Math.max(d.sec || 0, o.days[k].sec || 0); }
     const mk = new Set(S.mocks.map((m) => m.at));
     for (const m of o.mocks) if (!mk.has(m.at)) S.mocks.push(m);
@@ -297,5 +403,6 @@
     dayKey, dayStart, caseKey, groupCases, pickWithCases, sortExam, byExamOrder, scaleDist, shuffle, judge,
     srsFromLog, isDue, STEPS, parseExplanation, remapNumbers, NEG_RE, questionPart, splitCase,
     migrate, sanitize, rebuild, merge, applyIdMap, ID_RE,
+    careLevelAt, careLearner, careSnapshotAt, growthSummary, reviewFlags, needsReview, reviewSummary,
   };
 });
