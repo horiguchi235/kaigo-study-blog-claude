@@ -30,5 +30,97 @@
  "nyuyoku-02__lift": {
   "n": 1,
   "date": "2026-10-19"
+ },
+ "anzen-02__tearai": {
+  "n": 1,
+  "date": "2026-10-20"
+ },
+ "haisetsu-03__nyouki": {
+  "n": 1,
+  "date": "2026-10-20"
+ },
+ "haisetsu-03__portable-toilet": {
+  "n": 1,
+  "date": "2026-10-20"
+ },
+ "haisetsu-04__stoma": {
+  "n": 1,
+  "date": "2026-10-20"
+ },
+ "idou-02__hokouki": {
+  "n": 1,
+  "date": "2026-10-20"
+ },
+ "iryoucare-02__kyuuin": {
+  "n": 1,
+  "date": "2026-10-20"
+ },
+ "iryoucare-03__keikan": {
+  "n": 1,
+  "date": "2026-10-20"
+ },
+ "kenriyougo-02__kousoku-yougu": {
+  "n": 1,
+  "date": "2026-10-20"
+ },
+ "ninchishocare-02__kankyou": {
+  "n": 1,
+  "date": "2026-10-20"
+ },
+ "nyuyoku-02__shower-chair": {
+  "n": 1,
+  "date": "2026-10-20"
+ },
+ "nyuyoku-04__jijogu-koui": {
+  "n": 1,
+  "date": "2026-10-20"
+ },
+ "nyuyoku-04__kutsu": {
+  "n": 1,
+  "date": "2026-10-20"
+ },
+ "shokuji-01__gishi": {
+  "n": 1,
+  "date": "2026-10-20"
+ },
+ "shokuji-01__koukuu-care": {
+  "n": 1,
+  "date": "2026-10-20"
+ },
+ "shokuji-02__jijogu-shokuji": {
+  "n": 1,
+  "date": "2026-10-20"
+ },
+ "shokuji-03__irou-type": {
+  "n": 1,
+  "date": "2026-10-20"
+ },
+ "shougai-01__kansetsu-hogo": {
+  "n": 1,
+  "date": "2026-10-20"
+ },
+ "shougai-01__tankashi-sougu": {
+  "n": 1,
+  "date": "2026-10-20"
+ },
+ "shougaicomm-01__ishisotsuu-yougu": {
+  "n": 1,
+  "date": "2026-10-20"
+ },
+ "shougaicomm-02__hochouki": {
+  "n": 1,
+  "date": "2026-10-20"
+ },
+ "suimin-02__mattress": {
+  "n": 1,
+  "date": "2026-10-20"
+ },
+ "sumai-01__bed": {
+  "n": 1,
+  "date": "2026-10-20"
+ },
+ "sumai-01__jutaku-kaishu": {
+  "n": 1,
+  "date": "2026-10-20"
  }
 }

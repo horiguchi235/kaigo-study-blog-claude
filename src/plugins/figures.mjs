@@ -32,9 +32,13 @@ function walk(node) {
       if (ph) {
         // 画像がまだない（ChatGPT に依頼中）ときは何も出さない。public/images/ に入ると自動で表示される
         if (!fs.existsSync(path.resolve('public/images', `${ph[1]}.webp`))) return { type: 'html', value: '' };
+        // webp（lossy・VP8）の縦横を読み、正方形の画像は小さめに表示する
+        const buf = fs.readFileSync(path.resolve('public/images', `${ph[1]}.webp`));
+        let w = 1200, h = 800;
+        if (buf.toString('ascii', 12, 16) === 'VP8 ') { w = buf.readUInt16LE(26) & 0x3fff; h = buf.readUInt16LE(28) & 0x3fff; }
         const base = (process.env.SITE_BASE ?? '/kaigo-study-blog-claude').replace(/\/$/, '');
         const cap = ph[2].replace(/<\/?strong>/g, '**');
-        return { type: 'html', value: `<figure class="fig photo"><img src="${base}/images/${ph[1]}.webp" alt="${esc(cap.replace(/\*\*/g, ''))}" loading="lazy" width="1200" height="800"><figcaption>${inline(cap)}</figcaption></figure>` };
+        return { type: 'html', value: `<figure class="fig photo"><img src="${base}/images/${ph[1]}.webp" alt="${esc(cap.replace(/\*\*/g, ''))}" loading="lazy" width="${w}" height="${h}"${w === h ? ' class="sq"' : ''}><figcaption>${inline(cap)}</figcaption></figure>` };
       }
     }
     walk(c);
