@@ -5,7 +5,7 @@
 (function () {
   'use strict';
   const K = window.KaigoCore;
-  const APP_VERSION = '3.4.4';
+  const APP_VERSION = '3.5.0';
   const CFG = Object.assign({
     dataUrl: '', staticBase: 'data/', blogUrl: '../', linksUrl: 'links.json',
     examDate: '2027-01-31',      // 次の試験日（残り日数と今日のメニューに使う）
@@ -321,7 +321,9 @@
     if (opt.theme) qs = qs.filter((q) => (q.theme || '') === opt.theme || (q.theme || '').includes(opt.theme));
     if (opt.filter === 'new') qs = qs.filter((q) => !(S.q[q.id] && S.q[q.id].a));
     if (opt.filter === 'due' || opt.filter === 'review') qs = qs.filter((q) => isDue(q.id));
-    if (opt.filter === 'wrong') qs = qs.filter((q) => isWrong(S.q[q.id]));
+    if (opt.filter === 'wrong') qs = qs.filter((q) => { const r = S.q[q.id]; return r && r.a && r.l === 0; });
+    if (opt.filter === 'unsure') qs = qs.filter((q) => { const r = S.q[q.id]; return r && r.a && r.lu >= 1; });
+    if (opt.filter === 'comment') qs = qs.filter((q) => { const r = S.q[q.id]; return r && r.n && r.n.trim(); });
     if (opt.filter === 'weak') qs = qs.filter((q) => K.needsReview(S.q[q.id]));
     if (opt.filter === 'nu') qs = qs.filter((q) => S.q[q.id] && S.q[q.id].nu && S.q[q.id].nu.length);
     if (opt.filter === 'xi') qs = qs.filter((q) => S.q[q.id] && S.q[q.id].xi);
@@ -410,7 +412,7 @@
     const bits = [scopeLabel(opt.scope)];
     if (opt.round) bits.push('第' + opt.round + '回'); else if (opt.type && opt.type !== 'all' && dataTypes().length > 1) bits.push(opt.type);
     if (opt.field) bits.push(opt.field);
-    const f = { due: '今日の復習', review: '今日の復習', new: 'まだ解いていない', wrong: '間違えた・迷った', weak: '要復習', nu: '未理解の選択肢あり', xi: '解説がおかしい', star: '★' }[opt.filter];
+    const f = { due: '今日の復習', review: '今日の復習', new: '未回答', wrong: '不正解・時間切れ', unsure: '迷った問題', comment: 'コメントあり', weak: '要復習', nu: '未理解の選択肢あり', xi: '解説がおかしい', star: '★' }[opt.filter];
     if (f) bits.push(f);
     return bits.join('・');
   }
@@ -1237,6 +1239,9 @@
       e.currentTarget.parentNode.querySelectorAll('.chip').forEach((c) => c.setAttribute('aria-pressed', String(c === e.currentTarget)));
       if (name === 'by') { p.scope = v === 'theme' ? (themeList()[0] || {}).id : 'mine'; fillScope(); scopeLbl.textContent = v === 'theme' ? 'テーマ' : '科目・パート'; fillRounds(); fillFields(); }
       update(); } }, l)));
+    const MODES = [['all', 'すべての問題'], ['new', '未回答'], ['weak', '要復習（不正解・迷った・コメント・未理解）'], ['wrong', '不正解・時間切れ'], ['unsure', '迷った問題'], ['comment', 'コメントを書いた問題'], ['nu', '未理解の選択肢あり'], ['xi', '解説がおかしいと記録した問題'], ['due', '今日の復習（間隔反復）'], ['star', '★をつけた問題']];
+    const modeSel = el('select', { class: 'input', id: 'f-mode', onchange: (e) => { p.filter = e.target.value; update(); } }, MODES.map(([v, l]) => el('option', { value: v, text: l })));
+    modeSel.value = p.filter === 'review' ? 'due' : MODES.some((m) => m[0] === p.filter) ? p.filter : 'all'; p.filter = modeSel.value;
     const diffChips = el('div', { class: 'chips', role: 'group', 'aria-label': '難易度（複数選べます）' }, DIFFS.map((d) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(p.diffs.includes(d)), onclick: (e) => {
       const on = p.diffs.includes(d); if (on && p.diffs.length === 1) { toast('1つ以上選んでください'); return; }
       p.diffs = on ? p.diffs.filter((x) => x !== d) : DIFFS.filter((x) => x === d || p.diffs.includes(x));
@@ -1293,7 +1298,8 @@
           el('div', { class: 'field' }, el('label', { for: 'f-field', text: '分野' }), fieldSel),
           el('div', { class: 'field' }, el('label', { for: 'f-round', text: '過去問の回' }), roundSel)),
         types.length > 1 ? el('div', { class: 'field' }, el('div', { class: 'label', text: '問題の種類' }), chipGroup('type', types.map((t) => [t, t]).concat([['all', 'すべて']]), p.type, '問題の種類')) : null,
-        el('div', { class: 'field' }, el('div', { class: 'label', text: '出題モード' }), chipGroup('filter', [['all', 'すべて'], ['new', '未回答'], ['due', '今日の復習'], ['weak', '要復習（不正解・迷った・コメント・未理解）'], ['nu', '未理解の選択肢あり'], ['xi', '解説がおかしいと記録した問題'], ['star', '★をつけた']], p.filter === 'review' ? 'due' : p.filter === 'wrong' ? 'weak' : p.filter, '出題モード')),
+        el('div', { class: 'field' }, el('label', { for: 'f-mode', text: '出題モード' }), modeSel,
+          el('p', { class: 'small muted', style: 'margin:4px 0 0', text: '要復習＝最新の回答が不正解・時間切れ、正解でも迷った、コメントあり、未理解の選択肢あり。再回答で正解・迷いなしになれば外れます（コメント・未理解は消すまで残ります）。' })),
         el('div', { class: 'field' }, el('div', { class: 'label', text: '難易度（複数選べます）' }), diffChips,
           el('p', { class: 'small muted', style: 'margin:4px 0 0', text: '初級：一般常識・基本的な配慮／中級：用語や基本知識／上級：細かな条件・数値・複合判断。公式の区分ではなく学習用の目安です。' })),
         el('div', { class: 'row', style: 'gap:16px;align-items:flex-start' },
@@ -1843,10 +1849,9 @@
     const confSet = Object.prototype.hasOwnProperty.call(ses.unsure, q.id) && ses.unsure[q.id] !== false && ses.unsure[q.id] != null;
     const conf = !confSet ? null : Number(ses.unsure[q.id]) === 2 ? 2 : ses.unsure[q.id] ? 1 : 0;
     const unsure = conf > 0;
-    // 自信の3段階（1タップ）。なんとなく＝迷った。復習の間隔に反映する
-    const unsureBtn = reviewMode ? null : el('div', { class: 'conf', role: 'group', 'aria-label': '自信' },
-      el('span', { class: 'small muted', text: showAnswer ? '自信は？（押すと次に出る時期が変わります）' : '自信：' }),
-      [[0, '😊 自信あり'], [1, '🤔 なんとなく'], [2, '😵 わからない']].map(([v, l]) => el('button', { type: 'button', class: 'chip conf-' + v, 'aria-pressed': String(conf === v), onclick: () => setConf(v), title: v === 0 ? '正解なら間隔を広げます' : v === 1 ? '正解しても「迷った」として、短い間隔でもう一度出します' : '正解しても翌日にもう一度出します' }, l)));
+    // 迷ったは、復習の間隔に反映する
+    // 迷った（GAS版と同じ）。正解しても「迷った」問題は要復習・今日の復習に入る。答え合わせのあとでも変えられる
+    const unsureBtn = reviewMode ? null : el('button', { type: 'button', class: 'toggle unsure-btn', 'aria-pressed': String(unsure), onclick: () => setConf(unsure ? 0 : 1), title: '正解しても「迷った」問題は、要復習・今日の復習に入ります' }, unsure ? '🤔 迷った（記録します）' : '🤔 迷った');
     const memo = el('textarea', { class: 'input', id: 'memo', maxlength: '5000', placeholder: '迷った点や覚えたいこと（この端末に保存）' });
     memo.value = rq.n || '';
     memo.oninput = () => { const r = rec(q.id); r.n = memo.value; r.nt = Date.now(); r.s = SUBJECTS.indexOf(q.subject); save(); };
@@ -1946,7 +1951,7 @@
       r.nu = a.sort(); if (!r.nu.length) delete r.nu; r.nut = Date.now(); r.s = SUBJECTS.indexOf(q.subject); saveNow();
       announce(a.length ? '未理解の選択肢：' + a.map(disp).sort().join('・') + '番' : 'すべて理解済み'); rerender();
     }
-    // 自信は答え合わせのあとでも変えられる（記録も直す）
+    // 迷ったは答え合わせのあとでも変えられる（記録も直す）
     function setConf(v) {
       ses.unsure[q.id] = v;
       if (ans && ans.t) { const e = S.log.find((x) => x[1] === q.id && x[0] === ans.t); if (e) { e[5] = v; K.rebuild(S); srsCache = null; } }
@@ -2063,11 +2068,11 @@
         const cls = [];
         if (ses.review && q) cls.push(a && q.keys.includes(a.c) ? 'ok' : 'ng'); else if (a) cls.push('done');
         if (ses.unsure[id]) cls.push('unsure'); if (i === ses.i) cls.push('cur');
-        return el('button', { type: 'button', class: cls.join(' '), onclick: () => { close(); ses.i = i; save(); render('quiz'); focusMain(); }, 'aria-label': (i + 1) + '問目' + (a ? ' 回答済み' : ' 未回答') + (ses.unsure[id] ? ' 自信がない' : '') }, String(i + 1));
+        return el('button', { type: 'button', class: cls.join(' '), onclick: () => { close(); ses.i = i; save(); render('quiz'); focusMain(); }, 'aria-label': (i + 1) + '問目' + (a ? ' 回答済み' : ' 未回答') + (ses.unsure[id] ? ' 迷った' : '') }, String(i + 1));
       }));
       sheet.append(
         el('div', { class: 'row' }, el('b', { class: 'grow', text: '問題の一覧' }), el('button', { type: 'button', class: 'icon-btn', 'aria-label': '閉じる', onclick: close }, '✕')),
-        ses.review ? null : el('p', { class: 'small muted', style: 'margin:4px 0', text: '回答済み ' + (ses.ids.length - unanswered) + ' / ' + ses.ids.length + '　●＝自信がない' }),
+        ses.review ? null : el('p', { class: 'small muted', style: 'margin:4px 0', text: '回答済み ' + (ses.ids.length - unanswered) + ' / ' + ses.ids.length + '　●＝迷った' }),
         grid,
         isMock && !ses.review ? el('button', { type: 'button', class: 'btn primary block lg', onclick: async () => { close(); if (!unanswered || await ask('未回答が ' + unanswered + '問あります。提出して採点しますか？', '提出する')) finishMock(); } }, '提出して採点する') : null);
     }, { label: '問題の一覧' });
@@ -2171,7 +2176,7 @@
     for (const q of wrongQs) for (const l of rontenLinks(q)) { const k = l.url; const v = linkCount.get(k) || Object.assign({ n: 0 }, l); v.n++; linkCount.set(k, v); }
     const topLinks = [...linkCount.values()].sort((a, b) => b.n - a.n).slice(0, 3);
     if (topLinks.length) root.append(el('section', { class: 'card artlinks strong' }, el('h2', null, ico('📖'), ' 読んでおきたい記事'),
-      el('ul', null, topLinks.map((l) => el('li', null, el('a', { href: l.url, onclick: () => track('article_click') }, l.label), el('span', { class: 'muted small', text: '（間違えた・自信がない ' + l.n + '問）' }))))));
+      el('ul', null, topLinks.map((l) => el('li', null, el('a', { href: l.url, onclick: () => track('article_click') }, l.label), el('span', { class: 'muted small', text: '（間違えた・迷った ' + l.n + '問）' }))))));
 
     const wrongIds = r.items.filter((x) => x.answered && (!x.ok || x.unsure)).map((x) => x.id);
     const unIds = r.items.filter((x) => !x.answered).map((x) => x.id);
@@ -2188,7 +2193,7 @@
       const s = q ? (K.splitCase(q.stem) || { question: q.stem }).question : it.id;
       return el('li', null, el('button', { type: 'button', onclick: () => openReview(snap, i) },
         el('span', { class: 'res ' + (it.ok ? 'ok' : it.answered ? 'ng' : 'un'), 'aria-hidden': 'true', text: it.ok ? '○' : it.answered ? '×' : '–' }),
-        el('span', { class: 't' }, el('span', { class: 's', text: (i + 1) + '. ' + (it.ok ? '正解' : it.answered ? '不正解' : '未回答') + '・' + it.subject + (it.unsure ? '・自信がない' : '') }), s)));
+        el('span', { class: 't' }, el('span', { class: 's', text: (i + 1) + '. ' + (it.ok ? '正解' : it.answered ? '不正解' : '未回答') + '・' + it.subject + (it.unsure ? '・迷った' : '') }), s)));
     }));
     put2(el('section', { class: 'card' }, el('h2', null, '問題ごとの結果', el('span', { class: 'sub', text: 'タップで解説' })), list));
     if (later.length) root.append(el('details', { class: 'card more-result' }, el('summary', { text: 'くわしく見る（科目別・問題ごとの結果）' }), later));
@@ -2222,7 +2227,7 @@
     root.append(el('section', { class: 'card' }, el('h1', { class: 'h2like', 'data-focus': '' }, 'これまでの学習'),
       el('div', { class: 'today' }, stat(answered, '解いた問題'), stat(att ? pct(cor, att) + '%' : '–', '正答率'), stat(fmtMin(totalSec), '学習時間'), stat(streak() + '日', '連続')),
       el('div', { class: 'goal', role: 'progressbar', 'aria-label': '全問題のうち解いた割合', 'aria-valuemin': '0', 'aria-valuemax': String(totalQ), 'aria-valuenow': String(answered) }, el('i', { style: 'width:' + pct(answered, totalQ) + '%' })),
-      el('p', { class: 'small muted', style: 'margin:6px 0 0', text: '全' + totalQ + '問のうち ' + pct(answered, totalQ) + '% を解きました｜今日の復習 ' + due + '問｜定着（30日後も正解）' + mastered + '問｜★ ' + stars + '問' + (att ? '｜自信がない ' + pct(unsureN, att) + '%' : '') })));
+      el('p', { class: 'small muted', style: 'margin:6px 0 0', text: '全' + totalQ + '問のうち ' + pct(answered, totalQ) + '% を解きました｜今日の復習 ' + due + '問｜定着（30日後も正解）' + mastered + '問｜★ ' + stars + '問' + (att ? '｜迷った ' + pct(unsureN, att) + '%' : '') })));
 
     root.append(heatmap());
     root.append(el('section', { class: 'card' }, el('h2', null, ico('📌'), ' 暗記カード', el('span', { class: 'sub', text: cardIds().length + '枚' })),
