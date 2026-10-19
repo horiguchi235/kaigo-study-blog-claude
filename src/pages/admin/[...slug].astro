@@ -1,7 +1,7 @@
 ---
 // 管理ページ（Admin）。確認用ビルド（PUBLIC_SHOW_DRAFTS=1）と開発中だけに作られ、本番の公開サイトには出ない。
 //   /admin/          … 概要
-//   /admin/images/   … 画像・図・スライドの一覧 → チェックして ChatGPT 依頼文 / Claude への合図を作る
+//   /admin/images/   … 記事ごとの画像・図の一覧 → 崩れた画像を選んで ChatGPT 修正プロンプト / Claude への合図を作る
 //   /admin/articles/ … 記事の一覧（下書き・文字数・過去問・図の数・未作成の図）
 //   /admin/todo/     … レビューで「確認してほしい」と残ったことのチェックリスト
 // データは tools/admin/make.py → src/data/admin.json
@@ -23,8 +23,9 @@ const stats = {
   used: count((i) => i.status === 'used'),
   todo: count((i) => i.status === 'todo'),
   made: count((i) => i.status === 'made' && i.kind !== 'svg'),
-  planned: count((i) => i.kind === 'planned'),
-  plannedDone: count((i) => i.kind === 'planned' && i.status !== 'todo'),
+  planned: count((i) => i.kind === 'photo'),
+  plannedDone: count((i) => i.kind === 'photo' && i.status !== 'todo'),
+  svgplan: count((i) => i.kind === 'svgplan'),
   drafts: A.articles.filter((a: any) => a.draft).length,
   arts: A.articles.length,
 };
@@ -34,7 +35,7 @@ const tabs = [
   ['articles', '記事', 'admin/articles/'],
   ['todo', '確認リスト', 'admin/todo/'],
 ];
-const KIND: Record<string, string> = { photo: '写真風（ChatGPT）', guide: '使い方の絵（ChatGPT）', planned: '記事の図（ChatGPT依頼）', svg: 'SVG図（Claude）', shot: 'スライド（Claude）' };
+const KIND: Record<string, string> = { photo: '記事の画像（ChatGPT）', guide: '使い方の絵（ChatGPT）', svg: 'SVG図（Claude）', svgplan: 'SVG図の候補（Claude）', shot: 'スライド（Claude）' };
 ---
 
 <!doctype html>
@@ -59,16 +60,17 @@ const KIND: Record<string, string> = { photo: '写真風（ChatGPT）', guide: '
           <div class="adm-stats">
             <div><b>{stats.arts}</b><span>記事（うち下書き {stats.drafts}）</span></div>
             <div><b>{stats.used}</b><span>記事・ページで使用中の画像・図</span></div>
-            <div><b>{stats.plannedDone} / {stats.planned}</b><span>記事の図（ChatGPT依頼）の作成済み</span></div>
-            <div><b>{stats.made}</b><span>作成済みで未配置の画像</span></div>
+            <div><b>{stats.plannedDone} / {stats.planned}</b><span>記事の画像（ChatGPT）の作成済み</span></div>
+            <div><b>{stats.svgplan}</b><span>Claude の図（SVG）にする候補</span></div>
           </div>
           <h2>使い方：画像を作り直す・新しく作る</h2>
           <ol class="adm-steps">
-            <li><a href={url('admin/images/')}>画像・図</a>で、直したい画像（または作りたい未作成の図）に<b>チェック</b>を入れ、どこがおかしいかを<b>メモ</b>に書く（複数選べます）。</li>
-            <li>下の「<b>ChatGPT依頼文を作る</b>」を押してコピーし、ChatGPT に貼る（作り直しのときは、前の画像も一緒に添付）。</li>
-            <li>できた画像を、表示されたドライブのフォルダに、表示された<b>画像名のまま</b>保存する。</li>
-            <li>「<b>Claudeへの合図を作る</b>」を押してコピーし、Claude に送る → Claude が取り込んで差し替え、プレビューを作り直します。</li>
-            <li>SVG図・スライド（Claude が作るもの）は「Claudeへの合図」だけで直します。</li>
+            <li><a href={url('admin/images/')}>画像・図</a>を開く。記事ごとに、その記事で使っている画像・図が並んでいます。</li>
+            <li>崩れている画像（または作りたい未作成の画像）に<b>チェック</b>を入れ、「どこがおかしい？」の項目を選ぶ（複数可）。足りなければメモに書く。</li>
+            <li>「<b>🛠 ChatGPTの修正プロンプトを作る</b>」を押してコピーし、ChatGPT の新しい会話に貼る（作り直しのときは前の画像も添付）。プロンプトには保存先と画像名、直し方、ChatGPT 自身の確認と「作れなかった画像の報告」の指示が入っています。</li>
+            <li>できた画像を、プロンプトに書かれたドライブのフォルダに、<b>同じ画像名で上書き保存</b>する。</li>
+            <li>「<b>💬 Claudeへの合図を作る</b>」を押してコピーし、ChatGPT の【作成結果の報告】と一緒に Claude に送る → Claude が取り込み、確認してから差し替えます。</li>
+            <li>SVG図・スライド（Claude が作るもの）や「SVG図の候補」は「Claudeへの合図」だけで作る・直すを頼めます。</li>
           </ol>
           <h2>そのほかの管理ページ</h2>
           <ul>
@@ -80,19 +82,25 @@ const KIND: Record<string, string> = { photo: '写真風（ChatGPT）', guide: '
 
       {page === 'images' && (
         <>
+          <p class="adm-note">記事ごとに、その記事で使っている画像・図をまとめています。崩れている画像にチェックを入れ、どこがおかしいかを選ぶ（複数可）と、ChatGPT に貼る<b>修正プロンプト</b>（保存先・画像名つき）が自動でできます。チェックとメモはこのブラウザに保存されます。</p>
           <div class="adm-filters">
-            <label>種類 <select id="f-kind"><option value="">すべて</option>{Object.entries(KIND).map(([k, v]) => <option value={k}>{v}</option>)}</select></label>
-            <label>状態 <select id="f-status"><option value="">すべて</option><option value="used">使用中</option><option value="made">作成済み・未配置</option><option value="todo">未作成</option></select></label>
-            <label>重要度 <select id="f-pri"><option value="">すべて</option><option value="A">A</option><option value="B">B</option><option value="first">まず作る</option></select></label>
-            <label>記事 <select id="f-art"><option value="">すべて</option><option value="guide">使い方ページ</option>{A.articles.map((a: any) => <option value={a.id}>{a.label}：{a.title}</option>)}</select></label>
-            <label class="grow">検索 <input id="f-q" type="search" placeholder="画像名・見出し・指示文" /></label>
+            <label>表示 <select id="f-show">
+              <option value="">すべて</option>
+              <option value="gpt">ChatGPTの画像（記事・使い方）</option>
+              <option value="todo">ChatGPTで作成待ち</option>
+              <option value="used">使用中の画像</option>
+              <option value="svg">Claudeの図（SVG）</option>
+              <option value="svgplan">Claudeの図にする候補</option>
+            </select></label>
+            <label>記事 <select id="f-art"><option value="">すべての記事</option><option value="guide">使い方ページ</option>{A.articles.map((a: any) => <option value={a.id}>{a.label}：{a.title}</option>)}</select></label>
+            <label class="grow">検索 <input id="f-q" type="search" placeholder="画像名・見出し・説明文" /></label>
             <label><input type="checkbox" id="f-checked" /> チェックしたものだけ</label>
             <span id="f-count" class="adm-count"></span>
           </div>
-          <div id="grid" class="adm-grid" aria-live="polite"></div>
+          <div id="groups" aria-live="polite"></div>
           <div class="adm-bar">
             <span id="sel-n">0件 選択中</span>
-            <button type="button" id="mk-gpt">🤖 ChatGPT依頼文を作る</button>
+            <button type="button" id="mk-gpt">🛠 ChatGPTの修正プロンプトを作る</button>
             <button type="button" id="mk-claude">💬 Claudeへの合図を作る</button>
             <button type="button" id="sel-clear" class="sub">選択を全部外す</button>
           </div>
@@ -102,23 +110,23 @@ const KIND: Record<string, string> = { photo: '写真風（ChatGPT）', guide: '
             <textarea id="out-t" rows="18" readonly></textarea>
             <p class="adm-dlg-btns"><button type="button" id="out-copy">📋 コピー</button><button type="button" id="out-close" class="sub">閉じる</button></p>
           </dialog>
-          <script type="application/json" id="adm-data" set:html={JSON.stringify({ items, rules: A.rules, fix: A.fix, kinds: KIND }).replace(/</g, '\\u003c')}></script>
+          <script type="application/json" id="adm-data" set:html={JSON.stringify({ items, rules: A.rules, folders: A.folders, kinds: KIND, articles: A.articles.map((a: any) => ({ id: a.id, label: a.label, title: a.title, draft: a.draft })) }).replace(/</g, '\\u003c')}></script>
           <script is:inline src={url('admin.js')}></script>
         </>
       )}
 
       {page === 'articles' && (
         <>
-          <p class="adm-note">列の名前をクリックすると並べ替えます。「未作成の図」は ChatGPT 依頼中でまだ画像がないもの。</p>
+          <p class="adm-note">列の名前をクリックすると並べ替えます。「作成待ちの画像」は ChatGPT に依頼中でまだ画像がないもの（記事には表示されません）。「SVG候補」は Claude が図にする候補。</p>
           <div class="adm-tablewrap">
             <table class="adm-table" id="art-table">
               <thead><tr>
                 <th data-k="label">記事</th><th data-k="draft">状態</th><th data-k="chars" data-n="1">文字数</th><th data-k="past" data-n="1">過去問</th>
-                <th data-k="quizzes" data-n="1">本文の過去問</th><th data-k="heads" data-n="1">見出し</th><th data-k="figs" data-n="1">SVG図</th><th data-k="photos" data-n="1">写真</th><th data-k="planned" data-n="1">未作成の図</th><th>開く</th>
+                <th data-k="quizzes" data-n="1">本文の過去問</th><th data-k="heads" data-n="1">見出し</th><th data-k="figs" data-n="1">SVG図</th><th data-k="photos" data-n="1">画像</th><th data-k="planned" data-n="1">作成待ちの画像</th><th data-k="svgplan" data-n="1">SVG候補</th><th>開く</th>
               </tr></thead>
               <tbody>
                 {A.articles.map((a: any) => (
-                  <tr data-label={a.id} data-draft={a.draft ? 1 : 0} data-chars={a.chars} data-past={a.past} data-quizzes={a.quizzes} data-heads={a.heads.length} data-figs={a.figs} data-photos={a.photos} data-planned={a.planned}>
+                  <tr data-label={a.id} data-draft={a.draft ? 1 : 0} data-chars={a.chars} data-past={a.past} data-quizzes={a.quizzes} data-heads={a.heads.length} data-figs={a.figs} data-photos={a.photos} data-planned={a.planned} data-svgplan={a.svgplan}>
                     <td><b>{a.label}</b><br /><small>{a.title}</small></td>
                     <td>{a.draft ? <span class="tag gray">下書き</span> : <span class="tag green">公開</span>}</td>
                     <td class="num">{a.chars.toLocaleString()}</td>
@@ -128,6 +136,7 @@ const KIND: Record<string, string> = { photo: '写真風（ChatGPT）', guide: '
                     <td class="num">{a.figs}</td>
                     <td class="num">{a.photos}</td>
                     <td class="num">{a.planned > 0 ? <a href={url(`admin/images/`) + `#art=${a.id}`}>{a.planned}</a> : 0}</td>
+                    <td class="num">{a.svgplan > 0 ? <a href={url(`admin/images/`) + `#art=${a.id}`}>{a.svgplan}</a> : 0}</td>
                     <td class="links"><a href={url(`articles/${a.id}/`)}>記事</a> <a href={url(`ichimon/${a.id}/`)}>1問1答</a> <a href={url(`anki/${a.id}/`)}>暗記</a></td>
                   </tr>
                 ))}

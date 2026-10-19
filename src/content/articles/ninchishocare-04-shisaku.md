@@ -85,8 +85,6 @@ draft: true
   5. 研究開発・産業促進・国際展開
 - 「本人発信支援」は**本人が自ら発信する**ことの支援（家族が代弁する、は×）
 
-<photo name="ninchishocare-04__yobou-imi" caption="横軸は年齢、縦軸は認知機能。灰色は何もしない場合、緑は予防の取り組み。予防は「ならない」ではなく、発症を遅らせ進行をゆるやかにすることです。">
-
 <details class="quiz-group">
 <summary>✏️ 過去問を解いてみよう（2問）</summary>
 

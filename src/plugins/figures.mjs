@@ -30,6 +30,8 @@ function walk(node) {
       if (m) return { type: 'html', value: render(m[1], m[2]) };
       const ph = c.value.trim().match(/^<photo name="([\w-]+)" caption="([^"]*)"\s*\/?>$/);
       if (ph) {
+        // 画像がまだない（ChatGPT に依頼中）ときは何も出さない。public/images/ に入ると自動で表示される
+        if (!fs.existsSync(path.resolve('public/images', `${ph[1]}.webp`))) return { type: 'html', value: '' };
         const base = (process.env.SITE_BASE ?? '/kaigo-study-blog-claude').replace(/\/$/, '');
         const cap = ph[2].replace(/<\/?strong>/g, '**');
         return { type: 'html', value: `<figure class="fig photo"><img src="${base}/images/${ph[1]}.webp" alt="${esc(cap.replace(/\*\*/g, ''))}" loading="lazy" width="1200" height="800"><figcaption>${inline(cap)}</figcaption></figure>` };
