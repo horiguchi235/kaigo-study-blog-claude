@@ -162,6 +162,18 @@ for line in open(os.path.join(HERE, 'difficulty.tsv'), encoding='utf-8'):
             if why: q['diffWhy'] = why
             report.append('%s 難易度：%s' % (qid, diff))
 
+# 3d. 統計の更新（最新の調査の数値を、解説の中に別の段落として足す）
+SN = os.path.join(HERE, 'stat_notes.tsv')
+if os.path.exists(SN):
+    for line in open(SN, encoding='utf-8'):
+        if not line.strip() or line.startswith('#'): continue
+        qid, title, body = line.rstrip('\n').split('\t')
+        if qid in by_id:
+            q = by_id[qid][1]; note = {'title': title, 'body': body.replace('\\n', '\n')}
+            if q.get('statNote') != note:
+                q['statNote'] = note
+                report.append('%s 最新の統計を足した（%s）' % (qid, title))
+
 # 3b. 解説の手直し（選択肢ごとの解説を置き換える）
 for line in open(os.path.join(HERE, 'expl_patches.tsv'), encoding='utf-8'):
     if not line.strip() or line.startswith('#'): continue

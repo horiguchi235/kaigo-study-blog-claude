@@ -779,3 +779,6 @@ details.more-result > summary { cursor: pointer; font-weight: 700; color: var(--
 
 .tag-btn { border: 1px solid var(--line); background: var(--surface); color: var(--accent); border-radius: 99px; padding: 0 10px; min-height: 30px; font-size: .78em; font-weight: 700; }
 .tag-btn:active { transform: translateY(1px); }
+
+.ex-sec.stat { margin: 10px 0; padding: 8px 12px; border-radius: 12px; background: color-mix(in srgb, var(--butter) 14%, var(--surface)); border: 1.5px dashed var(--warn); }
+.ex-sec.stat h4 { color: var(--warn); margin-top: 2px; }

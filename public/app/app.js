@@ -5,7 +5,7 @@
 (function () {
   'use strict';
   const K = window.KaigoCore;
-  const APP_VERSION = '3.5.1';
+  const APP_VERSION = '3.5.2';
   const CFG = Object.assign({
     dataUrl: '', staticBase: 'data/', blogUrl: '../', linksUrl: 'links.json',
     examDate: '2027-01-31',      // 次の試験日（残り日数と今日のメニューに使う）
@@ -1710,7 +1710,8 @@
       el('span', { class: 'tag type', text: roundTag }),
       el('span', { class: 'tag', text: q.subject }),
       q.diff ? el('span', { class: 'tag diff d' + DIFFS.indexOf(q.diff), title: q.diffWhy || '学習用の目安（公式の区分ではありません）', text: q.diff }) : null,
-      q.lawStatus && q.lawStatus !== 'ok' ? el('span', { class: 'tag law', text: '⚠ 法改正あり' }) : null);
+      q.lawStatus && q.lawStatus !== 'ok' ? el('span', { class: 'tag law', text: '⚠ 法改正あり' }) : null,
+      q.statNote ? el('span', { class: 'tag law', title: '解説に最新の統計を載せています', text: '📊 最新の統計あり' }) : null);
     // 分野・テーマ・これまでの成績・問題IDは「問題情報」にしまう（問題文を上に出すため）
     const infoTags = el('div', { class: 'meta', style: 'margin:8px 0 0' },
       q.theme ? el('span', { class: 'tag', text: '分野：' + q.theme }) : null,
@@ -1975,11 +1976,17 @@
     const keys = q.keys.slice().sort((a, b) => disp(a) - disp(b));
     const box = el('section', { class: 'explain-full', 'aria-label': '解説' },
       el('p', { class: 'ex-answer' }, '正解：', keys.map((k, i) => [i ? '／' : '', disp(k) + '．' + q.options[k - 1]])));
-    for (const s of E.sections) {
-      const sec = el('div', { class: 'ex-sec' + (s.title === '学習ポイント' ? ' learn' : '') }, s.title ? el('h4', { text: '【' + s.title + '】' }) : null);
+    const secs = E.sections.slice();
+    // 統計が新しくなった問題は、知識のまとめのあとに最新の数値を足す
+    if (q.statNote) { const at = secs.findIndex((s) => s.title === '知識のまとめ'); secs.splice(at >= 0 ? at + 1 : secs.length, 0, { title: q.statNote.title, body: q.statNote.body, stat: true }); }
+    for (const s of secs) {
+      const sec = el('div', { class: 'ex-sec' + (s.title === '学習ポイント' ? ' learn' : '') + (s.stat ? ' stat' : '') }, s.title ? el('h4', { text: (s.stat ? '📊 ' : '') + '【' + s.title + '】' }) : null);
       const lines = K.remapNumbers(s.body, order).split('\n').map((x) => x.trim()).filter(Boolean);
-      if (lines.every((x) => /^[・●○]/.test(x))) sec.append(el('ul', null, lines.map((x) => el('li', { text: x.replace(/^[・●○]\s*/, '') }))));
-      else sec.append(lines.map((x) => el('p', { text: x })));
+      let ul = null;
+      for (const x of lines) {
+        if (/^[・●○]/.test(x)) { if (!ul) sec.append(ul = el('ul')); ul.append(el('li', { text: x.replace(/^[・●○]\s*/, '') })); }
+        else { ul = null; sec.append(el('p', { class: /^出典[：:]/.test(x) ? 'small muted' : null, text: x })); }
+      }
       box.append(sec);
     }
     if (Object.keys(E.opts).length) {
