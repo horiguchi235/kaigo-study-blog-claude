@@ -123,6 +123,10 @@ const SKIP = new Set(['script', 'style', 'svg', 'code', 'pre', 'textarea', 'titl
 function annotateFragment(h) {
   return h.split(/(<[^>]+>)/).map((p) => (p.startsWith('<') ? p : annotateText(p))).join('');
 }
+// JSON の中のルビは、データを小さくするため「\ue000漢字\ue001よみ\ue002」の形にする（ブラウザで kaigoRuby() が <ruby> に戻す）
+function compactRuby(h) {
+  return h.replace(/<ruby>([^<]*)<rt data-r="([^"]*)"><\/rt><\/ruby>/g, '\ue000$1\ue001$2\ue002');
+}
 // <script type="application/json" data-ruby> の中のデータに、ルビ付きの HTML を「_r」として足す
 // （JS で作る画面＝過去問テスト・○×クイズ・1問1答の一覧で、ふりがなを出すため）
 const JSON_SKIP = new Set(['id', 'h', 'href', 'url', 'ans', 'ox', 'art', 'slug', 'src', 'sub', 'kai', 'tag']);
@@ -133,8 +137,8 @@ function rubyJson(v) {
     for (const k of Object.keys(v)) {
       const x = v[k];
       if (JSON_SKIP.has(k)) continue;
-      if (typeof x === 'string' && KANJI.test(x)) r[k] = annotateFragment(x);
-      else if (Array.isArray(x) && x.length && x.every((y) => typeof y === 'string')) r[k] = x.map((y) => (KANJI.test(y) ? annotateFragment(y) : y));
+      if (typeof x === 'string' && KANJI.test(x)) r[k] = compactRuby(annotateFragment(x));
+      else if (Array.isArray(x) && x.length && x.every((y) => typeof y === 'string')) r[k] = x.map((y) => (KANJI.test(y) ? compactRuby(annotateFragment(y)) : y));
       else rubyJson(x);
     }
     if (Object.keys(r).length) v._r = r;

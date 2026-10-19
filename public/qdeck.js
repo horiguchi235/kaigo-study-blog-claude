@@ -5,7 +5,7 @@
   var D = JSON.parse(document.getElementById('qd-data').textContent);
   var RUBY = document.documentElement.classList.contains('ruby');
   // ふりがなモードでは、ビルドで付けたルビ（_r）を使う
-  function f(it, k) { return RUBY && it._r && it._r[k] != null ? it._r[k] : it[k]; }
+  function f(it, k) { return RUBY && it._r && it._r[k] != null ? window.kaigoRuby(it._r[k]) : it[k]; }
   // ほぼ同じ文の問題は1問にまとめる
   (function () { var seen = {}; D.items = D.items.filter(function (it) { var k = it.t + '|' + String(it.q).replace(/<[^>]+>|[\s。、]/g, ''); if (seen[k]) return false; seen[k] = 1; return true; }); })();
   var list = document.getElementById('qd-list');

@@ -41,7 +41,7 @@ const steps = categories.filter((c) => pool.some((p) => p.n === c.no)).map((c) =
     (function () {
       var pool = JSON.parse(document.getElementById('m-data').textContent);
       var RUBY = document.documentElement.classList.contains('ruby');
-      function f(q, k) { return RUBY && q._r && q._r[k] != null ? q._r[k] : q[k]; }
+      function f(q, k) { return RUBY && q._r && q._r[k] != null ? window.kaigoRuby(q._r[k]) : q[k]; }
       var list = document.getElementById('m-list'), res = document.getElementById('m-result');
       var done = 0, ok = 0, total = 0, wrong = [];
       function ld(k) { try { return JSON.parse(localStorage.getItem(k) || '{}'); } catch (e) { return {}; } }

@@ -30,7 +30,7 @@
   function md(s) { return esc(s).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/&lt;(\/?)strong&gt;/g, '<$1strong>').replace(/\n/g, '<br>'); }
   // ふりがなモードでは、ビルドで付けたルビ（q._r）を使う
   function f(q, k, j) {
-    if (RUBY && q._r && q._r[k] != null) { var h = j == null ? q._r[k] : q._r[k][j]; return String(h).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>'); }
+    if (RUBY && q._r && q._r[k] != null) { var h = j == null ? q._r[k] : q._r[k][j]; return window.kaigoRuby(h).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>'); }
     return md(j == null ? q[k] : q[k][j]);
   }
   function norm(t) { return String(t).replace(/<[^>]+>|\*\*/g, '').replace(/[\s、。，．・「」（）()？?①-⑳]/g, ''); }

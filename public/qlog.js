@@ -24,4 +24,6 @@
       return Object.keys(d).filter(function (k) { return d[k].w > 0; }).sort(function (a, b) { return d[b].t - d[a].t; });
     }
   };
+  // ビルドで JSON に付けた小さな形のルビ（\ue000漢字\ue001よみ\ue002）を <ruby> に戻す
+  window.kaigoRuby = function (s) { return String(s).replace(/\ue000([^\ue001]*)\ue001([^\ue002]*)\ue002/g, '<ruby>$1<rt data-r="$2"></rt></ruby>'); };
 })();
