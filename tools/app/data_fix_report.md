@@ -1,3 +1,9 @@
 # 過去問アプリのデータ修正の記録
 
-- K0170 最新の統計を足した（2025年（令和7年）国民生活基礎調査では（最新））
+- K1174 explanation を直した
+- K0538 explanation を直した
+- K0588 explanation を直した
+- K0396 options を直した
+- K1224 stem を直した
+- K1224 figText を直した
+- K1235 figText を直した

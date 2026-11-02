@@ -416,6 +416,8 @@
     out.createdAt = Number(S.createdAt) || Date.now();
     out.launches = Number(S.launches) || 0;
     out.migratedIds = typeof S.migratedIds === 'string' ? S.migratedIds : '';
+    out.bimp = {};
+    if (isObj(S.bimp)) for (const id of Object.keys(S.bimp)) if (ID_RE.test(id) && isObj(S.bimp[id])) out.bimp[id] = { a: Math.max(0, Number(S.bimp[id].a) || 0), c: Math.max(0, Number(S.bimp[id].c) || 0) };
     return out;
   }
   // log から回数・正解数・日ごとの数を作り直す（メモ・★は残す）

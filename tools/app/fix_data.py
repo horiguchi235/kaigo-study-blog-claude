@@ -174,6 +174,16 @@ if os.path.exists(SN):
                 q['statNote'] = note
                 report.append('%s 最新の統計を足した（%s）' % (qid, title))
 
+# 3a. 問題データの手直し（tools/app/q_patches.json：項目ごとに置き換える）
+QP = os.path.join(HERE, 'q_patches.json')
+if os.path.exists(QP):
+    for qid, fields in load(QP).get('patches', {}).items():
+        if qid not in by_id: continue
+        q = by_id[qid][1]
+        for k, v in fields.items():
+            if q.get(k) != v:
+                q[k] = v; report.append('%s %s を直した' % (qid, k))
+
 # 3b. 解説の手直し（選択肢ごとの解説を置き換える）
 for line in open(os.path.join(HERE, 'expl_patches.tsv'), encoding='utf-8'):
     if not line.strip() or line.startswith('#'): continue

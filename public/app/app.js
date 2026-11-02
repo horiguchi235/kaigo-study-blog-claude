@@ -172,6 +172,7 @@
     if (S.log.length > 30000) S.log.splice(0, S.log.length - 30000);
     const d = day(dayKey(t)); d.n++; if (ok) d.c++;
     srsCache = null;
+    try { if (window.kaigoQ) window.kaigoQ.rec(q.id, ok, 'app'); } catch (e) { /* ブログの記録は任意 */ }
     return S.log.length - 1;
   }
   const isDue = (id) => K.isDue(srs()[id]);
@@ -389,7 +390,11 @@
     if (!qs.length) { noQuestions(opt); return false; }
     if (!skipConfirm && !(await confirmReplace())) return false;
     const n = opt.count === 'all' ? qs.length : Math.max(1, Math.min(Number(opt.count) || 10, qs.length));
-    qs = opt.order === 'seq' ? K.sortExam(qs).slice(0, n) : K.pickWithCases(qs, n);
+    if (opt.order === 'even') {
+      // 科目ごとに同じ数ずつ（パートや全科目で、苦手の科目を見つけやすく）
+      const subs = [...new Set(qs.map((q) => q.subject))], per = Math.max(1, Math.floor(n / subs.length));
+      qs = interleave(subs.map((s) => K.pickWithCases(qs.filter((q) => q.subject === s), per)).filter((g) => g.length));
+    } else qs = opt.order === 'seq' ? K.sortExam(qs).slice(0, n) : K.pickWithCases(qs, n);
     newSession('practice', qs, { title: title || practiceTitle(opt), opt });
     track('practice_start/' + (isTheme(opt.scope) ? 'theme' : opt.scope || 'mine'));
     go('quiz');
@@ -1304,7 +1309,7 @@
           el('p', { class: 'small muted', style: 'margin:4px 0 0', text: '初級：一般常識・基本的な配慮／中級：用語や基本知識／上級：細かな条件・数値・複合判断。公式の区分ではなく学習用の目安です。' })),
         el('div', { class: 'row', style: 'gap:16px;align-items:flex-start' },
           el('div', { class: 'field grow' }, el('div', { class: 'label', text: '問題数' }), chipGroup('count', [['5', '5'], ['10', '10'], ['20', '20'], ['50', '50'], ['100', '100'], ['all', '対象すべて']], p.count, '問題数')),
-          el('div', { class: 'field' }, el('div', { class: 'label', text: '出題の順番' }), chipGroup('order', [['random', 'ランダム'], ['seq', '試験の順']], p.order, '出題の順番'))),
+          el('div', { class: 'field' }, el('div', { class: 'label', text: '出題の順番' }), chipGroup('order', [['random', 'ランダム'], ['even', '科目ごとに均等'], ['seq', '試験の順']], p.order, '出題の順番'))),
         el('div', { class: 'field' }, el('div', { class: 'label', text: '1問の制限時間（時間切れは不正解）' }), limitPicker()),
         el('div', { class: 'field' }, el('div', { class: 'label', text: 'プレイモード' }), playChips, livesWrap,
           el('p', { class: 'small muted', style: 'margin:4px 0 0', text: 'ライフ：決めた数だけまちがえると終了。サドンデス：1問まちがえると終了。時間切れも1回のまちがいです。' })),
@@ -2536,8 +2541,30 @@
   }
 
   // ───────── 起動 ─────────
+  // ブログ（記事中の問題・記事末テスト）で解いた結果を、アプリの記録に取り込む（qlog.js の ba/bc の増えた分だけ）
+  function mergeBlog() {
+    let all;
+    try { if (!window.kaigoQ) return; all = window.kaigoQ.all(); } catch (e) { return; }
+    S.bimp = S.bimp || {}; let n = 0;
+    for (const id in all) {
+      if (!K.ID_RE.test(id)) continue;
+      const b = all[id] || {}, got = S.bimp[id] || { a: 0, c: 0 };
+      const da = (b.ba || 0) - got.a; if (da <= 0) continue;
+      let dc = Math.max(0, Math.min(da, (b.bc || 0) - got.c));
+      const t = Number(b.t) || Date.now();
+      // 1回ずつの記録はないので、最後の1回をブログの最新の結果にして、残りの正解数を前に割り振る
+      const last = b.s !== 'app' && b.l != null ? (b.l ? 1 : 0) : dc > 0 ? 1 : 0;
+      if (last) dc--;
+      for (let i = da - 1; i >= 0; i--) {
+        const ok = i === 0 ? last : dc > 0 ? (dc--, 1) : 0;
+        S.log.push([t - i * 1000, id, ok ? 1 : 0, ok, 0, 0, 'p', S.q[id] && Number.isInteger(S.q[id].s) ? S.q[id].s : -1]);
+      }
+      S.bimp[id] = { a: b.ba || 0, c: b.bc || 0 }; n += da;
+    }
+    if (n) { K.rebuild(S); srsCache = null; saveNow(); }
+  }
   async function boot() {
-    loadStore(); S.launches = (S.launches || 0) + 1; applySettings(); registerSW();
+    loadStore(); mergeBlog(); S.launches = (S.launches || 0) + 1; applySettings(); registerSW();
     const msg = $('.boot p');
     try {
       await loadAllData((d, n) => { if (msg) msg.textContent = '問題データを準備中… ' + d + ' / ' + n; });
